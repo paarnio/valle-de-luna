@@ -62,3 +62,54 @@ To see what you’ve changed but not yet staged, type git diff with no other argum
 ZZZZ
 
 
+----------- 4. step ---------------------
+
+PA: creating a remote repository by browser:
+
+1. logging in at github.com/paarnio
+2. helppien kautta create repository valle-de-luna
+3. https://github.com/paarnio/valle-de-luna
+
+Web-sivun ohjeet:
+
+Create a new repository on the command line
+
+touch README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/paarnio/valle-de-luna.git
+git push -u origin master
+
+Push an existing repository from the command line
+
+git remote add origin https://github.com/paarnio/valle-de-luna.git
+git push -u origin master
+----
+
+Mutta käytin remote nimenä luna enkä origin:
+
+
+PA: and then pushing local repository content into remote repository:
+
+C:\Users\Pekka Aarnio\Documents\kokeiluja\my_git_tests\gittest1 [master +1 ~0 -0
+ !]> git remote add luna https://github.com/paarnio/valle-de-luna.git
+------------------------------------------------------------
+C:\Users\Pekka Aarnio\Documents\kokeiluja\my_git_tests\gittest1 [master +1 ~0 -0
+ !]> git push -u luna master
+----------------------------
+Counting objects: 12, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (12/12), 1.70 KiB | 0 bytes/s, done.
+Total 12 (delta 3), reused 0 (delta 0)
+To https://github.com/paarnio/valle-de-luna.git
+ * [new branch]      master -> master
+Branch master set up to track remote branch master from luna.
+C:\Users\Pekka Aarnio\Documents\kokeiluja\my_git_tests\gittest1 [master +1 ~0 -0
+ !]>
+
+TOIMIII: Näkyyy webissä:
+https://github.com/paarnio/valle-de-luna/blob/master/mygit_guide1.txt
+
+----------------------------------------------------
