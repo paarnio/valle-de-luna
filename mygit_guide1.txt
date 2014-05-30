@@ -1,0 +1,23 @@
+Copied from
+http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository
+
+Getting a Git Repository
+----------------------
+
+You can get a Git project using two main approaches. The first (1) takes an existing project or directory and imports it into Git. The second (2) clones an existing Git repository from another server.
+
+Initializing a Repository in an Existing Directory
+-----------------------------------------------
+
+If you’re starting to track an existing project in Git, you need to go to the project’s directory and type
+
+$ git init
+
+git add commands that specify the files you want to track, followed by a commit:
+
+$ git add *.c
+$ git add README
+$ git commit -m 'initial project version'
+
+
+----------- 1. step done here -----------
