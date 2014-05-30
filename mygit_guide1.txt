@@ -46,3 +46,14 @@ Changes to be committed:
         new file:   README
         modified:   benchmarks.rb
 
+
+NOTE: At this point, suppose you remember one little change that you want to make in benchmarks.rb before you commit it. 
+If you modify a file after you run git add, you have to run git add again to stage the latest version of the file:
+
+$ git add benchmarks.rb
+$ git status
+
+
+
+----------- 1. step done here -----------
+
