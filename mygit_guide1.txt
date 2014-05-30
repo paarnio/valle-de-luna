@@ -21,3 +21,28 @@ $ git commit -m 'initial project version'
 
 
 ----------- 1. step done here -----------
+
+http://git-scm.com/book/en/Git-Basics-Recording-Changes-to-the-Repository
+
+CH.2.2
+
+$ git status
+On branch master
+nothing to commit, working directory clean
+
+
+The benchmarks.rb file appears under a section named “Changes not staged for commit” — which means that a file that is tracked has been modified in the working directory but not yet staged. To stage it, 
+you run the git add command 
+(it’s a multipurpose command — you use it to begin tracking new files, to stage files, and to do other things like marking merge-conflicted files as resolved). 
+
+Let’s run git add now to stage the benchmarks.rb file, and then run git status again:
+
+$ git add benchmarks.rb
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   README
+        modified:   benchmarks.rb
+
