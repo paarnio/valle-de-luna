@@ -55,5 +55,10 @@ $ git status
 
 
 
------------ 1. step done here -----------
+----------- 3. step done here -----------
+
+XXXX
+To see what you’ve changed but not yet staged, type git diff with no other arguments:
+ZZZZ
+
 
