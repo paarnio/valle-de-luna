@@ -1,0 +1,10 @@
+mygit_tests_2016-09-18.txt
+--------------------------
+Muistellaan toimintoja mygit_guide1.txt ohjeiden mukaisesti:
+
+git add mygit_tests_2016-09-18.txt
+git status
+git commit -m "September 2016 no:1 commit"
+git remote add origin https://github.com/paarnio/valle-de-luna.git
+git push -u origin master
+
