@@ -8,3 +8,6 @@ git commit -m "September 2016 no:1 commit"
 (EI TÄTÄ(git remote add origin https://github.com/paarnio/valle-de-luna.git))
 git push -u origin master
 
+#lisätään tämä rivi ja testataan:
+git diff
+
