@@ -11,3 +11,12 @@ git push -u origin master
 #lisätään tämä rivi ja testataan:
 git diff
 
+=========================
+TÄMÄ lisätty TYÖPC:llä
+git status
+git add mygit_tests_2016-09-18.txt
+git commit -m "WORKPC: 19th September 2016 no:1 commit"
+git push -u origin master
+
+
+
