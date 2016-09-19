@@ -54,4 +54,44 @@ C:\Users\paarnio\Documents\GitHub\2016\git_tests_sep2016\valle-de-luna [master ?
 JA TOIMII TAAS !!!!!!!!
 -------------------
 
+===================
+Tämä lisätty HP:lla 2019-09-19 klo 21:00
+
+PS C:\Users\Pekka Aarnio\Documents\GitHub\mygittests2016\valle-de-luna> git remote
+origin
+PS C:\Users\Pekka Aarnio\Documents\GitHub\mygittests2016\valle-de-luna> git fetch origin
+remote: Counting objects: 6, done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 6 (delta 3), reused 5 (delta 2), pack-reused 0
+Unpacking objects: 100% (6/6), done.
+From https://github.com/paarnio/valle-de-luna
+   24fefa9..9886430  master     -> origin/master
+PS C:\Users\Pekka Aarnio\Documents\GitHub\mygittests2016\valle-de-luna>
+
+PS C:\Users\Pekka Aarnio\Documents\GitHub\mygittests2016\valle-de-luna> git diff ..origin/master
+diff --git a/mygit_tests_2016-09-18.txt b/mygit_tests_2016-09-18.txt
+index defa27c..f2ad325 100644
+--- a/mygit_tests_2016-09-18.txt
++++ b/mygit_tests_2016-09-18.txt
+@@ -11,3 +11,47 @@ git push -u origin master
+......
+......
++Counting objects: 3, done.
++Delta compression using up to 4 threads.
+PS C:\Users\Pekka Aarnio\Documents\GitHub\mygittests2016\valle-de-luna> git merge
+Updating 24fefa9..9886430
+Fast-forward
+ mygit_tests_2016-09-18.txt | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
+PS C:\Users\Pekka Aarnio\Documents\GitHub\mygittests2016\valle-de-luna>
+-----
+GIT DIFF OHJEITA MM:
+http://stackoverflow.com/questions/4944376/how-to-check-real-git-diff-before-merging-from-remote-branch
+
+------
+
+
+
+
+
 
