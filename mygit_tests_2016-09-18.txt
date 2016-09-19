@@ -17,6 +17,41 @@ git status
 git add mygit_tests_2016-09-18.txt
 git commit -m "WORKPC: 19th September 2016 no:1 commit"
 git push -u origin master
+ONGELMA PUSH EI TOIMI ???
+------------------------
+]> git push -u origin master
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/paarnio/valle-de-luna.git/'
 
+KORJAUS: Luo uusi remote lyhenne esim. luna:
+-------------------------------------------
+(OHJE (3) IN http://stackoverflow.com/questions/21745213/changed-github-password-no-longer-able-to-push-back-to-the-remote)
+
+C:\Users\paarnio\Documents\GitHub\2016\git_tests_sep2016\valle-de-luna [master ?
+]> git remote
+origin
+C:\Users\paarnio\Documents\GitHub\2016\git_tests_sep2016\valle-de-luna [master ?
+]> git remote add luna https://github.com/paarnio/valle-de-luna.git
+C:\Users\paarnio\Documents\GitHub\2016\git_tests_sep2016\valle-de-luna [master ?
+]> git remote
+luna
+origin
+C:\Users\paarnio\Documents\GitHub\2016\git_tests_sep2016\valle-de-luna [master ?
+]> git push luna master
+Username for 'https://github.com': paarnio
+Password for 'https://paarnio@github.com':
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 384 bytes | 0 bytes/s, done.
+Total 3 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/paarnio/valle-de-luna.git
+   24fefa9..f8802ab  master -> master
+C:\Users\paarnio\Documents\GitHub\2016\git_tests_sep2016\valle-de-luna [master ?
+]>
+
+JA TOIMII TAAS !!!!!!!!
+-------------------
 
 
