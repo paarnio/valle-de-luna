@@ -1,0 +1,4 @@
+Hyv‰‰ syntym‰p‰iv‰‰!!!
+Testaan uuden aalto-domain koneen GIT GUI ohjelmaa.
+GUI.n kautta voi myˆs avata Git Bash komentorivityˆkalun!!!
+> hyv‰ tiet‰‰
