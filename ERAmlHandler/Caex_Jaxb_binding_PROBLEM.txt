@@ -1,0 +1,98 @@
+Dear Seppo
+I have a problem in jaxb binding of CAEX elements to java classes. Do you know anybody who could know 
+a solution to the following problem? 
+CAEX JAXB BINDING PROBLEM:
+-------------------------
+My application reads (unmarshal) a caex file containing an InstanceHierarchy of InternalElements. 
+The CAEX Attributes of InternalElements are mapped to AttributeType java objects by JAXB binding (Listing 1).
+AttributeType class has an Object type property field called value. This value Object can be accessed
+by its getter-method getValue(). However, the problem is that I do not manage to access the data content
+of this object i.e., the text content of the value element in the caex file (<value>???</value>).
+(Using value.toString() method provides [Value: null]) Also, I can't either cast this object to anything valuable (e.g. String).  
+
+In the CAEX Schema (CAEX_ClassModel_V2.15.xsd) elements Value and DefaultValue have been defined as xs:anyType (Listing 2)
+and JAXB maps this type to java.lang.Object (actually in [1] Table: JAXB Mapping of XML Schema Built-in Data Types: 
+xs:anySimpleType -> java.lang.Object). I have tried to customize this mapping but without success (Listing 3).
+
+I have tried to google this problem and I noticed that in stackoverflow it has been asked six months ago, 
+but nobody has answered his question[3] (Also older questions in other forums without any answer).
+
+
+----------------- LISTINGS ---------------
+public class AttributeType
+    extends CAEXObject
+{
+    @XmlElement(name = "DefaultValue")
+    protected Object defaultValue;
+    @XmlElement(name = "Value")
+    protected Object value;
+	...
+	
+	  public Object getValue() {
+        return value;
+    }
+
+Listing 1. A fragment of AttributeType.java source code 
+
+-----
+
+<xs:complexType name="AttributeType">
+	<xs:annotation>
+		<xs:documentation>Defines base structures for attribute definitions.</xs:documentation>
+	</xs:annotation>
+	<xs:complexContent>
+		<xs:extension base="CAEXObject">
+			<xs:sequence minOccurs="0">
+				<xs:element name="DefaultValue" type="xs:anyType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>A predefined default value for an attribute.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Value" type="xs:anyType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Element describing the value of an attribute.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+
+Listing 2. A fragment of Attribute elements complexType definition in CAEX Schema (CAEX_ClassModel_V2.15.xsd). 
+
+------
+
+<jxb:bindings version="1.0"
+               xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			   <!-- custom_binding.xjb -->
+  <jxb:bindings schemaLocation="CAEX_ClassModel_V2.15.xsd" node="/xs:schema">
+    <jxb:globalBindings
+         fixedAttributeAsConstantProperty="false"
+         typesafeEnumBase="xs:NCName"
+         choiceContentProperty="false"
+         typesafeEnumMemberName="generateError"
+         enableFailFastCheck="false"   
+         generateIsSetMethod="true"
+         underscoreBinding="asCharInWord"/>
+    <jxb:schemaBindings>
+      <jxb:package name="siima.models.jaxb.caex">
+      </jxb:package>
+      <jxb:nameXmlTransform></jxb:nameXmlTransform>
+    </jxb:schemaBindings>
+    <jxb:bindings node="//xs:complexType[@name='AttributeType']">
+      <jxb:bindings node=".//xs:element[@name='Value']">
+		<jxb:class name="AttValueClass" implClass="AttValueImpl"/>		
+        </jxb:bindings>
+      </jxb:bindings>  
+  </jxb:bindings> 
+</jxb:bindings>
+
+Listing 3. An external custom binding file used in CAEX Schema to Java generation (custom_binding.xjb)
+
+-------------
+
+REFS:
+1. Binding XML Schemas https://docs.oracle.com/javase/tutorial/jaxb/intro/bind.html
+2. Customizing JAXB Bindings: https://docs.oracle.com/javase/tutorial/jaxb/intro/custom.html
+3. The same problem has been asked in forum (2016): http://stackoverflow.com/questions/40338721/xsdanytype-to-java-object
+(4. The same problem has been asked in (2009): http://markmail.org/message/tjswjuamqdekkwsy 
+(5. Ch 1.3. Mapping of <xs:any />(1.3.2. processContents="strict")https://jaxb.java.net/2.2.11/docs/ch03.html#compiling-xml-schema-mapping-of-xs-any
+(6. Good example of JAXBElement:"parameter JAXBElement String":  http://stackoverflow.com/questions/14489306/parameter-jaxbelement-string
+

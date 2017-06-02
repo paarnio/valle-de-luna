@@ -1,0 +1,39 @@
+<jxb:bindings version="1.0"
+               xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			   <!-- VPA: Test 2017-05-09 TOIMII eli generoi luokat, mutta Value:sta tulee Object??-->
+			   <!-- See: xjc command line in readmePA.txt -->
+  <jxb:bindings schemaLocation="CAEX_ClassModel_V2.15.xsd" node="/xs:schema">
+  <!--  collectionType="indexed" "java.util.List" -->
+    <jxb:globalBindings
+         fixedAttributeAsConstantProperty="false"
+         typesafeEnumBase="xs:NCName"
+         choiceContentProperty="false"
+         typesafeEnumMemberName="generateError"
+         enableFailFastCheck="false"   
+         generateIsSetMethod="true"
+         underscoreBinding="asCharInWord"/>
+    <jxb:schemaBindings>
+      <jxb:package name="siima.models.jaxb.caex">
+       <!-- VPA: -->
+      </jxb:package>
+      <jxb:nameXmlTransform>
+        <!-- VPA: <jxb:elementName suffix="Element"/> -->
+      </jxb:nameXmlTransform>
+    </jxb:schemaBindings>
+
+    <jxb:bindings node="//xs:complexType[@name='AttributeType']">
+      <jxb:bindings node=".//xs:element[@name='Value']">
+		<jxb:class name="AttributeValueInterface" implClass="AttributeValueImpl"/>
+		<!--jxb:property name="value"-->
+		<!-- NOT ALLOWED <jxb:baseType><jxb:javaType name="string" xmlType="xs:anyType"/></jxb:baseType> -->
+		<!--/jxb:property-->		
+        </jxb:bindings>
+      </jxb:bindings>  
+  </jxb:bindings> 
+<!-- parseMethod="siima.models.jaxb.caex.parseString" 
+     printMethod="siima.models.jaxb.caex.printString"/>
+	 -->
+  
+  
+</jxb:bindings>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CAEXFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" FileName="RunningExample_SimpleIH.aml" SchemaVersion="2.15">
+	<InstanceHierarchy Name="IExampleSystematIAF">
+		<Version>1.0.0</Version>
+		<InternalElement Name="OvGU-Building10_Room445_FMS" ID="7b59a576-92ee-4ae1-ba96-82b80202606e">
+			<InternalElement Name="Machine" ID="27ba8da8-e6c2-4ff5-90a1-08a31d83f308">
+				<InternalElement Name="MachineBaseFrame" ID="44dca432-27d3-4342-b05f-d26bf0a41fef" />
+				<InternalElement Name="MachineToolHead" ID="807dd246-8abd-4570-8704-e0cfb3cd9558" />
+				<InternalElement Name="MachineTool1" ID="1fb9cdb3-ec98-4826-b725-65c4ceb338cf" />
+				<InternalElement Name="MachineTool2" ID="0c9389f5-2328-4504-992b-348063cede89" />
+				<InternalElement Name="MachineTool3" ID="3bec5736-e7e6-41b8-a54d-a2133b4144a2" />
+				<InternalElement Name="MachineHeadDrive" ID="4e814208-1b6b-4cfc-a0cd-3bf303bb2add" />
+				<InternalElement Name="UpperLimitSwitch" ID="e8f3efe6-063e-4c9a-a47a-e7cafd1aedf3" />
+				<InternalElement Name="LowerLimitSwitch" ID="52297502-6b37-412e-b83d-6dd3f599406b" />
+				<InternalElement Name="ToolDrive" ID="061398b5-2d17-45fe-a347-4476aaf7dee7" />
+				<InternalElement Name="ToolIDSensor" ID="be8f6982-a2fe-4d13-a864-a3c7d5910653" />
+			</InternalElement>
+			<InternalElement Name="Conveyer" ID="4214d17c-2773-466a-b9c0-61a358be2dec">
+				<InternalElement Name="ConveyerBaseFrame" ID="62e42cee-a870-44f9-a1f3-3aa520f2d205" />
+				<InternalElement Name="ConveyerBelt" ID="05c501ca-25df-4dc8-9e48-21f1c05cb05e" />
+				<InternalElement Name="BeltDrive" ID="0355a984-1e8c-46d5-9818-e0409c45057f" />
+				<InternalElement Name="MaterialIdentSensor" ID="e96d3874-83d3-44d5-92ac-70080d8a66e2" />
+			</InternalElement>
+			<InternalElement Name="Turntable" ID="c9017299-6247-49e3-9c3a-bc41b70f9e9f">
+				<InternalElement Name="TurntableBaseFrame" ID="723129c3-1be2-44d3-9418-9e4e2e676940" />
+				<InternalElement Name="TurntableHead" ID="a30e18f7-97eb-47f3-bc02-b3cb0e2cd286" />
+				<InternalElement Name="TurntableBelt" ID="b21196fb-f3fa-4c3d-8933-66d15d83c993" />
+				<InternalElement Name="BeltDrive" ID="d99a2ba9-0538-4546-b5bf-e5a4b46ad76f" />
+				<InternalElement Name="MaterialIdentSensor" ID="1fcb6fa1-1509-4aac-8b1a-f770b27d192c" />
+				<InternalElement Name="HeadDrive" ID="e7828d36-43d9-43c3-9805-698015f2c764" />
+				<InternalElement Name="HeadPositionSensor0" ID="52dcf8cf-2ed0-47df-9f32-f545928dc152" />
+				<InternalElement Name="HeadPositionSensor90" ID="eeb25c06-463c-405a-9bb1-2381fc34ae5c" />
+			</InternalElement>
+			<InternalElement Name="Enclosure" ID="f076dc9a-6118-4ec2-beff-f78371fc8580">
+				<InternalElement Name="RaspberryPi" ID="8be5be58-6c00-405e-8d05-5cb1f6063dd6" />
+				<InternalElement Name="FieldIO" ID="7522f89a-11bb-4af6-9373-c642b249ced3" />
+				<InternalElement Name="Switch" ID="2a298cc4-b45a-453a-a53a-ed8843d0af7c" />
+			</InternalElement>
+		</InternalElement>
+	</InstanceHierarchy>
+</CAEXFile>

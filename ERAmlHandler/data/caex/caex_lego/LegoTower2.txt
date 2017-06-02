@@ -1,0 +1,43 @@
+create square square9 red
+create rectangle rect1 yellow east
+create rectangle rect2 pink east
+create square square1 red
+create rectangle rect3 blue north
+create square square2 green
+create square square3 blue
+create rectangle rect4 green south
+create square square4 yellow
+create square square5 pink
+create square square6 green
+create square square7 red
+create square square8 pink
+create square square10 red
+create square square11 blue
+create square square12 blue
+create square square13 yellow
+create square square14 yellow
+create square square15 yellow
+create square square16 yellow
+create square square17 yellow
+create square square18 yellow
+connect rect1 topC rect2 bottomA
+connect rect2 bottomC square1 top
+connect rect2 topA rect3 bottomA
+connect rect3 bottomC square2 top
+connect square2 bottom square3 top
+connect rect4 bottomA rect3 topA
+connect rect4 bottomC square4 top
+connect square4 bottom square5 top
+connect square5 bottom square6 top
+connect rect1 topA square7 bottom
+connect square7 top square8 bottom
+connect square9 bottom square8 top
+connect square10 bottom rect3 topC
+connect square11 bottom rect2 topC
+connect square11 top square12 bottom
+connect square13 bottom rect4 topA
+connect square14 bottom square13 topA
+connect square14 top square15 bottom
+connect square15 top square16 bottom
+connect square16 top square17 bottom
+connect square17 top square18 bottom

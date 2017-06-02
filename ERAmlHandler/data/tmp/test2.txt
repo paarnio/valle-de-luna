@@ -1,0 +1,7 @@
+% LegoTower ASP facts (.db) generated from CAEX by ERAmlHandler (Caex2AspFacts.xsl v1.0)
+
+square(square1).
+square(square2).
+rectangle(rectangle1).
+link(square1,bottom,square2,top).
+link(rectangle1,bottomA,square1,top).

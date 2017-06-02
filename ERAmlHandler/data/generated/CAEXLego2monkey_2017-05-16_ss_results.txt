@@ -1,0 +1,62 @@
+
+create SquareLego Square17 yellow
+create SquareLego Square16 yellow
+create RectangleLego Rectangle4 green south
+create SquareLego Square15 yellow
+create SquareLego Square14 yellow
+create SquareLego Square13 yellow
+create RectangleLego Rectangle3 blue north
+create SquareLego Square4 yellow
+create SquareLego Square5 pink
+create SquareLego Square6 green
+create RectangleLego Rectangle2 pink east
+create SquareLego Square1 pink
+create RectangleLego Rectangle1 yellow east
+create SquareLego Square2 green
+create SquareLego Square11 blue
+create SquareLego Square12 blue
+create SquareLego Square3 blue
+create SquareLego Square10 green
+create SquareLego Square7 blue
+create SquareLego Square8 pink
+create SquareLego Square9 yellow
+create RectangleLego Rectangle5 yellow east
+create SquareLego Square19 yellow
+create RectangleLego Rectangle6 yellow east
+create RectangleLego Rectangle7 green east
+create RectangleLego Rectangle8 yellow east
+create RectangleLego Rectangle9 yellow east
+create SquareLego Square20 yellow
+create SquareLego Square21 yellow
+create SquareLego Square22 yellow
+create SquareLego Square23 yellow
+connect Square17 bottom Square16 top
+connect Rectangle4 topA Square13 bottom
+connect Square16 bottom Square15 top
+connect Square14 top Square15 bottom
+connect Square13 top Square14 bottom
+connect Rectangle3 topA Rectangle4 bottomA
+connect Rectangle4 bottomC Square4 top
+connect Square4 bottom Square5 top
+connect Square5 bottom Square6 top
+connect Rectangle2 topA Rectangle3 bottomA
+connect Rectangle2 bottomC Square1 top
+connect Rectangle1 topC Rectangle2 bottomA
+connect Rectangle3 bottomC Square2 top
+connect Rectangle2 topC Square11 bottom
+connect Square12 bottom Square11 top
+connect Square2 bottom Square3 top
+connect Square10 bottom Rectangle3 topC
+connect Rectangle1 topA Square7 bottom
+connect Square7 top Square8 bottom
+connect Square8 top Square9 bottom
+connect Square12 top Rectangle5 bottomA
+connect Rectangle5 topA Square19 bottom
+connect Rectangle5 topC Rectangle6 bottomA
+connect Rectangle6 bottomC Rectangle7 topA
+connect Rectangle7 topC Rectangle8 bottomA
+connect Rectangle8 bottomC Rectangle9 topA
+connect Rectangle9 bottomC Square20 top
+connect Square20 bottom Square21 top
+connect Square21 bottom Square22 top
+connect Square22 bottom Square23 top

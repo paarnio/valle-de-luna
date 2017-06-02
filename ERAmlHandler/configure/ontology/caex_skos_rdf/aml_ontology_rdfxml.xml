@@ -1,0 +1,1011 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:doap="http://usefulinc.com/ns/doap#"
+    xmlns:schema="http://schema.org/"
+    xmlns:foaf="http://xmlns.com/foaf/spec/"
+    xmlns:voaf="http://purl.org/vocommons/voaf#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:void="http://rdfs.org/ns/void#"
+    xmlns:terms="http://purl.org/dc/terms/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:prov="http://www.w3.org/ns/prov#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:aml="https://w3id.org/i40/aml#"
+    xmlns:om="http://www.wurvoc.org/vocabularies/om-1.8/"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:vann="http://purl.org/vocab/vann/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:cp="http://www.ontologydesignpatterns.org/cp/owl/partof.owl#" > 
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasInterfaceIE">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#InterfaceClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasInterface"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2001/XMLSchema#string">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#AdditionalInformation1">
+    <aml:hasWriterVendorURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">www.AutomationML.org</aml:hasWriterVendorURL>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#AdditionalInformation"/>
+    <aml:hasWriterRelease>4.1.5.0</aml:hasWriterRelease>
+    <aml:hasWriterVendor xml:lang="en">AutomationML e.V.</aml:hasWriterVendor>
+    <aml:hasWriterVersion>4.1.5</aml:hasWriterVersion>
+    <aml:lastWritingDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-10-26T21:32:52</aml:lastWritingDateTime>
+    <aml:hasWriterName xml:lang="en">AutomationML Editor</aml:hasWriterName>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <aml:hasAMLVersion rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.0</aml:hasAMLVersion>
+    <aml:hasWriterId>916578CA-FE0D-474E-A4FC-9E1719892369</aml:hasWriterId>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/elements/1.1/identifier">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#NE150DemoProject">
+    <aml:hasNameIH xml:lang="en">NE150DemoProject</aml:hasNameIH>
+    <aml:hasInternalElement rdf:resource="https://w3id.org/i40/aml#DemoEnterprise"/>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#InstanceHierarchy"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#GMA6.16BeispielPIDVersion2.97">
+    <aml:hasSchemaVersion rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.15</aml:hasSchemaVersion>
+    <aml:hasNameFile xml:lang="de">GMA 6.16Beispiel PID Version 2.97 - AutomationML Datei.aml</aml:hasNameFile>
+    <aml:hasAdditionalInformation rdf:resource="https://w3id.org/i40/aml#AdditionalInformation1"/>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#CAEXFile"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#InternalElement">
+    <skos:prefLabel xml:lang="en">InternalElement</skos:prefLabel>
+    <skos:definition xml:lang="en">Shall be used in order to define nested objects inside of a SystemUnitClass or another InternalElement. Allows description of the internal structure of an CAEX object</skos:definition>
+    <skos:altLabel xml:lang="en">IE</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2001/XMLSchema#decimal">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasVersion">
+    <skos:prefLabel xml:lang="en">hasVersion</skos:prefLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#AttValue1">
+    <aml:numerical_value rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</aml:numerical_value>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasWriterVersion">
+    <skos:prefLabel xml:lang="en">hasWriterVersion</skos:prefLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#AdditionalInformation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#SoftwareSignalName">
+    <aml:refSemanticAttribute>NE 150 v1.0 Annex</aml:refSemanticAttribute>
+    <aml:hasNameAttribute xml:lang="en">SoftwareSignalName</aml:hasNameAttribute>
+    <aml:hasAttributeValue>L1001_PV</aml:hasAttributeValue>
+    <aml:hasAttributeDescription xml:lang="en">Unequivocal PCS input or output name</aml:hasAttributeDescription>
+    <aml:hasAttributeDataType>xs:string</aml:hasAttributeDataType>
+    <aml:hasAttributeIC rdf:resource="https://w3id.org/i40/aml#SoftwareSignalName"/>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2000/01/rdf-schema#comment">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasVersionRCL">
+    <skos:prefLabel xml:lang="en">hasVersionRCL</skos:prefLabel>
+    <skos:definition xml:lang="en">Points to the version for a Role Class Lib</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#RoleClassLib"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasExternalReferenceAlias">
+    <skos:prefLabel xml:lang="en">externalReferenceAlias</skos:prefLabel>
+    <skos:definition>A external Reference of a CAEX File has Alias</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#ExternalReference"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasAttributeIE">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasAttribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasUnitValue">
+    <skos:prefLabel xml:lang="en">hasAttributeValue</skos:prefLabel>
+    <rdfs:range rdf:resource="http://www.wurvoc.org/vocabularies/om-1.8/Measure"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#DemoEnterprise">
+    <aml:hasNameIE xml:lang="en">DemoEnterprise</aml:hasNameIE>
+    <aml:hasIDIE>d812ea1e-eaa2-45f4-8c82-72ecc50236c5</aml:hasIDIE>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#FlowchartNumber">
+    <aml:refSemanticAttribute>NE 150 v1.0 Annex 1.1.5</aml:refSemanticAttribute>
+    <aml:hasNameAttribute xml:lang="en">FlowchartNumber</aml:hasNameAttribute>
+    <aml:hasAttributeValue>1000_4</aml:hasAttributeValue>
+    <aml:hasAttributeDescription xml:lang="en">Drawing number of P&amp;amp;I flowchart (pipework and instrumentation flowchart)</aml:hasAttributeDescription>
+    <aml:hasAttributeDataType>xs:string</aml:hasAttributeDataType>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasInterfaceClassLib">
+    <skos:prefLabel xml:lang="en">hasInterfaceClassLib</skos:prefLabel>
+    <skos:definition xml:lang="en">Points the CAEX file to the InterfaceClassLib</skos:definition>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#InterfaceClassLib"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#CAEXFile"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#contains"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/prov#wasGeneratedBy">
+    <rdfs:isDefinedBy>http://www.w3.org/ns/prov#wasGeneratedBy</rdfs:isDefinedBy>
+    <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#CAEXFile"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#ExternalStandard">
+    <skos:prefLabel xml:lang="en">ExternalStandard</skos:prefLabel>
+    <skos:definition xml:lang="en">Represents an External Standard which is used to provide unique Semantic reference for AML elements, e.g., eClass</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#L1001">
+    <aml:refBaseSystemUnitPath>NE150SUCLibrary/PCELoop</aml:refBaseSystemUnitPath>
+    <aml:hasNameIE xml:lang="en">L 1001</aml:hasNameIE>
+    <aml:hasIDIE>044a8a9d-458e-4632-a19d-f240a0e64e95</aml:hasIDIE>
+    <aml:isPartOfIE rdf:resource="https://w3id.org/i40/aml#DemoArea"/>
+    <aml:hasAttribute rdf:resource="https://w3id.org/i40/aml#PCEDescription"/>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasNameSUC">
+    <skos:prefLabel xml:lang="en">hasNameSUC</skos:prefLabel>
+    <skos:definition xml:lang="en">Given Name of the System Unit Class</skos:definition>
+    <skos:altLabel xml:lang="en">hasSystemUnitClassName</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#SystemUnitClass"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasName"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2001/XMLSchema#anyURI">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologydesignpatterns.org/cp/owl/partof.owl#isPartOf">
+    <rdfs:isDefinedBy>http://www.ontologydesignpatterns.org/cp/owl/partof.owl</rdfs:isDefinedBy>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasWriterId">
+    <skos:prefLabel>hasWriterId</skos:prefLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#AdditionalInformation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/elements/1.1/identifier"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRefSemRC">
+    <skos:prefLabel>eClassRCReference</skos:prefLabel>
+    <skos:definition xml:lang="en">A Role Class points to its ID according to eClass</skos:definition>
+    <skos:altLabel xml:lang="en">RoleClasseClassReference</skos:altLabel>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#eClassSpecification"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#RoleClass"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasSemanticRef"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasIDIE">
+    <skos:prefLabel xml:lang="en">internalElementId</skos:prefLabel>
+    <skos:definition xml:lang="en">Unique Id of an Internal Element</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/elements/1.1/identifier"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#MeasurementRangeStart">
+    <aml:hasNameAttribute xml:lang="en">MeasurementRangeStart</aml:hasNameAttribute>
+    <aml:hasAttributeDescription xml:lang="en">Actual measurement range start of sensor in field</aml:hasAttributeDescription>
+    <aml:hasAttributeDataType>xs:double</aml:hasAttributeDataType>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#InterfaceClassLib">
+    <skos:prefLabel xml:lang="en">InterfaceClassLib</skos:prefLabel>
+    <skos:definition xml:lang="en">Library containing AML Interface Classes</skos:definition>
+    <skos:altLabel xml:lang="en">IC Lib</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasNameIH">
+    <skos:prefLabel xml:lang="en">hasNameIH</skos:prefLabel>
+    <skos:definition xml:lang="en">Given Name of the Instance Hierarchy</skos:definition>
+    <skos:altLabel xml:lang="en">hasInstanceHierarchyName</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InstanceHierarchy"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasName"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRoleClassLib">
+    <skos:prefLabel xml:lang="en">hasRoleClassLib</skos:prefLabel>
+    <skos:definition xml:lang="en">Points the CAEX file to the RoleClassLib</skos:definition>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#RoleClassLib"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#CAEXFile"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#contains"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://schema.org/Person">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasNameAttribute">
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasName"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasBaseSystemUnitClass">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#SystemUnitClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/Irlan">
+    <rdfs:label>Irlan Grangel-Gonzalez</rdfs:label>
+    <schema:affiliation rdf:resource="http://dbpedia.org/resource/University_of_Bonn"/>
+    <rdf:type rdf:resource="http://schema.org/Person"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#ExternalReference">
+    <skos:prefLabel xml:lang="en">ExternalReference</skos:prefLabel>
+    <skos:definition xml:lang="en">External Reference for a CAEX File</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasAttributeName">
+    <skos:prefLabel xml:lang="en">hasAttributeName</skos:prefLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasExternalReference">
+    <skos:prefLabel xml:lang="en">hasExternalReference</skos:prefLabel>
+    <skos:definition>A CAEX File contains external references</skos:definition>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#ExternalReference"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#CAEXFile"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasVersionSUC">
+    <skos:prefLabel xml:lang="en">hasVersionSUC</skos:prefLabel>
+    <skos:definition xml:lang="en">Points to the version for a System Unit Class</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#SystemUnitClass"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#versionInfo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasSystemUnitClass">
+    <skos:prefLabel>hasSystemUnitClass</skos:prefLabel>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#SystemUnitClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#SystemUnitClassLib"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasProjectTitle">
+    <skos:prefLabel xml:lang="en">hasProjectTitle</skos:prefLabel>
+    <skos:prefLabel>has Project Release</skos:prefLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#Project"/>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/elements/1.1/title"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasAttribute">
+    <skos:prefLabel xml:lang="en">hasAttribute</skos:prefLabel>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasInternalElement">
+    <skos:prefLabel xml:lang="en">hasInternalElement</skos:prefLabel>
+    <skos:definition xml:lang="en">Hierarchy has many internal elements</skos:definition>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InstanceHierarchy"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/prov#Activity">
+    <rdfs:isDefinedBy>https://www.w3.org/TR/prov-o/#Activity</rdfs:isDefinedBy>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasWriterName">
+    <skos:prefLabel>hasWriterName</skos:prefLabel>
+    <skos:definition xml:lang="en">The name of the Writer, i.e., the tool that produced the file</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#AdditionalInformation"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasName"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#isPartOfIC">
+    <skos:prefLabel xml:lang="en">isPartOfIC</skos:prefLabel>
+    <skos:definition xml:lang="en">Connects the InterfaceClasses with other InterfaceClasses that are part of the given Interface Class</skos:definition>
+    <skos:altLabel xml:lang="en">isPartOfInterfaceClass</skos:altLabel>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#InterfaceClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InterfaceClass"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/partof.owl#isPartOf"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#milliampere">
+    <rdf:type rdf:resource="http://www.wurvoc.org/vocabularies/om-1.8/Unit_of_measure"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#MaxConveyingSpeed">
+    <aml:hasNameAttribute xml:lang="en">maxConveyingSpeed</aml:hasNameAttribute>
+    <aml:hasUnitAttribute rdf:resource="https://w3id.org/i40/aml#speedMeasurement"/>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#eClassSpecification">
+    <skos:prefLabel xml:lang="en">eClassSpecification</skos:prefLabel>
+    <skos:definition xml:lang="en">Describe the necessary links to eCl@ass Standard(e.g., version, classification and IRDI)</skos:definition>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/i40/aml#ExternalStandard"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#speedMeasurement">
+    <aml:numerical_value rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.5</aml:numerical_value>
+    <aml:unit_of_measure rdf:resource="http://www.wurvoc.org/vocabularies/om-1.8/metre_per_second-time"/>
+    <rdf:type rdf:resource="http://www.wurvoc.org/vocabularies/om-1.8/Measure"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#refBaseSystemUnitPath">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasAttributeIC">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InterfaceClass"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasAttribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRefPartnerSideB">
+    <skos:prefLabel xml:lang="en">hasRefPartnerSideB</skos:prefLabel>
+    <skos:definition xml:lang="en">Reference an Internal Link with an element B</skos:definition>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalLink"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#Thing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasSupportedRoleClassSUC">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#RoleClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#SystemUnitClass"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasSupportedRoleClass"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasUnitAttribute">
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#altLabel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#PCEInitial">
+    <aml:refSemanticAttribute>NE 150 v1.0 Annex 2.1.2</aml:refSemanticAttribute>
+    <aml:hasNameAttribute xml:lang="en">PCEInitial</aml:hasNameAttribute>
+    <aml:hasAttributeValue>L</aml:hasAttributeValue>
+    <aml:hasAttributeDescription xml:lang="en">PCE category, e.g.: L</aml:hasAttributeDescription>
+    <aml:hasAttributeDataType>xs:string</aml:hasAttributeDataType>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.wurvoc.org/vocabularies/om-1.8/metre_per_second-time">
+    <rdf:type rdf:resource="http://www.wurvoc.org/vocabularies/om-1.8/Unit_of_measure"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#ExternalInterface">
+    <skos:prefLabel xml:lang="en">ExternalInterface</skos:prefLabel>
+    <skos:altLabel xml:lang="en">EI</skos:altLabel>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/i40/aml#InterfaceClass"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasSystemUnitClassLib">
+    <skos:prefLabel xml:lang="en">hasInterfaceClassLib</skos:prefLabel>
+    <skos:definition xml:lang="en">Points the CAEX file to the SystemUnitClassLib</skos:definition>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#SystemUnitClassLib"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#CAEXFile"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#contains"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasNameRC">
+    <skos:prefLabel xml:lang="en">hasNameRC</skos:prefLabel>
+    <skos:definition xml:lang="en">Name for a RoleClass</skos:definition>
+    <skos:altLabel xml:lang="en">hasRoleClassName</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#RoleClass"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasName"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasSupportedRoleClass">
+    <skos:prefLabel xml:lang="en">supportedRoleClass</skos:prefLabel>
+    <skos:definition xml:lang="en">Internal elements has Supported Role Class</skos:definition>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#RoleClass"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasAdditionalInformation">
+    <skos:prefLabel xml:lang="en">hasAdditionalInformation</skos:prefLabel>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#AdditionalInformation"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#CAEXFile"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasNameFile">
+    <skos:prefLabel>hasNameFile</skos:prefLabel>
+    <skos:definition xml:lang="en">The name of the main AutomationML File</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#CAEXFile"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasName"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#lastWritingDateTime">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#AdditionalInformation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#prefLabel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRefBaseClassPathIC">
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InterfaceClass"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasRefBaseClassPath"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#AILevelSW">
+    <aml:hasRefBaseClassPathIC>NE150InterfaceLibrary/SWSignal</aml:hasRefBaseClassPathIC>
+    <aml:hasNameIC xml:lang="en">AI Level SW</aml:hasNameIC>
+    <aml:hasICID>91a89c81-b794-421c-8f24-458f51307f72</aml:hasICID>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#ExternalInterface"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/vocab/vann/preferredNamespaceUri">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#DemoArea">
+    <aml:hasNameIE xml:lang="en">DemoArea</aml:hasNameIE>
+    <aml:hasIDIE>33a47300-eb7e-4831-9448-b358d4246dcd</aml:hasIDIE>
+    <aml:isPartOfIE rdf:resource="https://w3id.org/i40/aml#DemoSite"/>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasWriterRelease">
+    <skos:prefLabel xml:lang="en">hasWriterRelease</skos:prefLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#AdditionalInformation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://schema.org/affiliation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#MeasurementRangeEnd">
+    <aml:refSemanticAttribute>NE 150 v1.0 Annex 3.3.5</aml:refSemanticAttribute>
+    <aml:hasAttributeDescription xml:lang="en">Actual measurement range end of sensor in field</aml:hasAttributeDescription>
+    <aml:hasAttributeDataType>xs:double</aml:hasAttributeDataType>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRefPartnerSideA">
+    <skos:prefLabel xml:lang="en">hasRefPartnerSideA</skos:prefLabel>
+    <skos:definition xml:lang="en">Reference an Internal Link with an element A</skos:definition>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalLink"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasAttributeDescription">
+    <skos:prefLabel xml:lang="en">hasDescription</skos:prefLabel>
+    <skos:definition xml:lang="en">Points to an optional description of the Attribute</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/elements/1.1/title">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#OldPCE">
+    <aml:refSemanticAttribute>NE 150 v1.0 Annex 2.1.4</aml:refSemanticAttribute>
+    <aml:hasNameAttribute rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OldPCE</aml:hasNameAttribute>
+    <aml:hasAttributeValue>L 1101</aml:hasAttributeValue>
+    <aml:hasAttributeDescription xml:lang="en">Old PCE designation for migration or renaming</aml:hasAttributeDescription>
+    <aml:hasAttributeDataType>xs:string</aml:hasAttributeDataType>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRefBaseRoleClassPath">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRoleRequirementIE">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#RoleClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasRoleRequeriment"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasAMLVersion">
+    <skos:prefLabel xml:lang="en">hasAMLVersion</skos:prefLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#AdditionalInformation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasInterfaceClass">
+    <skos:prefLabel xml:lang="en">hasInterfaceClass</skos:prefLabel>
+    <skos:definition xml:lang="en">Model the relation between Interface Class Lib and Interface Class</skos:definition>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#InterfaceClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InterfaceClassLib"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasExternalInterface">
+    <skos:prefLabel xml:lang="en">hasExternalInterface</skos:prefLabel>
+    <skos:definition xml:lang="en">Connects the Internal Element with an External Interface</skos:definition>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#ExternalInterface"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRefBaseClassPathSUC">
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#SystemUnitClass"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasRefBaseClassPath"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#InternalLink">
+    <skos:prefLabel xml:lang="en">InternalLink</skos:prefLabel>
+    <skos:definition xml:lang="en">Connects two CAEX elements like InternalElements</skos:definition>
+    <skos:altLabel xml:lang="en">IL</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasInterfaceRC">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#InterfaceClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#RoleClass"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasInterface"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasAttributeRC">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#RoleClass"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasAttribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRoleClass">
+    <skos:prefLabel xml:lang="en">hasRoleClass</skos:prefLabel>
+    <skos:definition xml:lang="en">A Role Class lib contains a Role Class</skos:definition>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#RoleClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#RoleClassLib"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#definition">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#isPartOfIE">
+    <skos:prefLabel xml:lang="en">isPartOfIE</skos:prefLabel>
+    <skos:definition xml:lang="en">Connects the Internal Element with other Internal Elements that are part of the given Internal Element</skos:definition>
+    <skos:altLabel xml:lang="en">InternalElementPartOf</skos:altLabel>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/partof.owl#isPartOf"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#InterfaceClass">
+    <skos:prefLabel xml:lang="en">InterfaceClass</skos:prefLabel>
+    <skos:definition xml:lang="en">Defines the relations between AML Objects. Should be identified with its tag name</skos:definition>
+    <skos:altLabel xml:lang="en">IC</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#ExampleInstanceHierarchy">
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#CAEXFile"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/created">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasExternalReferencePath">
+    <skos:prefLabel xml:lang="en">externalReferencePath</skos:prefLabel>
+    <skos:definition>A external Reference of a CAEX File contains path to the file</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#ExternalReference"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasNameIE">
+    <skos:prefLabel xml:lang="en">hasNameIE</skos:prefLabel>
+    <skos:definition xml:lang="en">Name of an Internal Element</skos:definition>
+    <skos:altLabel xml:lang="en">hasInternalElementName</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasName"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasProjectId">
+    <skos:prefLabel xml:lang="en">hasProjectId</skos:prefLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#Project"/>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/elements/1.1/title"/>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/elements/1.1/identifier"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#Attribute">
+    <skos:prefLabel xml:lang="en">Attribute</skos:prefLabel>
+    <skos:definition xml:lang="en">Property which belongs to an AML object</skos:definition>
+    <rdfs:isDefinedBy>1417686950-AutomationML Whitepaper Part 1 - AutomationML Architecture v2_Oct2014, page 11</rdfs:isDefinedBy>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2001/XMLSchema#integer">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRefBaseClassPath">
+    <skos:prefLabel xml:lang="en">refBaseClassPath</skos:prefLabel>
+    <skos:definition xml:lang="en">Stores the name of the parent class</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#RoleClassLib"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InterfaceClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#ExternalInterface"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasNameIC">
+    <skos:prefLabel xml:lang="en">hasNameIC</skos:prefLabel>
+    <skos:definition xml:lang="en">Name of the Interface Class</skos:definition>
+    <skos:altLabel xml:lang="en">hasInterfaceClassName</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InterfaceClass"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasName"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasSemanticRef">
+    <skos:prefLabel xml:lang="en">hasSemanticRef</skos:prefLabel>
+    <skos:definition xml:lang="en">General property which points to an external standard to provide semantic identification for a given element</skos:definition>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#ExternalStandard"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasInstanceHierarchy">
+    <skos:prefLabel xml:lang="en">hasInstanceHierarchy</skos:prefLabel>
+    <skos:definition xml:lang="en">Points the CAEX file to the Instance Hierarchy</skos:definition>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#InstanceHierarchy"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#CAEXFile"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#contains"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRefRoleClassPath">
+    <skos:prefLabel xml:lang="en">refRCPath</skos:prefLabel>
+    <skos:altLabel xml:lang="en">refRoleClassPath</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasICID">
+    <rdfs:comment xml:lang="en">Unique ID for the Interface Class</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InterfaceClass"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/elements/1.1/identifier"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#RoleClass">
+    <skos:prefLabel xml:lang="en">RoleClass</skos:prefLabel>
+    <skos:definition xml:lang="en">RoleClasses are vendor independent and generic entities. They are used to assign a generic semantics to an object instance and to describe requirements of this object instance. Also, they can help in mapping data models of different engineering tools.</skos:definition>
+    <skos:altLabel xml:lang="en">RC</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasSupportedRoleClassIE">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#RoleClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasSupportedRoleClass"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#contains">
+    <skos:prefLabel xml:lang="en">contains</skos:prefLabel>
+    <skos:definition xml:lang="en">Superproperty to describe the connection of the CAEX file with the main CAEX library elements, e.g., InterfaceClassLib, RoleClassLib, and SystemUnitClassLib</skos:definition>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#CAEXFile"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#AdditionalInformation">
+    <skos:prefLabel xml:lang="en">AdditionalInformation</skos:prefLabel>
+    <skos:definition xml:lang="en">Additional Information for CAEX File</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#PCEFunction">
+    <aml:refSemanticAttribute>NE 150 v1.0 Annex 2.1.1</aml:refSemanticAttribute>
+    <aml:hasNameAttribute xml:lang="en">PCEFunction</aml:hasNameAttribute>
+    <aml:hasAttributeValue>LIRCS+-A+-</aml:hasAttributeValue>
+    <aml:hasAttributeDescription xml:lang="en">The PCE function describes the device-independent PCE task solution</aml:hasAttributeDescription>
+    <aml:hasAttributeDataType>xs:string</aml:hasAttributeDataType>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#SystemUnitClass">
+    <skos:prefLabel xml:lang="en">SystemUnitClass</skos:prefLabel>
+    <skos:definition xml:lang="en">Describe concrete types of objects reused within engineering. Allows for different user-defined classes. Inheritance between a SystemUnitClass and an object instance is not allowed.</skos:definition>
+    <skos:altLabel xml:lang="en">SUC</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#InstanceHierarchy">
+    <skos:prefLabel xml:lang="en">InstanceHierarchy</skos:prefLabel>
+    <skos:definition xml:lang="en">Describes the are to model the data to be exchanged. CAEX InstanceHierarchies serve for the storage of individual and project related engineering information. They form the centre of the AML top-level format and contain all individual data objects including properties, interfaces, relations and references.</skos:definition>
+    <skos:altLabel xml:lang="en">IH</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasAttributeDataType">
+    <skos:prefLabel xml:lang="en">hasDataType</skos:prefLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasWriterVendor">
+    <skos:prefLabel xml:lang="en">hasWriterVendor</skos:prefLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#AdditionalInformation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#CAEXFile">
+    <skos:prefLabel xml:lang="en">CAEXFile</skos:prefLabel>
+    <skos:definition xml:lang="en">Root-element of the CAEX schema</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.wurvoc.org/vocabularies/om-1.8/Unit_of_measure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2000/01/rdf-schema#label">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#">
+    <void:vocabulary rdf:resource="http://www.w3.org/2004/02/skos/core#"/>
+    <terms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2016-03-23</terms:created>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/i40/aml#"/>
+    <doap:repository rdf:resource="https://github.com/i40-Tools/vocabularies/"/>
+    <void:vocabulary rdf:resource="http://purl.org/dc/elements/1.1/"/>
+    <vann:preferredNamespacePrefix>aml</vann:preferredNamespacePrefix>
+    <rdfs:comment xml:lang="en">A vocabulary to represents the AutomationML Standard - IEC 62714</rdfs:comment>
+    <void:vocabulary rdf:resource="http://www.w3.org/XML/1998/namespace"/>
+    <terms:license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.0/"/>
+    <void:vocabulary rdf:resource="https://w3id.org/i40/aml#"/>
+    <skos:definition xml:lang="en">A vocabulary to represents the AutomationML Standard - IEC 62714</skos:definition>
+    <vann:preferredNamespaceUri>https://w3id.org/i40/aml/</vann:preferredNamespaceUri>
+    <void:vocabulary rdf:resource="http://purl.org/dc/terms/"/>
+    <terms:creator rdf:resource="https://at.linkedin.com/in/olga-kovalenko-979552108/"/>
+    <void:vocabulary rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <owl:versionInfo>0.1</owl:versionInfo>
+    <skos:altLabel xml:lang="en">Alternative label for an AML object</skos:altLabel>
+    <void:vocabulary rdf:resource="http://www.w3.org/2000/01/rdf-schema#"/>
+    <skos:prefLabel xml:lang="en">aml</skos:prefLabel>
+    <void:vocabulary rdf:resource="http://www.w3.org/2001/XMLSchema#"/>
+    <terms:creator rdf:resource="http://eis.iai.uni-bonn.de/Irlan"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <void:vocabulary rdf:resource="http://xmlns.com/foaf/spec/"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasVersionICL">
+    <skos:prefLabel xml:lang="en">hasVersionICL</skos:prefLabel>
+    <skos:definition xml:lang="en">Points to the version for a Interface Class Lib</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InterfaceClassLib"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/license">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRefBaseClassPathRC">
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#RoleClass"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasRefBaseClassPath"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasVersionEClass">
+    <skos:prefLabel xml:lang="en">eClassVersion</skos:prefLabel>
+    <skos:definition xml:lang="en">Points to the eClass version for a given Element</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#eClassSpecification"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2000/01/rdf-schema#isDefinedBy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRoleRequirementSUC">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#RoleClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#SystemUnitClass"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasRoleRequeriment"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasIRDIeClass">
+    <skos:prefLabel xml:lang="en">eClassIRDI</skos:prefLabel>
+    <skos:definition xml:lang="en">Points to the eClass unique identification(IRDI) a given Element</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#eClassSpecification"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#isConnectedToEClass">
+    <skos:prefLabel xml:lang="en">eClassIsConnectedTo</skos:prefLabel>
+    <skos:definition xml:lang="en">Points to the eCl@ass connection for a given element</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#PCEDescription">
+    <aml:refSemanticAttribute>NE 150 v1.0 Annex 2.1.3</aml:refSemanticAttribute>
+    <aml:hasNameAttribute xml:lang="en">PCEDescription</aml:hasNameAttribute>
+    <aml:hasAttributeValue>Level Control B1000</aml:hasAttributeValue>
+    <aml:hasAttributeDescription xml:lang="en">Complete PCE description</aml:hasAttributeDescription>
+    <aml:hasAttributeDataType>xs:string</aml:hasAttributeDataType>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.wurvoc.org/vocabularies/om-1.8/Measure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasSchemaVersion">
+    <skos:prefLabel>hasSchemaVersion</skos:prefLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#CAEXFile"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasInterfaceSUC">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#InterfaceClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#SystemUnitClass"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasInterface"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.wurvoc.org/vocabularies/om-1.8/unit_of_measure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://rdfs.org/ns/void#vocabulary">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://usefulinc.com/ns/doap#repository">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#Project">
+    <skos:prefLabel xml:lang="en">Project</skos:prefLabel>
+    <skos:definition xml:lang="en">A Project related to the header information with the CAEX File</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/vocab/vann/preferredNamespacePrefix">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/creator">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.wurvoc.org/vocabularies/om-1.8/Speed">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#unit_of_measure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasClassificationClass">
+    <skos:prefLabel xml:lang="en">eClassClassificationClass</skos:prefLabel>
+    <skos:definition xml:lang="en">Points to the eClass classification Class a given Element</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#eClassSpecification"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#isPartOfSUC">
+    <skos:prefLabel xml:lang="en">isPartOfSUC</skos:prefLabel>
+    <skos:definition xml:lang="en">Connects the System Unit Class with another System Unit Class Elements</skos:definition>
+    <skos:altLabel xml:lang="en">SystemUnitClassPartOf</skos:altLabel>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#SystemUnitClass"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#SystemUnitClass"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/partof.owl#isPartOf"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.wurvoc.org/vocabularies/om-1.8/numerical_value">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#SystemUnitClassLib">
+    <skos:prefLabel xml:lang="en">SystemUnitClassLib</skos:prefLabel>
+    <skos:definition xml:lang="en">Store vendor specific AML classes</skos:definition>
+    <skos:altLabel xml:lang="en">SUC Lib</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#RoleClassLib">
+    <skos:prefLabel xml:lang="en">RoleClassLib</skos:prefLabel>
+    <skos:definition xml:lang="en">Provides definitions of abstract characteristics of CAEX objects and thus serve the automatic semantic interpretation of user-defined AML objects</skos:definition>
+    <skos:altLabel xml:lang="en">RCL</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRefSemAttribute">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#eClassSpecification"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasSemanticRef"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasAttributeSUC">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#SystemUnitClass"/>
+    <rdfs:subPropertyOf rdf:resource="https://w3id.org/i40/aml#hasAttribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRoleRequeriment">
+    <skos:prefLabel xml:lang="en">hasRoleRequeriment</skos:prefLabel>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#RoleClass"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://at.linkedin.com/in/olga-kovalenko-979552108/">
+    <rdfs:label>Olga Kovalenko</rdfs:label>
+    <rdf:type rdf:resource="http://schema.org/Person"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.wurvoc.org/vocabularies/om-1.8/phenomenon">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#DemoSite">
+    <aml:hasNameIE xml:lang="en">DemoSite</aml:hasNameIE>
+    <aml:hasIDIE>38d6171f-0cb1-48e0-925f-f03902af8ee2</aml:hasIDIE>
+    <aml:isPartOfIE rdf:resource="https://w3id.org/i40/aml#DemoEnterprise"/>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasInternalLink">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#InternalLink"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasWriterVendorURL">
+    <skos:prefLabel xml:lang="en">hasWriterVendorURL</skos:prefLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#AdditionalInformation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://schema.org/name">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasProject">
+    <skos:prefLabel xml:lang="en">hasProject</skos:prefLabel>
+    <skos:definition xml:lang="en">Related Project for the CAEX File</skos:definition>
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#Project"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#AdditionalInformation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasAttributeValue">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasRefBaseSystemUnitPath">
+    <skos:prefLabel xml:lang="en">refBaseSUPath</skos:prefLabel>
+    <skos:altLabel xml:lang="en">Ref Base System Unit Path</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasUnit">
+    <rdfs:range rdf:resource="http://www.wurvoc.org/vocabularies/om-1.8/Unit_of_measure"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#numerical_value">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#LIRCS1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <aml:isPartOfIE rdf:resource="https://w3id.org/i40/aml#L1001"/>
+    <aml:hasNameIE xml:lang="en">LIRCS+-A+-</aml:hasNameIE>
+    <rdf:type rdf:resource="https://w3id.org/i40/aml#InternalElement"/>
+    <aml:hasAttributeIE rdf:resource="https://w3id.org/i40/aml#PCEInitial"/>
+    <aml:hasExternalInterface rdf:resource="https://w3id.org/i40/aml#AILevelSW"/>
+    <aml:hasAttributeIE rdf:resource="https://w3id.org/i40/aml#PCEFunction"/>
+    <aml:hasAttribute rdf:resource="https://w3id.org/i40/aml#PCEDescription"/>
+    <aml:refBaseSystemUnitPath>NE150SUCLibrary/PCERequest</aml:refBaseSystemUnitPath>
+    <aml:hasAttributeIE rdf:resource="https://w3id.org/i40/aml#FlowchartNumber"/>
+    <aml:hasIDIE>adb2ebf7-dc6f-479b-abfe-64a4fd69c209</aml:hasIDIE>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2001/XMLSchema#dateTime">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#hasInterface">
+    <rdfs:range rdf:resource="https://w3id.org/i40/aml#InterfaceClass"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/i40/aml#refSemanticAttribute">
+    <skos:prefLabel xml:lang="en">refSemanticAttribute</skos:prefLabel>
+    <skos:definition xml:lang="en">Reference to the eClass IRDI identification</skos:definition>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="https://w3id.org/i40/aml#Attribute"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+</rdf:RDF>

@@ -1,0 +1,13 @@
+AML ontology (RDF)
+===================
+FROM:
+http://i40.semantic-interoperability.org/automationml/Documentation/index.html
+
+
+HUOM: EI sisällä kaikkia luokkia jotka ovat owl ontologiassa:
+AML ontology (OWL)
+===================
+urL.ssa:
+http://data.ifs.tuwien.ac.at/aml/ontology
+
+

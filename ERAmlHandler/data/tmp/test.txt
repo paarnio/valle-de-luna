@@ -1,0 +1,6 @@
+
+create SquareLego Square1 green
+create SquareLego Square2 red
+create RectangleLego Rectangle1 red east
+link(square1,bottom,square2,top).
+link(rectangle1,bottomA,square1,top).

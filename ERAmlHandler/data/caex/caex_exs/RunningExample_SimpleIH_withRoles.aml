@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CAEXFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" FileName="RunningExample_SimpleIH_withRoles.aml" SchemaVersion="2.15">
+	<AdditionalInformation>
+		<WriterHeader>
+			<WriterName>AutomationML Editor</WriterName>
+			<WriterID>916578CA-FE0D-474E-A4FC-9E1719892369</WriterID>
+			<WriterVendor>AutomationML e.V.</WriterVendor>
+			<WriterVendorURL>www.AutomationML.org</WriterVendorURL>
+			<WriterVersion>4.3.11.0</WriterVersion>
+			<WriterRelease>4.3.11.0</WriterRelease>
+			<LastWritingDateTime>2016-06-30T14:02:50.0198336+02:00</LastWritingDateTime>
+			<WriterProjectTitle>unspecified</WriterProjectTitle>
+			<WriterProjectID>unspecified</WriterProjectID>
+		</WriterHeader>
+	</AdditionalInformation>
+	<InstanceHierarchy Name="IExampleSystematIAF">
+		<Version>1.0.0</Version>
+		<InternalElement Name="OvGU-Building10_Room445_FMS" ID="7b59a576-92ee-4ae1-ba96-82b80202606e">
+			<InternalElement Name="Project" ID="47d4d899-dd17-4fc3-ab0c-8b9029259480">
+				<InternalElement Name="Subproject" ID="67698b52-4467-42ed-9267-812002075f6c">
+					<InternalElement Name="Enclosure" ID="f076dc9a-6118-4ec2-beff-f78371fc8580">
+						<InternalElement Name="RaspberryPi" ID="8be5be58-6c00-405e-8d05-5cb1f6063dd6" />
+						<InternalElement Name="FieldIO" ID="7522f89a-11bb-4af6-9373-c642b249ced3" />
+						<InternalElement Name="Switch" ID="2a298cc4-b45a-453a-a53a-ed8843d0af7c" />
+					</InternalElement>
+					<InternalElement Name="Turntable" ID="c9017299-6247-49e3-9c3a-bc41b70f9e9f">
+						<InternalElement Name="TurntableBaseFrame" ID="723129c3-1be2-44d3-9418-9e4e2e676940" />
+						<InternalElement Name="TurntableHead" ID="a30e18f7-97eb-47f3-bc02-b3cb0e2cd286" />
+						<InternalElement Name="TurntableBelt" ID="b21196fb-f3fa-4c3d-8933-66d15d83c993" />
+						<InternalElement Name="BeltDrive" ID="d99a2ba9-0538-4546-b5bf-e5a4b46ad76f" />
+						<InternalElement Name="MaterialIdentSensor" ID="1fcb6fa1-1509-4aac-8b1a-f770b27d192c" />
+						<InternalElement Name="HeadDrive" ID="e7828d36-43d9-43c3-9805-698015f2c764" />
+						<InternalElement Name="HeadPositionSensor0" ID="52dcf8cf-2ed0-47df-9f32-f545928dc152" />
+						<InternalElement Name="HeadPositionSensor90" ID="eeb25c06-463c-405a-9bb1-2381fc34ae5c" />
+					</InternalElement>
+					<InternalElement Name="Conveyer" ID="4214d17c-2773-466a-b9c0-61a358be2dec">
+						<InternalElement Name="ConveyerBaseFrame" ID="62e42cee-a870-44f9-a1f3-3aa520f2d205" />
+						<InternalElement Name="ConveyerBelt" ID="05c501ca-25df-4dc8-9e48-21f1c05cb05e" />
+						<InternalElement Name="BeltDrive" ID="0355a984-1e8c-46d5-9818-e0409c45057f" />
+						<InternalElement Name="MaterialIdentSensor" ID="e96d3874-83d3-44d5-92ac-70080d8a66e2" />
+					</InternalElement>
+					<InternalElement Name="Machine" ID="27ba8da8-e6c2-4ff5-90a1-08a31d83f308">
+						<InternalElement Name="MachineBaseFrame" ID="44dca432-27d3-4342-b05f-d26bf0a41fef" />
+						<InternalElement Name="MachineToolHead" ID="807dd246-8abd-4570-8704-e0cfb3cd9558" />
+						<InternalElement Name="MachineTool1" ID="1fb9cdb3-ec98-4826-b725-65c4ceb338cf" />
+						<InternalElement Name="MachineTool2" ID="0c9389f5-2328-4504-992b-348063cede89" />
+						<InternalElement Name="MachineTool3" ID="3bec5736-e7e6-41b8-a54d-a2133b4144a2" />
+						<InternalElement Name="MachineHeadDrive" ID="4e814208-1b6b-4cfc-a0cd-3bf303bb2add" />
+						<InternalElement Name="UpperLimitSwitch" ID="e8f3efe6-063e-4c9a-a47a-e7cafd1aedf3" />
+						<InternalElement Name="LowerLimitSwitch" ID="52297502-6b37-412e-b83d-6dd3f599406b" />
+						<InternalElement Name="ToolDrive" ID="061398b5-2d17-45fe-a347-4476aaf7dee7" />
+						<InternalElement Name="ToolIDSensor" ID="be8f6982-a2fe-4d13-a864-a3c7d5910653" />
+					</InternalElement>
+					<RoleRequirements RefBaseRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/SubProject" />
+				</InternalElement>
+				<RoleRequirements RefBaseRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Project" />
+			</InternalElement>
+			<RoleRequirements RefBaseRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/File" />
+		</InternalElement>
+	</InstanceHierarchy>
+	<RoleClassLib Name="AutomationMLBaseRoleClassLib">
+		<Description>Automation Markup Language Base Role Class Library - Part 1 Content extended with Part 3 and Part 4 Content</Description>
+		<Version>2.2.2</Version>
+		<RoleClass Name="AutomationMLBaseRole">
+			<RoleClass Name="Group" RefBaseClassPath="AutomationMLBaseRole">
+				<Attribute Name="AssociatedFacet" AttributeDataType="xs:string" />
+				<RoleClass Name="SignalGroup" RefBaseClassPath="Group" />
+				<RoleClass Name="ComponentGroup" RefBaseClassPath="Group" />
+			</RoleClass>
+			<RoleClass Name="Facet" RefBaseClassPath="AutomationMLBaseRole" />
+			<RoleClass Name="Port" RefBaseClassPath="AutomationMLBaseRole">
+				<Attribute Name="Direction" AttributeDataType="xs:string" />
+				<Attribute Name="Cardinality">
+					<Attribute Name="MinOccur" AttributeDataType="xs:unsignedInt" />
+					<Attribute Name="MaxOccur" AttributeDataType="xs:unsignedInt" />
+				</Attribute>
+				<Attribute Name="Category" AttributeDataType="xs:string" />
+				<ExternalInterface Name="ConnectionPoint" ID="9942bd9c-c19d-44e4-a197-11b9edf264e7" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/PortConnector" />
+			</RoleClass>
+			<RoleClass Name="Resource" RefBaseClassPath="AutomationMLBaseRole" />
+			<RoleClass Name="Product" RefBaseClassPath="AutomationMLBaseRole" />
+			<RoleClass Name="Process" RefBaseClassPath="AutomationMLBaseRole" />
+			<RoleClass Name="Structure" RefBaseClassPath="AutomationMLBaseRole">
+				<RoleClass Name="ProductStructure" RefBaseClassPath="Structure" />
+				<RoleClass Name="ProcessStructure" RefBaseClassPath="Structure" />
+				<RoleClass Name="ResourceStructure" RefBaseClassPath="Structure" />
+			</RoleClass>
+			<RoleClass Name="PropertySet" RefBaseClassPath="AutomationMLBaseRole" />
+			<RoleClass Name="Frame" RefBaseClassPath="AutomationMLBaseRole" />
+		</RoleClass>
+	</RoleClassLib>
+	<RoleClassLib Name="AutomationMLCSRoleClassLib">
+		<Description>Automation Markup Language Control Industry Role Class Library</Description>
+		<Version>2.3.0</Version>
+		<RoleClass Name="ControlEquipment" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Resource">
+			<RoleClass Name="Communication" RefBaseClassPath="ControlEquipment" />
+			<RoleClass Name="ControlHardware" RefBaseClassPath="ControlEquipment">
+				<RoleClass Name="PC" RefBaseClassPath="ControlHardware" />
+				<RoleClass Name="IPC" RefBaseClassPath="ControlHardware" />
+				<RoleClass Name="EmbeddedDevice" RefBaseClassPath="ControlHardware" />
+				<RoleClass Name="Handheld" RefBaseClassPath="ControlHardware" />
+			</RoleClass>
+			<RoleClass Name="Sensor" RefBaseClassPath="ControlEquipment" />
+			<RoleClass Name="Actuator" RefBaseClassPath="ControlEquipment" />
+			<RoleClass Name="Controller" RefBaseClassPath="ControlEquipment">
+				<RoleClass Name="PLC" RefBaseClassPath="Controller" />
+				<RoleClass Name="NC" RefBaseClassPath="Controller" />
+				<RoleClass Name="RC" RefBaseClassPath="Controller" />
+				<RoleClass Name="PAC" RefBaseClassPath="Controller" />
+			</RoleClass>
+		</RoleClass>
+	</RoleClassLib>
+	<RoleClassLib Name="AutomationMLDMIRoleClassLib">
+		<Description>Automation Markup Language  Discrete Manufacturing Industry Role Class Library</Description>
+		<Version>2.4.0</Version>
+		<RoleClass Name="DiscManufacturingEquipment" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Resource">
+			<RoleClass Name="Transport" RefBaseClassPath="DiscManufacturingEquipment" />
+			<RoleClass Name="Storage" RefBaseClassPath="DiscManufacturingEquipment" />
+			<RoleClass Name="Fixture" RefBaseClassPath="DiscManufacturingEquipment" />
+			<RoleClass Name="Gate" RefBaseClassPath="DiscManufacturingEquipment" />
+			<RoleClass Name="Robot" RefBaseClassPath="DiscManufacturingEquipment" />
+			<RoleClass Name="Tool" RefBaseClassPath="DiscManufacturingEquipment" />
+			<RoleClass Name="Carrier" RefBaseClassPath="DiscManufacturingEquipment" />
+			<RoleClass Name="Machine" RefBaseClassPath="DiscManufacturingEquipment" />
+			<RoleClass Name="StaticObject" RefBaseClassPath="DiscManufacturingEquipment" />
+		</RoleClass>
+	</RoleClassLib>
+	<RoleClassLib Name="AutomationMLExtendedRoleClassLib">
+		<Version>2.7.0</Version>
+		<RoleClass Name="PLCFacet" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Facet" />
+		<RoleClass Name="HMIFacet" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Facet" />
+		<RoleClass Name="Enterprise" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure/ResourceStructure" />
+		<RoleClass Name="Site" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure/ResourceStructure" />
+		<RoleClass Name="Area" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure/ResourceStructure" />
+		<RoleClass Name="ProductionLine" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure/ResourceStructure" />
+		<RoleClass Name="WorkCell" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure/ResourceStructure" />
+		<RoleClass Name="ProcessCell" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure/ResourceStructure" />
+		<RoleClass Name="Unit" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure/ResourceStructure" />
+		<RoleClass Name="ProductionUnit" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure/ResourceStructure" />
+		<RoleClass Name="StorageZone" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure/ResourceStructure" />
+		<RoleClass Name="StorageUnit" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure/ResourceStructure" />
+		<RoleClass Name="Turntable" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Transport" />
+		<RoleClass Name="Conveyor" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Transport">
+			<RoleClass Name="BeltConveyor" RefBaseClassPath="AutomationMLExtendedRoleClassLib/Conveyor" />
+			<RoleClass Name="RollConveyor" RefBaseClassPath="AutomationMLExtendedRoleClassLib/Conveyor" />
+			<RoleClass Name="ChainConveyor" RefBaseClassPath="AutomationMLExtendedRoleClassLib/Conveyor" />
+			<RoleClass Name="PalletConveyor" RefBaseClassPath="AutomationMLExtendedRoleClassLib/Conveyor" />
+			<RoleClass Name="OverheadConveyor" RefBaseClassPath="AutomationMLExtendedRoleClassLib/Conveyor" />
+		</RoleClass>
+		<RoleClass Name="LiftingTable" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Transport" />
+		<RoleClass Name="AGV" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Transport" />
+		<RoleClass Name="Transposer" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Transport" />
+		<RoleClass Name="CarrierHandlingSystem" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Transport" />
+		<RoleClass Name="BodyStore" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Storage" />
+		<RoleClass Name="Lift" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Transport" />
+		<RoleClass Name="Rollerbed" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Transport" />
+		<RoleClass Name="StationaryTool" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Tool" />
+		<RoleClass Name="MovableTool" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Tool" />
+		<RoleClass Name="ControlCabinet" RefBaseClassPath="AutomationMLCSRoleClassLib/ControlEquipment" />
+		<RoleClass Name="IODevice" RefBaseClassPath="AutomationMLCSRoleClassLib/ControlEquipment" />
+		<RoleClass Name="HMI" RefBaseClassPath="AutomationMLCSRoleClassLib/ControlEquipment">
+			<RoleClass Name="WarningEquipment" RefBaseClassPath="AutomationMLExtendedRoleClassLib/HMI" />
+		</RoleClass>
+		<RoleClass Name="ActuatingDrive" RefBaseClassPath="AutomationMLCSRoleClassLib/ControlEquipment/Actuator" />
+		<RoleClass Name="MotionController" RefBaseClassPath="AutomationMLCSRoleClassLib/ControlEquipment" />
+		<RoleClass Name="Panel" RefBaseClassPath="AutomationMLCSRoleClassLib/ControlEquipment/ControlHardware" />
+		<RoleClass Name="MeasuringEquipment" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Resource" />
+		<RoleClass Name="Clamp" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Fixture" />
+		<RoleClass Name="ProcessController" RefBaseClassPath="AutomationMLCSRoleClassLib/ControlEquipment/Controller" />
+		<RoleClass Name="Loader" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Storage" />
+		<RoleClass Name="Unloader" RefBaseClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Storage" />
+	</RoleClassLib>
+	<RoleClassLib Name="VDMA66415RoleClassLib">
+		<Version>0.9</Version>
+		<RoleClass Name="VDMA66415_ProjectStructure" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure">
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<RoleClass Name="File" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure">
+				<Attribute Name="Version" AttributeDataType="xs:string">
+					<Description>Version der Dateiformat-Definition VDMA66415</Description>
+				</Attribute>
+				<Attribute Name="FileName" AttributeDataType="xs:string">
+					<Description>Name der Projekt-Datei</Description>
+				</Attribute>
+				<Attribute Name="FileVersion" AttributeDataType="xs:string">
+					<Description>Version der Projektdatei</Description>
+				</Attribute>
+				<Attribute Name="FileTime" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt des Schreibens (Speicherns) der Projektdatei</Description>
+				</Attribute>
+				<Attribute Name="FileAuthor" AttributeDataType="xs:string">
+					<Description>Eindeutiges Autorenkürzel des Bearbeiters der Projektdatei</Description>
+				</Attribute>
+				<Attribute Name="FileInfo" AttributeDataType="xs:string">
+					<Description>Informationstext zur Projektdatei</Description>
+				</Attribute>
+				<Attribute Name="FilePriorTime" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt des Schreibens (Speicherns) der Vorgängerprojektdatei, welche angereichert oder gelesen wurde</Description>
+				</Attribute>
+				<Attribute Name="FilePriorAuther" AttributeDataType="xs:string">
+					<Description>Eindeutiges Autorenkürzel des Bearbeiters der Vorgängerprojektdatei, welche angereichert oder gelesen wurde</Description>
+				</Attribute>
+				<Attribute Name="FilePriorInfo" AttributeDataType="xs:string">
+					<Description>Informationstext der Vorgängerprojektdatei, welche angereichert oder gelesen wurde</Description>
+				</Attribute>
+				<Attribute Name="UsedLanguages" AttributeDataType="xs:language">
+					<Description>Aufzählung aller in der Projektdatei verwendeten Sprachen</Description>
+					<DefaultValue>de, en</DefaultValue>
+				</Attribute>
+			</RoleClass>
+			<RoleClass Name="Project" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Structure">
+				<Attribute Name="ProjectManufacturer" AttributeDataType="xs:string">
+					<Description>Projekthersteller ((Maschinenhersteller)</Description>
+				</Attribute>
+				<Attribute Name="ProjectName" AttributeDataType="xs:string">
+					<Description>Name des Projektes</Description>
+				</Attribute>
+				<Attribute Name="ProjectSign" AttributeDataType="xs:string">
+					<Description>Kennzeichen / Nummer des Projektes</Description>
+				</Attribute>
+				<Attribute Name="ProjectRevision" AttributeDataType="xs:string">
+					<Description>Revisionsnummer des Projektes</Description>
+				</Attribute>
+				<Attribute Name="ProjectInformation" AttributeDataType="xs:string">
+					<Description>Informationstext zum Projekt</Description>
+				</Attribute>
+			</RoleClass>
+			<RoleClass Name="SubProject" RefBaseClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure">
+				<Attribute Name="SubProjectName" AttributeDataType="xs:string">
+					<Description>Name des Unterprojektes</Description>
+				</Attribute>
+				<Attribute Name="SubProjectSign" AttributeDataType="xs:string">
+					<Description>Kennzeichen / Nummer des Unterprojektes</Description>
+				</Attribute>
+				<Attribute Name="SubProjectRevision" AttributeDataType="xs:string">
+					<Description>Revisionsnummer des Unterprojektes</Description>
+				</Attribute>
+				<Attribute Name="SubProjectInformation" AttributeDataType="xs:string">
+					<Description>Informationstext zum Unterprojekt</Description>
+				</Attribute>
+			</RoleClass>
+			<RoleClass Name="Unit" RefBaseClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure">
+				<Attribute Name="Identifier" AttributeDataType="xs:string" />
+				<Attribute Name="UnitSign" AttributeDataType="xs:string" />
+				<Attribute Name="UnitName" AttributeDataType="xs:string" />
+				<Attribute Name="UnitUserDefinedText" AttributeDataType="xs:string">
+					<Description>Information des Anwenders zur Einheit</Description>
+				</Attribute>
+				<Attribute Name="UnitParameterUser" AttributeDataType="xs:string">
+					<Description>Anwendungsspezifischer Parameter der Einheit</Description>
+					<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+						<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+					</Attribute>
+					<Attribute Name="ParameterName" AttributeDataType="xs:string">
+						<Description>Name des Parameters</Description>
+					</Attribute>
+					<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+						<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+					</Attribute>
+					<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+						<Description>Wert des Parameters</Description>
+					</Attribute>
+					<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+						<Description>Datentyp des Parameters</Description>
+					</Attribute>
+					<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+						<Description>SI Einheit des Parameters</Description>
+					</Attribute>
+					<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+						<Description>Beschreibung des Parameters</Description>
+					</Attribute>
+				</Attribute>
+				<Attribute Name="UnitSequence" AttributeDataType="xs:string">
+					<Description>Ablaufbeschreibung, die der Einheit zugeordnet ist</Description>
+					<Attribute Name="SequenceName" AttributeDataType="xs:string">
+						<Description>Name der Sequenz</Description>
+					</Attribute>
+					<Attribute Name="SequenceStep" AttributeDataType="xs:string">
+						<Description>Schritt der Sequenz</Description>
+						<Attribute Name="StepName" AttributeDataType="xs:string">
+							<Description>Name des Schrittes</Description>
+						</Attribute>
+						<Attribute Name="StepNext" AttributeDataType="xs:string">
+							<Description>Namen aller nachfolgenden Schritte</Description>
+						</Attribute>
+						<Attribute Name="StepParameter" AttributeDataType="xs:string">
+							<Description>Anwendungsspezifische Parameter des Schrittes</Description>
+						</Attribute>
+					</Attribute>
+				</Attribute>
+			</RoleClass>
+			<RoleClass Name="Device" RefBaseClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure">
+				<Attribute Name="Identifier" AttributeDataType="xs:string">
+					<Description>Identifizierung des Gerätes</Description>
+				</Attribute>
+				<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+					<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+				</Attribute>
+				<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+					<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+				</Attribute>
+				<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+					<Description>Hersteller des Gerätes</Description>
+				</Attribute>
+				<Attribute Name="DeviceName" AttributeDataType="xs:string">
+					<Description>Name des Gerätes</Description>
+				</Attribute>
+				<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+					<Description>Bestellnummer des Gerätes</Description>
+				</Attribute>
+				<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+					<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+				</Attribute>
+				<Attribute Name="PartNumber" AttributeDataType="xs:string">
+					<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+				</Attribute>
+				<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+					<Description>Information des Anwenders zum Gerät</Description>
+				</Attribute>
+				<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+					<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+					<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+						<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+					</Attribute>
+					<Attribute Name="ParamterName" AttributeDataType="xs:string">
+						<Description>Name des Parameters</Description>
+					</Attribute>
+					<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+						<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+					</Attribute>
+					<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+						<Description>Wert des Parameters</Description>
+					</Attribute>
+					<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+						<Description>Datentyp des Parameters</Description>
+					</Attribute>
+					<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+						<Description>SI Einheit des Parameters</Description>
+					</Attribute>
+					<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+						<Description>Beschreibung des Parameters</Description>
+					</Attribute>
+				</Attribute>
+			</RoleClass>
+			<RoleClass Name="DeviceFunction" RefBaseClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure">
+				<Attribute Name="Identifier" AttributeDataType="xs:string">
+					<Description>Identifizierung der Gerätefunktion</Description>
+				</Attribute>
+				<Attribute Name="DeviceFunctionSign" AttributeDataType="xs:string">
+					<Description>Referenzkennzeichen der Gerätefunktion, einheitlich/gemeinsam für alle Gewerke</Description>
+				</Attribute>
+				<Attribute Name="DeviceFunctionSignM" AttributeDataType="xs:string">
+					<Description>Referenzkennzeichen der Gerätefunktion: speziell Mechanik (Bauteilkennzeichen)</Description>
+				</Attribute>
+				<Attribute Name="DeviceFunctionSignBMK" AttributeDataType="xs:string">
+					<Description>Referenzkennzeichen der Gerätefunktion: speziell Elektrotechnik (Betriebsmittelkennzeichen)</Description>
+				</Attribute>
+				<Attribute Name="DeviceFunctionSignFP" AttributeDataType="xs:string">
+					<Description>Referenzkennzeichen der Gerätefunktion: speziell Fluidtechnik (Bezeichnungsschlüssel)</Description>
+				</Attribute>
+				<Attribute Name="DeviceFunctionSignPI" AttributeDataType="xs:string">
+					<Description>Referenzkennzeichen der Gerätefunktion: speziell Prozesstechnik (Mess- und Regelstellenkennzeichen)</Description>
+				</Attribute>
+				<Attribute Name="DeviceFunctionText" AttributeDataType="xs:string">
+					<Description>Name der Gerätefunktion (Funktionstext)</Description>
+				</Attribute>
+				<Attribute Name="DeviceFunctionTextShort" AttributeDataType="xs:string">
+					<Description>Name der Gerätefunktion (Funktionstext) in Kurzform</Description>
+				</Attribute>
+				<Attribute Name="TypeSensor" AttributeDataType="xs:boolean">
+					<Description>Funktionstyp Sensor, Erfassen</Description>
+					<Attribute Name="TypeSensorSignal" AttributeDataType="xs:boolean" />
+					<Attribute Name="TypeSensorValue" AttributeDataType="xs:boolean" />
+				</Attribute>
+				<Attribute Name="TypeSensorBinary" AttributeDataType="xs:boolean">
+					<Description>Binäres Sensor-Signal</Description>
+					<Attribute Name="TypeLogicControl" AttributeDataType="xs:boolean" />
+					<Attribute Name="TypeLogicCommunication" AttributeDataType="xs:boolean" />
+				</Attribute>
+				<Attribute Name="TypeSensorValue" AttributeDataType="xs:boolean">
+					<Description>Messwert</Description>
+					<Attribute Name="TypeActuatorSignal" AttributeDataType="xs:boolean" />
+					<Attribute Name="TypeActuatorValue" AttributeDataType="xs:boolean" />
+				</Attribute>
+				<Attribute Name="TypeLogic" AttributeDataType="xs:boolean">
+					<Description>Funktionstyp Logik, Auswerten</Description>
+				</Attribute>
+				<Attribute Name="TypeLogicControl" AttributeDataType="xs:boolean">
+					<Description>Steuerung</Description>
+				</Attribute>
+				<Attribute Name="TypeLogicCommunication" AttributeDataType="xs:boolean">
+					<Description>Kommunikation</Description>
+				</Attribute>
+				<Attribute Name="TypeActuator" AttributeDataType="xs:boolean">
+					<Description>Funktionstyp Aktor, Reagieren</Description>
+				</Attribute>
+				<Attribute Name="TypeActuatorBinary" AttributeDataType="xs:boolean">
+					<Description>Binäres Aktors-Signal</Description>
+				</Attribute>
+				<Attribute Name="TypeActuatorValue" AttributeDataType="xs:boolean">
+					<Description>Sollwert, Stellwert</Description>
+				</Attribute>
+				<Attribute Name="TypeConnection" AttributeDataType="xs:boolean">
+					<Description>Verbindung</Description>
+				</Attribute>
+				<Attribute Name="TypeAccessory" AttributeDataType="xs:boolean">
+					<Description>Zubehör</Description>
+				</Attribute>
+				<Attribute Name="RelatedMechanicalDrawing" AttributeDataType="xs:boolean">
+					<Description>Gerätefunktion relevant für Mechanik-CAD (Konstruktionszeichnung)</Description>
+				</Attribute>
+				<Attribute Name="RelatedElectricalDiagram" AttributeDataType="xs:boolean">
+					<Description>Gerätefunktion relevant für Elektro-CAD (Schaltplan)</Description>
+				</Attribute>
+				<Attribute Name="RelatedFluidPowerDiagram" AttributeDataType="xs:boolean">
+					<Description>Gerätefunktion relevant für Fluid-CAD (Fluidplan)</Description>
+				</Attribute>
+				<Attribute Name="RelatedPIDiagram" AttributeDataType="xs:boolean">
+					<Description>Gerätefunktion relevant für Prozess-CAD (R&amp;I-Fließschema)</Description>
+				</Attribute>
+				<Attribute Name="RelatedSoftware" AttributeDataType="xs:boolean">
+					<Description>Gerätefunktion relevant für Programmiersoftware</Description>
+				</Attribute>
+				<Attribute Name="RelatedSoftwareSafetyIO" AttributeDataType="xs:boolean">
+					<Description>Gerätefunktion relevant für sicherheitsgerichtete Programmiersoftware</Description>
+				</Attribute>
+				<Attribute Name="ConnectionSource" AttributeDataType="xs:string">
+					<Description>Anschlussquelle der Gerätefunktion</Description>
+					<Attribute Name="ConnectionSign" AttributeDataType="xs:string">
+						<Description>Referenzkennzeichen der Anschlussquelle</Description>
+					</Attribute>
+				</Attribute>
+				<Attribute Name="ConnectionDestination" AttributeDataType="xs:string">
+					<Description>Anschlussziel der Gerätefunktion</Description>
+					<Attribute Name="ConnectionSign" AttributeDataType="xs:string">
+						<Description>Referenzkennzeichen des Anschlusszieles</Description>
+					</Attribute>
+				</Attribute>
+				<Attribute Name="SafetyFunctionName" AttributeDataType="xs:string">
+					<Description>Sicherheitsfunktion, in der die Gerätefunktion verwendet wird</Description>
+				</Attribute>
+				<Attribute Name="SpanOfControlName" AttributeDataType="xs:string">
+					<Description>Name des Maschinenbereiches, in dem die Gerätefunktion eingebunden ist (Wirkungsbereich)</Description>
+				</Attribute>
+				<Attribute Name="DeviceFunctionUserDefinedText" AttributeDataType="xs:string">
+					<Description>Informationen des Anwenders zur Gerätefunktion</Description>
+				</Attribute>
+				<Attribute Name="DeviceFunctionParameterUser" AttributeDataType="xs:string">
+					<Description>Anwendungsspezifischer Parameter der Gerätefunktion</Description>
+					<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+						<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+					</Attribute>
+					<Attribute Name="ParamterName" AttributeDataType="xs:string">
+						<Description>Name des Parameters</Description>
+					</Attribute>
+					<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+						<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+					</Attribute>
+					<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+						<Description>Wert des Parameters</Description>
+					</Attribute>
+					<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+						<Description>Datentyp des Parameters</Description>
+					</Attribute>
+					<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+						<Description>SI Einheit des Parameters</Description>
+					</Attribute>
+					<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+						<Description>Beschreibung des Parameters</Description>
+					</Attribute>
+				</Attribute>
+			</RoleClass>
+		</RoleClass>
+		<RoleClass Name="VDMA66415_ExternalData" RefBaseClassPath="AutomationMLBPRRoleClassLib/ExternalData">
+			<RoleClass Name="UnitDrawingFile" RefBaseClassPath="VDMA66415RoleClassLib/VDMA66415_ExternalData" />
+			<RoleClass Name="UnitDocFile" RefBaseClassPath="VDMA66415RoleClassLib/VDMA66415_ExternalData" />
+			<RoleClass Name="UnitUserDefinedFile" RefBaseClassPath="VDMA66415RoleClassLib/VDMA66415_ExternalData" />
+			<RoleClass Name="DeviceDataSheetFile" RefBaseClassPath="VDMA66415RoleClassLib/VDMA66415_ExternalData" />
+			<RoleClass Name="DeviceDocFile" RefBaseClassPath="VDMA66415RoleClassLib/VDMA66415_ExternalData" />
+			<RoleClass Name="DeviceUserDefinedFile" RefBaseClassPath="VDMA66415RoleClassLib/VDMA66415_ExternalData" />
+		</RoleClass>
+	</RoleClassLib>
+</CAEXFile>

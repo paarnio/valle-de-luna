@@ -1,0 +1,54 @@
+<rdf:RDF xmlns="http://siima.net/ontologies/2017/caex/" 
+	xml:base="http://siima.net/ontologies/2017/caex/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
+	#* FOR STRING FUNCTIONS PUT StringUtils class TO CONTEXT: $StringUtils
+	 SEE: https://stackoverflow.com/questions/6998412/velocity-string-function
+	 TOIMII
+	 *#
+	
+	#set( $amlns = 'http://data.ifs.tuwien.ac.at/aml/ontology#')
+	#set( $xsdns = 'http://www.w3.org/2001/XMLSchema#')
+	
+	<owl:NamedIndividual rdf:about="$caexfile.FileName">
+		<rdf:type rdf:resource="${amlns}CAEXFile"/>
+	</owl:NamedIndividual>
+	#foreach ($ih in $caexfile.getInstanceHierarchy())
+	<owl:NamedIndividual rdf:about="$ih.Name">
+		<rdf:type rdf:resource="${amlns}InstanceHierarchy"/>
+	</owl:NamedIndividual>		
+    #end
+	
+	#foreach ($ih in $caexfile.getInstanceHierarchy())
+       #foreach ($ie in $ih.InternalElement)
+			#walkIElements($ie, $ih)
+		#end		
+    #end
+
+	## --Recursive walk through InternalElements--
+	#macro(walkIElements $node $ihierarchy)
+	#set( $sucref = $node.RefBaseSystemUnitPath )
+	#set( $SUCrep = $StringUtils.replace($sucref,"/","_") )
+	#set( $URIhelp = $UriHelper.createInstanceUri("InternalElement","$ihierarchy.Name","$node.Name", "$node.Name") )
+	<owl:NamedIndividual rdf:about="${amlns}InternalElement-INST_IH-${ihierarchy.Name}_IE-$node.Name">
+		<rdf:type rdf:resource="${amlns}InternalElement"/>
+		<amlont:name rdf:datatype="${xsdns}string">$node.Name</amlont:name>
+		<amlont:iD rdf:datatype="${xsdns}string">$node.ID</amlont:iD>
+		<amlont:refBaseSystemUnitPath rdf:resource="${amlns}SystemUnitClass-INST_${SUCrep}"/>
+		#foreach ($att in $node.getAttribute())
+			#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
+			##<amlont:attribute rdf:resource="${amlns}Attribute-INST_IH-${ihierarchy.Name}_IE-${node.Name}_$att.getName()"/>
+			<amlont:attribute rdf:resource="${URIhelp}"/>
+		#end
+	</owl:NamedIndividual>	
+	#if ($node.InternalElement.size() > 0)
+		#foreach ($child in $node.InternalElement)
+			#walkIElements($child $ihierarchy)
+		#end
+	#end
+	#end
+	
+</rdf:RDF>

@@ -1,0 +1,91 @@
+<model num='1'>
+<literal predicate='connected' atom='connected(leg1, leg2)'>connected(leg1, leg2)</literal>
+<literal predicate='connected' atom='connected(leg2, leg1)'>connected(leg2, leg1)</literal>
+<literal predicate='connected' atom='connected(leg2, leg3)'>connected(leg2, leg3)</literal>
+<literal predicate='connected' atom='connected(leg3, leg2)'>connected(leg3, leg2)</literal>
+<literal predicate='connected' atom='connected(leg3, leg4)'>connected(leg3, leg4)</literal>
+<literal predicate='connected' atom='connected(leg4, leg3)'>connected(leg4, leg3)</literal>
+<literal predicate='connected' atom='connected(leg4, leg5)'>connected(leg4, leg5)</literal>
+<literal predicate='connected' atom='connected(leg5, leg4)'>connected(leg5, leg4)</literal>
+<literal predicate='connected' atom='connected(leg5, leg6)'>connected(leg5, leg6)</literal>
+<literal predicate='connected' atom='connected(leg6, leg5)'>connected(leg6, leg5)</literal>
+<literal predicate='connected' atom='connected(leg6, leg7)'>connected(leg6, leg7)</literal>
+<literal predicate='connected' atom='connected(leg7, leg6)'>connected(leg7, leg6)</literal>
+<literal predicate='mainbranch' atom='mainbranch(leg1)'>mainbranch(leg1)</literal>
+<literal predicate='mainbranch' atom='mainbranch(leg2)'>mainbranch(leg2)</literal>
+<literal predicate='mainbranch' atom='mainbranch(leg3)'>mainbranch(leg3)</literal>
+<literal predicate='mainbranch' atom='mainbranch(leg4)'>mainbranch(leg4)</literal>
+<literal predicate='mainbranch' atom='mainbranch(leg5)'>mainbranch(leg5)</literal>
+<literal predicate='hasint' atom='hasint(leg1, bot1)'>hasint(leg1, bot1)</literal>
+<literal predicate='hasint' atom='hasint(leg1, top1)'>hasint(leg1, top1)</literal>
+<literal predicate='hasint' atom='hasint(leg2, bot2)'>hasint(leg2, bot2)</literal>
+<literal predicate='hasint' atom='hasint(leg2, top2)'>hasint(leg2, top2)</literal>
+<literal predicate='hasint' atom='hasint(leg3, bot3)'>hasint(leg3, bot3)</literal>
+<literal predicate='hasint' atom='hasint(leg3, top3)'>hasint(leg3, top3)</literal>
+<literal predicate='hasint' atom='hasint(leg4, bot4)'>hasint(leg4, bot4)</literal>
+<literal predicate='hasint' atom='hasint(leg4, top4)'>hasint(leg4, top4)</literal>
+<literal predicate='hasint' atom='hasint(leg5, bot5)'>hasint(leg5, bot5)</literal>
+<literal predicate='hasint' atom='hasint(leg5, top5)'>hasint(leg5, top5)</literal>
+<literal predicate='hasint' atom='hasint(leg5, top5b)'>hasint(leg5, top5b)</literal>
+<literal predicate='hasint' atom='hasint(leg5, bot5b)'>hasint(leg5, bot5b)</literal>
+<literal predicate='hasint' atom='hasint(leg6, bot6)'>hasint(leg6, bot6)</literal>
+<literal predicate='hasint' atom='hasint(leg6, top6)'>hasint(leg6, top6)</literal>
+<literal predicate='hasint' atom='hasint(leg7, bot7)'>hasint(leg7, bot7)</literal>
+<literal predicate='hasint' atom='hasint(leg7, top7)'>hasint(leg7, top7)</literal>
+<literal predicate='topi' atom='topi(top1)'>topi(top1)</literal>
+<literal predicate='topi' atom='topi(top2)'>topi(top2)</literal>
+<literal predicate='topi' atom='topi(top3)'>topi(top3)</literal>
+<literal predicate='topi' atom='topi(top4)'>topi(top4)</literal>
+<literal predicate='topi' atom='topi(top5)'>topi(top5)</literal>
+<literal predicate='topi' atom='topi(top6)'>topi(top6)</literal>
+<literal predicate='topi' atom='topi(top7)'>topi(top7)</literal>
+<literal predicate='topi' atom='topi(top5b)'>topi(top5b)</literal>
+<literal predicate='lego' atom='lego(leg1)'>lego(leg1)</literal>
+<literal predicate='lego' atom='lego(leg2)'>lego(leg2)</literal>
+<literal predicate='lego' atom='lego(leg3)'>lego(leg3)</literal>
+<literal predicate='lego' atom='lego(leg4)'>lego(leg4)</literal>
+<literal predicate='lego' atom='lego(leg5)'>lego(leg5)</literal>
+<literal predicate='lego' atom='lego(leg6)'>lego(leg6)</literal>
+<literal predicate='lego' atom='lego(leg7)'>lego(leg7)</literal>
+<literal predicate='level' atom='level(leg1, 1)'>level(leg1, 1)</literal>
+<literal predicate='level' atom='level(leg2, 2)'>level(leg2, 2)</literal>
+<literal predicate='level' atom='level(leg3, 3)'>level(leg3, 3)</literal>
+<literal predicate='level' atom='level(leg4, 4)'>level(leg4, 4)</literal>
+<literal predicate='level' atom='level(leg5, 5)'>level(leg5, 5)</literal>
+<literal predicate='level' atom='level(leg6, 4)'>level(leg6, 4)</literal>
+<literal predicate='level' atom='level(leg7, 3)'>level(leg7, 3)</literal>
+<literal predicate='approaching' atom='-approaching(train)'>-approaching(train)</literal>
+<literal predicate='link' atom='link(top1, bot2)'>link(top1, bot2)</literal>
+<literal predicate='link' atom='link(top2, bot3)'>link(top2, bot3)</literal>
+<literal predicate='link' atom='link(top3, bot4)'>link(top3, bot4)</literal>
+<literal predicate='link' atom='link(top4, bot5)'>link(top4, bot5)</literal>
+<literal predicate='link' atom='link(top6, bot5b)'>link(top6, bot5b)</literal>
+<literal predicate='link' atom='link(top7, bot6)'>link(top7, bot6)</literal>
+<literal predicate='bottomi' atom='bottomi(bot1)'>bottomi(bot1)</literal>
+<literal predicate='bottomi' atom='bottomi(bot2)'>bottomi(bot2)</literal>
+<literal predicate='bottomi' atom='bottomi(bot3)'>bottomi(bot3)</literal>
+<literal predicate='bottomi' atom='bottomi(bot4)'>bottomi(bot4)</literal>
+<literal predicate='bottomi' atom='bottomi(bot5)'>bottomi(bot5)</literal>
+<literal predicate='bottomi' atom='bottomi(bot6)'>bottomi(bot6)</literal>
+<literal predicate='bottomi' atom='bottomi(bot7)'>bottomi(bot7)</literal>
+<literal predicate='bottomi' atom='bottomi(bot5b)'>bottomi(bot5b)</literal>
+<literal predicate='subbranch' atom='subbranch(leg6)'>subbranch(leg6)</literal>
+<literal predicate='subbranch' atom='subbranch(leg7)'>subbranch(leg7)</literal>
+<literal predicate='interface' atom='interface(bot1)'>interface(bot1)</literal>
+<literal predicate='interface' atom='interface(bot2)'>interface(bot2)</literal>
+<literal predicate='interface' atom='interface(bot3)'>interface(bot3)</literal>
+<literal predicate='interface' atom='interface(bot4)'>interface(bot4)</literal>
+<literal predicate='interface' atom='interface(bot5)'>interface(bot5)</literal>
+<literal predicate='interface' atom='interface(top1)'>interface(top1)</literal>
+<literal predicate='interface' atom='interface(top2)'>interface(top2)</literal>
+<literal predicate='interface' atom='interface(top3)'>interface(top3)</literal>
+<literal predicate='interface' atom='interface(top4)'>interface(top4)</literal>
+<literal predicate='interface' atom='interface(top5)'>interface(top5)</literal>
+<literal predicate='interface' atom='interface(bot6)'>interface(bot6)</literal>
+<literal predicate='interface' atom='interface(bot7)'>interface(bot7)</literal>
+<literal predicate='interface' atom='interface(top6)'>interface(top6)</literal>
+<literal predicate='interface' atom='interface(top7)'>interface(top7)</literal>
+<literal predicate='interface' atom='interface(top5b)'>interface(top5b)</literal>
+<literal predicate='interface' atom='interface(bot5b)'>interface(bot5b)</literal>
+<literal predicate='base' atom='base(leg1)'>base(leg1)</literal>
+</model>
