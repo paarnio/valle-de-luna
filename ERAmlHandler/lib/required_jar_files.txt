@@ -1,0 +1,21 @@
+REQUIRED JAR FILES
+-----------------
+(2017-06-02)VPA
+
+lib/jena-3.1.1
+--------------
+28 jena jars
+
+lib/velocity:
+-------------
+velocity-1.7-dep.jar
+
+lib/dlv:
+--------
+DLVwrapper-v4.2.jar
+
+lib/logger:
+----------
+slf4j-log4j12-1.7.6.jar
+slf4j-api-1.7.6.jar
+log4j-1.2.17.jar
