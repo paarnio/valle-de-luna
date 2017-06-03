@@ -60,7 +60,6 @@ public class XsAnyTypeSolver {
 	        NodeList nods = document.getDocumentElement().getChildNodes();
 	        for (int i =0; i< nods.getLength(); i++){
 	        	Node node = nods.item(i);
-	        	//System.out.println("-XsAnyTypeSolver: marshal() Child node nr(" + (i+1) + ") is " + node.getNodeName());
 	        	logger.info("marshal() Child node nr(" + (i+1) + ") is " + node.getNodeName());
 	        }
 	       	       
@@ -96,12 +95,6 @@ public class XsAnyTypeSolver {
 	    } catch (Exception e) {
 	        throw new RuntimeException(e);
 	    }
-	}
-
-
-	public static void main(String[] args) {
-		
-
 	}
 
 }
