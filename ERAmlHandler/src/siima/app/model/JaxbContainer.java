@@ -133,6 +133,9 @@ public class JaxbContainer {
 		/* --------CAEXFile content objects  --------*/
 		/* CAEXFile: AdditionalInformation (xs.anyType) 
 		 * (TOIMII e.g. by loading Lego_example_mod2.aml (and using caex_2.1.5_orig_extended classes)
+		 * CAEXFile is an extension of CAEXBasicObject (containing AdditionalInformation) and
+		 * we need an object of that class with caex object's data content
+		 * in order to recover the xs:anyType content of AdditionalInformation
 		 */
 		CAEXBasicObject basicObject = (CAEXBasicObject)caex;
 		CAEXBasicObject newbasic = TEMP_Helpper.insertCopyContent(basicObject); 
@@ -743,9 +746,9 @@ public class JaxbContainer {
 					logger.log(Level.INFO,
 							"parseAnyTypeContent() AdditionalInformation object as string:\n" + addInfo.toString());
 					
-					// ---- UNMARSHALL -----
-					// EXTRA content class defined for xs:anyType content
-					// container
+					/* ---- UNMARSHALL -----
+					 * EXTRA content class defined for xs:anyType content container 
+					 */
 					AppInfoEXTRAContentType appInfoExtra = new AppInfoEXTRAContentType();
 					appInfoExtra = (AppInfoEXTRAContentType) XsAnyTypeSolver.unmarshal(addInfo, null,
 							AppInfoEXTRAContentType.class);
