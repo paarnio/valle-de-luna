@@ -298,12 +298,19 @@ public class MainAppController {
 			node = rolecltreemodel.getLastSelectedNode();
 		if (tabnumber == 3)
 			node = interfacecltreemodel.getLastSelectedNode();
+		
 		if (node != null) {
 			// System.out.println("= MainAppController:
 			// getSelectedElementInfo(): " + node.getName());
 			logger.info("getSelectedElementInfo(): " + node.getName());
-			Object element = node.getJaxbObject();
-			basicinfo = graphbuilder.getBasicInfo(element);
+			
+			if("CAEXFile".equals(node.getNodetype())){				
+				String fileJaxbObject = (String)node.getJaxbObject();
+				basicinfo = fileJaxbObject;
+			} else {			
+				Object element = node.getJaxbObject();
+				basicinfo = graphbuilder.getBasicInfo(element);
+			}
 			strbuff.append(basicinfo);
 
 		}

@@ -81,6 +81,7 @@ public class JaxbContainer {
 	public Path mainFilePath; //latest loaded caex file
 	public List<Path> loadedCaexFilePaths; //all loaded caex files
 	public Object caexRootObject;
+	public int caexFileCount = 0;
 	
 	public ElementNode ieRootElement = new ElementNode("CAEXFile:InternalElements");
 	public ElementNode suclRootElement = new ElementNode("CAEXFile:SysUnitClassLibraries");
@@ -108,13 +109,20 @@ public class JaxbContainer {
 		this.ieRootElement = rootElement;
 	}
 	
+	public int getCaexFileCount() {
+		return caexFileCount;
+	}
+
+	public void setCaexFileCount(int caexFileCount) {
+		this.caexFileCount = caexFileCount;
+	}
 
 	public void clearRootElements(){
 		//TODO: to be called when new project is created
-		ieRootElement = new ElementNode("CAEXFile:InternalElements");
-		suclRootElement = new ElementNode("CAEXFile:SysUnitClassLibraries");
-		roleclRootElement = new ElementNode("CAEXFile:RoleClassLibraries");
-		ifaceclRootElement = new ElementNode("CAEXFile:InterfaceClassLibraries");
+		ieRootElement = new ElementNode("CAEXFiles:InternalElements");
+		suclRootElement = new ElementNode("CAEXFiles:SysUnitClassLibraries");
+		roleclRootElement = new ElementNode("CAEXFiles:RoleClassLibraries");
+		ifaceclRootElement = new ElementNode("CAEXFiles:InterfaceClassLibraries");
 		
 		logger.info("clearElementTree() all root Elements cleared!");
 	}
@@ -127,6 +135,7 @@ public class JaxbContainer {
 		List<ElementNode> caexIfaceclchildren = new ArrayList<ElementNode>();
 
 		CAEXFile caex = (CAEXFile) caexRootObject;
+		String caexfilename = caex.getFileName();
 		//System.out.println("== JaxbContainer:CAEXFile:" + caex.getFileName());
 		logger.info("buildElementGraphFromXML() CAEXFile:" + caex.getFileName());
 
@@ -140,17 +149,38 @@ public class JaxbContainer {
 		CAEXBasicObject basicObject = (CAEXBasicObject)caex;
 		CAEXBasicObject newbasic = TEMP_Helpper.insertCopyContent(basicObject); 
 				
-		String content = parseAnyTypeContent("CAEXBasicObject", newbasic, "additionalInformation", 1 );	
+		String addInfoContent = parseAnyTypeContent("CAEXBasicObject", newbasic, "additionalInformation", 1 );	
 		//List<Object> addInfoList = caex.getAdditionalInformation();
 		//System.out.println("========== CAEX ADD INFO: " + addInfoList.toString());
-		logger.info("buildElementGraphFromXML() CAEXFile:AdditionalInformation (1):" + content);
+		logger.info("buildElementGraphFromXML() CAEXFile:AdditionalInformation (1):" + addInfoContent);
 		
-		
-		//ChangeMode changeMode = caex.getChangeMode();
+		int fileNr = this.getCaexFileCount() + 1;
+		this.setCaexFileCount(fileNr);
+		StringBuffer fileinfobuf = new StringBuffer();
+		ChangeMode changeMode = caex.getChangeMode();
 		Copyright cright = caex.getCopyright();
 		Description description = caex.getDescription();
 		String schemaVersion = caex.getSchemaVersion();
 		Version version = caex.getVersion();
+		
+		fileinfobuf.append("\n___CAEXFile_BASIC_INFO___");
+		fileinfobuf.append("\nINFO: CAEXFile_" + fileNr + " Name: " + caexfilename);
+		fileinfobuf.append("\nINFO: Description: " + caex.getDescription());
+		fileinfobuf.append("\nINFO: SchemaVersion: " + caex.getSchemaVersion());
+		fileinfobuf.append("\nINFO: Version: " + caex.getVersion());
+		fileinfobuf.append("\nINFO: ChangeMode: " + caex.getChangeMode());
+		fileinfobuf.append("\nINFO: Copyright: " + caex.getCopyright());
+		fileinfobuf.append("\nADD_INFO:");
+		fileinfobuf.append(addInfoContent);
+		
+		String fileJaxbObject = fileinfobuf.toString();
+		
+		
+		ElementNode caexFileElement = new ElementNode("CAEXFile_" + fileNr + ":" + caexfilename);
+		caexFileElement.setNodetype("CAEXFile");
+		caexFileElement.setJaxbObject(fileJaxbObject); //TODO
+		List<ElementNode> caexFileElementList = new ArrayList<ElementNode>();
+		caexFileElementList.add(caexFileElement);
 
 		// Caex object lists
 		List<InstanceHierarchy> instHList = caex.getInstanceHierarchy();
@@ -162,6 +192,7 @@ public class JaxbContainer {
 
 		/* Adding InstanceHierarchy into the ElementNode tree */
 		if ((instHList != null) && (!instHList.isEmpty())) {
+			
 			logger.info("CAEXFile:instanceHierarchyList");
 			for (InstanceHierarchy ih : instHList) {
 				logger.info("CAEXFile:instanceHierarchy name:" + ih.getName());
@@ -174,7 +205,8 @@ public class JaxbContainer {
 				parseInternalElementsRecursion(ihierarchy, null, internals, 0);
 
 			}
-			ElementNode.linkChildren(ieRootElement, ichildren);
+			ElementNode.linkChildren(ieRootElement, caexFileElementList);
+			ElementNode.linkChildren(caexFileElement, ichildren);
 		}
 
 		/*
@@ -196,7 +228,8 @@ public class JaxbContainer {
 				parseSystemUnitFamilyTypeRecursion(suchierarchy, null, suftypes, 0);
 
 			}
-			ElementNode.linkChildren(suclRootElement, caexSuclchildren);
+			ElementNode.linkChildren(suclRootElement, caexFileElementList);
+			ElementNode.linkChildren(caexFileElement, caexSuclchildren);
 		}
 
 		/*
@@ -219,11 +252,13 @@ public class JaxbContainer {
 				parseRoleFamilyTypeRecursion(roleclasshierarchy, null, roleftypes, 0);
 
 			}
-			ElementNode.linkChildren(roleclRootElement, caexRoleclchildren);
+			ElementNode.linkChildren(roleclRootElement, caexFileElementList);
+			ElementNode.linkChildren(caexFileElement, caexRoleclchildren);
+			//ElementNode.linkChildren(roleclRootElement, caexRoleclchildren);
 		}
 
 		/*
-		 * TODO: Creating InterfaceClassLib tree into another ElementNode tree
+		 * Creating InterfaceClassLib tree into another ElementNode tree
 		 */
 
 		if ((interfaceClassLibList != null) && (!interfaceClassLibList.isEmpty())) {
@@ -242,7 +277,9 @@ public class JaxbContainer {
 				parseCAEXObjectTypesRecursion(ifaceclasshierarchy, null, ifaceftypes, 0);
 
 			}
-			ElementNode.linkChildren(ifaceclRootElement, caexIfaceclchildren);
+			ElementNode.linkChildren(ifaceclRootElement, caexFileElementList);
+			ElementNode.linkChildren(caexFileElement, caexIfaceclchildren);
+			//ElementNode.linkChildren(ifaceclRootElement, caexIfaceclchildren);
 		}
 		return ieRootElement;
 	}

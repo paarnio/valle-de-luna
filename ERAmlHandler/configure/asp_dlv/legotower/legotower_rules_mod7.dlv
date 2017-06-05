@@ -1,0 +1,200 @@
+% legotower_rules_mod7.dlv
+% ==============
+% (BOTH FILES: legotower_rules_mod7.dlv AND legotower_facts_mod7.db are needed in reasoning)
+% MOD7 TOIMII
+% APRIORI ASSUMPTIONS AND REQUIREMENTS:
+% - REQ: #maxint needs to be AT LEAST 2xlegocount+2 (See. zenlevel calculations)
+% - EITHER BASE LEGOS (pred: base(lego) in .db)(One or many at the lowest hight level) 
+% - OR one SOMELEGO (pred: somelego(lego) in .db) ought to be defined as facts.
+% - LEGO TYPE hierarchy discribed in Fig 1. is assumed.
+% - i.e the lego types should be from the set (square; rectangle)
+% - INTERFACE TYPE hierarchy discribed in Fig 2. is assumed.
+% - i.e. lego linkage facts (pred: link(leg1,topA,leg2,botA)) should specify 
+% - a lego interface to be from the set (topA; topC; botA; botC)
+% SOME NOTES:
+% - Defined base legos (pred: base(lego) in .db) ought to be at the same, lowest hight level (1).
+% - If baselegos are defined, mainbranches of the legotree are constructed upwards from them.
+% - If baselegos are NOT defined, mainbranches of the legotree are constructed upwards from 'zenbaselego's.
+% - ('zenbaselego's are the lowest level legos at zenlevel hierarchy)
+% - (this means that, if the set of base legos contains all the lowest level (1) legos, 
+% - the generated mainbranches (and subbrances) are identical with those genereted without
+% - any base legos specified.)
+% - SOMELEGO (pred:somelego(leg)) is the starting point of calculating the relative hight levels (zenlevels))  
+% ---------------------------------------  
+% 
+% 2017-06-05 MODIFYING: link facts is not needed to be directed from top to bottom interface.
+% Rules in .dlv generate directed links (dlink-predicate) from the indirected (link-predicate)
+% 2017-05-28 MODIFYING: counting levels and searching the lowest legos without a priori base legos
+% starting at zenlevel legocount+1.
+%
+% 2017-04-28 MODIFYING structure: each lego has interface types (not instances).
+% legotower program divided into two separate files: facts .dlv & rules .db
+%
+% ----- MANUAL --
+% http://www.dlvsystem.com/html/DLV_User_Manual.html
+% -n=<n>        Compute at most <n> stable models (-n=0 and -n=all give all).
+% -N=<N>        Limit integers to [0,<N>].
+% -silent -filter=predicate1 -filter=predicate2
+% ----- RUNNING in powershell ./dlv ---
+% MOD7:>./dlv.mingw.exe -silent -filter=zenlevel -filter=level -filter=zenbaselego -n=1 ./work/legotower_rules_mod7.dlv ./work/legotower_facts_mod7.db
+% dlv>./dlv.mingw.exe -silent -filter=mainbranch -filter=subbranch -filter=subbranchinterface -n=1 ./work/legotower_rules_mod6.dlv ./work/legotower_facts_mod6.db
+% NOTE: #maxint defined in this program -> parameter -N=10 cannot be used in command
+% (pakki #maxint = 2 . pakki #int(X1).)
+% ============ Lego Tree ==============
+% Mainbranch legos 1-8
+% Subbranch legos 6-7, 9-11
+% Base legos 1 and 15
+%
+%			LEGOTREE	LEVEL
+%		    | 8 - 8 |		: 6
+%	 | -11- | 9 | 5 - 5 |	: 5
+%	 |12 | -10- | 4 | 6 |	: 4
+%	 |13 |		| 3 | 7 |	: 3
+%	 |14 |		| 2 |		: 2
+%	 |15 |		| 1 |		: 1
+% 
+%---------------------------------
+%		lego		
+%		/	\		
+%	square	rectangle
+%
+% ----------------------------
+%
+%			INTERFACE TYPE
+%			/			\
+%		bottomi			topi
+%		/	\			/	\
+%	botA	botC	topA	topC
+%
+%----------------------------------
+%  In mainbranch: Level defined the order of construction. It can grow only upwards
+%  In subbranch: should be constructed separately also in level order and connected to the main branch when ready.
+% --- THIS IS THE RULES FILE .dlv (FACTS are in .db file)
+% ----Interfaces----
+% in facts.db
+% ----Lego has interfaces
+% in facts.db
+% ---- Interface linkions ------
+% in facts.db
+% #maxint in db
+% #maxint = 40.
+
+% --- lego types and interface types
+lego(L) :- square(L). 
+lego(L) :- rectangle(L).
+
+legocount(X) :- #count{L : lego(L)} = X.
+
+% --- interfaces
+bottomi(botA). bottomi(botC).
+topi(topA). topi(topC).
+
+interface(I):- bottomi(I).
+interface(I2):- topi(I2).
+
+% ---Lego has interfaces
+hasint(L,botA) :- lego(L).
+hasint(L,topA) :- lego(L).
+hasint(L,botC) :- rectangle(L).
+hasint(L,topC) :- rectangle(L).
+
+% --- UNDIRECTED AND DIRECTED LINKS ------
+%  Note: link(L1,I1,L2,I2) is undirected link between two lego interfaces
+%  links are the facts defined in .db 
+%  NOTE: dlink(L1,I1,L2,I2) is (upward) directed relation from 
+%  the top interface to bottom interface.
+
+dlink(L1,I1,L2,I2) :- link(L1,I1,L2,I2),lego(L1),lego(L2),topi(I1),bottomi(I2).
+dlink(L2,I2,L1,I1) :- link(L1,I1,L2,I2),lego(L1),lego(L2),topi(I2),bottomi(I1).
+
+% --- Connected Legos ------
+%  Legos that have a dlink between their interfaces are connected
+%  Note: connected is symmetric relation 
+% (NOTE: dlink is (upward) directed relation from top interface to bottom interface)
+%--- NEW --- now simplified
+connected(L1,L2):- dlink(L1,I1,L2,I2),lego(L1),lego(L2),interface(I1),interface(I2).
+% is symmetric:
+connected(L2,L1):- connected(L1,L2),lego(L1),lego(L2).
+
+%----- Mainbranch ----------
+% Mainbranch of a legotree. 
+% IF base legos HAVE been defined(in db) we start from them.
+% MOD7 (See ZEN RULES)
+mainbranch(L) :- hasbase, base(L), lego(L).
+% ELSE we start from zenbaselego's
+mainbranch(L) :- not hasbase, zenbaselego(L), lego(L).
+
+ 
+%--- NEW --- now simplified ( TODO: if correctly dlinked, also (..topi(I1), bottomi(I2)) could be removed.
+mainbranch(L2) :- mainbranch(L1), lego(L1), lego(L2), dlink(L1,I1,L2,I2), topi(I1), bottomi(I2).
+
+%---- LEGO LEVEL ------
+% lego can be at one level only (ERISUURI ? mik‰ symboli)
+:- level(Lego,L1), level(Lego, L2), lego(Lego), L1!=L2.
+
+% Level of a lego L2: baselego at level 1
+
+level(Lego,1) :- base(Lego), lego(Lego).
+%--- NEW --- now simplified 
+level(L2,Lev2) :- dlink(L1,I1,L2,I2), lego(L1), lego(L2), level(L1,Lev1), Lev2 = Lev1+1.
+
+
+% ----Subbranch legos------
+subbranch(L2) :- not mainbranch(L2), mainbranch(L1), connected(L1,L2), lego(L2), lego(L2).
+subbranch(L3) :- not mainbranch(L3), subbranch(L2), connected(L2,L3), lego(L2), lego(L3).
+
+% level of subbranch legos L1 under a mainbranch lego L2
+%--- NEW --- now simplified
+level(L1,Lev1) :- dlink(L1,I1,L2,I2), subbranch(L1), mainbranch(L2), lego(L1), lego(L2), level(L2,Lev2), Lev1 = Lev2-1, Lev1>0.
+
+% level of subbranch legos L1 under a subbranch lego L2
+%--- NEW --- now simplified
+level(L1,Lev1) :- dlink(L1,I1,L2,I2), subbranch(L1), subbranch(L2), lego(L1), lego(L2), level(L2,Lev2), Lev1 = Lev2-1, Lev1>0.
+
+%--- NEW --- subbranchinterface(lego,interface) that is connected to mainbranch lego
+
+subbranchinterface(L1,I1) :- dlink(L1,I1,L2,I2), subbranch(L1), mainbranch(L2), lego(L1), lego(L2),interface(I1), interface(I2).
+
+% --- END RULES (FACTS in .db file) ------
+
+% --- RULES PART: ZEN RULES ----------
+% --- ZEN RULES defines zenlevels for the legos ---
+% zenlevels are needed, if there is no a'priori base legos defined,
+% in which case we do not know the lovest level legos (i.e. level 1 legos)
+% Zenlevel calculation  need to be started from some high enough pos. integer
+% to prevent negative level values.(in the worst case we start with the topmost
+% lego and all other legos will be under it)
+% How to select one lego as the begin lego? (called: somelogo(lego).)
+% How to define the level of the first lego (e.g.middle of [0-maxint] OR legocount + 1). 
+% Middle height ( def in .db) is in the middle of 0...#maxint (M=20 if #maxint=40)
+%
+
+% IF base legos HAVE been defined we start from them
+hasbase :- base(Lego), lego(Lego).
+% middleheight(M) OR llegocount(C), M=C+1
+zenlevel(Lego,M) :- hasbase, base(Lego), lego(Lego), legocount(C), M=C+1.
+
+% IF base legos have NOT been defined we start from THE SOMELEGO
+zenlevel(Lego,M) :- not hasbase, somelego(Lego), lego(Lego), legocount(C), M=C+1.
+
+zenlevel(L2,Lev2) :- dlink(L1,I1,L2,I2), lego(L1), lego(L2), zenlevel(L1,Lev1), Lev2 = Lev1+1.
+zenlevel(L1,Lev1) :- dlink(L1,I1,L2,I2), lego(L1), lego(L2), zenlevel(L2,Lev2), Lev1 = Lev2-1.
+
+hasZenLevel(L) :- zenlevel(L,Lev), lego(L). 
+ :- not hasZenLevel(L), lego(L). 
+hasUnder(L2) :- lego(L1), lego(L2), zenlevel(L1,Lev1), zenlevel(L2,Lev2), Lev2 > Lev1.
+zenbaselego(L1) :- not hasUnder(L1), lego(L1).
+zenbasenr(X) :- #count{L : zenbaselego(L)} = X.
+
+% --- FINAL ABSOLUTE LEVELS FROM RELATIVE ZENLEVELS --
+zenbaselevel(Lev) :- zenlevel(L,Lev), zenbaselego(L).
+
+% CONSTRAINT: only one zenbaselevel (should be if apriori defined base legos at the same level)
+ :- zenbaselevel(Lev1), zenbaselevel(Lev2), Lev1!=Lev2.
+
+abszenlevel(L1,ALev) :- zenlevel(L1,Lev1),zenbaselevel(BLev), lego(L1), TLev = Lev1+1, ALev = TLev-BLev.
+
+% --------PAKKI -------------
+% SEuraavat ovat oikein (jos #maxint = 40 m‰‰ritelty t‰ss‰ fileess‰)
+%puoli(X) :- M = #maxint,#int(X),X=M/2.
+%puoli(X) :- #int(X),X=10/2.
