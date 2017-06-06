@@ -64,8 +64,8 @@
 %			/			\
 %		bottomi			topi
 %		/	\			/	\
-%	botA	botC	topA	topC
-%
+%	botA	botC	 topA	topC
+% bottom; bottomA-C; top; topA-C
 %----------------------------------
 %  In mainbranch: Level defined the order of construction. It can grow only upwards
 %  In subbranch: should be constructed separately also in level order and connected to the main branch when ready.
@@ -86,8 +86,9 @@ lego(L) :- rectangle(L).
 legocount(X) :- #count{L : lego(L)} = X.
 
 % --- interfaces
-bottomi(botA). bottomi(botC).
-topi(topA). topi(topC).
+bottomi(bottom). bottomi(bottomA). bottomi(bottomB). bottomi(bottomC).
+bottomi(bot). bottomi(botA). bottomi(botB). bottomi(botC).
+topi(top). topi(topA). topi(topB). topi(topC).
 
 interface(I):- bottomi(I).
 interface(I2):- topi(I2).

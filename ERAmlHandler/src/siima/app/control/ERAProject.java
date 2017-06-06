@@ -140,7 +140,7 @@ public class ERAProject {
 		StringBuffer sbuf = FileUtil.readTextFile("\n", exitbackupfile);
 		// System.out.println("==INIFILE CONTENT: " + sbuf.toString());
 
-		if (sbuf.length() > 0) {
+		if ((sbuf!=null)&&(sbuf.length() > 0)) {
 			String[] blocks = sbuf.toString().split("#");
 			for (int i = 0; i < blocks.length; i++) {
 				String block = blocks[i];

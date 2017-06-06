@@ -63,7 +63,7 @@
 %		bottomi			topi
 %		/	\			/	\
 %	botA	botC	topA	topC
-%
+% bottom; bottomA-C; top; topA-C
 %----------------------------------
 
 % REQ: #maxint needs to be AT LEAST 2xlegocount+2 (See. zenlevel calculations) 

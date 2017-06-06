@@ -527,7 +527,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 
 		} else if (arg0.getSource() == mntmSaveResultModels) {
 			fileChooser.setDialogTitle("SAVE ASP SOLVER RESULT MODELS TO FILE:");
-			fileChooser.setCurrentDirectory(new File("./data"));
+			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data"));
 			fileChooser.setSelectedFile(null);
 
 			int retVal = fileChooser.showSaveDialog(MainFrame.this);

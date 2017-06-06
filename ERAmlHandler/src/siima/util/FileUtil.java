@@ -13,13 +13,19 @@ public class FileUtil {
 		StringBuffer sbuf = new StringBuffer();
 		String jsonString;
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(filepath));
-			String sCurrentLine;
-			while ((sCurrentLine = br.readLine()) != null) {
-				//System.out.println(sCurrentLine + line_end);
-				sbuf.append(sCurrentLine + line_end);
-			}
+			// Does file exist?
+			File pfile = new File(filepath);
+			if (pfile.exists()) {
 
+				BufferedReader br = new BufferedReader(new FileReader(filepath));
+				String sCurrentLine;
+				while ((sCurrentLine = br.readLine()) != null) {
+					// System.out.println(sCurrentLine + line_end);
+					sbuf.append(sCurrentLine + line_end);
+				}
+			} else {
+				System.out.println("- FileUtil:readTextFile() File does not exist: " + filepath);
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

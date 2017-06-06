@@ -60,7 +60,8 @@ public class MainAppController {
 		this.project.parseInitFile();
 		this.graphbuilder.setValidationSchemaFile(this.project.getCaexValidationSchema());
 		String lastproject = this.project.parseExitBackupFile("ResentProjectHome:");
-		viewFrame.setEraProjectHomeDirectory(lastproject);
+		if(lastproject!=null)
+			viewFrame.setEraProjectHomeDirectory(lastproject);
 	}
 
 	public void genereteCaexOntologyModel() {
