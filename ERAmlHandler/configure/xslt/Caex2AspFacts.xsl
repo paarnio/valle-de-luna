@@ -25,6 +25,7 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 		<xsl:text>% LegoTower ASP facts (.db) generated from CAEX by ERAmlHandler (Caex2AspFacts.xsl v1.0)&#xA;</xsl:text>
 	</xsl:variable>	
 	<xsl:value-of select="$HeaderLine"/>
+	<xsl:call-template name="specialfacts"/>
     <xsl:apply-templates select="//InternalElement"/>
 	<xsl:apply-templates select="//InternalLink"/>
 </xsl:template>
@@ -57,11 +58,17 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 			<xsl:variable name="CRERect" select="concat('rectangle(',$iename,').')"/>
 			<xsl:text>&#xA;</xsl:text>
 			<xsl:value-of select="$CRERect"/>
+			<!-- Checking if defined as a baselego i.e. baseblock='true'  -->
+			<xsl:variable name="BaseB" select="./Attribute[@Name='Baseblock']/Value[text()='true']/text()"/>
+			<xsl:if test="$BaseB"><xsl:value-of select="concat('base(',$iename,').')"/></xsl:if>
 		</xsl:when>
 		<xsl:when test="string($SUClass)='SquareLego'">
 			<xsl:variable name="CRESquare" select="concat('square(',$iename,').')"/>
 			<xsl:text>&#xA;</xsl:text>
 			<xsl:value-of select="$CRESquare"/>
+			<!-- Checking if defined as a baselego i.e. baseblock='true'  -->
+			<xsl:variable name="BaseB" select="./Attribute[@Name='Baseblock']/Value[text()='true']/text()"/>
+			<xsl:if test="$BaseB"><xsl:value-of select="concat('base(',$iename,').')"/></xsl:if>
 		</xsl:when>
 		<!--xsl:otherwise>
              <xsl:value-of select="concat('Unknown type: ',$SUClass)" />
@@ -124,5 +131,33 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
         </xsl:choose>
    </xsl:template>
 
+  <xsl:template name="specialfacts">
+		<!-- Specifying #maxint value  -->
+		<!-- REQ: #maxint needs to be AT LEAST 2xlegocount+2  -->
+		<xsl:variable name="RLegos" select="//InternalElement[contains(string(./@RefBaseSystemUnitPath),'RectangleLego')]"/>
+		<xsl:variable name="SLegos" select="//InternalElement[contains(string(./@RefBaseSystemUnitPath),'SquareLego')]"/>
+		<xsl:variable name="RLNames" select="$RLegos/@Name"/>
+		<xsl:variable name="SLNames" select="$SLegos/@Name"/>
+		<xsl:variable name="RCount" select="count($RLegos)"/>
+		<xsl:variable name="SCount" select="count($SLegos)"/>
+		<xsl:variable name="MaxInt" select="2*($RCount + $SCount + 1)"/>
+		<xsl:text>&#xA;</xsl:text>
+		<xsl:value-of select="concat('#maxint=', string($MaxInt),'.')"/>
+		<xsl:text>&#xA;</xsl:text>
+		<!-- Specifying one predicate somelego(legoname).  -->
+		<xsl:choose>
+            <xsl:when test="$RCount">
+				<xsl:value-of select="concat('somelego(',translate(string($RLNames), $uppercase, $smallcase),').')" />
+			</xsl:when>
+			<xsl:when test="$SCount">
+				<xsl:value-of select="concat('somelego(',translate(string($SLNames), $uppercase, $smallcase),').')" />
+			</xsl:when>
+            <xsl:otherwise>
+                 <xsl:text>&#xA;% NO LEGOS FOUND?? (InternalElements of classes RectangleLego or SquareLego)&#xA;</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+		<!--xsl:variable name="IEcolor" select="./Attribute[@Name='Color']/Value/text()"/-->
+		
+   </xsl:template>
 
 </xsl:stylesheet>

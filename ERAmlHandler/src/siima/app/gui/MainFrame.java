@@ -373,9 +373,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 */
 		if (arg0.getSource() == mntmAspSolver) {
 			fileChooser.setDialogTitle("SELECT ASP SOLVER EXE (dlv.mingw.exe)");
+			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory).getParentFile());
 			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-			fileChooser.setSelectedFile(null);
 			int retVal = fileChooser.showOpenDialog(MainFrame.this);			
 			if (retVal == JFileChooser.APPROVE_OPTION) {
 				System.out.println("GUIFrame: Open OK pressed");
@@ -386,7 +386,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			} else {
 				System.out.println("Frame: No ASP Solver Exe File Selected!");
 			}
-			fileChooser.setSelectedFile(null);
+			fileChooser.setSelectedFile(new File(""));
 			
 		} else if (arg0.getSource() == mntmOpenProject) {
 			fileChooser.setDialogTitle("OPEN ERA PROJECT");
@@ -470,9 +470,11 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			if(!".".equals(eraProjectHomeDirectory))
 				fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory));
 			else fileChooser.setCurrentDirectory(new File(this.latestOpenedFolder));
-			fileChooser.setSelectedFile(null);
+			
 			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			fileChooser.setMultiSelectionEnabled(true);
+			fileChooser.setSelectedFiles(new File[]{new File("")});
+			
 			int retVal = fileChooser.showOpenDialog(MainFrame.this);
 			if (retVal == JFileChooser.APPROVE_OPTION) {
 				System.out.println("GUIFrame: Open OK pressed");
@@ -487,13 +489,14 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			} else {
 				System.out.println("Frame: No Xsl context files selected!");
 			}
-			fileChooser.setSelectedFile(null);
+			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setMultiSelectionEnabled(false);
 
 		} else 	if (arg0.getSource() == mntmConfigureSchema) {
 			fileChooser.setDialogTitle("SELECT XML VALIDATIN SCHEMA FILE");
+			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/configure"));
-			fileChooser.setSelectedFile(null);
+			
 			int retVal = fileChooser.showOpenDialog(MainFrame.this);			
 			if (retVal == JFileChooser.APPROVE_OPTION) {
 				System.out.println("GUIFrame: Open OK pressed");
@@ -505,12 +508,13 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			} else {
 				System.out.println("Frame: No Schema File Selected!");
 			}
-			fileChooser.setSelectedFile(null);
+			fileChooser.setSelectedFile(new File(""));
 			
 		} else if (arg0.getSource() == mntmCaexToAsp) {
 			fileChooser.setDialogTitle("GENERATE ASP FACTS FROM CAEX AND SAVE IT TO FILE:");
+			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.latestOpenedFolder)); //"./data/genereted"));
-			fileChooser.setSelectedFile(null);
+			
 			int retVal = fileChooser.showSaveDialog(MainFrame.this);
 
 			if (retVal == JFileChooser.APPROVE_OPTION) {
@@ -527,8 +531,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 
 		} else if (arg0.getSource() == mntmSaveResultModels) {
 			fileChooser.setDialogTitle("SAVE ASP SOLVER RESULT MODELS TO FILE:");
+			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data"));
-			fileChooser.setSelectedFile(null);
+			
 
 			int retVal = fileChooser.showSaveDialog(MainFrame.this);
 
@@ -555,8 +560,8 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 
 		} else if (arg0.getSource() == mntmLoadRules) {
 			fileChooser.setDialogTitle("LOAD ASP RULE AND FACT FILES");
+			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/configure")); //"./configure/asp_dlv"));
-			fileChooser.setSelectedFile(null);
 			fileChooser.setMultiSelectionEnabled(true);
 			int retVal = fileChooser.showOpenDialog(MainFrame.this);
 			if (retVal == JFileChooser.APPROVE_OPTION) {
@@ -571,13 +576,13 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			} else {
 				System.out.println("Frame: No Asp files selected!");
 			}
-			fileChooser.setSelectedFile(null);
+			fileChooser.setSelectedFiles(new File[]{new File("")});
 			fileChooser.setMultiSelectionEnabled(false);
 
 		} else if (arg0.getSource() == mntmGenerateJmonkey) {
 			fileChooser.setDialogTitle("GENERATE AND SAVE JMONKEY SCRIPT TO FILE:");
+			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data")); //"./data/genereted"));
-			fileChooser.setSelectedFile(null);
 			int retVal = fileChooser.showSaveDialog(MainFrame.this);
 
 			if (retVal == JFileChooser.APPROVE_OPTION) {
@@ -595,8 +600,8 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 
 		} else if (arg0.getSource() == mntmOpen) {
 			fileChooser.setDialogTitle("OPEN CAEX XML FILE");
+			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data"));
-			fileChooser.setSelectedFile(null);
 			int retVal = fileChooser.showOpenDialog(MainFrame.this);
 
 			if (retVal == JFileChooser.APPROVE_OPTION) {
@@ -629,8 +634,8 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 
 		} else if (arg0.getSource() == mntmSave) {
 			fileChooser.setDialogTitle("SAVE CAEX FILE:");
+			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data"));
-			fileChooser.setSelectedFile(null);
 			int retVal = fileChooser.showSaveDialog(MainFrame.this);
 
 			if (retVal == JFileChooser.APPROVE_OPTION) {
