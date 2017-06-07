@@ -55,7 +55,8 @@ public class AspDlvReasoner {
 		aspContainer = new AspModelContainer();
 	}
 
-	public StringBuffer parseAspModel(List<Model> models) {
+	public StringBuffer parseAspModelToXML(List<Model> models) {
+		logger.log(Level.INFO, "parseAspModel():");
 		StringBuffer buffer = new StringBuffer();
 		boolean hasModel = false;
 		boolean negativeLit = false;
@@ -80,7 +81,7 @@ public class AspDlvReasoner {
 					j++;					
 					StringBuffer litxml = parseLiteralToXML(literal);
 					buffer.append(litxml);
-					System.out.println(j + ": Literal*: " + literal.toString());
+					//System.out.println(j + ": Literal*: " + literal.toString());
 				}
 				while (model.hasMorePredicates()) {
 					Predicate predicate = model.nextPredicate();
@@ -91,7 +92,7 @@ public class AspDlvReasoner {
 						j++;
 						StringBuffer litxml = parseLiteralToXML(literal);
 						buffer.append(litxml);
-						System.out.println(j + ": Literal**: " + literal.toString());
+						//System.out.println(j + ": Literal**: " + literal.toString());
 					}
 				}
 				buffer.append("\n</model>");
@@ -99,9 +100,9 @@ public class AspDlvReasoner {
 			}
 			buffer.append("\n</aspmodels>\n");
 		}
-
-		if (hasModel)
-			System.out.println("=AspDlvReasoner: MODELS:PREDICATES:LITERALS=(" + h + ":" + i + ":" + j + ")");
+		logger.log(Level.INFO, "parseAspModel(): ASP Model exist: " + hasModel);
+		//if (hasModel)
+		//	System.out.println("=AspDlvReasoner: MODELS:PREDICATES:LITERALS=(" + h + ":" + i + ":" + j + ")");
 		return buffer;
 	}
 
@@ -150,12 +151,17 @@ public class AspDlvReasoner {
 			//System.out.println("=AspDlvReasoner:invokeAspRules: Invoking Dlv solver...");
 			logger.log(Level.INFO, "invokeAspRules():Invoking DLV solver...");
 			try {
-				List<Model> models = this.invokeDlvReasoning(rulefile, factfile, numOfModels);
-				if ((models != null) && (!models.isEmpty())) {
-					//System.out.println("=AspDlvReasoner:invokeAspRules: Result models #" + models.size());
-					logger.log(Level.INFO, "invokeAspRules(): Result models #" + models.size());
-					StringBuffer modelbuf = parseAspModel(models);
-					aspContainer.setResultModels(modelbuf);
+				List<Model> asp_models = this.invokeDlvReasoning(rulefile, factfile, numOfModels);
+				if ((asp_models != null) && (!asp_models.isEmpty())) {
+					//System.out.println("=AspDlvReasoner:invokeAspRules: Result models #" + asp_models.size());
+					logger.log(Level.INFO, "invokeAspRules(): Result models #" + asp_models.size());
+					//Saving ASP models in ASP format.
+					aspContainer.setResultAspModels(asp_models);
+					//Parsing ASP models into XML format.
+					StringBuffer xml_modelbuf = parseAspModelToXML(asp_models);
+					//Saving ASP models in XML format.
+					aspContainer.setResultModelsAsXML(xml_modelbuf);
+					logger.log(Level.INFO, "invokeAspRules(): Result models saved in ASP and XML formats!");
 					ok=true;
 				} else{
 					//System.out.println("=AspDlvReasoner:invokeAspRules: Result models NULL?");
@@ -179,10 +185,9 @@ public class AspDlvReasoner {
 
 	public List<Model> invokeDlvReasoning(String rules_dlv_file, String facts_db_file, int numOfModels)
 			throws DLVInvocationException, IOException { // TOIMII: huom
-															// tiedostossa po.
-															// rivi #maxint = ?.
-															// TAI asettaa se
-															// invocation.setMaxint(20);
+		//NOTE: tiedostossa po.	rivi #maxint = ?. TAI sen voi asettaa invocation.setMaxint(20);											
+															
+		logger.log(Level.INFO, "invokeDlvReasoning():");
 		boolean hasModel = false;
 
 		/* I create a new instance of DLVInputProgram */
@@ -283,25 +288,29 @@ public class AspDlvReasoner {
 		List<DLVError> errors = invocation.getErrors();// line 0: can't open
 														// input??
 		if ((errors != null) && (!errors.isEmpty())) {
-			System.out.println("????ERRORS Exists");
+			//System.out.println("????ERRORS Exists");
+			logger.log(Level.ERROR, "invokeDlvReasoning(): DLV ERROR? ");
 			for (DLVError err : errors) {
-				System.out.println("ERROR: " + err.getText());
+				logger.log(Level.ERROR, "invokeDlvReasoning(): "  + err.getText());
+				//System.out.println("ERROR: " + err.getText());
 			}
 		}
 
 		hasModel = invocation.haveModel();
-		System.out.println("HAS MODEL: " + invocation.haveModel());
-		if (hasModel)
-			System.out.println("=AspDlvReasoner: MODELS:PREDICATES:LITERALS=(" + h + ":" + i + ":" + j + ")");
+		//System.out.println("HAS MODEL: " + invocation.haveModel());
+		logger.log(Level.INFO, "invokeDlvReasoning(): MODEL EXITS: " + invocation.haveModel());
+		//if (hasModel)
+			//System.out.println("=AspDlvReasoner: MODELS:PREDICATES:LITERALS=(" + h + ":" + i + ":" + j + ")");
 		return models;
 	}
 
 	public void saveAspModelToFile(String filepath) {
 
-		StringBuffer modelbuf = aspContainer.getResultModels();
+		StringBuffer modelbuf = aspContainer.getResultModelsAsXML();
 		if (modelbuf != null) {
 			writeAspModelToFile(modelbuf, filepath);
-			System.out.println("=AspDlvReasoner:saveAspModelToFile: ASP Models saved to file:" + filepath);
+			//System.out.println("=AspDlvReasoner:saveAspModelToFile: ASP Models saved to file:" + filepath);
+			logger.log(Level.INFO, "saveAspModelToFile(): ASP Models saved to file:" + filepath);
 		}
 
 	}
@@ -333,7 +342,7 @@ public class AspDlvReasoner {
 		try {
 			int numOfModels = 2;
 			List<Model> models = asp.invokeDlvReasoning(rules_dlv_file, facts_db_file, numOfModels);
-			StringBuffer modelbuf = asp.parseAspModel(models);
+			StringBuffer modelbuf = asp.parseAspModelToXML(models);
 			asp.writeAspModelToFile(modelbuf, filepath);
 
 		} catch (DLVInvocationException e) {

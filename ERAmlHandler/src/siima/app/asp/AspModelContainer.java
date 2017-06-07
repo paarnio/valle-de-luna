@@ -1,6 +1,9 @@
 package siima.app.asp;
 
 import java.io.File;
+import java.util.List;
+
+import it.unical.mat.wrapper.Model;
 
 public class AspModelContainer {
 
@@ -9,7 +12,8 @@ public class AspModelContainer {
 	public String factfile; // .db
 	public boolean rulesAndFactsLoaded = false;
 	public int numOfModels = 1;
-	public StringBuffer resultModels;
+	public List<Model> resultAspModels;
+	public StringBuffer resultModelsAsXML;
 
 	public File[] getRulesAndFacts() {
 		return rulesAndFacts;
@@ -55,12 +59,20 @@ public class AspModelContainer {
 		this.numOfModels = numOfModels;
 	}
 
-	public StringBuffer getResultModels() {
-		return resultModels;
+	public StringBuffer getResultModelsAsXML() {
+		return resultModelsAsXML;
 	}
 
-	public void setResultModels(StringBuffer resultModels) {
-		this.resultModels = resultModels;
+	public void setResultModelsAsXML(StringBuffer resultModels) {
+		this.resultModelsAsXML = resultModels;
+	}
+
+	public List<Model> getResultAspModels() {
+		return resultAspModels;
+	}
+
+	public void setResultAspModels(List<Model> resultAspModels) {
+		this.resultAspModels = resultAspModels;
 	}
 
 	
