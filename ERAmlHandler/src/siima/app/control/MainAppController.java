@@ -143,6 +143,14 @@ public class MainAppController {
 
 	}
 
+	
+	public void saveCaexOntologyModel(String ontologyfile) {
+		// System.out.println("= MainAppController: saveCaexOntologyModel() SAVING to a
+		// File: " + ontologyfile);
+		velocity.writeRdfModelToFile(ontologyfile);	
+
+	}
+	
 	public void saveAspModel(String aspfile) {
 		// System.out.println("= MainAppController: saveAspModel() SAVING to a
 		// File: " + aspfile);

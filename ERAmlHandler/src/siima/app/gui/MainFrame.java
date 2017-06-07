@@ -68,7 +68,8 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JMenuItem mntmSaveProjectAs;
 	private JMenuItem mntmSaveProject;
 	private JMenuItem mntmOpenProject;
-	private JMenuItem mntmAspSolver; //TODO
+	private JMenuItem mntmAspSolver;
+	private JMenuItem mntmSaveOntologyModel;
 	// private JTree tree;
 
 	/**
@@ -185,7 +186,10 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mntmGenOntologyModel = new JMenuItem("Generate Ontology Model");
 		mntmGenOntologyModel.addActionListener(this);
 		mnOntology.add(mntmGenOntologyModel);
-				
+		
+		mntmSaveOntologyModel = new JMenuItem("Save Ontology Model...");
+		mntmSaveOntologyModel.addActionListener(this);
+		mnOntology.add(mntmSaveOntologyModel);
 
 		JMenu mnAsp = new JMenu("Rules");
 		menuBar.add(mnAsp);
@@ -368,10 +372,30 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 * mntmCaexToAsp AND mntmConfigureSchema AND mntmSetTransformContext AND
 		 * mntmInvokeTransform AND mntmGenOntologyModel AND mntmNewProject AND
 		 * mntmSaveProjectAs AND mntmSaveProject AND mntmOpenProject AND
-		 * mntmAspSolver 
+		 * mntmAspSolver AND mntmSaveOntologyModel
 		 * 
 		 */
-		if (arg0.getSource() == mntmAspSolver) {
+		
+		if (arg0.getSource() == mntmSaveOntologyModel) {
+			fileChooser.setDialogTitle("SAVE CAEX SOURCE ONTOLOGY MODEL TO FILE (.ttl, .owl)");
+			fileChooser.setSelectedFile(new File(""));
+			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data"));
+			
+
+			int retVal = fileChooser.showSaveDialog(MainFrame.this);
+
+			if (retVal == JFileChooser.APPROVE_OPTION) {
+				System.out.println("GUIFrame: Save OK pressed");
+				File saveFile = fileChooser.getSelectedFile();
+				appControl.saveCaexOntologyModel(saveFile.getPath());
+				System.out.println("-- Saved file: " + saveFile.getName());
+				String dir = saveFile.getParent();
+				this.latestOpenedFolder = "dir";
+			} else {
+				System.out.println("Frame: No Save File Selected!");
+			}
+
+		} else if (arg0.getSource() == mntmAspSolver) {
 			fileChooser.setDialogTitle("SELECT ASP SOLVER EXE (dlv.mingw.exe)");
 			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory).getParentFile());

@@ -66,6 +66,27 @@ public class VeloContainer {
 		
 	}
 	
+	
+	public void writeRdfModelToFile(String newOntologyFile) {
+		try {
+			FileOutputStream outputStream = new FileOutputStream(newOntologyFile);
+			if (rdfModel != null) {
+				if (newOntologyFile.contains(".ttl")) {
+					rdfModel.write(outputStream, "TURTLE");
+				} else {
+
+					System.out.println(
+							"TODO: VeloContainer: writeRdfModelToFile -- Not Turtle file suffix: " + newOntologyFile);
+				}
+			}
+
+		} catch (FileNotFoundException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+	
 	public void setVmFile(String vmFile) {
 		this.vmFile = vmFile;
 	}

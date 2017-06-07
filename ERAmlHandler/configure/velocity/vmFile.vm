@@ -6,7 +6,10 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
 	xmlns:siima="http://siima.net/ontologies/2017/caex/"
 	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
-	#* 2017-05-28 FOR STRING FUNCTIONS PUT StringUtils class TO CONTEXT: $StringUtils
+	#* NOTE: VelocityContext is expected to be initiated with  JAXB object CAEXFile caex
+	 with key "caexfile" in the constructor of VeloContainer (vcontext.put("caexfile", caex))
+	 TODO: Helper method for finding out Attributes Value's content: now [Value: null]
+	 2017-05-28 FOR STRING FUNCTIONS PUT StringUtils class TO CONTEXT: $StringUtils
 	 SEE: https://stackoverflow.com/questions/6998412/velocity-string-function
 	 2017-05-29 CALLING MY OWN CLASS(UriHelper) METHOD: 
 	 SEE: https://stackoverflow.com/questions/20786403/calling-a-java-method-in-velocity-template
@@ -14,11 +17,13 @@
 	
 	#set( $amlns = 'http://data.ifs.tuwien.ac.at/aml/ontology#')
 	#set( $xsdns = 'http://www.w3.org/2001/XMLSchema#')
-	
+	## -- CAEXFile --
 	#set( $URIhelp = $UriHelper.createInstanceUri("CAEXFile",null,null,"$caexfile.FileName") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}CAEXFile"/>
 	</owl:NamedIndividual>
+	
+	## -- InstanceHierarchy --
 	#foreach ($ih in $caexfile.getInstanceHierarchy())
 	#set( $URIhelp = $UriHelper.createInstanceUri("InstanceHierarchy","$ih.Name",null,"$ih.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
@@ -26,6 +31,7 @@
 	</owl:NamedIndividual>		
     #end
 	
+	## -- InternalElement --
 	#foreach ($ih in $caexfile.getInstanceHierarchy())
        #foreach ($ie in $ih.InternalElement)
 			#walkIElements($ie, $ih)
@@ -43,9 +49,9 @@
 		<amlont:iD rdf:datatype="${xsdns}string">$node.ID</amlont:iD>
 		#set( $URIhelp = $UriHelper.createInstanceUri("SystemUnitClass","$ihierarchy.Name","$node.Name", "${SUCrep}") )
 		<amlont:refBaseSystemUnitPath rdf:resource="${URIhelp}"/>
+		## -- attribute property --
 		#foreach ($att in $node.getAttribute())
 			#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
-			##<amlont:attribute rdf:resource="${amlns}Attribute-INST_IH-${ihierarchy.Name}_IE-${node.Name}_$att.getName()"/>
 			<amlont:attribute rdf:resource="${URIhelp}"/>
 		#end
 	</owl:NamedIndividual>	
@@ -55,5 +61,32 @@
 		#end
 	#end
 	#end
+	## -- macro end
+	
+	## -- Attribute --
+	#foreach ($ih in $caexfile.getInstanceHierarchy())
+       #foreach ($ie in $ih.InternalElement)
+			#walkIElementsForAttributes($ie $ih)
+		#end		
+    #end
+	
+	## --Recursive attribute creation from all InternalElements--
+	#macro(walkIElementsForAttributes $node $ihierarchy)
+		#foreach ($att in $node.getAttribute())
+				#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
+				<owl:NamedIndividual rdf:about="${URIhelp}">
+				<rdf:type rdf:resource="${amlns}Attribute"/>
+					<amlont:name rdf:datatype="${xsdns}string">$att.Name</amlont:name>
+					<amlont:attributeDataType rdf:datatype="${xsdns}string">$att.AttributeDataType</amlont:attributeDataType>
+					<amlont:value rdf:datatype="${xsdns}string">$att.Value</amlont:value>
+				</owl:NamedIndividual>
+		#end
+	#if ($node.InternalElement.size() > 0)
+		#foreach ($child in $node.InternalElement)
+			#walkIElementsForAttributes($child $ihierarchy)
+		#end
+	#end	
+	#end
+	## -- macro end
 	
 </rdf:RDF>
