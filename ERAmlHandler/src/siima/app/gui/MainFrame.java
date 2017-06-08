@@ -39,6 +39,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 																	// {
 	public String eraProjectHomeDirectory = ".";
 	public String latestOpenedFolder = ".";
+	private final static String newline="\n";
 	//private JPanel contentPane;
 	private JFileChooser fileChooser;
 	private JSplitPane m_contentPane;
@@ -52,13 +53,18 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JScrollPane hierarchyTreeScrollPane2;
 	private JScrollPane hierarchyTreeScrollPane3;
 	private JScrollPane hierarchyTreeScrollPane4;
+	private JScrollPane consoleScrollPane;
+	private JScrollPane resultScrollPane;
 	private JMenuItem mntmGenerateJmonkey;
 	private JTextArea bottomLeftTextArea;
+	private JTextArea txtrConsoleOutput;
+	private JTextArea txtrResultOutput;
 	private JMenuItem mntmLoadRules;
 	private JMenuItem mntmInvokeReasoner;
 	private JMenuItem mntmSaveResultModels;
 	private JMenuItem mntmCaexToAsp;
 	private JTabbedPane tabbedPane;
+	private JTabbedPane bottomRightTabbedPane;
 	private JMenuItem mntmConfigureSchema;
 	private JMenuItem mntmExit;
 	private JMenuItem mntmInvokeTransform;
@@ -330,9 +336,49 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 
 		JPanel panel = new JPanel();
 		rightVerticalSplitPane.setLeftComponent(panel);
+		
+		/* ==== bottom_right_panel ==== */
+		JPanel bottom_right_panel = new JPanel();
+		rightVerticalSplitPane.setRightComponent(bottom_right_panel);
+		GridBagLayout gbl_bottom_right_panel = new GridBagLayout();
+		gbl_bottom_right_panel.columnWidths = new int[] {10, 200, 10, 0};
+		gbl_bottom_right_panel.rowHeights = new int[] {5, 40, 5, 5};
+		gbl_bottom_right_panel.columnWeights = new double[]{0.0, 1.0, 0.1, Double.MIN_VALUE};
+		gbl_bottom_right_panel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		bottom_right_panel.setLayout(gbl_bottom_right_panel);
+		
+		/* -- New JTabbedPane for bottom_right_panel */
 
-		JPanel panel_1 = new JPanel();
-		rightVerticalSplitPane.setRightComponent(panel_1);
+		bottomRightTabbedPane = new JTabbedPane();
+		GridBagConstraints gbc_bottomRightTabbedPane = new GridBagConstraints();
+		gbc_bottomRightTabbedPane.insets = new Insets(0, 0, 5, 0);
+		gbc_bottomRightTabbedPane.fill = GridBagConstraints.BOTH;
+		gbc_bottomRightTabbedPane.gridx = 1;
+		gbc_bottomRightTabbedPane.gridy = 1;
+		
+		// The following line enables to use scrolling tabs.
+		bottomRightTabbedPane.setTabLayoutPolicy(JTabbedPane.WRAP_TAB_LAYOUT);
+		bottom_right_panel.add(bottomRightTabbedPane, gbc_bottomRightTabbedPane);
+		
+		consoleScrollPane = new JScrollPane();
+		bottomRightTabbedPane.insertTab("Console", null, consoleScrollPane, "Console", 0);
+		
+		txtrConsoleOutput = new JTextArea();
+		txtrConsoleOutput.setRows(20);
+		txtrConsoleOutput.setColumns(400);
+		txtrConsoleOutput.setText("--- CONSOLE LOG ---");
+		consoleScrollPane.setViewportView(txtrConsoleOutput);
+		
+		resultScrollPane = new JScrollPane();
+		bottomRightTabbedPane.insertTab("Result", null, resultScrollPane, "Console", 1);
+		
+		txtrResultOutput = new JTextArea();
+		txtrResultOutput.setRows(20);
+		txtrResultOutput.setColumns(400);
+		txtrResultOutput.setText("--- RESULTS ---");
+		resultScrollPane.setViewportView(txtrResultOutput);
+		
+		
 	}
 
 	public String getEraProjectHomeDirectory() {
@@ -391,6 +437,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				System.out.println("-- Saved file: " + saveFile.getName());
 				String dir = saveFile.getParent();
 				this.latestOpenedFolder = "dir";
+				// -- Console Printing ---				
+				txtrConsoleOutput.append(newline + "LOG: CAEX SOURCE ONTOLOGY MODEL SAVED INTO FILE: " + saveFile.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 			} else {
 				System.out.println("Frame: No Save File Selected!");
 			}
@@ -406,6 +455,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				File solverExefile = fileChooser.getSelectedFile();
 				System.out.println("-- Selected file: " + solverExefile.getPath());
 				appControl.setAspSolverEngine(solverExefile.getPath());
+				// -- Console Printing ---				
+				txtrConsoleOutput.append(newline + "LOG: ASP SOLVER EXE: " + solverExefile.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 
 			} else {
 				System.out.println("Frame: No ASP Solver Exe File Selected!");
@@ -425,6 +477,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				this.eraProjectHomeDirectory = openProjectDirectory.getPath();
 				this.latestOpenedFolder = openProjectDirectory.getPath();
 				System.out.println("-- Project Folder Opened: " + openProjectDirectory.getName());
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: ERA PROJECT OPENED: " + openProjectDirectory.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 			} else {
 				System.out.println("Frame: No Project Folder Selected!");
 			}
@@ -435,6 +490,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			
 			appControl.saveProject();
 			System.out.println("Frame: Current Project Saved!");
+			//-- Console Printing
+			txtrConsoleOutput.append(newline + "LOG: CURRENT ERA PROJECT SAVED!");
+			txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 			
 		} else if (arg0.getSource() == mntmSaveProjectAs) {
 			fileChooser.setDialogTitle("SAVE PROJECT AS (create a new folder)");
@@ -449,6 +507,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				this.eraProjectHomeDirectory = newProjectDirectory.getPath();
 				this.latestOpenedFolder = newProjectDirectory.getPath();
 				System.out.println("-- New Project Folder: " + newProjectDirectory.getName());
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: CURRENT ERA PROJECT SAVED AS: " +newProjectDirectory.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 			} else {
 				System.out.println("Frame: No Project Folder Selected!");
 			}
@@ -475,6 +536,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				this.eraProjectHomeDirectory = newProjectDirectory.getPath();
 				this.latestOpenedFolder = newProjectDirectory.getPath();
 				System.out.println("-- New Project Home Directory: " + newProjectDirectory.getName());
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: NEW ERA PROJECT HOME DIRECTORY: " +newProjectDirectory.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 			} else {
 				System.out.println("Frame: No Project Folder Selected!");
 			}
@@ -483,10 +547,16 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		} else if (arg0.getSource() == mntmGenOntologyModel) {
 			appControl.genereteCaexOntologyModel();;
 			System.out.println("-- genereteCaexOntologyModel();! ");
+			//-- Console Printing
+			txtrConsoleOutput.append(newline + "LOG: ONTOLOGY MODEL GENERATED FROM THE MAIN CAEX MODEL! ");
+			txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 	
 		} else if (arg0.getSource() == mntmInvokeTransform) {
 				appControl.invokeXslContextTransform();
 				System.out.println("-- invokeXslContextTransform()! ");
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: XSL TRANSFORM INVOKED!");
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 		
 		} else if (arg0.getSource() == mntmSetTransformContext) {
 			fileChooser.setDialogTitle("SELECT XSL TRANSFORM CONTEXT FILES (xsl,xml,trg)");
@@ -509,6 +579,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				String dir = files[0].getParent();
 				System.out.println("-- TRANSFORM CONTEXT parent folder: " + dir);
 				this.latestOpenedFolder = "dir";
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: XSL TRANSFORM CONTEXT FILES SELECTED: (DIR: " + dir + ")");
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 
 			} else {
 				System.out.println("Frame: No Xsl context files selected!");
@@ -528,6 +601,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				File schemafile = fileChooser.getSelectedFile();
 				System.out.println("-- Opened file: " + schemafile.getPath());
 				appControl.setValidationSchema(schemafile.getPath());
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: CAEX VALIDATIN SCHEMA SELECTED:" + schemafile.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 
 			} else {
 				System.out.println("Frame: No Schema File Selected!");
@@ -549,6 +625,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				System.out.println("-- Asp facts file (.db): " + mainSaveFile.getName());
 				String dir = mainSaveFile.getParent();
 				this.latestOpenedFolder = "dir";
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: GENERATED ASP FACTS FROM CAEX SAVED INTO FILE: " + mainSaveFile.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 			} else {
 				System.out.println("Frame: No File Defined!");
 			}
@@ -568,6 +647,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				System.out.println("-- Saved file: " + mainSaveFile.getName());
 				String dir = mainSaveFile.getParent();
 				this.latestOpenedFolder = "dir";
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: ASP SOLVER RESULT MODELS SAVED TO FILE:: " +mainSaveFile.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 			} else {
 				System.out.println("Frame: No Save File Selected!");
 			}
@@ -596,7 +678,10 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				this.appControl.initAspModel(aspfiles);
 				String dir = aspfiles[0].getParent();
 				this.latestOpenedFolder = "dir";
-
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: ASP RULE AND FACT FILES LOADED: " + dir);
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+			
 			} else {
 				System.out.println("Frame: No Asp files selected!");
 			}
@@ -617,6 +702,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				System.out.println("-- JMonkey file (.jmc): " + mainSaveFile.getName());
 				String dir = mainSaveFile.getParent();
 				this.latestOpenedFolder = "dir";
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: GENERATED JMONKEY SCRIPT SAVED TO FILE: " +  mainSaveFile.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 				
 			} else {
 				System.out.println("Frame: No File Defined!");
@@ -651,9 +739,12 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 					this.getHierarchyTreeScrollPane4().setViewportView(interfaceCLibTree);
 				String dir = mainOpenFile.getParent();
 				this.latestOpenedFolder = "dir";
+				// -- Console Printing ---				
+				txtrConsoleOutput.append(newline + "LOG: CAEX FILE OPENED: " + mainOpenFile.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 
 			} else {
-				System.out.println("Frame: No OPen File Selected!");
+				System.out.println("Frame: No Open File Selected!");
 			}
 
 		} else if (arg0.getSource() == mntmSave) {
@@ -670,6 +761,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				System.out.println("-- Saved file: " + mainSaveFile.getName());
 				String dir = mainSaveFile.getParent();
 				this.latestOpenedFolder = "dir";
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: THE MAIN CAEX FILE MARSHALLED INTO FILE: " +  mainSaveFile.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 			} else {
 				System.out.println("Frame: No Save File Selected!");
 			}
