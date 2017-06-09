@@ -43,7 +43,7 @@
 	#macro(walkIElements $node $ihierarchy)
 	#set( $sucref = $node.RefBaseSystemUnitPath )
 	#set( $SUCrep = $StringUtils.replace($sucref,"/","_") )
-	#set( $URIhelp = $UriHelper.createInstanceUri("InternalElementType","$ihierarchy.Name","$node.Name", "$node.Name") )
+	#set( $URIhelp = $UriHelper.createInstanceUri("InternalElement","$ihierarchy.Name","$node.Name", "$node.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}InternalElement"/>
 		<amlont:name rdf:datatype="${xsdns}string">$node.Name</amlont:name>
@@ -94,11 +94,8 @@
 	#end	
 	#end
 	## -- macro end
-
-		
-	## -- ExternalInterface -- 
-	## TODO: InternalElement extends SystemUnitClassType
-	## which has property externalInterface
+	
+	## -- ExternalInterface --
 	#foreach ($ih in $caexfile.getInstanceHierarchy())
        #foreach ($ie in $ih.InternalElement)
 			#walkIElementsForEInterface($ie $ih)
@@ -107,7 +104,6 @@
 	
 	## --Recursive ExternalInterface creation from all InternalElements--
 	#macro(walkIElementsForEInterface $node $ihierarchy)
-		#### EI set( $systemunitclass = (SystemUnitClassType)$node )
 		#foreach ($extint in $node.getExternalInterface())
 				
 				#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$ihierarchy.Name","$node.Name", "$extint.Name") )
@@ -123,5 +119,6 @@
 	#end	
 	#end
 	## -- macro end
+	
 	
 </rdf:RDF>

@@ -28,12 +28,14 @@ public class UriHelper {
 			uri = siimaontns + instanceType + "-INST_" + "CF-" + instanceName;		
 		} else if("InstanceHierarchy".equalsIgnoreCase(instanceType)){		
 			uri = siimaontns + instanceType + "-INST_" + "IH-" + instanceName;		
-		} else if("SystemUnitClass".equalsIgnoreCase(instanceType)){		
+		} else if("SystemUnitClassType".equalsIgnoreCase(instanceType)){		
 			uri = siimaontns + instanceType + "-INST_" + "SUC-" + instanceName;		
 		} else if("AttributeType".equalsIgnoreCase(instanceType)){		
 			uri = siimaontns + instanceType + "-INST_" + "IH-" + iHierarchy + "_IE-" + iElement + "_ATT-" + instanceName;		
-		} else if("InternalElement".equalsIgnoreCase(instanceType)){		
+		} else if("InternalElementType".equalsIgnoreCase(instanceType)){		
 			uri = siimaontns + instanceType + "-INST_" + "IH-" + iHierarchy + "_IE-" + instanceName;		
+		} else if("ExternalInterface".equalsIgnoreCase(instanceType)){		
+			uri = siimaontns + instanceType + "-INST_" + "IH-" + iHierarchy + "_IE-" + iElement + "_EXTINT-" + instanceName;		
 		}
 		
 		return uri;
