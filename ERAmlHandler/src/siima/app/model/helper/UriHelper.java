@@ -30,7 +30,7 @@ public class UriHelper {
 			uri = siimaontns + instanceType + "-INST_" + "IH-" + instanceName;		
 		} else if("SystemUnitClass".equalsIgnoreCase(instanceType)){		
 			uri = siimaontns + instanceType + "-INST_" + "SUC-" + instanceName;		
-		} else if("Attribute".equalsIgnoreCase(instanceType)){		
+		} else if("AttributeType".equalsIgnoreCase(instanceType)){		
 			uri = siimaontns + instanceType + "-INST_" + "IH-" + iHierarchy + "_IE-" + iElement + "_ATT-" + instanceName;		
 		} else if("InternalElement".equalsIgnoreCase(instanceType)){		
 			uri = siimaontns + instanceType + "-INST_" + "IH-" + iHierarchy + "_IE-" + instanceName;		

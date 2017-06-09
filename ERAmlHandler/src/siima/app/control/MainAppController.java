@@ -21,6 +21,7 @@ import siima.app.asp.AspModelContainer;
 import siima.app.gui.MainFrame;
 import siima.app.model.JaxbContainer;
 import siima.app.model.VeloContainer;
+import siima.app.model.helper.AnyTypeValueHelper;
 import siima.app.model.helper.UriHelper;
 import siima.app.model.tree.ElementModel;
 import siima.app.model.tree.ElementNode;
@@ -92,6 +93,8 @@ public class MainAppController {
 		 */
 		UriHelper helper = new UriHelper();
 		velocity.putVelocityContext("UriHelper", helper); //siima.app.model.helper.UriHelper.class);
+		AnyTypeValueHelper anyContentHelper = new AnyTypeValueHelper(this.graphbuilder);
+		velocity.putVelocityContext("AnyValueHelper", anyContentHelper); 
 	}
 
 	public void evaluateVelocityEngine() {

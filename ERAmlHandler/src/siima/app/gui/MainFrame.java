@@ -560,6 +560,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			String serialized = appControl.getSerializeRdfModel(null); // if null, use default format
 			txtrResultOutput.setText(null); // CLear old text
 			txtrResultOutput.append(serialized + newline);
+			txtrResultOutput.setCaretPosition(txtrResultOutput.getText().length());
 	
 		} else if (arg0.getSource() == mntmInvokeTransform) {
 				appControl.invokeXslContextTransform();

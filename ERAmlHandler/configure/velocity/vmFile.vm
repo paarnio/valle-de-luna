@@ -8,10 +8,11 @@
 	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
 	#* NOTE: VelocityContext is expected to be initiated with  JAXB object CAEXFile caex
 	 with key "caexfile" in the constructor of VeloContainer (vcontext.put("caexfile", caex))
-	 TODO: Helper method for finding out Attributes Value's content: now [Value: null]
+	 2017-06-09 CALLING MY OWN CLASS(AnyTypeValueHelper) METHOD: putVelocityContext("AnyValueHelper", anyContentHelper); 
+	 Helper method for finding out Attributes Value's content: now [Value: null]
 	 2017-05-28 FOR STRING FUNCTIONS PUT StringUtils class TO CONTEXT: $StringUtils
 	 SEE: https://stackoverflow.com/questions/6998412/velocity-string-function
-	 2017-05-29 CALLING MY OWN CLASS(UriHelper) METHOD: 
+	 2017-05-29 CALLING MY OWN CLASS(UriHelper) METHOD:putVelocityContext("UriHelper", helper) 
 	 SEE: https://stackoverflow.com/questions/20786403/calling-a-java-method-in-velocity-template
 	 *#
 	
@@ -51,7 +52,7 @@
 		<amlont:refBaseSystemUnitPath rdf:resource="${URIhelp}"/>
 		## -- attribute property --
 		#foreach ($att in $node.getAttribute())
-			#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
+			#set( $URIhelp = $UriHelper.createInstanceUri("AttributeType","$ihierarchy.Name","$node.Name", "$att.Name") )
 			<amlont:attribute rdf:resource="${URIhelp}"/>
 		#end
 	</owl:NamedIndividual>	
@@ -73,12 +74,17 @@
 	## --Recursive attribute creation from all InternalElements--
 	#macro(walkIElementsForAttributes $node $ihierarchy)
 		#foreach ($att in $node.getAttribute())
-				#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
+				#set( $ATTValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "Value") )
+				#set( $ATTDefValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "DefaultValue") )
+				#set( $URIhelp = $UriHelper.createInstanceUri("AttributeType","$ihierarchy.Name","$node.Name", "$att.Name") )
 				<owl:NamedIndividual rdf:about="${URIhelp}">
 				<rdf:type rdf:resource="${amlns}Attribute"/>
 					<amlont:name rdf:datatype="${xsdns}string">$att.Name</amlont:name>
 					<amlont:attributeDataType rdf:datatype="${xsdns}string">$att.AttributeDataType</amlont:attributeDataType>
-					<amlont:value rdf:datatype="${xsdns}string">$att.Value</amlont:value>
+					#if ($ATTDefValue)
+						<amlont:defaultValue rdf:datatype="${xsdns}string">$ATTDefValue</amlont:defaultValue>
+					#end
+					<amlont:value rdf:datatype="${xsdns}string">$ATTValue</amlont:value>
 				</owl:NamedIndividual>
 		#end
 	#if ($node.InternalElement.size() > 0)

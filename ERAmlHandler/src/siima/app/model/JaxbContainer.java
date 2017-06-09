@@ -148,8 +148,9 @@ public class JaxbContainer {
 		 */
 		CAEXBasicObject basicObject = (CAEXBasicObject)caex;
 		CAEXBasicObject newbasic = TEMP_Helpper.insertCopyContent(basicObject); 
-				
-		String addInfoContent = parseAnyTypeContent("CAEXBasicObject", newbasic, "additionalInformation", 1 );	
+		
+		// If several "AdditionalInformation" elements select the first (1)
+		String addInfoContent = parseAnyTypeContent("CAEXBasicObject", newbasic, "AdditionalInformation", 1 );	
 		//List<Object> addInfoList = caex.getAdditionalInformation();
 		//System.out.println("========== CAEX ADD INFO: " + addInfoList.toString());
 		logger.info("buildElementGraphFromXML() CAEXFile:AdditionalInformation (1):" + addInfoContent);
@@ -706,6 +707,7 @@ public class JaxbContainer {
 	 */
 	public String parseAnyTypeContent(String parentObjectType, Object parentNodeObject, String anyTypePropertyName, int propOrder  ){
 	/* 
+	 * If several 'anyTypePropertyName' elements, select the one with in order propOrder (>=1)
 	 * Toteuta esim. Main2B.java mukaisesti:
 	 * 
 	 */
@@ -720,8 +722,8 @@ public class JaxbContainer {
     		 *  	@XmlElement(name = "Value")
     		 *  2. 	protected Object value;
 			 */
-			
-			List<Object> attValue = XsAnyTypeSolver.marshal(parentNodeObject, propOrder);
+			// * If several 'anyTypePropertyName' elements, select the one with in order propOrder (>=1)
+			List<Object> attValue = XsAnyTypeSolver.marshal(parentNodeObject, anyTypePropertyName, propOrder);
 			System.out.println("=============== attValue object: " + attValue.toString());
 			String[] valueStruct =  attValue.toString().split(": ");
 			String valuestring=null;
@@ -764,7 +766,8 @@ public class JaxbContainer {
 			 * 
 			 */
 			// ---- MARSHALL -----
-			List<Object> addInfo = XsAnyTypeSolver.marshal(parentNodeObject, propOrder); // propOrder=1
+			//  If several 'anyTypePropertyName' elements, select the one with in order propOrder (>=1)
+			List<Object> addInfo = XsAnyTypeSolver.marshal(parentNodeObject, "AdditionalInformation", propOrder); // propOrder=1
 			if ((addInfo != null) && (!addInfo.isEmpty())) {
 				StringBuffer addinfobuf = new StringBuffer();
 			
@@ -993,7 +996,7 @@ public class JaxbContainer {
 				Object defvalue = element.getDefaultValue();
 				if (defvalue != null){
 					//**** using anyType parser ******
-					String content = parseAnyTypeContent("AttributeType", nodeobject, "defaultValue", 1 );					
+					String content = parseAnyTypeContent("AttributeType", nodeobject, "DefaultValue", 1 );					
 					infobuff.append("\nDEFAULT VALUE: \t" + defvalue.toString());
 					infobuff.append("\nDEFAULT VALUE content: " + content);		
 				}			
@@ -1004,7 +1007,7 @@ public class JaxbContainer {
 				if (value != null){ 
 
 					//**** using anyType parser ******
-					String content = parseAnyTypeContent("AttributeType", nodeobject, "value", 2 );					
+					String content = parseAnyTypeContent("AttributeType", nodeobject, "Value", 1 );					
 					infobuff.append("\nVALUE: \t" + value.toString());
 					infobuff.append("\nVALUE content: " + content);				
 					

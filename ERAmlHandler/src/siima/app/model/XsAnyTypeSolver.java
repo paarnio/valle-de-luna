@@ -12,6 +12,7 @@
 package siima.app.model;
 
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -33,18 +34,19 @@ import org.w3c.dom.NodeList;
 
 public class XsAnyTypeSolver {
 	
-	private static final Logger logger=Logger.getLogger(JaxbContainer.class.getName());
+	private static final Logger logger=Logger.getLogger(XsAnyTypeSolver.class.getName());
 	
 	/* SPECIAL MARSHAL METHOD (See Main2B.java)  */
-	public static List<Object> marshal(Object value, int child_item_nr ) { 
+	public static List<Object> marshal(Object value, String childNodeName, int child_item_nr ) { 
 		/* @Param Object value contains the xs:anyType object as it's child item.
-		 * (e.g. if the order child_item_ord = 3, the third child is the anyType item).
-		 * If the Object value itself is the anyType object, set child_item_nr = 0 (??)
-		 * (TODO: is the last option possible? Not tested).
+		 * If several 'childNodeName' elements, select the one with in order propOrder (>=1)
+		 * (e.g. if the order child_item_ord = 3, the third child is to be selected, if it has childNodeName ).
 		 * 
 		 */
 		logger.info("marshal()");
 	    try {
+	    	 List<Integer> child_node_indexes= new ArrayList<Integer>();
+	    	 int child_node_ind=-1;
 	    	 Node anytypenode = null;
 	    	 
 	    	Class<?> type = value.getClass();
@@ -61,14 +63,36 @@ public class XsAnyTypeSolver {
 	        for (int i =0; i< nods.getLength(); i++){
 	        	Node node = nods.item(i);
 	        	logger.info("marshal() Child node nr(" + (i+1) + ") is " + node.getNodeName());
+	        	if(node.getNodeName().equalsIgnoreCase(childNodeName)){
+	        		child_node_indexes.add(new Integer(i));
+	        		//System.out.println("================MATCH child_node_index value " + i);
+	        	}
 	        }
-	       	       
-	        if((child_item_nr>0)&&(child_item_nr<= nods.getLength())){ //One of the children is the anyType object
-	        	anytypenode = nods.item(child_item_nr-1);
+	        Integer tmp;
+	        //System.out.println("================child_node_indexes.size() = " + child_node_indexes.size());
+	       	if(child_node_indexes.size()==1){
+	       		tmp =child_node_indexes.get(0);
+	       		System.out.println("================tmp = " + tmp);
+	       		child_node_ind= tmp.intValue();	       		
+	       	} else if((child_node_indexes.size()>=child_item_nr)&&(child_item_nr>0)){
+	       		tmp=child_node_indexes.get(child_item_nr-1);
+	       		child_node_ind= tmp.intValue();
+	       	} else if((child_node_indexes.size()<child_item_nr)&&(child_item_nr>0)){
+	       		tmp=child_node_indexes.get(child_node_indexes.size()-1);
+	       		child_node_ind= tmp.intValue();
+	       	}
+	       	
+	       	//System.out.println("================child_node_ind= " + child_node_ind);
+	        //if((child_item_nr>0)&&(child_item_nr<= nods.getLength())){ //One of the children is the anyType object
+	        //	anytypenode = nods.item(child_item_nr-1);
+	       
+	        if((child_node_ind>=0)&&(child_node_ind<nods.getLength())){ //One of the children is the anyType object
+		        	anytypenode = nods.item(child_node_ind);
 	        } else { //the value object is the anyType object itself (DO NOTHING)
 	        	//anytypenode = document.getDocumentElement();
 	        	return null;
 	        }
+	        //if(anytypenode!=null)System.out.println("================anytypenode " + anytypenode.toString());
 	        NodeList nodes = anytypenode.getChildNodes();
 	        		
 	        return IntStream.range(0, nodes.getLength()).mapToObj(nodes::item).collect(Collectors.toList());
