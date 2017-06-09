@@ -373,9 +373,10 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		bottomRightTabbedPane.insertTab("Result", null, resultScrollPane, "Console", 1);
 		
 		txtrResultOutput = new JTextArea();
-		txtrResultOutput.setRows(20);
-		txtrResultOutput.setColumns(400);
-		txtrResultOutput.setText("--- RESULTS ---");
+		txtrResultOutput.setRows(1000);
+		txtrResultOutput.setColumns(600);
+		txtrResultOutput.setLineWrap(true);
+		txtrResultOutput.setText(""); //"--- RESULTS ---"
 		resultScrollPane.setViewportView(txtrResultOutput);
 		
 		
@@ -408,6 +409,11 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		return hierarchyTreeScrollPane4;
 	}
 
+	/*
+	 * actionPerformed() method for Menu and Button actions
+	 * (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 
 
 	@Override
@@ -550,6 +556,10 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			//-- Console Printing
 			txtrConsoleOutput.append(newline + "LOG: ONTOLOGY MODEL GENERATED FROM THE MAIN CAEX MODEL! ");
 			txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+			//-- Result Printing
+			String serialized = appControl.getSerializeRdfModel(null); // if null, use default format
+			txtrResultOutput.setText(null); // CLear old text
+			txtrResultOutput.append(serialized + newline);
 	
 		} else if (arg0.getSource() == mntmInvokeTransform) {
 				appControl.invokeXslContextTransform();

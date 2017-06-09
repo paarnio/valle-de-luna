@@ -21,7 +21,11 @@
 	<classpathentry kind="lib" path="lib/jena-3.1.1/jena-arq-3.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/jena-3.1.1/jena-base-3.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/jena-3.1.1/jena-cmds-3.1.1.jar"/>
-	<classpathentry kind="lib" path="lib/jena-3.1.1/jena-core-3.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jena-3.1.1/jena-core-3.1.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="https://jena.apache.org/documentation/javadoc/jena/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/jena-3.1.1/jena-iri-3.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/jena-3.1.1/jena-shaded-guava-3.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/jena-3.1.1/jena-tdb-3.1.1.jar"/>

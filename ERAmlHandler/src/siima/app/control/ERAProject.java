@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import siima.util.FileUtil;
@@ -42,16 +43,24 @@ public class ERAProject {
 			if ((!copydirsrcpaths.isEmpty()) && (copydirsrcpaths.size() == copydirtrgpaths.size())) {
 				for (int i = 0; i < copydirsrcpaths.size(); i++) {
 					Path source = Paths.get(copydirsrcpaths.get(i));
-					Path target = Paths.get(projectHomeDirectory + copydirtrgpaths.get(i));
-					ok = siima.util.CopyFiles.copyFile(source, target, false, true);
+					if(source.toFile().exists()){
+						Path target = Paths.get(projectHomeDirectory + copydirtrgpaths.get(i));
+						ok = siima.util.CopyFiles.copyFile(source, target, false, true);
+					} else {		
+						logger.log(Level.ERROR,"saveProjectInFolder() SOURCE DIRECTORY TO COPY DOES NOT EXIST: " + source.toString());
+					}
 				}
 			}
 			// Copy Files
 			if ((ok) && (!copyfilesrcpaths.isEmpty()) && (copyfilesrcpaths.size() == copyfiletrgpaths.size())) {
 				for (int i = 0; i < copyfilesrcpaths.size(); i++) {
 					Path source = Paths.get(copyfilesrcpaths.get(i));
-					Path target = Paths.get(projectHomeDirectory + copyfiletrgpaths.get(i));
-					ok = siima.util.CopyFiles.copyFile(source, target, false, true);
+					if(source.toFile().exists()){
+						Path target = Paths.get(projectHomeDirectory + copyfiletrgpaths.get(i));
+						ok = siima.util.CopyFiles.copyFile(source, target, false, true);
+					} else {		
+						logger.log(Level.ERROR,"saveProjectInFolder() SOURCE DIRECTORY TO COPY DOES NOT EXIST: " + source.toString());
+					}
 				}
 
 			}

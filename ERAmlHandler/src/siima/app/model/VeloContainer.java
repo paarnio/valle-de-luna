@@ -12,15 +12,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.io.Writer;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
 public class VeloContainer {
-	
+	private static final Logger logger=Logger.getLogger(VeloContainer.class.getName());
 	private VelocityEngine engine = new VelocityEngine();
 	private VelocityContext vcontext = new VelocityContext();
 	ByteArrayOutputStream vmOutputStream = new ByteArrayOutputStream();
@@ -42,7 +45,7 @@ public class VeloContainer {
 	public void evaluateEngine(){
 		try {
 			FileInputStream vmFileInput = new FileInputStream(vmFile);
-			FileOutputStream outputStream = new FileOutputStream(outputFile);
+			//FileOutputStream outputStream = new FileOutputStream(outputFile);
 			
 			engine.evaluate(vcontext,  resultWriter,  "caexRdf", new InputStreamReader(vmFileInput));
 			resultWriter.close();
@@ -52,9 +55,8 @@ public class VeloContainer {
 			ByteArrayInputStream modelInputStream = new ByteArrayInputStream(vmOutputStream.toByteArray());
 			
 			/* RDF Model */
-			rdfModel.read(modelInputStream,null,"RDF/XML");
-			rdfModel.write(outputStream,"TURTLE");
-			
+			rdfModel.read(modelInputStream,null,"RDF/XML"); // (in, base, lang)
+			//rdfModel.write(outputStream,"TURTLE");
 			
 		} catch (FileNotFoundException e) {
 			
@@ -87,6 +89,29 @@ public class VeloContainer {
 
 	}
 	
+	public String getSerializedRdfModel(String format) {
+		/* 
+		 *  format: e.g. "TURTLE"; TTL; RDFXML; RDFJSON; NTRIPLES
+		 *  https://jena.apache.org/documentation/io/rdf-output.html#formats
+		 */
+		String serialized = null;
+		if (this.rdfModel != null) {
+				StringWriter strWriter = new StringWriter();
+				this.rdfModel.write(strWriter, format);
+				serialized = strWriter.toString();
+				logger.log(Level.INFO,"getSerializedRdfModel: serialized is empty: " + serialized.isEmpty());
+				//this.rdfModel.write(System.out, format);			
+
+		}
+		
+		return serialized;
+	}
+	
+	
+	public Model getRdfModel() {
+		return rdfModel;
+	}
+
 	public void setVmFile(String vmFile) {
 		this.vmFile = vmFile;
 	}
@@ -97,11 +122,6 @@ public class VeloContainer {
 
 	public void setOutputFile(String outputFile) {
 		this.outputFile = outputFile;
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

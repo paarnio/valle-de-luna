@@ -2,6 +2,8 @@ package siima.app.control;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -97,6 +99,19 @@ public class MainAppController {
 		velocity.evaluateEngine();
 	}
 
+	public String  getSerializeRdfModel(String format) {
+		/* format "TURTLE"
+		 * format: e.g. "TURTLE"; TTL; RDFXML; RDFJSON; NTRIPLES
+		 * https://jena.apache.org/documentation/io/rdf-output.html#formats
+		 */
+		String defFormat = "TURTLE";
+		if(format==null) format= defFormat;
+		String serialized = velocity.getSerializedRdfModel(format);
+
+		return serialized;
+	}
+	
+	
 	public ElementTree buildJaxbModel(String xmlfile) {
 		// Example file: "data/caex_exs/RunningExample_SimpleIH.aml"
 		Path path = Paths.get(xmlfile);
