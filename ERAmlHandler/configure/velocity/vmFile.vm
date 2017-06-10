@@ -8,6 +8,8 @@
 	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
 	#* NOTE: VelocityContext is expected to be initiated with  JAXB object CAEXFile caex
 	 with key "caexfile" in the constructor of VeloContainer (vcontext.put("caexfile", caex))
+	 NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
+	 NOTE: $URIHelper.createInstanceUri() is called with parameter instanceOwlType (not JAXB)
 	 2017-06-09 CALLING MY OWN CLASS(AnyTypeValueHelper) METHOD: putVelocityContext("AnyValueHelper", anyContentHelper); 
 	 Helper method for finding out Attributes Value's content: now [Value: null]
 	 2017-05-28 FOR STRING FUNCTIONS PUT StringUtils class TO CONTEXT: $StringUtils
@@ -40,10 +42,12 @@
     #end
 
 	## --Recursive walk through InternalElements--
+	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
+	## NOTE: $URIHelper.createInstanceUri() is called with parameter instanceOwlType (not JAXB)
 	#macro(walkIElements $node $ihierarchy)
 	#set( $sucref = $node.RefBaseSystemUnitPath )
 	#set( $SUCrep = $StringUtils.replace($sucref,"/","_") )
-	#set( $URIhelp = $UriHelper.createInstanceUri("InternalElementType","$ihierarchy.Name","$node.Name", "$node.Name") )
+	#set( $URIhelp = $UriHelper.createInstanceUri("InternalElement","$ihierarchy.Name","$node.Name", "$node.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}InternalElement"/>
 		<amlont:name rdf:datatype="${xsdns}string">$node.Name</amlont:name>
@@ -52,7 +56,7 @@
 		<amlont:refBaseSystemUnitPath rdf:resource="${URIhelp}"/>
 		## -- attribute property --
 		#foreach ($att in $node.getAttribute())
-			#set( $URIhelp = $UriHelper.createInstanceUri("AttributeType","$ihierarchy.Name","$node.Name", "$att.Name") )
+			#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
 			<amlont:attribute rdf:resource="${URIhelp}"/>
 		#end
 	</owl:NamedIndividual>	
@@ -72,11 +76,13 @@
     #end
 	
 	## --Recursive attribute creation from all InternalElements--
+	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
+	## NOTE: $URIHelper.createInstanceUri() is called with parameter instanceOwlType (not JAXB)
 	#macro(walkIElementsForAttributes $node $ihierarchy)
 		#foreach ($att in $node.getAttribute())
 				#set( $ATTValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "Value") )
 				#set( $ATTDefValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "DefaultValue") )
-				#set( $URIhelp = $UriHelper.createInstanceUri("AttributeType","$ihierarchy.Name","$node.Name", "$att.Name") )
+				#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
 				<owl:NamedIndividual rdf:about="${URIhelp}">
 				<rdf:type rdf:resource="${amlns}Attribute"/>
 					<amlont:name rdf:datatype="${xsdns}string">$att.Name</amlont:name>
@@ -96,29 +102,34 @@
 	## -- macro end
 
 		
-	## -- ExternalInterface -- 
-	## TODO: InternalElement extends SystemUnitClassType
-	## which has property externalInterface
+	## -- ExternalInterface -- (rdfs:subClassOf InterfaceClass)
+	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
+	## NOTE: $URIHelper.createInstanceUri() is called with parameter instanceOwlType (not JAXB)
+	## In JAXB:InternalElement extends SystemUnitClassType
+	## which has property externalInterface.
+	## In JAXB: ExternalInterface is type InterfaceClassType
 	#foreach ($ih in $caexfile.getInstanceHierarchy())
        #foreach ($ie in $ih.InternalElement)
-			#walkIElementsForEInterface($ie $ih)
+			#walkIEForEInterface($ie $ih)
 		#end		
     #end
 	
 	## --Recursive ExternalInterface creation from all InternalElements--
-	#macro(walkIElementsForEInterface $node $ihierarchy)
-		#### EI set( $systemunitclass = (SystemUnitClassType)$node )
+	#macro(walkIEForEInterface $node $ihierarchy)
 		#foreach ($extint in $node.getExternalInterface())
 				
 				#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$ihierarchy.Name","$node.Name", "$extint.Name") )
+				#set( $RBCPath = $extint.getRefBaseClassPath() )
 				<owl:NamedIndividual rdf:about="${URIhelp}">
 				<rdf:type rdf:resource="${amlns}ExternalInterface"/>
 					<amlont:name rdf:datatype="${xsdns}string">$extint.Name</amlont:name>
+					<amlont:iD rdf:datatype="${xsdns}string">$extint.ID</amlont:iD>
+					<amlont:refBaseClassPath rdf:datatype="${xsdns}string">$RBCPath</amlont:refBaseClassPath>				
 				</owl:NamedIndividual>
 		#end
 	#if ($node.InternalElement.size() > 0)
 		#foreach ($child in $node.InternalElement)
-			#walkIElementsForEInterface($child $ihierarchy)
+			#walkIEForEInterface($child $ihierarchy)
 		#end
 	#end	
 	#end

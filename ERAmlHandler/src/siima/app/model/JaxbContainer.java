@@ -706,7 +706,7 @@ public class JaxbContainer {
 	 * 
 	 */
 	public String parseAnyTypeContent(String parentObjectType, Object parentNodeObject, String anyTypePropertyName, int propOrder  ){
-	/* 
+	/* Parameters: parentObjectType is JAXB type
 	 * If several 'anyTypePropertyName' elements, select the one with in order propOrder (>=1)
 	 * Toteuta esim. Main2B.java mukaisesti:
 	 * 
