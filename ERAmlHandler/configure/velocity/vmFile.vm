@@ -9,7 +9,7 @@
 	#* NOTE: VelocityContext is expected to be initiated with  JAXB object CAEXFile caex
 	 with key "caexfile" in the constructor of VeloContainer (vcontext.put("caexfile", caex))
 	 NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
-	 NOTE: $URIHelper.createInstanceUri() is called with parameter instanceOwlType (not JAXB)
+	 NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
 	 2017-06-09 CALLING MY OWN CLASS(AnyTypeValueHelper) METHOD: putVelocityContext("AnyValueHelper", anyContentHelper); 
 	 Helper method for finding out Attributes Value's content: now [Value: null]
 	 2017-05-28 FOR STRING FUNCTIONS PUT StringUtils class TO CONTEXT: $StringUtils
@@ -43,7 +43,7 @@
 
 	## --Recursive walk through InternalElements--
 	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
-	## NOTE: $URIHelper.createInstanceUri() is called with parameter instanceOwlType (not JAXB)
+	## NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
 	#macro(walkIElements $node $ihierarchy)
 	#set( $sucref = $node.RefBaseSystemUnitPath )
 	#set( $SUCrep = $StringUtils.replace($sucref,"/","_") )
@@ -77,7 +77,7 @@
 	
 	## --Recursive attribute creation from all InternalElements--
 	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
-	## NOTE: $URIHelper.createInstanceUri() is called with parameter instanceOwlType (not JAXB)
+	## NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
 	#macro(walkIElementsForAttributes $node $ihierarchy)
 		#foreach ($att in $node.getAttribute())
 				#set( $ATTValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "Value") )
@@ -104,7 +104,7 @@
 		
 	## -- ExternalInterface -- (rdfs:subClassOf InterfaceClass)
 	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
-	## NOTE: $URIHelper.createInstanceUri() is called with parameter instanceOwlType (not JAXB)
+	## NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
 	## In JAXB:InternalElement extends SystemUnitClassType
 	## which has property externalInterface.
 	## In JAXB: ExternalInterface is type InterfaceClassType
