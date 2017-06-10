@@ -135,4 +135,39 @@
 	#end
 	## -- macro end
 	
+	## -- InternalLink -- (rdfs:subClassOf CAEXObject)
+	#foreach ($ih in $caexfile.getInstanceHierarchy())
+       #foreach ($ie in $ih.InternalElement)
+			#walkIEForInternalLink($ie $ih)
+		#end		
+    #end
+	
+	## --Recursive InternalLink creation from all InternalElements--
+	#macro(walkIEForInternalLink $node $ihierarchy)
+		#foreach ($intlink in $node.getInternalLink())
+				#set( $ILINKName = $intlink.Name )
+				#set( $ILNamerep = $StringUtils.replace($ILINKName," ","_") )
+				#set( $URIhelp = $UriHelper.createInstanceUri("InternalLink","$ihierarchy.Name","$$node.Name", "$ILNamerep") )
+				#set( $RPSideA = $intlink.getRefPartnerSideA() )
+				#set( $RPSideB = $intlink.getRefPartnerSideB() )
+				##TODO#set( $SideAURI = macroFindExtIntURI($RPSideA $ihierarchy) )
+				
+				<owl:NamedIndividual rdf:about="${URIhelp}">
+				<rdf:type rdf:resource="${amlns}InternalLink"/>
+					<amlont:name rdf:datatype="${xsdns}string">$intlink.Name</amlont:name>
+					## refPartnerSideA and B are owl:ObjectProperties
+					## TODO<amlont:refPartnerSideA rdf:resource="${EIntSideA}"/> 
+					## TODO<amlont:refPartnerSideB rdf:resource="${EIntSideB}"/> 
+					<amlont:TEMPSideA rdf:datatype="${xsdns}string">$RPSideA</amlont:TEMPSideA>
+					<amlont:TEMPSideB rdf:datatype="${xsdns}string">$RPSideB</amlont:TEMPSideB>
+				</owl:NamedIndividual>
+		#end
+	#if ($node.InternalElement.size() > 0)
+		#foreach ($child in $node.InternalElement)
+			#walkIEForInternalLink($child $ihierarchy)
+		#end
+	#end	
+	#end
+	## -- macro end
+	
 </rdf:RDF>

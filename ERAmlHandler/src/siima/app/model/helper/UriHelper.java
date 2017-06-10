@@ -36,9 +36,28 @@ public class UriHelper {
 			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + iHierarchy + "_IE-" + instanceName;		
 		} else if("ExternalInterface".equalsIgnoreCase(instanceOwlType)){ // subClass of InterfaceClass		
 			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + iHierarchy + "_IE-" + iElement + "_EXTINT-" + instanceName;		
+		} else if("InternalLink".equalsIgnoreCase(instanceOwlType)){ // subClass of CAEXObject		
+			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + iHierarchy +  "_ILINK-" + instanceName; //NO: "_IE-" + iElement +		
 		}
 		
 		return uri;
 	}
 
+	public String findExtInterfaceUri(String refToExtInt, String iHierarchy ){
+		/* TODO ?? Ehkä parasta tehdä vm fileessä
+		 * <InternalLink RefPartnerSideA="c8d64b63-7f37-4353-8e66-9ef1bc72336e:bottom"
+		 * consists of InternalElement ID and ExternalInterface Name
+		 */		
+		String uri="";
+		String ielemId=null;
+		String eintName=null;
+		String[] refparts = refToExtInt.split(":");
+		if(refparts.length==2){
+			ielemId=refparts[0];
+			eintName=refparts[1];			
+		}
+		
+		
+		return uri;
+	}
 }

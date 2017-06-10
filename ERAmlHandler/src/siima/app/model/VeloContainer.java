@@ -50,7 +50,8 @@ public class VeloContainer {
 			engine.evaluate(vcontext,  resultWriter,  "caexRdf", new InputStreamReader(vmFileInput));
 			resultWriter.close();
 			
-			System.out.println("=========VELOCITY OUTPUT:\n" + vmOutputStream.toString());
+			//System.out.println("=========VELOCITY OUTPUT:\n" + vmOutputStream.toString());
+			logger.log(Level.INFO, "evaluateEngine():VELOCITY OUTPUT:\n" + vmOutputStream.toString());
 			
 			ByteArrayInputStream modelInputStream = new ByteArrayInputStream(vmOutputStream.toByteArray());
 			
@@ -75,8 +76,9 @@ public class VeloContainer {
 			if (rdfModel != null) {
 				if (newOntologyFile.contains(".ttl")) {
 					rdfModel.write(outputStream, "TURTLE");
+					logger.log(Level.INFO, "writeRdfModelToFile(): TO File: " + newOntologyFile);
 				} else {
-
+					logger.log(Level.INFO, "writeRdfModelToFile():TODO: BUT: Not Turtle file suffix: " + newOntologyFile);
 					System.out.println(
 							"TODO: VeloContainer: writeRdfModelToFile -- Not Turtle file suffix: " + newOntologyFile);
 				}
