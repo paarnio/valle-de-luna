@@ -155,14 +155,18 @@
 				#set( $SideURI = "" )
 				#macroReferedExtIntURI($RPSideA $ihierarchy $SideURI)
 				#set( $SideAURI = $SideURI )
+				#set( $SideURI = "" )
+				#macroReferedExtIntURI($RPSideB $ihierarchy $SideURI)
+				#set( $SideBURI = $SideURI )
+				
 				<owl:NamedIndividual rdf:about="${URIhelp}">
 				<rdf:type rdf:resource="${amlns}InternalLink"/>
 					<amlont:name rdf:datatype="${xsdns}string">$intlink.Name</amlont:name>
 					## refPartnerSideA and B are owl:ObjectProperties
-					## TODO<amlont:refPartnerSideA rdf:resource="${EIntSideA}"/> 
-					## TODO<amlont:refPartnerSideB rdf:resource="${EIntSideB}"/> 
-					<amlont:TEMPSideA rdf:datatype="${xsdns}string">$SideAURI</amlont:TEMPSideA>
-					<amlont:TEMPSideB rdf:datatype="${xsdns}string">$RPSideB</amlont:TEMPSideB>
+					<amlont:refPartnerSideA rdf:resource="${SideAURI}"/> 
+					<amlont:refPartnerSideB rdf:resource="${SideBURI}"/> 
+					##<amlont:TEMPSideA rdf:datatype="${xsdns}string">$SideAURI</amlont:TEMPSideA>
+					##<amlont:TEMPSideB rdf:datatype="${xsdns}string">$RPSideB</amlont:TEMPSideB>
 				</owl:NamedIndividual>
 		#end
 	#if ($node.InternalElement.size() > 0)
@@ -188,24 +192,36 @@
 				#set( $IEFound = "" )
 				#set( $IHReturn = "" )
 				#macroFindExtInt($ihierarchy $IElemID $EIntName $IEFound $IHReturn)
-				#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$IHReturn","$IEFound", "$EIntName") )
-				##set( $SideURI = $IEFound )
-				#set( $URIhelp = $IEFound )
+					#if( $IEFound != "" )
+					#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$IHReturn","$IEFound", "$EIntName") )
+					#set( $SideURI = $URIhelp )
+					#end
+					#if( $SideURI == "" )					
+						#set( $SideURI = "EXTERNAL_INTERFACE_NOT_FOUND" )
+					#end
 			#end
 		#end
 	#end
 	## -- macro end
 	
 	#macro(macroFindExtInt $ihierarchy $IElemID $EIntName $IEFound $IHReturn)
+		## Param: $ihierarchy AND $EIntName NOT in USE
 		#if($IEFound)
 			## TEMP set( $IEFound = "TESTING_TESTING" )
 			## -- SEARCHING REFERENCED InternalElement containing the ExternalInterface
+			#set( $IEReturn = "" )
+			#set( $IHReturn = "" )
 			#foreach ($ih in $caexfile.getInstanceHierarchy())
+				#if( $IHReturn == "" )
 				#foreach ($ie in $ih.InternalElement)
-				#set( $IEReturn = "" )
-				#recursiveSearchIElementsWithID($ie $ih $IElemID $IEReturn $IHReturn)
-				#set( $IEFound = $IEReturn )
-				#end		
+				#if( $IEReturn == "" )
+					#recursiveSearchIElementsWithID($ie $ih $IElemID $IEReturn $IHReturn)
+				#end
+				#if( $IEReturn != "" )
+					#set( $IEFound = $IEReturn )				
+				#end
+				#end
+				#end				
 			#end
 		#end
 	#end
@@ -217,13 +233,14 @@
 			##set( $IEReturn = "RECURSIVE_TESTING" )
 			#set( $ThisID = $node.getID())
 			#set( $ThisName = $node.getName())
+			#set( $ThisHierarcyName = $ih.getName())
 			##set( $IEReturn = "$IEReturn$ThisID" )
 			## TODO:TOIMII
 			
 			#if($IElemID == $ThisID)
 				##set( $IEReturn = "FOUND_FOUND_RECURSIVE_TESTING" )
 				#set( $IEReturn = $ThisName )
-				#set( $IHReturn = $ih.getName() )
+				#set( $IHReturn = $ThisHierarcyName )
 			#end
 		#end
 		#if ($node.InternalElement.size() > 0)
