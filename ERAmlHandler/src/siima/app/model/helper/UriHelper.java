@@ -43,21 +43,5 @@ public class UriHelper {
 		return uri;
 	}
 
-	public String findExtInterfaceUri(String refToExtInt, String iHierarchy ){
-		/* TODO ?? Ehkä parasta tehdä vm fileessä
-		 * <InternalLink RefPartnerSideA="c8d64b63-7f37-4353-8e66-9ef1bc72336e:bottom"
-		 * consists of InternalElement ID and ExternalInterface Name
-		 */		
-		String uri="";
-		String ielemId=null;
-		String eintName=null;
-		String[] refparts = refToExtInt.split(":");
-		if(refparts.length==2){
-			ielemId=refparts[0];
-			eintName=refparts[1];			
-		}
-		
-		
-		return uri;
-	}
+
 }

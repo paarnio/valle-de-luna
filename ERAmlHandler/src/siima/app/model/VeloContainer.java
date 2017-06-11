@@ -74,13 +74,16 @@ public class VeloContainer {
 		try {
 			FileOutputStream outputStream = new FileOutputStream(newOntologyFile);
 			if (rdfModel != null) {
-				if (newOntologyFile.contains(".ttl")) {
+				if ((newOntologyFile.contains(".ttl"))||(newOntologyFile.contains(".TTL"))) {
 					rdfModel.write(outputStream, "TURTLE");
-					logger.log(Level.INFO, "writeRdfModelToFile(): TO File: " + newOntologyFile);
+					logger.log(Level.INFO, "writeRdfModelToFile():TURTLE format TO File: " + newOntologyFile);
+				} else if ((newOntologyFile.contains(".owl"))||(newOntologyFile.contains(".OWL"))) { 
+					rdfModel.write(outputStream, "RDF/XML");
+					logger.log(Level.INFO, "writeRdfModelToFile():RDF/XML Format TO File: " + newOntologyFile);
 				} else {
-					logger.log(Level.INFO, "writeRdfModelToFile():TODO: BUT: Not Turtle file suffix: " + newOntologyFile);
-					System.out.println(
-							"TODO: VeloContainer: writeRdfModelToFile -- Not Turtle file suffix: " + newOntologyFile);
+					logger.log(Level.INFO, "writeRdfModelToFile():UNKNOWN suffix (expected .ttl or .owl): " + newOntologyFile);
+					//System.out.println(
+					//		"TODO: VeloContainer: writeRdfModelToFile -- Not Turtle file suffix: " + newOntologyFile);
 				}
 			}
 
