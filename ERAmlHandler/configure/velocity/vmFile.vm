@@ -13,6 +13,7 @@
 	 2017-06-09 CALLING MY OWN CLASS(AnyTypeValueHelper) METHOD: putVelocityContext("AnyValueHelper", anyContentHelper); 
 	 Helper method for finding out Attributes Value's content: now [Value: null]
 	 2017-05-28 FOR STRING FUNCTIONS PUT StringUtils class TO CONTEXT: $StringUtils
+	 SEE: "StringUtils", org.apache.commons.lang3.StringUtils.class
 	 SEE: https://stackoverflow.com/questions/6998412/velocity-string-function
 	 2017-05-29 CALLING MY OWN CLASS(UriHelper) METHOD:putVelocityContext("UriHelper", helper) 
 	 SEE: https://stackoverflow.com/questions/20786403/calling-a-java-method-in-velocity-template
@@ -150,15 +151,17 @@
 				#set( $URIhelp = $UriHelper.createInstanceUri("InternalLink","$ihierarchy.Name","$$node.Name", "$ILNamerep") )
 				#set( $RPSideA = $intlink.getRefPartnerSideA() )
 				#set( $RPSideB = $intlink.getRefPartnerSideB() )
-				##TODO#set( $SideAURI = macroFindExtIntURI($RPSideA $ihierarchy) )
-				
+				## Calling a sub macro
+				#set( $SideURI = "" )
+				#macroReferedExtIntURI($RPSideA $ihierarchy $SideURI)
+				#set( $SideAURI = $SideURI )
 				<owl:NamedIndividual rdf:about="${URIhelp}">
 				<rdf:type rdf:resource="${amlns}InternalLink"/>
 					<amlont:name rdf:datatype="${xsdns}string">$intlink.Name</amlont:name>
 					## refPartnerSideA and B are owl:ObjectProperties
 					## TODO<amlont:refPartnerSideA rdf:resource="${EIntSideA}"/> 
 					## TODO<amlont:refPartnerSideB rdf:resource="${EIntSideB}"/> 
-					<amlont:TEMPSideA rdf:datatype="${xsdns}string">$RPSideA</amlont:TEMPSideA>
+					<amlont:TEMPSideA rdf:datatype="${xsdns}string">$SideAURI</amlont:TEMPSideA>
 					<amlont:TEMPSideB rdf:datatype="${xsdns}string">$RPSideB</amlont:TEMPSideB>
 				</owl:NamedIndividual>
 		#end
@@ -167,6 +170,67 @@
 			#walkIEForInternalLink($child $ihierarchy)
 		#end
 	#end	
+	#end
+	## -- macro end
+	
+	## --Recursive InternalLink creation from all InternalElements--
+	## See: https://stackoverflow.com/questions/6914312/calling-macro-function-in-velocity-template
+	## "To get rid of spaces and blank lines use multi-line comments"
+	## "preferably an externally defined result variable can be passed 'by reference'"
+	#macro(macroReferedExtIntURI $RPSide $ihierarchy $SideURI)
+		#if($SideURI)
+		## TODO: Parsing link reference refPartnerSide
+		#set( $Cond = $StringUtils.contains($RPSide,":") )
+			#if($Cond)				
+				## First part of link reference is IE ID
+				#set( $IElemID = $StringUtils.split($RPSide,":")[0] )
+				#set( $EIntName = $StringUtils.split($RPSide,":")[1] )
+				#set( $IEFound = "" )
+				#set( $IHReturn = "" )
+				#macroFindExtInt($ihierarchy $IElemID $EIntName $IEFound $IHReturn)
+				#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$IHReturn","$IEFound", "$EIntName") )
+				##set( $SideURI = $IEFound )
+				#set( $URIhelp = $IEFound )
+			#end
+		#end
+	#end
+	## -- macro end
+	
+	#macro(macroFindExtInt $ihierarchy $IElemID $EIntName $IEFound $IHReturn)
+		#if($IEFound)
+			## TEMP set( $IEFound = "TESTING_TESTING" )
+			## -- SEARCHING REFERENCED InternalElement containing the ExternalInterface
+			#foreach ($ih in $caexfile.getInstanceHierarchy())
+				#foreach ($ie in $ih.InternalElement)
+				#set( $IEReturn = "" )
+				#recursiveSearchIElementsWithID($ie $ih $IElemID $IEReturn $IHReturn)
+				#set( $IEFound = $IEReturn )
+				#end		
+			#end
+		#end
+	#end
+	## -- macro end
+	
+	#macro(recursiveSearchIElementsWithID $node $ih $IElemID $IEReturn $IHReturn)
+		## TODO: $IHReturn ei toimi???? perille asti ainakaan???
+		#if($IEReturn)
+			##set( $IEReturn = "RECURSIVE_TESTING" )
+			#set( $ThisID = $node.getID())
+			#set( $ThisName = $node.getName())
+			##set( $IEReturn = "$IEReturn$ThisID" )
+			## TODO:TOIMII
+			
+			#if($IElemID == $ThisID)
+				##set( $IEReturn = "FOUND_FOUND_RECURSIVE_TESTING" )
+				#set( $IEReturn = $ThisName )
+				#set( $IHReturn = $ih.getName() )
+			#end
+		#end
+		#if ($node.InternalElement.size() > 0)
+		#foreach ($child in $node.InternalElement)
+			#recursiveSearchIElementsWithID($child $ih $IElemID $IEReturn $IHReturn)
+		#end
+		#end	
 	#end
 	## -- macro end
 	
