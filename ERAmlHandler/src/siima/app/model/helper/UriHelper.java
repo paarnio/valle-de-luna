@@ -18,7 +18,7 @@ public class UriHelper {
 		xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
 	 */
 	
-	public String createInstanceUri(String instanceOwlType, String iHierarchy, String iElement, String instanceName ){
+	public String createInstanceUri(String instanceOwlType, String hierarchy, String iElement, String instanceName ){
 		// parameters: instanceOwlType is OWL Class type (NOT JAXB)
 		// These instances belong to siimaontns namespace
 		// (CAEX Class definitions are from caexontns namespace)
@@ -28,17 +28,23 @@ public class UriHelper {
 			uri = siimaontns + instanceOwlType + "-INST_" + "CF-" + instanceName;		
 		} else if("InstanceHierarchy".equalsIgnoreCase(instanceOwlType)){		
 			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + instanceName;		
-		} else if("SystemUnitClass".equalsIgnoreCase(instanceOwlType)){		
-			uri = siimaontns + instanceOwlType + "-INST_" + "SUC-" + instanceName;		
 		} else if("Attribute".equalsIgnoreCase(instanceOwlType)){		
-			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + iHierarchy + "_IE-" + iElement + "_ATT-" + instanceName;		
+			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy + "_IE-" + iElement + "_ATT-" + instanceName;		
 		} else if("InternalElement".equalsIgnoreCase(instanceOwlType)){		
-			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + iHierarchy + "_IE-" + instanceName;		
+			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy + "_IE-" + instanceName;		
 		} else if("ExternalInterface".equalsIgnoreCase(instanceOwlType)){ // subClass of InterfaceClass		
-			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + iHierarchy + "_IE-" + iElement + "_EXTINT-" + instanceName;		
+			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy + "_IE-" + iElement + "_EXTINT-" + instanceName;		
 		} else if("InternalLink".equalsIgnoreCase(instanceOwlType)){ // subClass of CAEXObject		
-			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + iHierarchy +  "_ILINK-" + instanceName; //NO: "_IE-" + iElement +		
+			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy +  "_ILINK-" + instanceName; //NO: "_IE-" + iElement +		
 		}
+		
+		
+		if("SystemUnitClassLib".equalsIgnoreCase(instanceOwlType)){		
+			uri = siimaontns + instanceOwlType + "-INST_" + "SUCLIB-" + instanceName;		
+		} else 	if("SystemUnitClass".equalsIgnoreCase(instanceOwlType)){		
+			uri = siimaontns + instanceOwlType + "-INST_" + "SUCLIB-" + hierarchy + "SUC-" + instanceName;		
+		} 
+		
 		
 		return uri;
 	}
