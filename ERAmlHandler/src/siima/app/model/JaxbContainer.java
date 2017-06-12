@@ -702,45 +702,42 @@ public class JaxbContainer {
 	}
 
 	/*
-	 * TODO: 
+	 * parseAnyTypeContent() 
 	 * 
 	 */
-	public String parseAnyTypeContent(String parentObjectType, Object parentNodeObject, String anyTypePropertyName, int propOrder  ){
-	/* Parameters: parentObjectType is JAXB type
-	 * If several 'anyTypePropertyName' elements, select the one with in order propOrder (>=1)
-	 * Toteuta esim. Main2B.java mukaisesti:
-	 * 
-	 */
-		System.out.println("------XsAnyTypeSolver:parseAnyTypeContent()------ ");
+	public String parseAnyTypeContent(String parentObjectType, Object parentNodeObject, String anyTypePropertyName,
+			int propOrder) {
+		/*
+		 * Parameters: parentObjectType is JAXB type Note: propOrder not in use.
+		 * If several 'anyTypePropertyName' elements, select the one with in
+		 * order propOrder (>=1) 
+		 * 
+		 */
 		
-		String content=null;
-		if("AttributeType".equals(parentObjectType)){
-			/*  AttributeType
-			 * Order| Property
-			 *  	@XmlElement(name = "DefaultValue")
-    		 *	1. 	protected Object defaultValue;
-    		 *  	@XmlElement(name = "Value")
-    		 *  2. 	protected Object value;
+		logger.log(Level.INFO, "parseAnyTypeContent() parentObjectType: " + parentObjectType
+				+ " & anyTypePropertyName: " + anyTypePropertyName);
+		String content = null;
+
+		if ("AttributeType".equals(parentObjectType)) {
+			/*
+			 * AttributeType Order| Property
+			 * 
+			 * @XmlElement(name = "DefaultValue") 1. protected Object
+			 * defaultValue;
+			 * 
+			 * @XmlElement(name = "Value") 2. protected Object value;
 			 */
-			// * If several 'anyTypePropertyName' elements, select the one with in order propOrder (>=1)
-			List<Object> attValue = XsAnyTypeSolver.marshal(parentNodeObject, anyTypePropertyName, propOrder);
-			System.out.println("=============== attValue object: " + attValue.toString());
-			String[] valueStruct =  attValue.toString().split(": ");
-			String valuestring=null;
-			if("[[#text".equals(valueStruct[0])){ // String content
-				valuestring=valueStruct[1].split("]]")[0];
-				System.out.println("--XsAnyTypeSolver:parseAnyTypeContent(): object has a string value: " + valuestring);
-				content = valuestring;
-			} else { // Some Object content
-				
-				logger.log(Level.ERROR, "parseAnyTypeContent() Attribute value content unknown: " + attValue.toString());
-			}
-		
+
+			content = XsAnyTypeSolver.getAnyTypeStringContent(parentNodeObject, anyTypePropertyName); // NEW
+			logger.log(Level.INFO,
+					"parseAnyTypeContent() AttributeType/" + anyTypePropertyName + " String value: " + content);
+
 		} else if ("CAEXBasicObject".equals(parentObjectType)) {
 			/*
 			 * CAEXFile: ------ AdditionalInformation -------- (e.g.
 			 * common/caex/caex_lego/Lego_example_mod2.aml) 2017-06-01 TOIMII
 			 * ------------------------------------------------------------
+			 * 
 			 * @XmlRootElement(name = "CAEXFile") public class CAEXFile extends
 			 * CAEXBasicObject
 			 * 
@@ -765,35 +762,31 @@ public class JaxbContainer {
 			 * changeMode;
 			 * 
 			 */
-			// ---- MARSHALL -----
-			//  If several 'anyTypePropertyName' elements, select the one with in order propOrder (>=1)
-			List<Object> addInfo = XsAnyTypeSolver.marshal(parentNodeObject, "AdditionalInformation", propOrder); // propOrder=1
-			if ((addInfo != null) && (!addInfo.isEmpty())) {
-				StringBuffer addinfobuf = new StringBuffer();
-			
-				String[] valueStruct = addInfo.toString().split(": ");
-				String valuestring = null;
-				if ("[[#text".equals(valueStruct[0])) { // String content
-					valuestring = valueStruct[1].split("]]")[0];
-					logger.log(Level.INFO,
-							"parseAnyTypeContent() AdditionalInformation has a string value: " + valuestring);
-					addinfobuf.append("\n----CAEXFile: ADDITIONAL INFORMATION-----------------");
-					addinfobuf.append("\n" + valuestring);
-					addinfobuf.append("\n ----------------------------------------------------");
-					content = addinfobuf.toString();
-					
-				} else { // Some Object content (e.g. Lego_example_mod2.aml)
-					logger.log(Level.INFO,
-							"parseAnyTypeContent() AdditionalInformation object as string:\n" + addInfo.toString());
-					
-					/* ---- UNMARSHALL -----
-					 * EXTRA content class defined for xs:anyType content container 
-					 */
-					AppInfoEXTRAContentType appInfoExtra = new AppInfoEXTRAContentType();
-					appInfoExtra = (AppInfoEXTRAContentType) XsAnyTypeSolver.unmarshal(addInfo, null,
-							AppInfoEXTRAContentType.class);
+
+			StringBuffer addinfobuf = new StringBuffer();
+			String strContent = XsAnyTypeSolver.getAnyTypeStringContent(parentNodeObject, anyTypePropertyName); // NEW
+
+			if (strContent != null) {
+
+				logger.log(Level.INFO,
+						"parseAnyTypeContent() AdditionalInformation has a String content: " + strContent);
+				addinfobuf.append("\n----CAEXFile: ADDITIONAL INFORMATION-----------------");
+				addinfobuf.append("\n" + strContent);
+				addinfobuf.append("\n ----------------------------------------------------");
+				content = addinfobuf.toString();
+
+			} else {
+
+				/*
+				 * EXTRA content class defined for xs:anyType content container
+				 */
+				logger.log(Level.INFO, "parseAnyTypeContent(): AdditionalInformation has special object content:(AppInfoEXTRAContentType)!\n");
+				AppInfoEXTRAContentType appInfoExtra = new AppInfoEXTRAContentType();
+				appInfoExtra = (AppInfoEXTRAContentType) XsAnyTypeSolver.getAnyTypeElementContent(parentNodeObject,
+						anyTypePropertyName, null, AppInfoEXTRAContentType.class);
+				if (appInfoExtra != null) {
 					WriterHeader header = appInfoExtra.getWriterHeader();
-					
+
 					if ((header != null)) {
 						addinfobuf.append("\n----CAEXFile: ADDITIONAL INFORMATION-----------------");
 						addinfobuf.append("\nINFO: WriterName: " + header.getWriterName());
@@ -808,10 +801,13 @@ public class JaxbContainer {
 						addinfobuf.append("\n-----------------------------------------------------");
 						content = addinfobuf.toString();
 
-					} else
+					} else {
 						System.out.println("parseAnyTypeContent: WriterHeader header is NULL: ");
-
+					}
+				} else {
+					System.out.println("parseAnyTypeContent: appInfoExtra is NULL: ");
 				}
+
 			}
 		}
 		return content;
