@@ -176,22 +176,48 @@ public class JaxbContainer {
 		
 		String fileJaxbObject = fileinfobuf.toString();
 		
+		// InstanceHierarchy tree
+		ElementNode ihCaexFileElement = new ElementNode("CAEXFile_" + fileNr + ":" + caexfilename);
+		ihCaexFileElement.setNodetype("CAEXFile");
+		ihCaexFileElement.setJaxbObject(fileJaxbObject);
+		List<ElementNode> ihCaexFileElementList = new ArrayList<ElementNode>();
+		ihCaexFileElementList.add(ihCaexFileElement);
 		
-		ElementNode caexFileElement = new ElementNode("CAEXFile_" + fileNr + ":" + caexfilename);
-		caexFileElement.setNodetype("CAEXFile");
-		caexFileElement.setJaxbObject(fileJaxbObject); //TODO
-		List<ElementNode> caexFileElementList = new ArrayList<ElementNode>();
-		caexFileElementList.add(caexFileElement);
+		// SystemUnitClassLib tree
+		ElementNode sucLibCaexFileElement = new ElementNode("CAEXFile_" + fileNr + ":" + caexfilename);
+		sucLibCaexFileElement.setNodetype("CAEXFile");
+		sucLibCaexFileElement.setJaxbObject(fileJaxbObject);
+		List<ElementNode> sucLibCaexFileElementList = new ArrayList<ElementNode>();
+		sucLibCaexFileElementList.add(sucLibCaexFileElement);
+		
+		// RoleClassLib tree
+		ElementNode rcLibCaexFileElement = new ElementNode("CAEXFile_" + fileNr + ":" + caexfilename);
+		rcLibCaexFileElement.setNodetype("CAEXFile");
+		rcLibCaexFileElement.setJaxbObject(fileJaxbObject); 
+		List<ElementNode> rcLibCaexFileElementList = new ArrayList<ElementNode>();
+		rcLibCaexFileElementList.add(rcLibCaexFileElement);
+		
+		// InterfaceClassLib tree
+		ElementNode icLibCaexFileElement = new ElementNode("CAEXFile_" + fileNr + ":" + caexfilename);
+		icLibCaexFileElement.setNodetype("CAEXFile");
+		icLibCaexFileElement.setJaxbObject(fileJaxbObject); 
+		List<ElementNode> icLibCaexFileElementList = new ArrayList<ElementNode>();
+		icLibCaexFileElementList.add(icLibCaexFileElement);
+		
 
-		// Caex object lists
+		// CAEXFile's hierarchy lists
 		List<InstanceHierarchy> instHList = caex.getInstanceHierarchy();
 		List<SystemUnitClassLib> systemUnitClassLibList = caex.getSystemUnitClassLib();
 		List<RoleClassLib> roleClassLibList = caex.getRoleClassLib();
 		List<InterfaceClassLib> interfaceClassLibList = caex.getInterfaceClassLib();
-		List<ExternalReference> extRefList = caex.getExternalReference();
-		List<Revision> revisionList = caex.getRevision();
+		//List<ExternalReference> extRefList = caex.getExternalReference();
+		//List<Revision> revisionList = caex.getRevision();
 
-		/* Adding InstanceHierarchy into the ElementNode tree */
+		
+		/*
+		 * Creating InstanceHierarchy tree into ElementNode tree
+		 */
+		
 		if ((instHList != null) && (!instHList.isEmpty())) {
 			
 			logger.info("CAEXFile:instanceHierarchyList");
@@ -206,8 +232,12 @@ public class JaxbContainer {
 				parseInternalElementsRecursion(ihierarchy, null, internals, 0);
 
 			}
-			ElementNode.linkChildren(ieRootElement, caexFileElementList);
-			ElementNode.linkChildren(caexFileElement, ichildren);
+			//ElementNode.linkChildren(ieRootElement, caexFileElementList);
+			//ElementNode.linkChildren(caexFileElement, ichildren);
+			
+			ElementNode.linkChildren(ieRootElement, ihCaexFileElementList);
+			ElementNode.linkChildren(ihCaexFileElement, ichildren);
+			
 		}
 
 		/*
@@ -229,8 +259,12 @@ public class JaxbContainer {
 				parseSystemUnitFamilyTypeRecursion(suchierarchy, null, suftypes, 0);
 
 			}
-			ElementNode.linkChildren(suclRootElement, caexFileElementList);
-			ElementNode.linkChildren(caexFileElement, caexSuclchildren);
+			//ElementNode.linkChildren(suclRootElement, caexFileElementList);
+			//ElementNode.linkChildren(caexFileElement, caexSuclchildren);
+			
+			ElementNode.linkChildren(suclRootElement, sucLibCaexFileElementList);
+			ElementNode.linkChildren(sucLibCaexFileElement, caexSuclchildren);
+			
 		}
 
 		/*
@@ -253,9 +287,12 @@ public class JaxbContainer {
 				parseRoleFamilyTypeRecursion(roleclasshierarchy, null, roleftypes, 0);
 
 			}
-			ElementNode.linkChildren(roleclRootElement, caexFileElementList);
-			ElementNode.linkChildren(caexFileElement, caexRoleclchildren);
-			//ElementNode.linkChildren(roleclRootElement, caexRoleclchildren);
+			//ElementNode.linkChildren(roleclRootElement, caexFileElementList );
+			//ElementNode.linkChildren(caexFileElement, caexRoleclchildren);
+			
+			ElementNode.linkChildren(roleclRootElement, rcLibCaexFileElementList );
+			ElementNode.linkChildren(rcLibCaexFileElement, caexRoleclchildren);
+			
 		}
 
 		/*
@@ -278,9 +315,12 @@ public class JaxbContainer {
 				parseCAEXObjectTypesRecursion(ifaceclasshierarchy, null, ifaceftypes, 0);
 
 			}
-			ElementNode.linkChildren(ifaceclRootElement, caexFileElementList);
-			ElementNode.linkChildren(caexFileElement, caexIfaceclchildren);
-			//ElementNode.linkChildren(ifaceclRootElement, caexIfaceclchildren);
+			//ElementNode.linkChildren(ifaceclRootElement, caexFileElementList);
+			//ElementNode.linkChildren(caexFileElement, caexIfaceclchildren);
+			
+			ElementNode.linkChildren(ifaceclRootElement, icLibCaexFileElementList);
+			ElementNode.linkChildren(icLibCaexFileElement, caexIfaceclchildren);
+			
 		}
 		return ieRootElement;
 	}

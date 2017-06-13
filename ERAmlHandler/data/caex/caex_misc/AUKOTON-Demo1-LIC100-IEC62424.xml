@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CAEXFile xsi:noNamespaceSchemaLocation="" FileName="LevelControl_62424.xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <InstanceHierarchy Name="AukotonExample">
+    <InternalElement Name="LevelControl">
+      <InternalElement Name="LI100">
+        <RoleRequirements RefBaseRoleClassPath="IEC62424InterfaceLib/PCE_Request">
+          <Attribute Name="PCE category">
+            <Value>L</Value>
+          </Attribute>
+          <Attribute Name="Location">
+            <Value>Central</Value>
+          </Attribute>
+          <Attribute Name="Processing function">
+            <Value>I</Value>
+          </Attribute>
+          <ExternalInterface Name="In" RefBaseClassPath="IEC62424InterfaceLib/SensorSink"/>
+          <ExternalInterface Name="SH" RefBaseClassPath="IEC62424InterfaceLib/SignalSource"/>
+          <ExternalInterface Name="MeasVal" RefBaseClassPath="IEC62424InterfaceLib/IndicationSource"/>
+        </RoleRequirements>
+      </InternalElement>
+      <InternalElement Name="LIC100">
+        <RoleRequirements RefBaseRoleClassPath="IEC62424InterfaceLib/PCE_Request">
+          <Attribute Name="PCE category">
+            <Value>U</Value>
+          </Attribute>
+          <Attribute Name="Location">
+            <Value>Central</Value>
+          </Attribute>
+          <Attribute Name="Processing function">
+            <Value>S</Value>
+          </Attribute>
+          <ExternalInterface Name="CtrlOn" RefBaseClassPath="IEC62424InterfaceLib/SignalSource"/>
+          <ExternalInterface Name="ProcessVal" RefBaseClassPath="IEC62424InterfaceLib/SignalSink"/>
+        </RoleRequirements>
+      </InternalElement>
+      <InternalElement Name="V101">
+        <RoleRequirements RefBaseRoleClassPath="IEC62424InterfaceLib/PCE_Request">
+          <Attribute Name="PCE category">
+            <Value>Y</Value>
+          </Attribute>
+          <Attribute Name="Location">
+            <Value>Central</Value>
+          </Attribute>
+          <Attribute Name="Processing function">
+            <Value>S</Value>
+          </Attribute>
+          <ExternalInterface Name="CtrlVal" RefBaseClassPath="IEC62424InterfaceLib/SignalSink"/>
+          <ExternalInterface Name="Out" RefBaseClassPath="IEC62424InterfaceLib/ActuatorSource"/>
+          <ExternalInterface Name="ForcedOff" RefBaseClassPath="IEC62424InterfaceLib/SignalSink"/>
+        </RoleRequirements>
+      </InternalElement>
+      <InternalElement Name="LS100_1">
+        <RoleRequirements RefBaseRoleClassPath="IEC62424InterfaceLib/PCE_Request">
+          <Attribute Name="PCE category">
+            <Value>L</Value>
+          </Attribute>
+          <Attribute Name="Processing function">
+            <Value>S</Value>
+          </Attribute>
+          <Attribute Name="Location">
+            <Value>Central</Value>
+          </Attribute>
+          <ExternalInterface Name="MeasVal" RefBaseClassPath="IEC62424InterfaceLib/SignalSource"/>
+          <ExternalInterface Name="In" RefBaseClassPath="IEC62424InterfaceLib/SensorSink"/>
+        </RoleRequirements>
+      </InternalElement>
+      <InternalElement Name="LS100_2">
+        <RoleRequirements RefBaseRoleClassPath="IEC62424InterfaceLib/PCE_Request">
+          <Attribute Name="PCE category">
+            <Value>L</Value>
+          </Attribute>
+          <Attribute Name="Processing function">
+            <Value>S</Value>
+          </Attribute>
+          <Attribute Name="Location">
+            <Value>Central</Value>
+          </Attribute>
+          <ExternalInterface Name="MeasVal" RefBaseClassPath="IEC62424InterfaceLib/SignalSource"/>
+          <ExternalInterface Name="In" RefBaseClassPath="IEC62424InterfaceLib/SensorSink"/>
+        </RoleRequirements>
+      </InternalElement>
+      <InternalLink Name="L3" RefPartnerSideA="LI100:SH" RefPartnerSideB="V101:ForcedOff"/>
+      <InternalLink Name="L1" RefPartnerSideA="LI100:MeasVal" RefPartnerSideB="LIC100:ProcessVal"/>
+      <InternalLink Name="L2" RefPartnerSideA="LIC100:CtrlOn" RefPartnerSideB="V101:CtrlVal"/>
+    </InternalElement>
+  </InstanceHierarchy>
+  <InterfaceClassLib Name="IEC62424InterfaceLib">
+    <InterfaceClass Name="SignalSource"/>
+    <InterfaceClass Name="SignalSink"/>
+    <InterfaceClass Name="ActuatorSource"/>
+    <InterfaceClass Name="SignalNode"/>
+    <InterfaceClass Name="AlarmSource"/>
+    <InterfaceClass Name="SensorSink"/>
+    <InterfaceClass Name="IndicationSource"/>
+  </InterfaceClassLib>
+  <RoleClassLib Name="IEC62424RoleLib">
+    <Version>2.15</Version>
+    <RoleClass Name="PCE_Request">
+      <Attribute Name="Request-ID" AttributeDataType="xs:string">
+        <Description/>
+      </Attribute>
+      <Attribute Name="PCE category" AttributeDataType="xs:string"/>
+      <Attribute Name="Location" AttributeDataType="xs:string">
+        <Constraint Name="ValueRange">
+          <NominalScaledType>
+            <RequiredValue>Local</RequiredValue>
+            <RequiredValue>Local Control Panel</RequiredValue>
+            <RequiredValue>Central Control System</RequiredValue>
+          </NominalScaledType>
+        </Constraint>
+      </Attribute>
+      <Attribute Name="PU vendor" AttributeDataType="xs:string"/>
+      <Attribute Name="Typical identification" AttributeDataType="xs:string"/>
+      <Attribute Name="Device information" AttributeDataType="xs:string"/>
+      <Attribute Name="Processing function" AttributeDataType="xs:string"/>
+      <Attribute Name="GMP relevant" AttributeDataType="xs:boolean">
+        <Description>false or true</Description>
+      </Attribute>
+      <Attribute Name="Safety relevant" AttributeDataType="xs:boolean">
+        <Description>false or true</Description>
+      </Attribute>
+      <Attribute Name="Quality relevant" AttributeDataType="xs:boolean">
+        <Description>false or true</Description>
+      </Attribute>
+      <Attribute Name="GMP relevant" AttributeDataType="xs:boolean">
+        <Description>false or true</Description>
+      </Attribute>
+      <Attribute Name="PU Vendor" AttributeDataType="xs:string"/>
+      <Attribute Name="Device information" AttributeDataType="xs:string"/>
+      <Attribute Name="Medium Code" AttributeDataType="xs:string"/>
+      <Attribute Name="Pressure rating" AttributeDataType="xs:string"/>
+      <Attribute Name="Insulation type" AttributeDataType="xs:string"/>
+      <ExternalInterface Name="HHH" RefBaseClassPath="DKE-InterfaceLib/SignalNode">
+        <Description>Signal for High Alarm 3</Description>
+      </ExternalInterface>
+      <ExternalInterface Name="HH" RefBaseClassPath="DKE-InterfaceLib/SignalNode">
+        <Description>Signal for High Alarm 2</Description>
+      </ExternalInterface>
+      <ExternalInterface Name="H" RefBaseClassPath="DKE-InterfaceLib/SignalNode">
+        <Description>Signal for High Alarm 1</Description>
+      </ExternalInterface>
+      <ExternalInterface Name="L" RefBaseClassPath="DKE-InterfaceLib/SignalNode">
+        <Description>Signal for Low Alarm 1</Description>
+      </ExternalInterface>
+      <ExternalInterface Name="LL" RefBaseClassPath="DKE-InterfaceLib/SignalNode">
+        <Description>Signal for Low Alarm 2</Description>
+      </ExternalInterface>
+      <ExternalInterface Name="LLL" RefBaseClassPath="DKE-InterfaceLib/SignalNode">
+        <Description>Signal for Low Alarm 3</Description>
+      </ExternalInterface>
+    </RoleClass>
+  </RoleClassLib>
+</CAEXFile>
