@@ -59,7 +59,9 @@ import siima.models.jaxb.caex.ChangeMode;
 import siima.models.jaxb.caex.InterfaceClassType;
 import siima.models.jaxb.caex.InterfaceFamilyType;
 import siima.models.jaxb.caex.InternalElementType;
+import siima.models.jaxb.caex.RoleClassType;
 import siima.models.jaxb.caex.InternalElementType.RoleRequirements;
+import siima.models.jaxb.caex.MappingType;
 import siima.models.jaxb.caex.RoleClassType.ExternalInterface;
 import siima.models.jaxb.caex.RoleFamilyType;
 import siima.models.jaxb.caex.SystemUnitClassType;
@@ -147,8 +149,8 @@ public class JaxbContainer {
 		 * in order to recover the xs:anyType content of AdditionalInformation
 		 */
 		CAEXBasicObject basicObject = (CAEXBasicObject)caex;
-		CAEXBasicObject newbasic = TEMP_Helpper.insertCopyContent(basicObject); 
 		
+		CAEXBasicObject newbasic = TEMP_Helpper.insertCopyContent(basicObject); 		
 		// If several "AdditionalInformation" elements select the first (1)
 		String addInfoContent = parseAnyTypeContent("CAEXBasicObject", newbasic, "AdditionalInformation", 1 );	
 		//List<Object> addInfoList = caex.getAdditionalInformation();
@@ -173,6 +175,15 @@ public class JaxbContainer {
 		fileinfobuf.append("\nINFO: Copyright: " + caex.getCopyright());
 		fileinfobuf.append("\nADD_INFO:");
 		fileinfobuf.append(addInfoContent);
+		
+		fileinfobuf.append("\nEXTERNAL_REFERENCES:");
+		List<ExternalReference> extrefs = caex.getExternalReference();
+		int refi =0;
+		for(ExternalReference eref : extrefs){
+			++refi;
+			fileinfobuf.append("\n(EREF-" + refi + ") PATH:" + eref.getPath());
+			fileinfobuf.append("\n(EREF-" + refi + ") ALIAS:" + eref.getAlias());
+		}
 		
 		String fileJaxbObject = fileinfobuf.toString();
 		
@@ -443,8 +454,8 @@ public class JaxbContainer {
 	public boolean parseRoleFamilyTypeRecursion(ElementNode parentNode, RoleFamilyType jaxbParent,
 			List<RoleFamilyType> parentsRoleFamilyTypes, int level) {
 		// NOTE: After first round jaxbParent is always of RoleFamilyType
-		// NOTE: RoleFamilyType object can have RoleFamilyType
-		// children
+		// NOTE: RoleFamilyType object can have RoleFamilyType children
+		// NOTE: RoleFamilyType extends RoleClassType
 
 		boolean ok = true;
 		int sibling = 0;
@@ -452,15 +463,32 @@ public class JaxbContainer {
 		List<ElementNode> children = new ArrayList<ElementNode>();
 
 		if (jaxbParent != null) {
+			
 			// CAEX ATTRIBUTES
 			List<AttributeType> attributeList = jaxbParent.getAttribute();
 			if ((attributeList != null) && (!attributeList.isEmpty())) {
 				
 				parseAttributeTypeRecursion(parentNode, null, attributeList, 0);
 			}
-			//TODO:
-			List<ExternalInterface> extInterfaces = jaxbParent.getExternalInterface();
-			String refBCPath = jaxbParent.getRefBaseClassPath();
+			
+			/* CAEX EXT-INTERFACES
+			 * RoleClassType.ExternalInterface extends InterfaceClassType
+			 */
+			List<ExternalInterface> parentsExtInterfaces = jaxbParent.getExternalInterface();
+			// System.out.println("");
+			if ((parentsExtInterfaces != null) && (!parentsExtInterfaces.isEmpty())) {
+				for (InterfaceClassType iface : parentsExtInterfaces) {
+					// iface.getRefBaseClassPath();
+					ElementNode parentsIfaceNode = new ElementNode("IFace:" + iface.getName());
+					parentsIfaceNode.setJaxbObject(iface);
+					parentsIfaceNode.setNodetype("InterfaceClassType");
+					children.add(parentsIfaceNode);
+				}
+			}
+					
+			
+			
+			//String refBCPath = jaxbParent.getRefBaseClassPath();
 			
 			/*if (internals != null) {
 				System.out.println("--JaxbContainer:SystemUnitFT has List<InternalElementType> #:" + internals.size());
@@ -587,7 +615,9 @@ public class JaxbContainer {
 			 * suportedRoles = jaxbParent.getSupportedRoleClass();
 			 */
 
-			// CAEX EXT-INTERFACES
+			/* CAEX EXT-INTERFACES
+			 * RoleClassType.ExternalInterface extends InterfaceClassType
+			 */
 			List<InterfaceClassType> parentsExtInterfaces = jaxbParent.getExternalInterface();
 			// System.out.println("");
 			if ((parentsExtInterfaces != null) && (!parentsExtInterfaces.isEmpty())) {
@@ -620,8 +650,60 @@ public class JaxbContainer {
 					children.add(parentslinkNode);
 				}
 			}
-
-		}
+			
+			// ROLE_REQUIREMENTS
+			RoleRequirements rolerequirements = jaxbParent.getRoleRequirements();
+			if(rolerequirements!=null){
+			ElementNode parentsRoleReqsNode = new ElementNode("ROLEREQS OF:" + parentNode.getName());
+			parentsRoleReqsNode.setJaxbObject(rolerequirements);
+			parentsRoleReqsNode.setNodetype("RoleRequirements");
+			//String refbaserole = rolerequirements.getRefBaseRoleClassPath();		
+			
+			List<AttributeType> rolereqAttributeList = rolerequirements.getAttribute();
+			if ((rolereqAttributeList != null) && (!rolereqAttributeList.isEmpty())) {
+				parseAttributeTypeRecursion(parentsRoleReqsNode, null, rolereqAttributeList, 0);				
+			}
+			List<InterfaceClassType> rolereqExtInterfaceList = rolerequirements.getExternalInterface();
+			List<ElementNode> rolereqChildren = new ArrayList<ElementNode>();
+			if ((rolereqExtInterfaceList != null) && (!rolereqExtInterfaceList.isEmpty())) {
+				for (InterfaceClassType iface : rolereqExtInterfaceList) {
+					// iface.getRefBaseClassPath();
+					ElementNode rolereqIfaceNode = new ElementNode("IFace:" + iface.getName());
+					rolereqIfaceNode.setJaxbObject(iface);
+					rolereqIfaceNode.setNodetype("InterfaceClassType");
+					rolereqChildren.add(rolereqIfaceNode);
+					
+				}
+								
+			}
+					
+			ElementNode.linkChildren(parentsRoleReqsNode, rolereqChildren);
+			children.add(parentsRoleReqsNode);
+			}
+			
+			// SUPPORTED ROLES (SystemUnitClassType.SupportedRoleClass extends CAEXBasicObject)
+			List<SupportedRoleClass> suportedRoles = jaxbParent.getSupportedRoleClass();
+			if(suportedRoles!=null){
+				for (SupportedRoleClass supprole : suportedRoles) {
+					ElementNode supproleNode = new ElementNode("SUPPORTED_ROLE_OF" + parentNode.getName());
+					supproleNode.setJaxbObject(supprole);
+					supproleNode.setNodetype("SupportedRoleClass");
+					//String rrcPath = supprole.getRefRoleClassPath();
+					
+					List<ElementNode> supproleChildren = new ArrayList<ElementNode>();
+					//MappingType extends CAEXBasicObject
+					MappingType mapping = supprole.getMappingObject();
+					ElementNode mappingNode = new ElementNode("MAPPING_TYPE_OF" + supproleNode.getName());
+					mappingNode.setJaxbObject(mapping);
+					mappingNode.setNodetype("MappingType");
+					supproleChildren.add(mappingNode);					
+					ElementNode.linkChildren(supproleNode, supproleChildren);
+					children.add(supproleNode);
+				}
+			}
+			
+			
+		} // END if (jaxbParent != null)
 
 		// RECURSIVE CALL: CAEX PARENT'S INTERNAL-ELEMENT CHILDREN
 		if ((parentsInternalElements != null) && (!parentsInternalElements.isEmpty())) {
@@ -894,7 +976,8 @@ public class JaxbContainer {
 
 		StringBuffer infobuff = new StringBuffer();
 		
-		/*
+		/* xs:anyType objects:
+		 * ------------------
 		 * CAEXBasicObject: "AdditionalInformation" type="xs:anyType"
 		 * AttributeType: "DefaultValue" type="xs:anyType"
 		 * AttributeType: "Value" type="xs:anyType"
@@ -902,7 +985,7 @@ public class JaxbContainer {
 		 * AttributeValueRequirementType:OrdinalScaledType: "RequiredValue" type="xs:anyType"
 		 * AttributeValueRequirementType:OrdinalScaledType: "RequiredMinValue" type="xs:anyType"
 		 * AttributeValueRequirementType:NominalScaledType: "RequiredValue" type="xs:anyType"
-		 * 
+		 * -------------------
 		 * 
 		 * @XmlRootElement(name = "CAEXFile")
 			public class CAEXFile
@@ -922,25 +1005,85 @@ public class JaxbContainer {
     		protected List<Object> additionalInformation;
     		@XmlAttribute(name = "ChangeMode")
     		protected ChangeMode changeMode;
-		 * 
-		 * 
 		 */
-		
-		
+				
 
 		if (nodeobject != null) {
-			if (InternalElementType.class.isInstance(nodeobject)) {
-				InternalElementType element = (InternalElementType) nodeobject;
-				/*
-				 * TODO: RoleRequirements
-				 * rolereqs = jaxbParent.getRoleRequirements();
-				 * TODO:
-				 * List<SupportedRoleClass> suportedRoles =
-				 * jaxbParent.getSupportedRoleClass(); 
-				 * Description:Allows the association to a RoleClass which this SystemUnitClass can play. 
-				 * A SystemUnitClass may reference multiple roles
-				 */
+								
+			if (ExternalReference.class.isInstance(nodeobject)) {
+				ExternalReference element = (ExternalReference) nodeobject;
+				
+				infobuff.append("\nNAME: \t" + "(no name)");
+				infobuff.append("\nTYPE: \t" + element.getClass().getSimpleName());
+				infobuff.append("\nPATH: \t" + element.getPath());
+				infobuff.append("\nALIAS: \t" + element.getAlias());
+				Description description = element.getDescription();
+				if (description != null)
+					infobuff.append("\nDESCRIPTION: \t" + description.getValue());
+				Version version = element.getVersion();
+				if (version != null)
+					infobuff.append("\nVERSION: " + version.getValue());
+				
 
+			} else if (InstanceHierarchy.class.isInstance(nodeobject)) {
+				InstanceHierarchy element = (InstanceHierarchy) nodeobject;
+				
+				infobuff.append("\nNAME: \t" + element.getName());
+				infobuff.append("\nTYPE: \t" + element.getClass().getSimpleName());
+				infobuff.append("\nGUID: \t" + element.getID());
+				Description description = element.getDescription();
+				if (description != null)
+					infobuff.append("\nDESCRIPTION: \t" + description.getValue());
+				Version version = element.getVersion();
+				if (version != null)
+					infobuff.append("\nVERSION: " + version.getValue());
+				
+
+			} else if (SystemUnitClassLib.class.isInstance(nodeobject)) {
+				SystemUnitClassLib element = (SystemUnitClassLib) nodeobject;
+				
+				infobuff.append("\nNAME: \t" + element.getName());
+				infobuff.append("\nTYPE: \t" + element.getClass().getSimpleName());
+				infobuff.append("\nGUID: \t" + element.getID());
+				Description description = element.getDescription();
+				if (description != null)
+					infobuff.append("\nDESCRIPTION: \t" + description.getValue());
+				Version version = element.getVersion();
+				if (version != null)
+					infobuff.append("\nVERSION: " + version.getValue());
+				
+
+			} else  if (RoleClassLib.class.isInstance(nodeobject)) {
+				RoleClassLib element = (RoleClassLib) nodeobject;
+				
+				infobuff.append("\nNAME: \t" + element.getName());
+				infobuff.append("\nTYPE: \t" + element.getClass().getSimpleName());
+				infobuff.append("\nGUID: \t" + element.getID());
+				Description description = element.getDescription();
+				if (description != null)
+					infobuff.append("\nDESCRIPTION: \t" + description.getValue());
+				Version version = element.getVersion();
+				if (version != null)
+					infobuff.append("\nVERSION: " + version.getValue());
+				
+
+			} else if (InterfaceClassLib.class.isInstance(nodeobject)) {
+				InterfaceClassLib element = (InterfaceClassLib) nodeobject;
+				
+				infobuff.append("\nNAME: \t" + element.getName());
+				infobuff.append("\nTYPE: \t" + element.getClass().getSimpleName());
+				infobuff.append("\nGUID: \t" + element.getID());
+				Description description = element.getDescription();
+				if (description != null)
+					infobuff.append("\nDESCRIPTION: \t" + description.getValue());
+				Version version = element.getVersion();
+				if (version != null)
+					infobuff.append("\nVERSION: " + version.getValue());
+				
+
+			} else if (InternalElementType.class.isInstance(nodeobject)) {
+				InternalElementType element = (InternalElementType) nodeobject;
+				
 				infobuff.append("\nNAME: \t" + element.getName());
 				infobuff.append("\nTYPE: \t" + "InternalElementType");
 				infobuff.append("\nGUID: \t" + element.getID());
@@ -948,6 +1091,39 @@ public class JaxbContainer {
 				if (description != null)
 					infobuff.append("\nDESCRIPTION: \t" + description.getValue());
 				infobuff.append("\nRefBaseSystemUnitPath: " + element.getRefBaseSystemUnitPath());
+
+			} else if (RoleRequirements.class.isInstance(nodeobject)) {
+				RoleRequirements element = (RoleRequirements) nodeobject;
+				
+				infobuff.append("\nNAME: \t" + "(RoleRequirements)");
+				infobuff.append("\nTYPE: \t" + element.getClass().getSimpleName());
+				infobuff.append("\nREF_BASEROLE_CLASSPATH: " + element.getRefBaseRoleClassPath());
+				Description description = element.getDescription();
+				if (description != null)
+					infobuff.append("\nDESCRIPTION: \t" + description.getValue());			
+
+			} else if (SupportedRoleClass.class.isInstance(nodeobject)) {
+				SupportedRoleClass element = (SupportedRoleClass) nodeobject;
+				
+				infobuff.append("\nNAME: \t" + "(SupportedRoleClass)");
+				infobuff.append("\nTYPE: \t" + element.getClass().getSimpleName());
+				infobuff.append("\nREF_ROLE_CLASSPATH: " + element.getRefRoleClassPath());
+				Description description = element.getDescription();
+				if (description != null)
+					infobuff.append("\nDESCRIPTION: \t" + description.getValue());			
+
+			} else if (MappingType.class.isInstance(nodeobject)) {
+				MappingType element = (MappingType) nodeobject;
+				
+				infobuff.append("\nNAME: \t" + "(MappingType)");
+				infobuff.append("\nTYPE: \t" + element.getClass().getSimpleName());
+				if(!element.getAttributeNameMapping().isEmpty())
+					infobuff.append("\nCONTAINS: AttributeNameMapping: true");
+				if(!element.getInterfaceNameMapping().isEmpty())
+					infobuff.append("\nCONTAINS: InterfaceNameMapping: true");
+				Description description = element.getDescription();
+				if (description != null)
+					infobuff.append("\nDESCRIPTION: \t" + description.getValue());			
 
 			} else if (SystemUnitFamilyType.class.isInstance(nodeobject)) {
 				SystemUnitFamilyType element = (SystemUnitFamilyType) nodeobject;
