@@ -54,9 +54,30 @@ public class AspDlvReasoner {
 	public AspDlvReasoner() {
 		aspContainer = new AspModelContainer();
 	}
+	
+	public StringBuffer getAspModelsAsString(int nrmodels, boolean all) {
+		// Param nrmodels: number of models to access
+		logger.log(Level.INFO, "getAspModelsAsString():");
+		int mcount = 0;
+		StringBuffer buffer = new StringBuffer();
+		List<Model> aspmodels = aspContainer.getResultAspModels();
+		if (aspmodels != null) {
 
+			for (Model onemod : aspmodels) {
+				++mcount;
+				if ((all)||(mcount <= nrmodels)) {
+					buffer.append("MODEL_" + mcount + " {\n");
+					buffer.append(onemod.toString());
+					buffer.append("\n}\n");
+				}
+			}
+		}
+		return buffer;
+	}
+	
+	
 	public StringBuffer parseAspModelToXML(List<Model> models) {
-		logger.log(Level.INFO, "parseAspModel():");
+		logger.log(Level.INFO, "parseAspModelToXML():");
 		StringBuffer buffer = new StringBuffer();
 		boolean hasModel = false;
 		boolean negativeLit = false;

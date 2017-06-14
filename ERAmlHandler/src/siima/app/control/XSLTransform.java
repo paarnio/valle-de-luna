@@ -65,7 +65,6 @@ public class XSLTransform {
 				Source xml = new StreamSource(sourcefile); // "data/caex_lego/Lego_example_mod1.aml"
 				Result result = new StreamResult(targetfile); // "data/generated/CAEXLego2monkey3_results.xml");
 				transformer.transform(xml, result);
-				//System.out.println("-XSLTransform: doTransform(): Transformation result saved: " + targetfile);
 				logger.info("doSpecificTransform: Transformation target saved: " + targetfile);
 
 			} catch (TransformerConfigurationException e) {

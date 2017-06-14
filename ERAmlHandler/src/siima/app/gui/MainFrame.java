@@ -667,13 +667,13 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 
 		} else if (arg0.getSource() == mntmInvokeReasoner) {
 
-			if (true) {
-				appControl.invokeAspReasoner();
-				System.out.println("-- invokeAspReasoner! ");
-			} else {
-				System.out.println("-- invokeAspReasoner: NO ??? ");
-
-			}
+				StringBuffer strmodels = appControl.invokeAspReasoner();
+				System.out.println("-- invokeAspReasoner! ");			
+				txtrResultOutput.setText(null); // CLear old text
+				if(strmodels!=null)
+					txtrResultOutput.append(strmodels.toString() + newline);
+				else txtrResultOutput.append("ASP RESULT MODELS: null");
+				txtrResultOutput.setCaretPosition(txtrResultOutput.getText().length());
 
 		} else if (arg0.getSource() == mntmLoadRules) {
 			fileChooser.setDialogTitle("LOAD ASP RULE AND FACT FILES");

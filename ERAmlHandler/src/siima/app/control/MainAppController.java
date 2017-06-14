@@ -209,11 +209,14 @@ public class MainAppController {
 		logger.info("initXslContext()");
 	}
 
-	public void invokeAspReasoner() {
-
+	public StringBuffer invokeAspReasoner() {
+		
 		this.aspReasoner.invokeAspRules();
 		logger.info("invokeAspReasoner()");
-
+		// Params: (int nrmodels, boolean all) : number of models to access OR all of them; 
+		StringBuffer strmodels = this.aspReasoner.getAspModelsAsString(1, true); //how many models included
+		//System.out.println("==== MainAppController: invokeAspReasoner() ===\n " + strmodels.toString());
+		return strmodels;
 	}
 
 	public void initAspModel(File[] aspfiles) {
