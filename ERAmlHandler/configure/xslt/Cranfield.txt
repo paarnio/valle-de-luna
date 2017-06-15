@@ -1,0 +1,27 @@
+create faceplateback back pink 0,0,0
+create faceplatefront front pink 0,0,0
+create boltangular boltA1 green 0,0,0
+create boltangular boltA2 green 0,0,0
+create bolt bolt1 green 0,0,0
+create bolt bolt2 green 0,0,0
+create shaft shaft1 green 0,0,0
+create pendulum pendulum1 yellow 0,1,0
+connect back square_left boltA1 bottom
+connect back square_right boltA2 bottom
+connect back circle_left bolt1 bottom
+connect back circle_right bolt2 bottom
+connect back shaft shaft1 bottom
+connect shaft1 middle pendulum1 bottom
+connect shaft1 top front bottom
+param faceplateback square_left -0.656,0,1.151
+param faceplateback square_right 0.664,0,1.151
+param boltangular bottom 0,0.25,0
+param faceplateback circle_left -1.021,0,-0.774
+param faceplateback circle_right 1.019,0,-0.774
+param bolt bottom 0,0.25,0
+param shaft bottom 0,0.24,0
+param pendulum bottom 0,-0.715,-1.05
+param faceplateback shaft -0.006,0,0.226
+param shaft middle 0,0,0
+param shaft top 0,0,-0.2
+param faceplatefront bottom 0,-0.22,0

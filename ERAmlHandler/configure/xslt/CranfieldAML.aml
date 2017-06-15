@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CAEXFile FileName="CranfieldAML.aml" SchemaVersion="2.15" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AdditionalInformation>
+		<WriterHeader>
+			<WriterName>AutomationML Editor</WriterName>
+			<WriterID>916578CA-FE0D-474E-A4FC-9E1719892369</WriterID>
+			<WriterVendor>AutomationML e.V.</WriterVendor>
+			<WriterVendorURL>www.AutomationML.org</WriterVendorURL>
+			<WriterVersion>4.4.3.0</WriterVersion>
+			<WriterRelease>4.4.3.0</WriterRelease>
+			<LastWritingDateTime>2017-06-15T15:53:41.1397244+03:00</LastWritingDateTime>
+			<WriterProjectTitle>unspecified</WriterProjectTitle>
+			<WriterProjectID>unspecified</WriterProjectID>
+		</WriterHeader>
+	</AdditionalInformation>
+	<AdditionalInformation AutomationMLVersion="2.0" />
+	<InstanceHierarchy Name="InstanceHierarchy1">
+		<Version>1.0.0</Version>
+		<InternalElement Name="CranfieldBenchmark" ID="bbe6b4c5-43ad-43cc-9cf8-594fe7e255bb">
+			<InternalElement Name="back" RefBaseSystemUnitPath="SystemUnitClassLib1/FaceplateBack" ID="2ddc2cf5-1127-471f-b174-dc5b088c9d23">
+				<Attribute Name="color" AttributeDataType="xs:string">
+					<Description>color</Description>
+					<Value>pink</Value>
+				</Attribute>
+				<Attribute Name="orientation" AttributeDataType="xs:string">
+					<Description>orientation</Description>
+					<Value>0,0,0</Value>
+				</Attribute>
+				<Attribute Name="square_left">
+					<DefaultValue>-0.656,0,1.151</DefaultValue>
+				</Attribute>
+				<Attribute Name="square_right" AttributeDataType="xs:string">
+					<DefaultValue>0.664,0,1.151</DefaultValue>
+				</Attribute>
+				<Attribute Name="circle_left" AttributeDataType="xs:string">
+					<DefaultValue>-1.021,0,-0.774</DefaultValue>
+				</Attribute>
+				<Attribute Name="circle_right" AttributeDataType="xs:string">
+					<DefaultValue>1.019,0,-0.774</DefaultValue>
+				</Attribute>
+				<Attribute Name="shaft" AttributeDataType="xs:string">
+					<DefaultValue>-0.006,0,0.226</DefaultValue>
+				</Attribute>
+				<ExternalInterface Name="circle_left" RefBaseClassPath="InterfaceClassLib1/IBolt" ID="c7a531e6-1411-4a39-a035-8ef19cae82ec" />
+				<ExternalInterface Name="circle_right" RefBaseClassPath="InterfaceClassLib1/IBolt" ID="faee6461-1483-461f-9f5c-ba1aa3a86803" />
+				<ExternalInterface Name="shaft" RefBaseClassPath="InterfaceClassLib1/IShaft" ID="16209505-dd77-4e85-b319-b12eae52958d" />
+				<ExternalInterface Name="square_left" RefBaseClassPath="InterfaceClassLib1/IBoltAngular" ID="38450387-7d22-4f2b-87f5-5e9b57527d16" />
+				<ExternalInterface Name="square_right" RefBaseClassPath="InterfaceClassLib1/IBoltAngular" ID="b6f4fb91-49f2-4bac-a4ac-c83e142af2e6" />
+			</InternalElement>
+			<InternalElement Name="front" RefBaseSystemUnitPath="SystemUnitClassLib1/FaceplateFront" ID="1f32d48e-9791-4c9c-bbf6-6648acf48d23">
+				<Attribute Name="bottom" AttributeDataType="xs:string">
+					<DefaultValue>0,-0.22,0</DefaultValue>
+				</Attribute>
+				<Attribute Name="color" AttributeDataType="xs:string">
+					<Value>pink</Value>
+				</Attribute>
+				<Attribute Name="orientation" AttributeDataType="xs:string">
+					<Value>0,0,0</Value>
+				</Attribute>
+				<ExternalInterface Name="bottom" RefBaseClassPath="InterfaceClassLib1/IShaft" ID="187df530-7b47-4b44-a3b8-7f8a95e9b78d" />
+			</InternalElement>
+			<InternalElement Name="boltA1" RefBaseSystemUnitPath="SystemUnitClassLib1/BoltAngular" ID="2778cfbb-0567-47a4-938a-bfcb5cdec422">
+				<Attribute Name="color" AttributeDataType="xs:string">
+					<Value>green</Value>
+				</Attribute>
+				<Attribute Name="orientation" AttributeDataType="xs:string">
+					<Description>orientation</Description>
+					<Value>0,0,0</Value>
+				</Attribute>
+				<Attribute Name="bottom" AttributeDataType="xs:string">
+					<DefaultValue>0,0.25,0</DefaultValue>
+				</Attribute>
+				<ExternalInterface Name="top" RefBaseClassPath="InterfaceClassLib1/IBoltAngular" ID="9d95d899-e4bd-421e-95f9-4579c46cc74f" />
+				<ExternalInterface Name="bottom" RefBaseClassPath="InterfaceClassLib1/IBoltAngular" ID="a25d492b-a239-4b6a-97b4-64ad31aec0eb" />
+			</InternalElement>
+			<InternalElement Name="boltA2" RefBaseSystemUnitPath="SystemUnitClassLib1/BoltAngular" ID="fdac9986-b034-4372-9801-8eb0cfd0da64">
+				<Attribute Name="color" AttributeDataType="xs:string">
+					<Value>green</Value>
+				</Attribute>
+				<Attribute Name="orientation" AttributeDataType="xs:string">
+					<Description>orientation</Description>
+					<Value>0,0,0</Value>
+				</Attribute>
+				<Attribute Name="bottom" AttributeDataType="xs:string">
+					<DefaultValue>0,0.25,0</DefaultValue>
+				</Attribute>
+				<ExternalInterface Name="top" RefBaseClassPath="InterfaceClassLib1/IBoltAngular" ID="de3cb444-09b2-4edc-85e5-db2d83d7b40c" />
+				<ExternalInterface Name="bottom" RefBaseClassPath="InterfaceClassLib1/IBoltAngular" ID="fb34c993-aa7f-4d0f-87a9-ae94420a7f1e" />
+			</InternalElement>
+			<InternalElement Name="bolt1" RefBaseSystemUnitPath="SystemUnitClassLib1/Bolt" ID="b9b5e8ae-01e7-457a-8d8c-7375d3355c97">
+				<Attribute Name="bottom" AttributeDataType="xs:string">
+					<DefaultValue>0,0.25,0</DefaultValue>
+				</Attribute>
+				<Attribute Name="color" AttributeDataType="xs:string">
+					<Value>green</Value>
+				</Attribute>
+				<Attribute Name="orientation" AttributeDataType="xs:string">
+					<Value>0,0,0</Value>
+				</Attribute>
+				<ExternalInterface Name="top" RefBaseClassPath="InterfaceClassLib1/IBolt" ID="5b11544e-010b-411e-817a-aa05b7ae316c" />
+				<ExternalInterface Name="bottom" RefBaseClassPath="InterfaceClassLib1/IBolt" ID="9c623c81-3b22-493d-88d9-cfbd16e4ff25" />
+			</InternalElement>
+			<InternalElement Name="bolt2" RefBaseSystemUnitPath="SystemUnitClassLib1/Bolt" ID="6df095db-6a22-48cd-9b9a-5ed1009b13f9">
+				<Attribute Name="bottom" AttributeDataType="xs:string">
+					<DefaultValue>0,0.25,0</DefaultValue>
+				</Attribute>
+				<Attribute Name="color" AttributeDataType="xs:string">
+					<Value>green</Value>
+				</Attribute>
+				<Attribute Name="orientation" AttributeDataType="xs:string">
+					<Value>0,0,0</Value>
+				</Attribute>
+				<ExternalInterface Name="top" RefBaseClassPath="InterfaceClassLib1/IBolt" ID="79c12a8a-80c4-41d1-b9d8-85797f826802" />
+				<ExternalInterface Name="bottom" RefBaseClassPath="InterfaceClassLib1/IBolt" ID="32f7e724-680b-428f-ad57-8fcee3b1bd4d" />
+			</InternalElement>
+			<InternalElement Name="shaft1" RefBaseSystemUnitPath="SystemUnitClassLib1/Shaft" ID="82730f9c-d906-4909-8761-0fe7f76a4b17">
+				<Attribute Name="color" AttributeDataType="xs:string">
+					<Value>green</Value>
+				</Attribute>
+				<Attribute Name="orientation" AttributeDataType="xs:string">
+					<Value>0,0,0</Value>
+				</Attribute>
+				<Attribute Name="bottom" AttributeDataType="xs:string">
+					<DefaultValue>0,0.24,0</DefaultValue>
+				</Attribute>
+				<Attribute Name="middle" AttributeDataType="xs:string">
+					<DefaultValue>0,0,0</DefaultValue>
+				</Attribute>
+				<Attribute Name="top" AttributeDataType="xs:string">
+					<DefaultValue>0,0,-0.2</DefaultValue>
+				</Attribute>
+				<ExternalInterface Name="bottom" RefBaseClassPath="InterfaceClassLib1/IShaft" ID="615c4ee9-7611-42fe-aec4-4a2b899f7b32" />
+				<ExternalInterface Name="top" RefBaseClassPath="InterfaceClassLib1/IShaft" ID="45c22fc4-bfba-4b44-aa18-f51ccf9612ca" />
+				<ExternalInterface Name="middle" RefBaseClassPath="InterfaceClassLib1/IPendulum" ID="4d9237c3-1667-480d-b28b-e850d9530a2c" />
+			</InternalElement>
+			<InternalElement Name="pendulum1" RefBaseSystemUnitPath="SystemUnitClassLib1/Pendulum" ID="2e506fff-5172-4334-91f4-c8c87fcf2955">
+				<Attribute Name="bottom" AttributeDataType="xs:string">
+					<DefaultValue>0,-0.715,-1.05</DefaultValue>
+				</Attribute>
+				<Attribute Name="color" AttributeDataType="xs:string">
+					<Value>yellow</Value>
+				</Attribute>
+				<Attribute Name="orientation" AttributeDataType="xs:string">
+					<Value>0,1,0</Value>
+				</Attribute>
+				<ExternalInterface Name="bottom" RefBaseClassPath="InterfaceClassLib1/IPendulum" ID="c185902f-3953-4e16-acda-16d9223303d7" />
+			</InternalElement>
+			<InternalLink Name="InternalLink1" RefPartnerSideA="2ddc2cf5-1127-471f-b174-dc5b088c9d23:square_left" RefPartnerSideB="2778cfbb-0567-47a4-938a-bfcb5cdec422:bottom" />
+			<InternalLink Name="InternalLink2" RefPartnerSideA="2ddc2cf5-1127-471f-b174-dc5b088c9d23:square_right" RefPartnerSideB="fdac9986-b034-4372-9801-8eb0cfd0da64:bottom" />
+			<InternalLink Name="InternalLink3" RefPartnerSideA="2ddc2cf5-1127-471f-b174-dc5b088c9d23:circle_left" RefPartnerSideB="b9b5e8ae-01e7-457a-8d8c-7375d3355c97:bottom" />
+			<InternalLink Name="InternalLink4" RefPartnerSideA="2ddc2cf5-1127-471f-b174-dc5b088c9d23:circle_right" RefPartnerSideB="6df095db-6a22-48cd-9b9a-5ed1009b13f9:bottom" />
+			<InternalLink Name="InternalLink5" RefPartnerSideA="2ddc2cf5-1127-471f-b174-dc5b088c9d23:shaft" RefPartnerSideB="82730f9c-d906-4909-8761-0fe7f76a4b17:bottom" />
+			<InternalLink Name="InternalLink6" RefPartnerSideA="82730f9c-d906-4909-8761-0fe7f76a4b17:middle" RefPartnerSideB="2e506fff-5172-4334-91f4-c8c87fcf2955:bottom" />
+			<InternalLink Name="InternalLink7" RefPartnerSideA="82730f9c-d906-4909-8761-0fe7f76a4b17:top" RefPartnerSideB="1f32d48e-9791-4c9c-bbf6-6648acf48d23:bottom" />
+		</InternalElement>
+	</InstanceHierarchy>
+	<InterfaceClassLib Name="InterfaceClassLib1">
+		<Version>1.0.0</Version>
+		<InterfaceClass Name="IBolt" />
+		<InterfaceClass Name="IBoltAngular" />
+		<InterfaceClass Name="IShaft"></InterfaceClass>
+		<InterfaceClass Name="IPendulum" />
+	</InterfaceClassLib>
+	<SystemUnitClassLib Name="SystemUnitClassLib1">
+		<Version>1.0.0</Version>
+		<SystemUnitClass Name="FaceplateBack">
+			<Attribute Name="color" AttributeDataType="xs:string">
+				<Description>color</Description>
+			</Attribute>
+			<Attribute Name="orientation" AttributeDataType="xs:string">
+				<Description>orientation</Description>
+			</Attribute>
+			<Attribute Name="square_left">
+				<DefaultValue>-0.656,0,1.151</DefaultValue>
+			</Attribute>
+			<Attribute Name="square_right" AttributeDataType="xs:string">
+				<DefaultValue>0.664,0,1.151</DefaultValue>
+			</Attribute>
+			<Attribute Name="circle_left" AttributeDataType="xs:string">
+				<DefaultValue>-1.021,0,-0.774</DefaultValue>
+			</Attribute>
+			<Attribute Name="circle_right" AttributeDataType="xs:string">
+				<DefaultValue>1.019,0,-0.774</DefaultValue>
+			</Attribute>
+			<Attribute Name="shaft" AttributeDataType="xs:string">
+				<DefaultValue>-0.006,0,0.226</DefaultValue>
+			</Attribute>
+			<ExternalInterface Name="circle_left" RefBaseClassPath="InterfaceClassLib1/IBolt" ID="5c244537-0fea-46a5-bf81-7c81252e232e" />
+			<ExternalInterface Name="circle_right" RefBaseClassPath="InterfaceClassLib1/IBolt" ID="041ad697-85aa-4c55-8f74-f81c279655b2" />
+			<ExternalInterface Name="shaft" RefBaseClassPath="InterfaceClassLib1/IShaft" ID="b430fdb5-6397-438a-b080-1d0f41d67b9e" />
+			<ExternalInterface Name="square_left" RefBaseClassPath="InterfaceClassLib1/IBoltAngular" ID="91946ab4-5e02-4c2c-b90a-6484c342bfcc" />
+			<ExternalInterface Name="square_right" RefBaseClassPath="InterfaceClassLib1/IBoltAngular" ID="5c0dd7bb-adee-423f-8d69-7387a65d05d1" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="BoltAngular">
+			<Attribute Name="color" AttributeDataType="xs:string" />
+			<Attribute Name="orientation" AttributeDataType="xs:string">
+				<Description>orientation</Description>
+			</Attribute>
+			<Attribute Name="bottom" AttributeDataType="xs:string">
+				<DefaultValue>0,0.25,0</DefaultValue>
+			</Attribute>
+			<ExternalInterface Name="top" RefBaseClassPath="InterfaceClassLib1/IBoltAngular" ID="d9a08a53-4fb6-4338-bdb5-4e372b8eace2" />
+			<ExternalInterface Name="bottom" RefBaseClassPath="InterfaceClassLib1/IBoltAngular" ID="d4fe1cac-627b-40ac-bc38-664f15ded7b8" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="Bolt">
+			<Attribute Name="bottom" AttributeDataType="xs:string">
+				<DefaultValue>0,0.25,0</DefaultValue>
+			</Attribute>
+			<Attribute Name="color" AttributeDataType="xs:string" />
+			<Attribute Name="orientation" AttributeDataType="xs:string" />
+			<ExternalInterface Name="top" RefBaseClassPath="InterfaceClassLib1/IBolt" ID="414b7316-ed08-4387-9321-25d15b8d1b82" />
+			<ExternalInterface Name="bottom" RefBaseClassPath="InterfaceClassLib1/IBolt" ID="ee31293e-1568-431b-88a0-7e2c79f05cb1" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="Shaft">
+			<Attribute Name="color" AttributeDataType="xs:string" />
+			<Attribute Name="orientation" AttributeDataType="xs:string" />
+			<Attribute Name="bottom" AttributeDataType="xs:string">
+				<DefaultValue>0,0.24,0</DefaultValue>
+			</Attribute>
+			<Attribute Name="middle" AttributeDataType="xs:string">
+				<DefaultValue>0,0,0</DefaultValue>
+			</Attribute>
+			<Attribute Name="top" AttributeDataType="xs:string">
+				<DefaultValue>0,0,-0.2</DefaultValue>
+			</Attribute>
+			<ExternalInterface Name="bottom" RefBaseClassPath="InterfaceClassLib1/IShaft" ID="0bd09269-ed93-4955-aeb6-5371b031c7b2" />
+			<ExternalInterface Name="top" RefBaseClassPath="InterfaceClassLib1/IShaft" ID="66fb1316-2a34-4d5f-ac21-c3af74cad0cc" />
+			<ExternalInterface Name="middle" RefBaseClassPath="InterfaceClassLib1/IPendulum" ID="ee3099b7-6861-4eae-b9f5-93f1d8db4633" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="Pendulum">
+			<Attribute Name="bottom" AttributeDataType="xs:string">
+				<DefaultValue>0,-0.715,-1.05</DefaultValue>
+			</Attribute>
+			<Attribute Name="color" AttributeDataType="xs:string" />
+			<Attribute Name="orientation" AttributeDataType="xs:string" />
+			<ExternalInterface Name="bottom" RefBaseClassPath="InterfaceClassLib1/IPendulum" ID="f4a9d9f7-c6f1-46fc-9b41-b99a26c58295" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="FaceplateFront">
+			<Attribute Name="bottom" AttributeDataType="xs:string">
+				<DefaultValue>0,-0.22,0</DefaultValue>
+			</Attribute>
+			<Attribute Name="color" AttributeDataType="xs:string" />
+			<Attribute Name="orientation" AttributeDataType="xs:string" />
+			<ExternalInterface Name="bottom" RefBaseClassPath="InterfaceClassLib1/IShaft" ID="e95198db-2133-4669-b593-d76814f8f301" />
+		</SystemUnitClass>
+	</SystemUnitClassLib>
+</CAEXFile>
