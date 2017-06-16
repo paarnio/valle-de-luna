@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CAEXFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" FileName="RunningExample_Libraries.aml" SchemaVersion="2.15">
+	<AdditionalInformation>
+		<WriterHeader>
+			<WriterName>AutomationML Editor</WriterName>
+			<WriterID>916578CA-FE0D-474E-A4FC-9E1719892369</WriterID>
+			<WriterVendor>AutomationML e.V.</WriterVendor>
+			<WriterVendorURL>www.AutomationML.org</WriterVendorURL>
+			<WriterVersion>4.1.3</WriterVersion>
+			<WriterRelease>4.1.3.0</WriterRelease>
+			<LastWritingDateTime>2016-06-30T13:25:10.5525995+02:00</LastWritingDateTime>
+			<WriterProjectTitle>unspecified</WriterProjectTitle>
+			<WriterProjectID>unspecified</WriterProjectID>
+		</WriterHeader>
+	</AdditionalInformation>
+	<AdditionalInformation AutomationMLVersion="2.0" />
+	<AdditionalInformation>
+		<WriterHeader>
+			<WriterName>IEC SC65E WG 9</WriterName>
+			<WriterID>IEC SC65E WG 9</WriterID>
+			<WriterVendor>IEC</WriterVendor>
+			<WriterVendorURL>www.iec.ch</WriterVendorURL>
+			<WriterVersion>1.0</WriterVersion>
+			<WriterRelease>1.0.0</WriterRelease>
+			<LastWritingDateTime>2013-03-01</LastWritingDateTime>
+			<WriterProjectTitle>Automation Markup Language Standard Libraries</WriterProjectTitle>
+			<WriterProjectID>Automation Markup Language Standard Libraries</WriterProjectID>
+		</WriterHeader>
+	</AdditionalInformation>
+	<SystemUnitClassLib Name="ExampleSystemUnitSystemUnitClassLib">
+		<Version>1.0.0</Version>
+		<SystemUnitClass Name="Enclosure">
+			<Attribute Name="Identifier" AttributeDataType="xs:string" />
+			<Attribute Name="UnitSign" AttributeDataType="xs:string" />
+			<Attribute Name="UnitName" AttributeDataType="xs:string" />
+			<Attribute Name="UnitUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zur Einheit</Description>
+			</Attribute>
+			<Attribute Name="UnitParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifischer Parameter der Einheit</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParameterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="UnitSequence" AttributeDataType="xs:string">
+				<Description>Ablaufbeschreibung, die der Einheit zugeordnet ist</Description>
+				<Attribute Name="SequenceName" AttributeDataType="xs:string">
+					<Description>Name der Sequenz</Description>
+				</Attribute>
+				<Attribute Name="SequenceStep" AttributeDataType="xs:string">
+					<Description>Schritt der Sequenz</Description>
+					<Attribute Name="StepName" AttributeDataType="xs:string">
+						<Description>Name des Schrittes</Description>
+					</Attribute>
+					<Attribute Name="StepNext" AttributeDataType="xs:string">
+						<Description>Namen aller nachfolgenden Schritte</Description>
+					</Attribute>
+					<Attribute Name="StepParameter" AttributeDataType="xs:string">
+						<Description>Anwendungsspezifische Parameter des Schrittes</Description>
+					</Attribute>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<InternalElement Name="MountingRail" ID="af50a25e-a546-40be-9ec5-8838168b0502">
+				<ExternalInterface Name="ControllerMountingPoint" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="6c9129fb-bb4e-4a58-8791-57e4f46eb8d0" />
+				<ExternalInterface Name="FieldIOMountingPoint" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="1280a22d-2d5e-43ff-b403-623e0443598f" />
+				<ExternalInterface Name="SwitchMountingPoint" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="16560f46-18b8-4e3d-a124-a171c33c1160" />
+			</InternalElement>
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Unit" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="Machine">
+			<Attribute Name="Identifier" AttributeDataType="xs:string" />
+			<Attribute Name="UnitSign" AttributeDataType="xs:string" />
+			<Attribute Name="UnitName" AttributeDataType="xs:string" />
+			<Attribute Name="UnitUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zur Einheit</Description>
+			</Attribute>
+			<Attribute Name="UnitParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifischer Parameter der Einheit</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParameterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="UnitSequence" AttributeDataType="xs:string">
+				<Description>Ablaufbeschreibung, die der Einheit zugeordnet ist</Description>
+				<Attribute Name="SequenceName" AttributeDataType="xs:string">
+					<Description>Name der Sequenz</Description>
+				</Attribute>
+				<Attribute Name="SequenceStep" AttributeDataType="xs:string">
+					<Description>Schritt der Sequenz</Description>
+					<Attribute Name="StepName" AttributeDataType="xs:string">
+						<Description>Name des Schrittes</Description>
+					</Attribute>
+					<Attribute Name="StepNext" AttributeDataType="xs:string">
+						<Description>Namen aller nachfolgenden Schritte</Description>
+					</Attribute>
+					<Attribute Name="StepParameter" AttributeDataType="xs:string">
+						<Description>Anwendungsspezifische Parameter des Schrittes</Description>
+					</Attribute>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="COLLADAInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/ExternalDataConnector/COLLADAInterface" ID="f6e58832-87e3-4129-bc8d-9ab525fa296c">
+				<Attribute Name="refURI" AttributeDataType="xs:anyURI">
+					<Value>File://geometry/assembly_Maschine.dae#ID1</Value>
+				</Attribute>
+			</ExternalInterface>
+			<ExternalInterface Name="PLCopenXMLInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/ExternalDataConnector/PLCopenXMLInterface" ID="947bb193-d546-4aee-92c5-49010713e758">
+				<Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+			</ExternalInterface>
+			<InternalElement Name="Documentation" ID="9c547eb7-67c1-473d-a7e8-54331dad94b7">
+				<Attribute Name="aml-doclang" AttributeDataType="xs:string">
+					<Value>en.en</Value>
+				</Attribute>
+				<ExternalInterface Name="ManualReference" RefBaseClassPath="AutomationMLBPRInterfaceClassLib/ExternalDataReference" ID="2b557f7b-3bea-4b1b-b0e1-02520e99ee44">
+					<Attribute Name="MIMEType" AttributeDataType="xs:string">
+						<Description>MIME type of the document provided</Description>
+						<Value>pdf</Value>
+					</Attribute>
+					<Attribute Name="refURI" AttributeDataType="xs:anyURI">
+						<Value>File://documentation/MachineDocu.pdf</Value>
+					</Attribute>
+				</ExternalInterface>
+				<RoleRequirements RefBaseRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ExternalData/UnitDocFile" />
+			</InternalElement>
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Unit" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Machine" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="Turntable">
+			<Attribute Name="Identifier" AttributeDataType="xs:string" />
+			<Attribute Name="UnitSign" AttributeDataType="xs:string" />
+			<Attribute Name="UnitName" AttributeDataType="xs:string" />
+			<Attribute Name="UnitUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zur Einheit</Description>
+			</Attribute>
+			<Attribute Name="UnitParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifischer Parameter der Einheit</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParameterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="UnitSequence" AttributeDataType="xs:string">
+				<Description>Ablaufbeschreibung, die der Einheit zugeordnet ist</Description>
+				<Attribute Name="SequenceName" AttributeDataType="xs:string">
+					<Description>Name der Sequenz</Description>
+				</Attribute>
+				<Attribute Name="SequenceStep" AttributeDataType="xs:string">
+					<Description>Schritt der Sequenz</Description>
+					<Attribute Name="StepName" AttributeDataType="xs:string">
+						<Description>Name des Schrittes</Description>
+					</Attribute>
+					<Attribute Name="StepNext" AttributeDataType="xs:string">
+						<Description>Namen aller nachfolgenden Schritte</Description>
+					</Attribute>
+					<Attribute Name="StepParameter" AttributeDataType="xs:string">
+						<Description>Anwendungsspezifische Parameter des Schrittes</Description>
+					</Attribute>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="COLLADAInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/ExternalDataConnector/COLLADAInterface" ID="49fe8e14-a694-477a-bcd3-719acc89b4cd">
+				<Attribute Name="refURI" AttributeDataType="xs:anyURI">
+					<Value>File://geometry/assembly_Turntable.dae#ID1</Value>
+				</Attribute>
+			</ExternalInterface>
+			<ExternalInterface Name="PLCopenXMLInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/ExternalDataConnector/PLCopenXMLInterface" ID="773a91ae-3038-4768-aecf-05be462729ad">
+				<Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+			</ExternalInterface>
+			<InternalElement Name="Documentation" ID="bbb4fb4d-7be1-42dd-b95d-e267c38f0298">
+				<Attribute Name="aml-doclang" AttributeDataType="xs:string">
+					<Value>en.en</Value>
+				</Attribute>
+				<ExternalInterface Name="ManualReference" RefBaseClassPath="AutomationMLBPRInterfaceClassLib/ExternalDataReference" ID="ad9350d5-c606-4a6e-87e0-47c7e19251a7">
+					<Attribute Name="MIMEType" AttributeDataType="xs:string">
+						<Description>MIME type of the document provided</Description>
+						<Value>pdf</Value>
+					</Attribute>
+					<Attribute Name="refURI" AttributeDataType="xs:anyURI">
+						<Value>File://documentation/TurntableDocu.pdf</Value>
+					</Attribute>
+				</ExternalInterface>
+				<RoleRequirements RefBaseRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ExternalData/UnitDocFile" />
+			</InternalElement>
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Unit" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Transport" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="Conveyer">
+			<Attribute Name="Identifier" AttributeDataType="xs:string" />
+			<Attribute Name="UnitSign" AttributeDataType="xs:string" />
+			<Attribute Name="UnitName" AttributeDataType="xs:string" />
+			<Attribute Name="UnitUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zur Einheit</Description>
+			</Attribute>
+			<Attribute Name="UnitParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifischer Parameter der Einheit</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParameterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="UnitSequence" AttributeDataType="xs:string">
+				<Description>Ablaufbeschreibung, die der Einheit zugeordnet ist</Description>
+				<Attribute Name="SequenceName" AttributeDataType="xs:string">
+					<Description>Name der Sequenz</Description>
+				</Attribute>
+				<Attribute Name="SequenceStep" AttributeDataType="xs:string">
+					<Description>Schritt der Sequenz</Description>
+					<Attribute Name="StepName" AttributeDataType="xs:string">
+						<Description>Name des Schrittes</Description>
+					</Attribute>
+					<Attribute Name="StepNext" AttributeDataType="xs:string">
+						<Description>Namen aller nachfolgenden Schritte</Description>
+					</Attribute>
+					<Attribute Name="StepParameter" AttributeDataType="xs:string">
+						<Description>Anwendungsspezifische Parameter des Schrittes</Description>
+					</Attribute>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="COLLADAInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/ExternalDataConnector/COLLADAInterface" ID="3feb974d-8467-47e7-ae65-54a7c9b2012c">
+				<Attribute Name="refURI" AttributeDataType="xs:anyURI">
+					<Value>File://geometry/assembly_Conveyer.dae#ID1</Value>
+				</Attribute>
+			</ExternalInterface>
+			<ExternalInterface Name="PLCopenXMLInterface" RefBaseClassPath="AutomationMLInterfaceClassLib/AutomationMLBaseInterface/ExternalDataConnector/PLCopenXMLInterface" ID="3aa20278-fd34-42ea-bb28-d33ab4ae9007">
+				<Attribute Name="refURI" AttributeDataType="xs:anyURI" />
+			</ExternalInterface>
+			<InternalElement Name="Documentation" ID="7ac4dab1-089a-4f67-a5ff-e64145654e72">
+				<Attribute Name="aml-doclang" AttributeDataType="xs:string">
+					<Value>en.en</Value>
+				</Attribute>
+				<ExternalInterface Name="ManualReference" RefBaseClassPath="AutomationMLBPRInterfaceClassLib/ExternalDataReference" ID="123992b8-e32b-422e-9409-fd82d2068fb2">
+					<Attribute Name="MIMEType" AttributeDataType="xs:string">
+						<Description>MIME type of the document provided</Description>
+						<Value>pdf</Value>
+					</Attribute>
+					<Attribute Name="refURI" AttributeDataType="xs:anyURI">
+						<Value>File://documentation/ConveyerDocu.pdf</Value>
+					</Attribute>
+				</ExternalInterface>
+				<RoleRequirements RefBaseRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ExternalData/UnitDocFile" />
+			</InternalElement>
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Unit" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Transport" />
+		</SystemUnitClass>
+	</SystemUnitClassLib>
+</CAEXFile>

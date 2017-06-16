@@ -2,7 +2,7 @@
 	xml:base="http://siima.net/ontologies/2017/caex/"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
 	xmlns:siima="http://siima.net/ontologies/2017/caex/"
 	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
@@ -26,7 +26,7 @@
 	#set( $xsdns = 'http://www.w3.org/2001/XMLSchema#')
 	
 	#*--------------------
-		   CAEXFile
+			CAEXFile
 	----------------------*#
 	
 	## -- CAEXFile --
@@ -36,7 +36,7 @@
 	</owl:NamedIndividual>
 
 	#*--------------------
-	   SystemUnitClassLib (Hierarchy)
+		SystemUnitClassLib (Hierarchy)
 	----------------------*#
 	
 	## -- SystemUnitClassLib --
@@ -45,7 +45,7 @@
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}SystemUnitClassLib"/>
 	</owl:NamedIndividual>		
-    #end
+	#end
 	
 	#*--------------------
 		SystemUnitClass in SystemUnitClassLib
@@ -53,10 +53,10 @@
 	
 	## -- SystemUnitClass --
 	#foreach ($suclib in $caexfile.getSystemUnitClassLib())
-       #foreach ($suc in $suclib.SystemUnitClass)
-			#walkSystemUnitClasses($suc, $suclib)
+		#foreach ($suc in $suclib.SystemUnitClass)
+	#walkSystemUnitClasses($suc, $suclib)
 		#end		
-    #end
+	#end
 
 	## --Recursive walk through SystemUnitClass (JAXB Type SystemUnitClassType)--
 	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
@@ -100,7 +100,7 @@
 				#walkIElements($ie, $suclib)
 			#end
 		#end		
-    #end
+	#end
 
 	## --Recursive walk through InternalElements--
 	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
@@ -136,10 +136,10 @@
 	
 	## -- Attribute --
 	#foreach ($suclib in $caexfile.getSystemUnitClassLib())
-       #foreach ($ie in $suclib.InternalElement)
+		#foreach ($ie in $suclib.InternalElement)
 			#walkIElementsForAttributes($ie $suclib)
 		#end		
-    #end
+	#end
 	
 	## --Recursive attribute creation from all InternalElements--
 	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
@@ -168,6 +168,22 @@
 	## -- macro end
 
 	#*--------------------
+		ExternalInterface in SystemUnitClass
+	----------------------*#
+		
+	## -- ExternalInterface -- (rdfs:subClassOf InterfaceClass)
+	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
+	## NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
+	## In JAXB:InternalElement extends SystemUnitClassType
+	## which has property externalInterface.
+	## In JAXB: ExternalInterface is type InterfaceClassType
+	#foreach ($suclib in $caexfile.getSystemUnitClassLib())
+		#foreach ($suc in $suclib.SystemUnitClass)
+			#walkIEForEInterface($suc $suclib)
+		#end		
+	#end
+	
+	#*--------------------
 		ExternalInterface in InternalElement
 	----------------------*#
 		
@@ -178,12 +194,12 @@
 	## which has property externalInterface.
 	## In JAXB: ExternalInterface is type InterfaceClassType
 	#foreach ($suclib in $caexfile.getSystemUnitClassLib())
-       #foreach ($ie in $suclib.InternalElement)
+		#foreach ($ie in $suclib.InternalElement)
 			#walkIEForEInterface($ie $suclib)
 		#end		
-    #end
+	#end
 	
-	## --Recursive ExternalInterface creation from all InternalElements--
+	## --Recursive ExternalInterface creation of all SystemUnitClasses and of all InternalElements of SystemUnitClasses
 	#macro(walkIEForEInterface $node $hierarchy)
 		#foreach ($extint in $node.getExternalInterface())
 				
@@ -210,10 +226,10 @@
 	
 	## -- InternalLink -- (rdfs:subClassOf CAEXObject)
 	#foreach ($suclib in $caexfile.getSystemUnitClassLib())
-       #foreach ($ie in $suclib.InternalElement)
+		#foreach ($ie in $suclib.InternalElement)
 			#walkIEForInternalLink($ie $suclib)
 		#end		
-    #end
+	#end
 	
 	## --Recursive InternalLink creation from all InternalElements--
 	#macro(walkIEForInternalLink $node $hierarchy)

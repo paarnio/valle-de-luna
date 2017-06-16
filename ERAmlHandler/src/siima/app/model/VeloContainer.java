@@ -22,6 +22,8 @@ import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
+import siima.util.FileUtil;
+
 public class VeloContainer {
 	private static final Logger logger=Logger.getLogger(VeloContainer.class.getName());
 	private VelocityEngine engine = new VelocityEngine();
@@ -52,6 +54,8 @@ public class VeloContainer {
 			
 			//System.out.println("=========VELOCITY OUTPUT:\n" + vmOutputStream.toString());
 			logger.log(Level.INFO, "evaluateEngine():VELOCITY OUTPUT:\n" + vmOutputStream.toString());
+			//TEMP TEST
+			//FileUtil.writeTextFile(vmOutputStream.toString(), "./velocity_output.txt");
 			
 			ByteArrayInputStream modelInputStream = new ByteArrayInputStream(vmOutputStream.toByteArray());
 			

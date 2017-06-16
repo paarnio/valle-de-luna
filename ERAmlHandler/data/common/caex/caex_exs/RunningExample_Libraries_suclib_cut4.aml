@@ -1,0 +1,2967 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CAEXFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" FileName="RunningExample_Libraries.aml" SchemaVersion="2.15">
+	<AdditionalInformation>
+		<WriterHeader>
+			<WriterName>AutomationML Editor</WriterName>
+			<WriterID>916578CA-FE0D-474E-A4FC-9E1719892369</WriterID>
+			<WriterVendor>AutomationML e.V.</WriterVendor>
+			<WriterVendorURL>www.AutomationML.org</WriterVendorURL>
+			<WriterVersion>4.1.3</WriterVersion>
+			<WriterRelease>4.1.3.0</WriterRelease>
+			<LastWritingDateTime>2016-06-30T13:25:10.5525995+02:00</LastWritingDateTime>
+			<WriterProjectTitle>unspecified</WriterProjectTitle>
+			<WriterProjectID>unspecified</WriterProjectID>
+		</WriterHeader>
+	</AdditionalInformation>
+	<AdditionalInformation AutomationMLVersion="2.0" />
+	<AdditionalInformation>
+		<WriterHeader>
+			<WriterName>IEC SC65E WG 9</WriterName>
+			<WriterID>IEC SC65E WG 9</WriterID>
+			<WriterVendor>IEC</WriterVendor>
+			<WriterVendorURL>www.iec.ch</WriterVendorURL>
+			<WriterVersion>1.0</WriterVersion>
+			<WriterRelease>1.0.0</WriterRelease>
+			<LastWritingDateTime>2013-03-01</LastWritingDateTime>
+			<WriterProjectTitle>Automation Markup Language Standard Libraries</WriterProjectTitle>
+			<WriterProjectID>Automation Markup Language Standard Libraries</WriterProjectID>
+		</WriterHeader>
+	</AdditionalInformation>
+	<SystemUnitClassLib Name="ExampleSystemDevicesSystemUnitClassLib">
+		<Version>1.0.0</Version>
+		<SystemUnitClass Name="FischertechnikDrive" RefBaseClassPath="ExampleAutomationProjectConfigurationSystemUnitClassLib/Drive">
+			<Version>0.9</Version>
+			<Attribute Name="Hersteller-Name" AttributeDataType="xs:string">
+				<Description>Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist</Description>
+				<Value>Fischertechnik</Value>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO677#001" />
+			</Attribute>
+			<Attribute Name="Herstellerartikelnummer" AttributeDataType="xs:string">
+				<Description>eindeutiger Produktschlüssel des Herstellers</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO676#002 " />
+			</Attribute>
+			<Attribute Name="Min. Drehzahl" AttributeDataType="xs:integer" Unit="1/s">
+				<Description>Kleinstmögliche Drehzahl, bei der ein Motor im thermisch zulässigen Bemessungsbetriebspunkt dauernd betrieben werden kann</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-BAA121#006" />
+			</Attribute>
+			<Attribute Name="Nenndrehzahl" AttributeDataType="xs:float" Unit="1/s">
+				<Description> Drehzahl die den Nenndaten des verwendeten Motors entspricht</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-BAA580#005" />
+			</Attribute>
+			<Attribute Name="eClassIRDI" AttributeDataType="xs:string">
+				<Description>Specifies the IRDI for the application class</Description>
+			</Attribute>
+			<Attribute Name="eClassClassificationClass" AttributeDataType="xs:string">
+				<Description>Specifies define the eCl@ss Classification Class for the AutomationML object coded as 8-digit integer with two digits for each hierarchical level of the class structure.</Description>
+			</Attribute>
+			<Attribute Name="eClassVersion" AttributeDataType="xs:string">
+				<Description>Specifies the version of the eCl@ss catalogue, which the eCl@ss category is related to</Description>
+				<Value>9.0</Value>
+			</Attribute>
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="MountingPoint" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="b09a3dff-97fe-4e1d-b84e-2cd48f2ff8c1" />
+			<ExternalInterface Name="ForceTransmission" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/ForceTransmission" ID="95ab03eb-c761-4b5c-810e-e518390dd620" />
+			<SupportedRoleClass RefRoleClassPath="GeckoExampleEClassRoleClassLib/eClassClassSpecification/27 Elektro-, Automatisierungs- und Prozessleittechnik/27-02 Elektrischer Antrieb/27-02-25 DC-Motor/27-02-25-01 DC-Motor (IEC)" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLCSRoleClassLib/ControlEquipment/Actuator" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="InductiveApproximatySwitch" RefBaseClassPath="ExampleAutomationProjectConfigurationSystemUnitClassLib/Sensor">
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="Umgebungstemperatur min" AttributeDataType="xs:float" Unit="°C">
+				<Description>Umgebungstemperatur min ist die niedrigste Umgebungstemperatur, der das Gerät ausgesetzt ist und für die es seine Spezifikation einhalten soll bzw. ist die minimal zulässige Temperatur der Umgebung, unabhängig von der Mediumstemperatur, bei der das Gerät noch bestimmungsgemäß, d. h. mit den vom Hersteller angegebenen Genauigkeitsspezifikationen arbeitet oder ist die maximal zulässige Temperatur aufgrund weiterer Vorgaben, wie gesetzlicher Bestimmungen oder von Zulassungsbestimmungen (die Beziehung ergibt sich aus dem Kontext der Verwendung von Umgebungstemperatur min)</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAS160#001" />
+			</Attribute>
+			<Attribute Name="min. Versorgungsspannung" AttributeDataType="xs:float" Unit="V">
+				<Description>kleinster Grenzwert der Spannung, die am Versorgungseingang eines elektrischen Betriebsmittels zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAC962#006" />
+			</Attribute>
+			<Attribute Name="Umgebungstemperatur max" AttributeDataType="xs:float" Unit="°C">
+				<Description> Umgebungstemperatur max ist die höchste Umgebungstemperatur, der das Gerät ausgesetzt ist und für die es seine Spezifikation einhalten soll bzw. ist die maximal zulässige Temperatur der Umgebung, unabhängig von der Mediumstemperatur, bei der das Gerät noch bestimmungsgemäß, d. h. mit den vom Hersteller angegebenen Genauigkeitsspezifikationen arbeitet oder ist die maximal zulässige Temperatur aufgrund weiterer Vorgaben, wie gesetzlicher Bestimmungen oder von Zulassungsbestimmungen (die Beziehung ergibt sich aus dem Kontext der Verwendung von Umgebungstemperatur max)</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAS155#001" />
+			</Attribute>
+			<Attribute Name="max. Versorgungsspannung" AttributeDataType="xs:float" Unit="V">
+				<Description> höchster Grenzwert der Spannung, die am Versorgungseingang eines elektrischen Betriebsmittels zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAC965#006" />
+			</Attribute>
+			<Attribute Name="Gehäusebauform" AttributeDataType="xs:string">
+				<Description> Gibt an, welcher geometrische Grundkörper die äußere Gestalt des Gerätes bestimmt bzw. ob es sich um eine genormte Bauform handelt</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-BAD840#006" />
+			</Attribute>
+			<Attribute Name="Hersteller-Name" AttributeDataType="xs:string">
+				<Description>Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO677#001" />
+			</Attribute>
+			<Attribute Name="Herstellerartikelnummer" AttributeDataType="xs:string">
+				<Description>eindeutiger Produktschlüssel des Herstellers</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO676#002 " />
+			</Attribute>
+			<Attribute Name="eClassIRDI" AttributeDataType="xs:string">
+				<Description>Specifies the IRDI for the application class</Description>
+			</Attribute>
+			<Attribute Name="eClassClassificationClass" AttributeDataType="xs:string">
+				<Description>Specifies define the eCl@ss Classification Class for the AutomationML object coded as 8-digit integer with two digits for each hierarchical level of the class structure.</Description>
+			</Attribute>
+			<Attribute Name="eClassVersion" AttributeDataType="xs:string">
+				<Description>Specifies the version of the eCl@ss catalogue, which the eCl@ss category is related to</Description>
+				<Value>9.0</Value>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="MountingPoint" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="ee008bc2-90fe-478d-b609-4915f379cd96" />
+			<SupportedRoleClass RefRoleClassPath="GeckoExampleEClassRoleClassLib/eClassClassSpecification/27 Elektro-, Automatisierungs- und Prozessleittechnik/27-27 Binäre Sensorik, sicherheitsgerichtete Sensorik/27-27-01 Näherungsschalter/27-27-01-01 Induktiver Näherungsschalter" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLCSRoleClassLib/ControlEquipment/Sensor" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="LimitSwitch" RefBaseClassPath="ExampleAutomationProjectConfigurationSystemUnitClassLib/Sensor">
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="Umgebungstemperatur min" AttributeDataType="xs:float" Unit="°C">
+				<Description>Umgebungstemperatur min ist die niedrigste Umgebungstemperatur, der das Gerät ausgesetzt ist und für die es seine Spezifikation einhalten soll bzw. ist die minimal zulässige Temperatur der Umgebung, unabhängig von der Mediumstemperatur, bei der das Gerät noch bestimmungsgemäß, d. h. mit den vom Hersteller angegebenen Genauigkeitsspezifikationen arbeitet oder ist die maximal zulässige Temperatur aufgrund weiterer Vorgaben, wie gesetzlicher Bestimmungen oder von Zulassungsbestimmungen (die Beziehung ergibt sich aus dem Kontext der Verwendung von Umgebungstemperatur min)</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAS160#001" />
+			</Attribute>
+			<Attribute Name="min. Versorgungsspannung" AttributeDataType="xs:float" Unit="V">
+				<Description>kleinster Grenzwert der Spannung, die am Versorgungseingang eines elektrischen Betriebsmittels zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAC962#006" />
+			</Attribute>
+			<Attribute Name="Umgebungstemperatur max" AttributeDataType="xs:float" Unit="°C">
+				<Description> Umgebungstemperatur max ist die höchste Umgebungstemperatur, der das Gerät ausgesetzt ist und für die es seine Spezifikation einhalten soll bzw. ist die maximal zulässige Temperatur der Umgebung, unabhängig von der Mediumstemperatur, bei der das Gerät noch bestimmungsgemäß, d. h. mit den vom Hersteller angegebenen Genauigkeitsspezifikationen arbeitet oder ist die maximal zulässige Temperatur aufgrund weiterer Vorgaben, wie gesetzlicher Bestimmungen oder von Zulassungsbestimmungen (die Beziehung ergibt sich aus dem Kontext der Verwendung von Umgebungstemperatur max)</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAS155#001" />
+			</Attribute>
+			<Attribute Name="max. Versorgungsspannung" AttributeDataType="xs:float" Unit="V">
+				<Description> höchster Grenzwert der Spannung, die am Versorgungseingang eines elektrischen Betriebsmittels zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAC965#006" />
+			</Attribute>
+			<Attribute Name="Gehäusebauform" AttributeDataType="xs:string">
+				<Description> Gibt an, welcher geometrische Grundkörper die äußere Gestalt des Gerätes bestimmt bzw. ob es sich um eine genormte Bauform handelt</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-BAD840#006" />
+			</Attribute>
+			<Attribute Name="Hersteller-Name" AttributeDataType="xs:string">
+				<Description>Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO677#001" />
+			</Attribute>
+			<Attribute Name="Herstellerartikelnummer" AttributeDataType="xs:string">
+				<Description>eindeutiger Produktschlüssel des Herstellers</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO676#002 " />
+			</Attribute>
+			<Attribute Name="eClassIRDI" AttributeDataType="xs:string">
+				<Description>Specifies the IRDI for the application class</Description>
+			</Attribute>
+			<Attribute Name="eClassClassificationClass" AttributeDataType="xs:string">
+				<Description>Specifies define the eCl@ss Classification Class for the AutomationML object coded as 8-digit integer with two digits for each hierarchical level of the class structure.</Description>
+			</Attribute>
+			<Attribute Name="eClassVersion" AttributeDataType="xs:string">
+				<Description>Specifies the version of the eCl@ss catalogue, which the eCl@ss category is related to</Description>
+				<Value>9.0</Value>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="MountingPoint" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="81851965-ab1b-446a-a7f9-725ba719855b" />
+			<SupportedRoleClass RefRoleClassPath="GeckoExampleEClassRoleClassLib/eClassClassSpecification/27 Elektro-, Automatisierungs- und Prozessleittechnik/27-27 Binäre Sensorik, sicherheitsgerichtete Sensorik/27-27-06 Positionsschalter/27-27-06-01 Positionsschalter" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLCSRoleClassLib/ControlEquipment/Sensor" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="OpticalApproximatySwitch" RefBaseClassPath="ExampleAutomationProjectConfigurationSystemUnitClassLib/Sensor">
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="Umgebungstemperatur min" AttributeDataType="xs:float" Unit="°C">
+				<Description>Umgebungstemperatur min ist die niedrigste Umgebungstemperatur, der das Gerät ausgesetzt ist und für die es seine Spezifikation einhalten soll bzw. ist die minimal zulässige Temperatur der Umgebung, unabhängig von der Mediumstemperatur, bei der das Gerät noch bestimmungsgemäß, d. h. mit den vom Hersteller angegebenen Genauigkeitsspezifikationen arbeitet oder ist die maximal zulässige Temperatur aufgrund weiterer Vorgaben, wie gesetzlicher Bestimmungen oder von Zulassungsbestimmungen (die Beziehung ergibt sich aus dem Kontext der Verwendung von Umgebungstemperatur min)</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAS160#001" />
+			</Attribute>
+			<Attribute Name="Gehäusebauform" AttributeDataType="xs:string">
+				<Description> Gibt an, welcher geometrische Grundkörper die äußere Gestalt des Gerätes bestimmt bzw. ob es sich um eine genormte Bauform handelt</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-BAD840#006" />
+			</Attribute>
+			<Attribute Name="Hersteller-Name" AttributeDataType="xs:string">
+				<Description>Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO677#001" />
+			</Attribute>
+			<Attribute Name="Herstellerartikelnummer" AttributeDataType="xs:string">
+				<Description>eindeutiger Produktschlüssel des Herstellers</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO676#002 " />
+			</Attribute>
+			<Attribute Name="eClassIRDI" AttributeDataType="xs:string">
+				<Description>Specifies the IRDI for the application class</Description>
+			</Attribute>
+			<Attribute Name="eClassClassificationClass" AttributeDataType="xs:string">
+				<Description>Specifies define the eCl@ss Classification Class for the AutomationML object coded as 8-digit integer with two digits for each hierarchical level of the class structure.</Description>
+			</Attribute>
+			<Attribute Name="eClassVersion" AttributeDataType="xs:string">
+				<Description>Specifies the version of the eCl@ss catalogue, which the eCl@ss category is related to</Description>
+				<Value>9.0</Value>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="MountingPoint_copy_1" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="db93f55a-80f6-420e-8d1f-f6c12964481b" />
+			<SupportedRoleClass RefRoleClassPath="GeckoExampleEClassRoleClassLib/eClassClassSpecification/27 Elektro-, Automatisierungs- und Prozessleittechnik/27-27 Binäre Sensorik, sicherheitsgerichtete Sensorik/27-27-09 OptoelektrischerSensor/ 27-27-09-02 Reflexions-Lichtschranke" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLCSRoleClassLib/ControlEquipment/Sensor" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="LightBarrier" RefBaseClassPath="ExampleAutomationProjectConfigurationSystemUnitClassLib/Sensor">
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="Umgebungstemperatur min" AttributeDataType="xs:float" Unit="°C">
+				<Description>Umgebungstemperatur min ist die niedrigste Umgebungstemperatur, der das Gerät ausgesetzt ist und für die es seine Spezifikation einhalten soll bzw. ist die minimal zulässige Temperatur der Umgebung, unabhängig von der Mediumstemperatur, bei der das Gerät noch bestimmungsgemäß, d. h. mit den vom Hersteller angegebenen Genauigkeitsspezifikationen arbeitet oder ist die maximal zulässige Temperatur aufgrund weiterer Vorgaben, wie gesetzlicher Bestimmungen oder von Zulassungsbestimmungen (die Beziehung ergibt sich aus dem Kontext der Verwendung von Umgebungstemperatur min)</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAS160#001" />
+			</Attribute>
+			<Attribute Name="Umgebungstemperatur max" AttributeDataType="xs:float" Unit="°C">
+				<Description> Umgebungstemperatur max ist die höchste Umgebungstemperatur, der das Gerät ausgesetzt ist und für die es seine Spezifikation einhalten soll bzw. ist die maximal zulässige Temperatur der Umgebung, unabhängig von der Mediumstemperatur, bei der das Gerät noch bestimmungsgemäß, d. h. mit den vom Hersteller angegebenen Genauigkeitsspezifikationen arbeitet oder ist die maximal zulässige Temperatur aufgrund weiterer Vorgaben, wie gesetzlicher Bestimmungen oder von Zulassungsbestimmungen (die Beziehung ergibt sich aus dem Kontext der Verwendung von Umgebungstemperatur max)</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAS155#001" />
+			</Attribute>
+			<Attribute Name="Gehäusebauform" AttributeDataType="xs:string">
+				<Description> Gibt an, welcher geometrische Grundkörper die äußere Gestalt des Gerätes bestimmt bzw. ob es sich um eine genormte Bauform handelt</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-BAD840#006" />
+			</Attribute>
+			<Attribute Name="Hersteller-Name" AttributeDataType="xs:string">
+				<Description>Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO677#001" />
+			</Attribute>
+			<Attribute Name="Herstellerartikelnummer" AttributeDataType="xs:string">
+				<Description>eindeutiger Produktschlüssel des Herstellers</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO676#002 " />
+			</Attribute>
+			<Attribute Name="eClassIRDI" AttributeDataType="xs:string">
+				<Description>Specifies the IRDI for the application class</Description>
+			</Attribute>
+			<Attribute Name="eClassClassificationClass" AttributeDataType="xs:string">
+				<Description>Specifies define the eCl@ss Classification Class for the AutomationML object coded as 8-digit integer with two digits for each hierarchical level of the class structure.</Description>
+			</Attribute>
+			<Attribute Name="eClassVersion" AttributeDataType="xs:string">
+				<Description>Specifies the version of the eCl@ss catalogue, which the eCl@ss category is related to</Description>
+				<Value>9.0</Value>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="MountingPoint_copy_1" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="029e58ca-09e9-4b3f-bbbf-35be5f890bf4" />
+			<SupportedRoleClass RefRoleClassPath="GeckoExampleEClassRoleClassLib/eClassClassSpecification/27 Elektro-, Automatisierungs- und Prozessleittechnik/27-27 Binäre Sensorik, sicherheitsgerichtete Sensorik/27-27-09 OptoelektrischerSensor/27-27-09-01 Einweg-Lichtschranke" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLCSRoleClassLib/ControlEquipment/Sensor" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="WagoModularController">
+			<Attribute Name="TypeIdentifier" AttributeDataType="xs:string">
+				<Value>ModularPLC</Value>
+			</Attribute>
+			<Attribute Name="Comment" AttributeDataType="xs:string">
+				<Value>Ethernet basiertes Steuerungsgerät von Wago mit 16 DI und 16 DO</Value>
+			</Attribute>
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<InternalElement Name="WagoIOBK750-841" RefBaseSystemUnitPath="ExampleAutomationProjectConfigurationSystemUnitClassLib/WagoIOBK750-841" ID="74fd9ba5-5426-45f3-b8d3-f7ed83f76971">
+				<Attribute Name="TypeName" AttributeDataType="xs:string">
+					<Value>750-841</Value>
+				</Attribute>
+				<Attribute Name="DeviceItemType" AttributeDataType="xs:string">
+					<Value>SPS - Programmierbarer Feldbuscontroller ETHERNET TCP/IP</Value>
+				</Attribute>
+				<Attribute Name="PositionNumber" AttributeDataType="xs:int">
+					<Value>1</Value>
+				</Attribute>
+				<Attribute Name="BuiltIn" AttributeDataType="xs:boolean">
+					<DefaultValue>false</DefaultValue>
+					<Value>0</Value>
+				</Attribute>
+				<Attribute Name="TypeIdentifier" AttributeDataType="xs:string">
+					<DefaultValue>not applicable</DefaultValue>
+					<Value>OrderNo 4711-1</Value>
+				</Attribute>
+				<Attribute Name="FirmwareVersion" AttributeDataType="xs:string" />
+				<Attribute Name="PlantDesignation" AttributeDataType="xs:string" />
+				<Attribute Name="LocationIdentifier" AttributeDataType="xs:string" />
+				<Attribute Name="Comment" AttributeDataType="xs:string" />
+				<Attribute Name="Address" AttributeDataType="xs:string">
+					<RefSemantic CorrespondingAttributePath="OrderedListType" />
+					<Attribute Name="1">
+						<Attribute Name="StartAddress" AttributeDataType="xs:string" />
+						<Attribute Name="Length" AttributeDataType="xs:string" />
+						<Attribute Name="IoType" AttributeDataType="xs:string" />
+					</Attribute>
+				</Attribute>
+				<Attribute Name="Web-Server vorhanden" AttributeDataType="xs:string">
+					<Description> Angabe, ob ein Web-Server vorhanden ist oder nicht</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAF768#004" />
+				</Attribute>
+				<Attribute Name="unterstütztes Protokoll" AttributeDataType="xs:string">
+					<Description>exakte, normierte Vereinbarungen, nach der Daten zwischen Geräten bzw. Prozessen ausgetauscht werden, die durch ein Netz miteinander verbunden sind</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAM479#004" />
+				</Attribute>
+				<Attribute Name="Anzahl der HW-Schnittstellen (Industrial Ethernet)" AttributeDataType="xs:integer">
+					<Description> quantitative Angabe zur Menge der Anschlussmöglichkeiten zur Datenübertragung gemäß der IEEE 802.3 standardisierten Ausführung des Basisband-LAN</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO494#002" />
+				</Attribute>
+				<Attribute Name="min. Eingangsspannung (bei DC)" AttributeDataType="xs:float" Unit="V">
+					<Description> größtmöglicher Wert der Gleichspannung, die am Eingang eines Betriebsmittels angelegt werden kann</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAB977#007" />
+				</Attribute>
+				<Attribute Name="max. Eingangsspannung (bei DC)" AttributeDataType="xs:float" Unit="V">
+					<Description> größtmöglicher Wert der Gleichspannung, die am Eingang eines Betriebsmittels angelegt werden kann</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAB848#006" />
+				</Attribute>
+				<Attribute Name="Art der Eingangsspannung" AttributeDataType="xs:string">
+					<Description>Form der Eingangsspannung, die bestimmt, wie sich die elektrischen Ladungen aufgrund der anliegenden Spannung im zeitlichen Verlauf bewegen</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-BAC065#006" />
+				</Attribute>
+				<Attribute Name="Hersteller-Name" AttributeDataType="xs:string">
+					<Description>Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO677#001" />
+				</Attribute>
+				<Attribute Name="Herstellerartikelnummer" AttributeDataType="xs:string">
+					<Description>eindeutiger Produktschlüssel des Herstellers</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO676#002 " />
+				</Attribute>
+				<Attribute Name="eClassIRDI" AttributeDataType="xs:string">
+					<Description>Specifies the IRDI for the application class</Description>
+				</Attribute>
+				<Attribute Name="eClassClassificationClass" AttributeDataType="xs:string">
+					<Description>Specifies define the eCl@ss Classification Class for the AutomationML object coded as 8-digit integer with two digits for each hierarchical level of the class structure.</Description>
+				</Attribute>
+				<Attribute Name="eClassVersion" AttributeDataType="xs:string">
+					<Description>Specifies the version of the eCl@ss catalogue, which the eCl@ss category is related to</Description>
+					<Value>9.0</Value>
+				</Attribute>
+				<InternalElement Name="TagUserFolder_Inputs" ID="83227e09-b49f-41d9-80d1-3839a0c7e089">
+					<InternalElement Name="TagTable_InputSubdevice1" ID="e3455162-064d-498f-9db8-bf6a1d88f494">
+						<Attribute Name="AssignedToDefault" AttributeDataType="xs:boolean">
+							<Value>false</Value>
+						</Attribute>
+						<ExternalInterface Name="Tag0" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="2e087b14-cb0e-4f32-9624-fad34c11e84d">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX0.0</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>First Bit</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag1" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="54a1d34d-3808-46db-b17a-8bb0c6583cf0">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX0.1</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Second Bit</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag2" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="7ceba55e-903a-4196-a894-98c629d75194">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX0.2</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Third Bit</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag3" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="6b3773f8-1ac5-4522-b39b-b0e2c3f5ca48">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX0.3</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Fourth Bit</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag4" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="cc251ab5-4e9d-4473-b9c3-8b8cc0639e96">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX0.4</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Fifth Bit</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag5" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="ec21495f-1094-42c3-84e3-4003e958dee2">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX0.5</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Sixth Bit</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag6" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="57d1fb2d-ff6e-4e2f-8141-c44480accfcd">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX0.6</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Seventh Bit</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag7" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="d090e10e-b17d-43d0-b54b-8b95f502f0de">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX0.7</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Eigths Bit</Value>
+							</Attribute>
+						</ExternalInterface>
+						<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/TagTable" />
+					</InternalElement>
+					<InternalElement Name="TagTable_InputSubdevice2" ID="69da29de-53ae-4b37-adeb-16d271caa505">
+						<Attribute Name="AssignedToDefault" AttributeDataType="xs:boolean">
+							<Value>false</Value>
+						</Attribute>
+						<ExternalInterface Name="Tag0" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="35a0b042-98a2-4dbe-a778-2887b4b22770">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX1.0</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 9</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag1" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="6d9e2d76-10e3-49ad-ae97-b5c3db2389bc">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX1.1</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 10</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag2" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="b4701137-6ed2-4cea-ae38-e3c7d356a78d">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX1.2</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 11</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag3" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="5f02dec4-2f5c-4e22-ac47-c2b673546845">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX1.3</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 12</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag4" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="e72a044a-8cb3-4adf-b02c-0477efaceb68">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX1.4</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 13</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag5" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="9b3b5f0b-d3c9-44f3-9c9b-d041b4310b18">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX1.5</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 14</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag6" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="7e932f6e-8120-48d0-9804-bc05a9b75223">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX1.6</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 15</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag7" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="6042ea66-b29c-48f7-a093-269cf152a4d1">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%IX1.7</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 16</Value>
+							</Attribute>
+						</ExternalInterface>
+						<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/TagTable" />
+					</InternalElement>
+					<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/TagUserFolder" />
+				</InternalElement>
+				<InternalElement Name="TagUserFolder_Outputs" ID="4a4d3e86-894e-42c8-b6d1-00ba31ecee13">
+					<Attribute Name="AssignedToDefault" AttributeDataType="xs:boolean">
+						<Value>false</Value>
+					</Attribute>
+					<InternalElement Name="TagTable_OutputSubdevice1" ID="71eb5143-1f90-4339-9057-b467e4c9e16b">
+						<ExternalInterface Name="Tag0" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="9bd59423-a483-47d3-906a-222cd2156da3">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX0.0</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 1</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag1" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="5624e98f-224d-4f84-a028-36f158c51106">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX0.1</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 2</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag2" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="7b53856b-1936-485c-be1f-6fb30dc31ef0">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX0.2</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 3</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag3" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="95e7317a-f329-40a7-84dc-d2f5bfd1e1c3">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX0.3</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 4</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag4" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="008dd745-3af4-4d69-86d8-022ebd718c4b">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX0.4</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 5</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag5" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="20fb2ffe-24f2-4f90-a0d8-9832fdbc9d3a">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX0.5</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 6</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag6" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="5bb7614d-5bfa-421c-8fef-4be1a498bb32">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX0.6</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 7</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag7" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="79a63d3b-284d-40bd-85eb-086b110036e0">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX0.7</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 8</Value>
+							</Attribute>
+						</ExternalInterface>
+						<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/TagTable" />
+					</InternalElement>
+					<InternalElement Name="TagTable_OutputSubdevice2" ID="ef5d3b0a-91ed-499b-ad78-7b0644e75070">
+						<Attribute Name="AssignedToDefault" AttributeDataType="xs:boolean">
+							<Value>false</Value>
+						</Attribute>
+						<ExternalInterface Name="Tag0" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="3abec239-9a61-4ded-be96-071014590db2">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX1.0</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 9</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag1" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="81448111-5e10-4a78-8584-9d674bb902f0">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX1.1</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 10</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag2" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="016adf53-8d22-484d-bbc9-10662ee301e9">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX1.2</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 11</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag3" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="bf6e2da7-feb6-4217-86c9-e980dc54622e">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX1.3</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 12</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag4" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="720afcb5-2745-4757-ae8f-06b4a7702436">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX1.4</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 13</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag5" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="6d8ed528-52ea-47a7-9a26-a9a1c0e22a41">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX1.5</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 14</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag6" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="ed8c8b10-51be-4b3a-90ef-a61e99e6da6a">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX1.6</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 15</Value>
+							</Attribute>
+						</ExternalInterface>
+						<ExternalInterface Name="Tag7" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Tag" ID="c2dd1b14-8f9f-458d-9165-faecad4a123f">
+							<Attribute Name="DataType" AttributeDataType="xs:string">
+								<Value>Boolean</Value>
+							</Attribute>
+							<Attribute Name="LogicalAddress" AttributeDataType="xs:string">
+								<Value>%QX1.7</Value>
+							</Attribute>
+							<Attribute Name="Comment" AttributeDataType="xs:string">
+								<Value>Bit 16</Value>
+							</Attribute>
+						</ExternalInterface>
+						<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/TagTable" />
+					</InternalElement>
+					<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/TagUserFolder" />
+				</InternalElement>
+				<InternalElement Name="NetworkCard" RefBaseSystemUnitPath="ExampleAutomationProjectConfigurationSystemUnitClassLib/NetworkCard" ID="138fd350-8671-4fb9-aa85-28cd6471faa9">
+					<Attribute Name="TypeName" AttributeDataType="xs:string" />
+					<Attribute Name="DeviceItemType" AttributeDataType="xs:string" />
+					<Attribute Name="PositionNumber" AttributeDataType="xs:int" />
+					<Attribute Name="BuiltIn" AttributeDataType="xs:boolean">
+						<DefaultValue>false</DefaultValue>
+					</Attribute>
+					<Attribute Name="TypeIdentifier" AttributeDataType="xs:string">
+						<DefaultValue>not applicable</DefaultValue>
+					</Attribute>
+					<Attribute Name="FirmwareVersion" AttributeDataType="xs:string" />
+					<Attribute Name="PlantDesignation" AttributeDataType="xs:string" />
+					<Attribute Name="LocationIdentifier" AttributeDataType="xs:string" />
+					<Attribute Name="Comment" AttributeDataType="xs:string" />
+					<Attribute Name="Address">
+						<RefSemantic CorrespondingAttributePath="OrderedListType" />
+						<Attribute Name="1">
+							<Attribute Name="StartAddress" AttributeDataType="xs:string" />
+							<Attribute Name="Length" AttributeDataType="xs:string" />
+							<Attribute Name="IoType" AttributeDataType="xs:string" />
+						</Attribute>
+					</Attribute>
+					<Attribute Name="Label" AttributeDataType="xs:string" />
+					<InternalElement Name="NetworkNode" ID="42d47a9d-95b6-4dcf-9a18-7d281b02d001">
+						<Attribute Name="Type" AttributeDataType="xs:string" />
+						<Attribute Name="NetworkAddress" AttributeDataType="xs:string" />
+						<ExternalInterface Name="NetworkAssigment" RefBaseClassPath="CommunicationInterfaceClassLib/LogicalEndPoint" ID="bc7cdf4d-4a7a-46ea-9b74-af3329d0af59" />
+						<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/Node" />
+					</InternalElement>
+					<InternalElement Name="IOSystem" ID="12518373-8451-45c4-be5f-90232aead8a4">
+						<Attribute Name="Number" AttributeDataType="xs:integer" />
+						<ExternalInterface Name="MasterSlaveAssigment" RefBaseClassPath="CommunicationInterfaceClassLib/LogicalEndPoint" ID="47aa3984-153e-4234-971d-4bb849ae9d53" />
+						<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/IoSystem" />
+					</InternalElement>
+					<InternalElement Name="CommunicationPort" ID="ef74b94e-52c3-4925-872b-bdb1b7e470a4">
+						<Attribute Name="TypeName" AttributeDataType="xs:string" />
+						<Attribute Name="DeviceItemType" AttributeDataType="xs:string" />
+						<Attribute Name="PositionNumber" AttributeDataType="xs:int" />
+						<Attribute Name="BuiltIn" AttributeDataType="xs:boolean">
+							<DefaultValue>false</DefaultValue>
+						</Attribute>
+						<Attribute Name="TypeIdentifier" AttributeDataType="xs:string">
+							<DefaultValue>not applicable</DefaultValue>
+						</Attribute>
+						<Attribute Name="FirmwareVersion" AttributeDataType="xs:string" />
+						<Attribute Name="PlantDesignation" AttributeDataType="xs:string" />
+						<Attribute Name="LocationIdentifier" AttributeDataType="xs:string" />
+						<Attribute Name="Comment" AttributeDataType="xs:string" />
+						<Attribute Name="Address">
+							<RefSemantic CorrespondingAttributePath="OrderedListType" />
+							<Attribute Name="1">
+								<Attribute Name="StartAddress" AttributeDataType="xs:string" />
+								<Attribute Name="Length" AttributeDataType="xs:string" />
+								<Attribute Name="IoType" AttributeDataType="xs:string" />
+							</Attribute>
+						</Attribute>
+						<Attribute Name="Label" AttributeDataType="xs:string" />
+						<ExternalInterface Name="CommunicationPortInterface" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/CommunicationPortInterface" ID="b1f795ec-7794-43bf-aeaf-a6c878237402">
+							<Attribute Name="Label" AttributeDataType="xs:string" />
+						</ExternalInterface>
+						<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/CommunicationPort" />
+					</InternalElement>
+					<SupportedRoleClass RefRoleClassPath="AutomationProjectConfigurationRoleClassLib/CommunicationInterface" />
+				</InternalElement>
+				<SupportedRoleClass RefRoleClassPath="GeckoExampleEClassRoleClassLib/eClassClassSpecification/27 Elektro-, Automatisierungs- und Prozessleittechnik/27-24 Steuerung/27-24-26 Feldbus, Dezentrale Peripherie/[27-24-26-07 Feldbus, Dez. Peripherie - Grundgerät]" />
+				<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/DeviceItem" />
+			</InternalElement>
+			<InternalElement Name="WagoIOInput750-437_1" RefBaseSystemUnitPath="ExampleAutomationProjectConfigurationSystemUnitClassLib/WagoIOInput750-437" ID="fa253b1a-461e-4a22-8a2a-b92dfd19a5df">
+				<Attribute Name="TypeName" AttributeDataType="xs:string">
+					<Value>750-437</Value>
+				</Attribute>
+				<Attribute Name="DeviceItemType" AttributeDataType="xs:string">
+					<Value>8-Kanal-Digitaleingangsklemme</Value>
+				</Attribute>
+				<Attribute Name="PositionNumber" AttributeDataType="xs:int">
+					<Value>4</Value>
+				</Attribute>
+				<Attribute Name="BuiltIn" AttributeDataType="xs:boolean">
+					<DefaultValue>false</DefaultValue>
+					<Value>0</Value>
+				</Attribute>
+				<Attribute Name="TypeIdentifier" AttributeDataType="xs:string">
+					<DefaultValue>not applicable</DefaultValue>
+					<Value>Order-No 4711-2</Value>
+				</Attribute>
+				<Attribute Name="FirmwareVersion" AttributeDataType="xs:string" />
+				<Attribute Name="PlantDesignation" AttributeDataType="xs:string" />
+				<Attribute Name="LocationIdentifier" AttributeDataType="xs:string" />
+				<Attribute Name="Comment" AttributeDataType="xs:string" />
+				<Attribute Name="Address" AttributeDataType="xs:string">
+					<RefSemantic CorrespondingAttributePath="OrderedListType" />
+					<Attribute Name="1">
+						<Attribute Name="StartAddress" AttributeDataType="xs:string">
+							<Value>0</Value>
+						</Attribute>
+						<Attribute Name="Length" AttributeDataType="xs:string">
+							<Value>4</Value>
+						</Attribute>
+						<Attribute Name="IoType" AttributeDataType="xs:string">
+							<Value>I</Value>
+						</Attribute>
+					</Attribute>
+				</Attribute>
+				<Attribute Name="Anzahl der digitalen Ausgänge" AttributeDataType="xs:integer">
+					<Description> quantitative Angabe zur Menge der Ausgänge mit digitalem Signal (gekennzeichnet durch die Zustände High und Low)</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAP610#001" />
+				</Attribute>
+				<Attribute Name="Anzahl der digitalen Eingänge" AttributeDataType="xs:integer">
+					<Description> quantitative Angabe zur Menge der Eingänge mit digitalem Signal (gekennzeichnet durch die Zustände High und Low)</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAP508#003" />
+				</Attribute>
+				<Attribute Name="min. Versorgungsspannung (bei DC)" AttributeDataType="xs:float" Unit="V">
+					<Description>kleinster Grenzwert der erforderlichen Gleichspannung als elektromotorische Kraft, die am Versorgungseingang eines elektrischen Betriebsmittel zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAC025#006" />
+				</Attribute>
+				<Attribute Name="max. Versorgungsspannung (bei DC)" Unit="V" AttributeDataType="xs:float">
+					<Description> größter Grenzwert der erforderlichen Gleichspannung als elektromotorische Kraft, die am Versorgungseingang eines elektrischen Betriebsmittel zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAB909#006" />
+				</Attribute>
+				<Attribute Name="Hersteller-Name" AttributeDataType="xs:string">
+					<Description>Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO677#001" />
+				</Attribute>
+				<Attribute Name="Herstellerartikelnummer" AttributeDataType="xs:string">
+					<Description>eindeutiger Produktschlüssel des Herstellers</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO676#002 " />
+				</Attribute>
+				<Attribute Name="eClassIRDI" AttributeDataType="xs:string">
+					<Description>Specifies the IRDI for the application class</Description>
+				</Attribute>
+				<Attribute Name="eClassClassificationClass" AttributeDataType="xs:string">
+					<Description>Specifies define the eCl@ss Classification Class for the AutomationML object coded as 8-digit integer with two digits for each hierarchical level of the class structure.</Description>
+				</Attribute>
+				<Attribute Name="eClassVersion" AttributeDataType="xs:string">
+					<Description>Specifies the version of the eCl@ss catalogue, which the eCl@ss category is related to</Description>
+					<Value>9.0</Value>
+				</Attribute>
+				<ExternalInterface Name="Channel0" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="3ce52a8f-15a9-43bc-b840-726e39602e31">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>0</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel1" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="d54bf404-67a4-4df5-8baf-193a0c7c4cc5">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>1</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel2" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="733ecceb-fb73-4f20-a222-b6a4335b6498">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>2</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel3" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="8350c7a5-f88b-40d4-8a46-ecaac1b84af5">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>3</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel4" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="c69b8880-0e80-4386-ba0f-b16d1c6fbf2d">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>4</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel5" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="a8f31f84-0d66-4545-85bb-7911e0073d7f">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>5</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel6" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="af699a40-61dd-4204-87d7-1f7970b89fc7">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>6</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel7" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="b1684e43-dfe0-4a2c-b8ad-fa662c126431">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>7</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<SupportedRoleClass RefRoleClassPath="GeckoExampleEClassRoleClassLib/eClassClassSpecification/27 Elektro-, Automatisierungs- und Prozessleittechnik/27-24 Steuerung/27-24-26 Feldbus, Dezentrale Peripherie/[27-24-26-04 Feldbus, Dez. Peripherie - Digitales EinAusgangs-Modul]" />
+				<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/DeviceItem" />
+			</InternalElement>
+			<InternalElement Name="WagoIOInput750-437_2" RefBaseSystemUnitPath="ExampleAutomationProjectConfigurationSystemUnitClassLib/WagoIOInput750-437" ID="19bf2d35-8d95-42ec-b709-0535344e2635">
+				<Attribute Name="TypeName" AttributeDataType="xs:string">
+					<Value>750-437</Value>
+				</Attribute>
+				<Attribute Name="DeviceItemType" AttributeDataType="xs:string">
+					<Value>8-Kanal-Digitaleingangsklemme</Value>
+				</Attribute>
+				<Attribute Name="PositionNumber" AttributeDataType="xs:int">
+					<Value>5</Value>
+				</Attribute>
+				<Attribute Name="BuiltIn" AttributeDataType="xs:boolean">
+					<DefaultValue>false</DefaultValue>
+					<Value>0</Value>
+				</Attribute>
+				<Attribute Name="TypeIdentifier" AttributeDataType="xs:string">
+					<DefaultValue>not applicable</DefaultValue>
+					<Value>Order-No 4711-2</Value>
+				</Attribute>
+				<Attribute Name="FirmwareVersion" AttributeDataType="xs:string" />
+				<Attribute Name="PlantDesignation" AttributeDataType="xs:string" />
+				<Attribute Name="LocationIdentifier" AttributeDataType="xs:string" />
+				<Attribute Name="Comment" AttributeDataType="xs:string" />
+				<Attribute Name="Address" AttributeDataType="xs:string">
+					<RefSemantic CorrespondingAttributePath="OrderedListType" />
+					<Attribute Name="1">
+						<Attribute Name="StartAddress" AttributeDataType="xs:string">
+							<Value>4</Value>
+						</Attribute>
+						<Attribute Name="Length" AttributeDataType="xs:string">
+							<Value>4</Value>
+						</Attribute>
+						<Attribute Name="IoType" AttributeDataType="xs:string">
+							<Value>I</Value>
+						</Attribute>
+					</Attribute>
+				</Attribute>
+				<Attribute Name="Anzahl der digitalen Ausgänge" AttributeDataType="xs:integer">
+					<Description> quantitative Angabe zur Menge der Ausgänge mit digitalem Signal (gekennzeichnet durch die Zustände High und Low)</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAP610#001" />
+				</Attribute>
+				<Attribute Name="Anzahl der digitalen Eingänge" AttributeDataType="xs:integer">
+					<Description> quantitative Angabe zur Menge der Eingänge mit digitalem Signal (gekennzeichnet durch die Zustände High und Low)</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAP508#003" />
+				</Attribute>
+				<Attribute Name="min. Versorgungsspannung (bei DC)" AttributeDataType="xs:float" Unit="V">
+					<Description>kleinster Grenzwert der erforderlichen Gleichspannung als elektromotorische Kraft, die am Versorgungseingang eines elektrischen Betriebsmittel zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAC025#006" />
+				</Attribute>
+				<Attribute Name="max. Versorgungsspannung (bei DC)" Unit="V" AttributeDataType="xs:float">
+					<Description> größter Grenzwert der erforderlichen Gleichspannung als elektromotorische Kraft, die am Versorgungseingang eines elektrischen Betriebsmittel zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAB909#006" />
+				</Attribute>
+				<Attribute Name="Hersteller-Name" AttributeDataType="xs:string">
+					<Description>Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO677#001" />
+				</Attribute>
+				<Attribute Name="Herstellerartikelnummer" AttributeDataType="xs:string">
+					<Description>eindeutiger Produktschlüssel des Herstellers</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO676#002 " />
+				</Attribute>
+				<Attribute Name="eClassIRDI" AttributeDataType="xs:string">
+					<Description>Specifies the IRDI for the application class</Description>
+				</Attribute>
+				<Attribute Name="eClassClassificationClass" AttributeDataType="xs:string">
+					<Description>Specifies define the eCl@ss Classification Class for the AutomationML object coded as 8-digit integer with two digits for each hierarchical level of the class structure.</Description>
+				</Attribute>
+				<Attribute Name="eClassVersion" AttributeDataType="xs:string">
+					<Description>Specifies the version of the eCl@ss catalogue, which the eCl@ss category is related to</Description>
+					<Value>9.0</Value>
+				</Attribute>
+				<ExternalInterface Name="Channel0" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="54783674-6390-4a95-9044-69b650cfbb10">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>0</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel1" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="61e95aac-0cc7-4ce4-853d-2123d9aac99b">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>1</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel2" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="c562bcee-ad2b-4602-9411-53f66a317eb9">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<DefaultValue>2</DefaultValue>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel3" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="bb6637cd-181c-4874-bc2b-6969a012dcb0">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>3</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel4" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="d7481a7d-b622-41af-88bb-4fbafad4d06e">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>4</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel5" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="dd4e9eb4-6d94-4394-b464-852951cb19cc">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>5</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel6" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="809a676c-72b8-4139-9106-b0f8a665b3a3">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>6</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel7" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="f7f995fb-4f18-4f10-9d36-8de30e3cd6f5">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>In</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>7</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<SupportedRoleClass RefRoleClassPath="GeckoExampleEClassRoleClassLib/eClassClassSpecification/27 Elektro-, Automatisierungs- und Prozessleittechnik/27-24 Steuerung/27-24-26 Feldbus, Dezentrale Peripherie/[27-24-26-04 Feldbus, Dez. Peripherie - Digitales EinAusgangs-Modul]" />
+				<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/DeviceItem" />
+			</InternalElement>
+			<InternalElement Name="WagoIOOutput750-530_1" RefBaseSystemUnitPath="ExampleAutomationProjectConfigurationSystemUnitClassLib/WagoIOOutput750-530" ID="450f671d-23c5-4945-9fa5-54f293c3d1bd">
+				<Attribute Name="TypeName" AttributeDataType="xs:string">
+					<Value>759-530</Value>
+				</Attribute>
+				<Attribute Name="DeviceItemType" AttributeDataType="xs:string">
+					<Value>8-Kanal-Digitalausgangsklemme</Value>
+				</Attribute>
+				<Attribute Name="PositionNumber" AttributeDataType="xs:int">
+					<DefaultValue>6</DefaultValue>
+				</Attribute>
+				<Attribute Name="BuiltIn" AttributeDataType="xs:boolean">
+					<DefaultValue>false</DefaultValue>
+					<Value>0</Value>
+				</Attribute>
+				<Attribute Name="TypeIdentifier" AttributeDataType="xs:string">
+					<DefaultValue>not applicable</DefaultValue>
+					<Value>Order-No 4711-3</Value>
+				</Attribute>
+				<Attribute Name="FirmwareVersion" AttributeDataType="xs:string" />
+				<Attribute Name="PlantDesignation" AttributeDataType="xs:string" />
+				<Attribute Name="LocationIdentifier" AttributeDataType="xs:string" />
+				<Attribute Name="Comment" AttributeDataType="xs:string" />
+				<Attribute Name="Address" AttributeDataType="xs:string">
+					<RefSemantic CorrespondingAttributePath="OrderedListType" />
+					<Attribute Name="1">
+						<Attribute Name="StartAddress" AttributeDataType="xs:string">
+							<Value>0</Value>
+						</Attribute>
+						<Attribute Name="Length" AttributeDataType="xs:string">
+							<Value>4</Value>
+						</Attribute>
+						<Attribute Name="IoType" AttributeDataType="xs:string">
+							<Value>O</Value>
+						</Attribute>
+					</Attribute>
+				</Attribute>
+				<Attribute Name="Anzahl der digitalen Ausgänge" AttributeDataType="xs:integer">
+					<Description> quantitative Angabe zur Menge der Ausgänge mit digitalem Signal (gekennzeichnet durch die Zustände High und Low)</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAP610#001" />
+				</Attribute>
+				<Attribute Name="Anzahl der digitalen Eingänge" AttributeDataType="xs:integer">
+					<Description> quantitative Angabe zur Menge der Eingänge mit digitalem Signal (gekennzeichnet durch die Zustände High und Low)</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAP508#003" />
+				</Attribute>
+				<Attribute Name="min. Versorgungsspannung (bei DC)" AttributeDataType="xs:float" Unit="V">
+					<Description>kleinster Grenzwert der erforderlichen Gleichspannung als elektromotorische Kraft, die am Versorgungseingang eines elektrischen Betriebsmittel zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAC025#006" />
+				</Attribute>
+				<Attribute Name="max. Versorgungsspannung (bei DC)" Unit="V" AttributeDataType="xs:float">
+					<Description> größter Grenzwert der erforderlichen Gleichspannung als elektromotorische Kraft, die am Versorgungseingang eines elektrischen Betriebsmittel zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAB909#006" />
+				</Attribute>
+				<Attribute Name="Hersteller-Name" AttributeDataType="xs:string">
+					<Description>Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO677#001" />
+				</Attribute>
+				<Attribute Name="Herstellerartikelnummer" AttributeDataType="xs:string">
+					<Description>eindeutiger Produktschlüssel des Herstellers</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO676#002 " />
+				</Attribute>
+				<Attribute Name="eClassIRDI" AttributeDataType="xs:string">
+					<Description>Specifies the IRDI for the application class</Description>
+				</Attribute>
+				<Attribute Name="eClassClassificationClass" AttributeDataType="xs:string">
+					<Description>Specifies define the eCl@ss Classification Class for the AutomationML object coded as 8-digit integer with two digits for each hierarchical level of the class structure.</Description>
+				</Attribute>
+				<Attribute Name="eClassVersion" AttributeDataType="xs:string">
+					<Description>Specifies the version of the eCl@ss catalogue, which the eCl@ss category is related to</Description>
+					<Value>9.0</Value>
+				</Attribute>
+				<ExternalInterface Name="Channel0" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="8c939b6e-0bb4-442a-b376-5e53ff14486b">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>0</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel1" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="f4135c2e-3a83-48d1-bc58-c40e7157e047">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>1</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel2" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="eee1460d-148a-4712-a236-cef1ba5786c8">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>2</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer" />
+				</ExternalInterface>
+				<ExternalInterface Name="Channel3" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="3e7a1311-6c11-4754-8fbd-75589368c2ed">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>3</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel4" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="8591d685-453a-4c62-afb1-d99db87501a2">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>4</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel5" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="5d10ab0e-cd50-4295-9981-feb108bcb6ad">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>5</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel6" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="4714c0b6-5324-4762-a738-85b947361c76">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>6</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel7" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="933df6e2-ee05-4855-bdaa-290a436bb7f5">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>7</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<SupportedRoleClass RefRoleClassPath="GeckoExampleEClassRoleClassLib/eClassClassSpecification/27 Elektro-, Automatisierungs- und Prozessleittechnik/27-24 Steuerung/27-24-26 Feldbus, Dezentrale Peripherie/[27-24-26-04 Feldbus, Dez. Peripherie - Digitales EinAusgangs-Modul]" />
+				<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/DeviceItem" />
+			</InternalElement>
+			<InternalElement Name="WagoIOOutput750-530_2" RefBaseSystemUnitPath="ExampleAutomationProjectConfigurationSystemUnitClassLib/WagoIOOutput750-530" ID="aa6c0ac0-0d65-4d0c-add6-7a9c6d187e9a">
+				<Attribute Name="TypeName" AttributeDataType="xs:string">
+					<Value>759-530</Value>
+				</Attribute>
+				<Attribute Name="DeviceItemType" AttributeDataType="xs:string">
+					<Value>8-Kanal-Digitalausgangsklemme</Value>
+				</Attribute>
+				<Attribute Name="PositionNumber" AttributeDataType="xs:int">
+					<Value>7</Value>
+				</Attribute>
+				<Attribute Name="BuiltIn" AttributeDataType="xs:boolean">
+					<DefaultValue>false</DefaultValue>
+					<Value>0</Value>
+				</Attribute>
+				<Attribute Name="TypeIdentifier" AttributeDataType="xs:string">
+					<DefaultValue>not applicable</DefaultValue>
+					<Value>Order-No 4711-3</Value>
+				</Attribute>
+				<Attribute Name="FirmwareVersion" AttributeDataType="xs:string" />
+				<Attribute Name="PlantDesignation" AttributeDataType="xs:string" />
+				<Attribute Name="LocationIdentifier" AttributeDataType="xs:string" />
+				<Attribute Name="Comment" AttributeDataType="xs:string" />
+				<Attribute Name="Address" AttributeDataType="xs:string">
+					<RefSemantic CorrespondingAttributePath="OrderedListType" />
+					<Attribute Name="1">
+						<Attribute Name="StartAddress" AttributeDataType="xs:string">
+							<Value>4</Value>
+						</Attribute>
+						<Attribute Name="Length" AttributeDataType="xs:string">
+							<Value>4</Value>
+						</Attribute>
+						<Attribute Name="IoType" AttributeDataType="xs:string">
+							<Value>O</Value>
+						</Attribute>
+					</Attribute>
+				</Attribute>
+				<Attribute Name="Anzahl der digitalen Ausgänge" AttributeDataType="xs:integer">
+					<Description> quantitative Angabe zur Menge der Ausgänge mit digitalem Signal (gekennzeichnet durch die Zustände High und Low)</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAP610#001" />
+				</Attribute>
+				<Attribute Name="Anzahl der digitalen Eingänge" AttributeDataType="xs:integer">
+					<Description> quantitative Angabe zur Menge der Eingänge mit digitalem Signal (gekennzeichnet durch die Zustände High und Low)</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAP508#003" />
+				</Attribute>
+				<Attribute Name="min. Versorgungsspannung (bei DC)" AttributeDataType="xs:float" Unit="V">
+					<Description>kleinster Grenzwert der erforderlichen Gleichspannung als elektromotorische Kraft, die am Versorgungseingang eines elektrischen Betriebsmittel zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAC025#006" />
+				</Attribute>
+				<Attribute Name="max. Versorgungsspannung (bei DC)" Unit="V" AttributeDataType="xs:float">
+					<Description> größter Grenzwert der erforderlichen Gleichspannung als elektromotorische Kraft, die am Versorgungseingang eines elektrischen Betriebsmittel zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAB909#006" />
+				</Attribute>
+				<Attribute Name="Hersteller-Name" AttributeDataType="xs:string">
+					<Description>Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO677#001" />
+				</Attribute>
+				<Attribute Name="Herstellerartikelnummer" AttributeDataType="xs:string">
+					<Description>eindeutiger Produktschlüssel des Herstellers</Description>
+					<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO676#002 " />
+				</Attribute>
+				<Attribute Name="eClassIRDI" AttributeDataType="xs:string">
+					<Description>Specifies the IRDI for the application class</Description>
+				</Attribute>
+				<Attribute Name="eClassClassificationClass" AttributeDataType="xs:string">
+					<Description>Specifies define the eCl@ss Classification Class for the AutomationML object coded as 8-digit integer with two digits for each hierarchical level of the class structure.</Description>
+				</Attribute>
+				<Attribute Name="eClassVersion" AttributeDataType="xs:string">
+					<Description>Specifies the version of the eCl@ss catalogue, which the eCl@ss category is related to</Description>
+					<Value>9.0</Value>
+				</Attribute>
+				<ExternalInterface Name="Channel0" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="ab0ab41b-c2a2-44a6-9507-c6cc4856b7f3">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>0</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel1" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="d285363f-b316-41ad-a17f-20d4613c2762">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>1</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel2" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="adc9e3bd-43cf-428a-b555-240eded8329c">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>2</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel3" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="e2fb61fc-6dd0-40bf-b001-523dac76d869">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>3</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel4" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="e1629081-dc84-4205-b185-2a107f9c8be8">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>4</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel5" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="77c666fe-3a99-4adc-b5d5-a71cb28fcbe4">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>5</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel6" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="745635dd-9e24-4fa9-afc0-067de865be13">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>6</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<ExternalInterface Name="Channel7" RefBaseClassPath="AutomationProjectConfigurationInterfaceClassLib/Channel" ID="8f7ec948-6a7b-4e4b-907a-edc7c5e3df9a">
+					<Attribute Name="Type" AttributeDataType="xs:string">
+						<Value>Digital</Value>
+					</Attribute>
+					<Attribute Name="IoType" AttributeDataType="xs:string">
+						<Value>Out</Value>
+					</Attribute>
+					<Attribute Name="Number" AttributeDataType="xs:int">
+						<Value>7</Value>
+					</Attribute>
+					<Attribute Name="Length" AttributeDataType="xs:integer">
+						<Value>1</Value>
+					</Attribute>
+				</ExternalInterface>
+				<SupportedRoleClass RefRoleClassPath="GeckoExampleEClassRoleClassLib/eClassClassSpecification/27 Elektro-, Automatisierungs- und Prozessleittechnik/27-24 Steuerung/27-24-26 Feldbus, Dezentrale Peripherie/[27-24-26-04 Feldbus, Dez. Peripherie - Digitales EinAusgangs-Modul]" />
+				<RoleRequirements RefBaseRoleClassPath="AutomationProjectConfigurationRoleClassLib/DeviceItem" />
+			</InternalElement>
+			<SupportedRoleClass RefRoleClassPath="AutomationProjectConfigurationRoleClassLib/Device" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLCSRoleClassLib/ControlEquipment/Communication" />
+			<InternalLink Name="LinkInputSubDevice1Var02Pin0" RefPartnerSideA="fa253b1a-461e-4a22-8a2a-b92dfd19a5df:Channel0" RefPartnerSideB="e3455162-064d-498f-9db8-bf6a1d88f494:Tag0" />
+			<InternalLink Name="LinkInputSubDevice1Var12Pin1" RefPartnerSideA="fa253b1a-461e-4a22-8a2a-b92dfd19a5df:Channel1" RefPartnerSideB="e3455162-064d-498f-9db8-bf6a1d88f494:Tag1" />
+			<InternalLink Name="LinkInputSubDevice1Var22Pin2" RefPartnerSideA="fa253b1a-461e-4a22-8a2a-b92dfd19a5df:Channel2" RefPartnerSideB="e3455162-064d-498f-9db8-bf6a1d88f494:Tag2" />
+			<InternalLink Name="LinkInputSubDevice1Var32Pin3" RefPartnerSideA="fa253b1a-461e-4a22-8a2a-b92dfd19a5df:Channel3" RefPartnerSideB="e3455162-064d-498f-9db8-bf6a1d88f494:Tag3" />
+			<InternalLink Name="LinkInputSubDevice1Var42Pin4" RefPartnerSideA="fa253b1a-461e-4a22-8a2a-b92dfd19a5df:Channel4" RefPartnerSideB="e3455162-064d-498f-9db8-bf6a1d88f494:Tag4" />
+			<InternalLink Name="LinkInputSubDevice1Var52Pin5" RefPartnerSideA="fa253b1a-461e-4a22-8a2a-b92dfd19a5df:Channel5" RefPartnerSideB="e3455162-064d-498f-9db8-bf6a1d88f494:Tag5" />
+			<InternalLink Name="LinkInputSubDevice1Var62Pin6" RefPartnerSideA="fa253b1a-461e-4a22-8a2a-b92dfd19a5df:Channel6" RefPartnerSideB="e3455162-064d-498f-9db8-bf6a1d88f494:Tag6" />
+			<InternalLink Name="LinkInputSubDevice1Var72Pin7" RefPartnerSideA="fa253b1a-461e-4a22-8a2a-b92dfd19a5df:Channel7" RefPartnerSideB="e3455162-064d-498f-9db8-bf6a1d88f494:Tag7" />
+			<InternalLink Name="LinkInputSubDevice2Var02Pin0" RefPartnerSideA="19bf2d35-8d95-42ec-b709-0535344e2635:Channel0" RefPartnerSideB="69da29de-53ae-4b37-adeb-16d271caa505:Tag0" />
+			<InternalLink Name="LinkInputSubDevice2Var12Pin1" RefPartnerSideA="19bf2d35-8d95-42ec-b709-0535344e2635:Channel1" RefPartnerSideB="69da29de-53ae-4b37-adeb-16d271caa505:Tag1" />
+			<InternalLink Name="LinkInputSubDevice2Var22Pin2" RefPartnerSideA="19bf2d35-8d95-42ec-b709-0535344e2635:Channel2" RefPartnerSideB="69da29de-53ae-4b37-adeb-16d271caa505:Tag2" />
+			<InternalLink Name="LinkInputSubDevice3Var02Pin3" RefPartnerSideA="19bf2d35-8d95-42ec-b709-0535344e2635:Channel3" RefPartnerSideB="69da29de-53ae-4b37-adeb-16d271caa505:Tag3" />
+			<InternalLink Name="LinkInputSubDevice2Var42Pin4" RefPartnerSideA="19bf2d35-8d95-42ec-b709-0535344e2635:Channel4" RefPartnerSideB="69da29de-53ae-4b37-adeb-16d271caa505:Tag4" />
+			<InternalLink Name="LinkInputSubDevice2Var52Pin5" RefPartnerSideA="19bf2d35-8d95-42ec-b709-0535344e2635:Channel5" RefPartnerSideB="69da29de-53ae-4b37-adeb-16d271caa505:Tag5" />
+			<InternalLink Name="LinkInputSubDevice2Var62Pin6" RefPartnerSideA="19bf2d35-8d95-42ec-b709-0535344e2635:Channel6" RefPartnerSideB="69da29de-53ae-4b37-adeb-16d271caa505:Tag6" />
+			<InternalLink Name="LinkInputSubDevice2Var72Pin7" RefPartnerSideA="19bf2d35-8d95-42ec-b709-0535344e2635:Channel7" RefPartnerSideB="69da29de-53ae-4b37-adeb-16d271caa505:Tag7" />
+			<InternalLink Name="LinkOutputSubDevice1Var02Pin0" RefPartnerSideA="450f671d-23c5-4945-9fa5-54f293c3d1bd:Channel0" RefPartnerSideB="71eb5143-1f90-4339-9057-b467e4c9e16b:Tag0" />
+			<InternalLink Name="LinkOutputSubDevice1Var12Pin1" RefPartnerSideA="450f671d-23c5-4945-9fa5-54f293c3d1bd:Channel1" RefPartnerSideB="71eb5143-1f90-4339-9057-b467e4c9e16b:Tag1" />
+			<InternalLink Name="LinkOutputSubDevice1Var22Pin2" RefPartnerSideA="450f671d-23c5-4945-9fa5-54f293c3d1bd:Channel2" RefPartnerSideB="71eb5143-1f90-4339-9057-b467e4c9e16b:Tag2" />
+			<InternalLink Name="LinkOutputSubDevice1Var32Pin3" RefPartnerSideA="450f671d-23c5-4945-9fa5-54f293c3d1bd:Channel3" RefPartnerSideB="71eb5143-1f90-4339-9057-b467e4c9e16b:Tag3" />
+			<InternalLink Name="LinkOutputSubDevice1Var42Pin4" RefPartnerSideA="450f671d-23c5-4945-9fa5-54f293c3d1bd:Channel4" RefPartnerSideB="71eb5143-1f90-4339-9057-b467e4c9e16b:Tag4" />
+			<InternalLink Name="LinkOutputSubDevice1Var52Pin5" RefPartnerSideA="450f671d-23c5-4945-9fa5-54f293c3d1bd:Channel5" RefPartnerSideB="71eb5143-1f90-4339-9057-b467e4c9e16b:Tag5" />
+			<InternalLink Name="LinkOutputSubDevice1Var62Pin6" RefPartnerSideA="450f671d-23c5-4945-9fa5-54f293c3d1bd:Channel6" RefPartnerSideB="71eb5143-1f90-4339-9057-b467e4c9e16b:Tag6" />
+			<InternalLink Name="LinkOutputSubDevice1Var72Pin7" RefPartnerSideA="450f671d-23c5-4945-9fa5-54f293c3d1bd:Channel7" RefPartnerSideB="71eb5143-1f90-4339-9057-b467e4c9e16b:Tag7" />
+			<InternalLink Name="LinkOutputSubDevice2Var02Pin0" RefPartnerSideA="aa6c0ac0-0d65-4d0c-add6-7a9c6d187e9a:Channel0" RefPartnerSideB="ef5d3b0a-91ed-499b-ad78-7b0644e75070:Tag0" />
+			<InternalLink Name="LinkOutputSubDevice1Var12Pin1" RefPartnerSideA="aa6c0ac0-0d65-4d0c-add6-7a9c6d187e9a:Channel1" RefPartnerSideB="ef5d3b0a-91ed-499b-ad78-7b0644e75070:Tag1" />
+			<InternalLink Name="LinkOutputSubDevice1Var22Pin2" RefPartnerSideA="aa6c0ac0-0d65-4d0c-add6-7a9c6d187e9a:Channel2" RefPartnerSideB="ef5d3b0a-91ed-499b-ad78-7b0644e75070:Tag2" />
+			<InternalLink Name="LinkOutputSubDevice1Var32Pin3" RefPartnerSideA="aa6c0ac0-0d65-4d0c-add6-7a9c6d187e9a:Channel3" RefPartnerSideB="ef5d3b0a-91ed-499b-ad78-7b0644e75070:Tag3" />
+			<InternalLink Name="LinkOutputSubDevice1Var42Pin4" RefPartnerSideA="aa6c0ac0-0d65-4d0c-add6-7a9c6d187e9a:Channel4" RefPartnerSideB="ef5d3b0a-91ed-499b-ad78-7b0644e75070:Tag4" />
+			<InternalLink Name="LinkOutputSubDevice1Var52Pin5" RefPartnerSideA="aa6c0ac0-0d65-4d0c-add6-7a9c6d187e9a:Channel5" RefPartnerSideB="ef5d3b0a-91ed-499b-ad78-7b0644e75070:Tag5" />
+			<InternalLink Name="LinkOutputSubDevice1Var62Pin6" RefPartnerSideA="aa6c0ac0-0d65-4d0c-add6-7a9c6d187e9a:Channel6" RefPartnerSideB="ef5d3b0a-91ed-499b-ad78-7b0644e75070:Tag6" />
+			<InternalLink Name="LinkOutputSubDevice1Var72Pin7" RefPartnerSideA="aa6c0ac0-0d65-4d0c-add6-7a9c6d187e9a:Channel7" RefPartnerSideB="ef5d3b0a-91ed-499b-ad78-7b0644e75070:Tag7" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="RaspberryPi" RefBaseClassPath="ExampleAutomationProjectConfigurationSystemUnitClassLib/PC">
+			<Attribute Name="Hersteller-Name" AttributeDataType="xs:string">
+				<Description>Bezeichnung für eine natürliche oder juristische Person, die für die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO677#001" />
+			</Attribute>
+			<Attribute Name="Herstellerartikelnummer" AttributeDataType="xs:string">
+				<Description>eindeutiger Produktschlüssel des Herstellers</Description>
+				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAO676#002 " />
+			</Attribute>
+			<Attribute Name="eClassIRDI" AttributeDataType="xs:string">
+				<Description>Specifies the IRDI for the application class</Description>
+			</Attribute>
+			<Attribute Name="eClassClassificationClass" AttributeDataType="xs:string">
+				<Description>Specifies define the eCl@ss Classification Class for the AutomationML object coded as 8-digit integer with two digits for each hierarchical level of the class structure.</Description>
+			</Attribute>
+			<Attribute Name="eClassVersion" AttributeDataType="xs:string">
+				<Description>Specifies the version of the eCl@ss catalogue, which the eCl@ss category is related to</Description>
+				<Value>9.0</Value>
+			</Attribute>
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<SupportedRoleClass RefRoleClassPath="GeckoExampleEClassRoleClassLib/eClassClassSpecification/27 Elektro-, Automatisierungs- und Prozessleittechnik/27-24 Steuerung/27-24-06 PC-basierte Steuerungen/27-24-06-90 PC-basierte Steuerungen (nicht spezifiziert)" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLCSRoleClassLib/ControlEquipment/Controller/PAC" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLCSRoleClassLib/ControlEquipment/ControlHardware/PC" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="GreenSwitch" RefBaseClassPath="ExampleAutomationProjectConfigurationSystemUnitClassLib/Switch">
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLCSRoleClassLib/ControlEquipment/Communication" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="Machinebaseframe">
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="MountingPointToolHeadDrive" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="a16365f6-1036-476b-94e6-cea82df7fd31" />
+			<ExternalInterface Name="MountingPointUpperLimitSwitch" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="5bd335ac-14e6-4ea6-bda8-90a31c38fb42" />
+			<ExternalInterface Name="MountingPointLowerLimitSwitch" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="6d6ed0eb-d5bd-47b3-a347-c5542c21231e" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/StaticObject" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="Machinetoolholder">
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="MountingPointToolDrive" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="c978198a-d5cc-43e6-93a9-f280771b43bf" />
+			<ExternalInterface Name="MountingPointToolDetectionSwitch" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="aa08536c-380e-41bf-98ac-c4d55b699a91" />
+			<ExternalInterface Name="ForceTransmissionFromToolHeadDrive" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/ForceTransmission" ID="f1717bea-d23c-4b61-9271-fb9e4641af3b" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/StaticObject" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="Machinetool">
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="ForceTransmissionFromToolDrive" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/ForceTransmission" ID="18827bc1-b10b-4519-bbe9-e0c4191aca15" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Tool" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="Conveyerbaseframe">
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="MountingPointSensor" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="c5f6b8b3-3ae8-414c-9d6c-d37535aed4f4" />
+			<ExternalInterface Name="MountingPointDrive" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="34887d6c-083b-4c87-b3fe-7f6c962d6080" />
+			<ExternalInterface Name="MountingPointBelt" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="14f72196-240d-4452-bec4-ec7d070a19b0" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/StaticObject" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="ConveyerBelt">
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="ForceTransmissionfromBeltDrice" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/ForceTransmission" ID="3d60f5ae-bd1c-4c6d-9700-c243d37f83a9" />
+			<ExternalInterface Name="MountingPoint" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="a23dda42-8f09-4793-9109-283aa77c5f7b" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/Transport" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="Turntablebaseframe">
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="MountingPointTurntableHead" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="9ef9dd0a-60c3-43e2-af21-cc312c77c626" />
+			<ExternalInterface Name="MountingPointHeadDrive" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="1718e28a-cedc-4d24-ad16-943e9a9624a8" />
+			<ExternalInterface Name="MountingPointLimitSwitch0" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="033732dd-47a6-44b3-8b43-6ee5d20ca5ce" />
+			<ExternalInterface Name="MountingPointLimitSwitch90" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="55bd1df4-c01e-4297-9777-b3ab85907ebf" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/StaticObject" />
+		</SystemUnitClass>
+		<SystemUnitClass Name="TurnTableHead">
+			<Attribute Name="Identifier" AttributeDataType="xs:string">
+				<Description>Identifizierung des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="IsSubDeviceOf" AttributeDataType="xs:string">
+				<Description>Zuordnung zu einem anderen (führenden) Gerät durch Eintrag des Device.Identifiers dieses Gerätes</Description>
+			</Attribute>
+			<Attribute Name="SubDeviceIndex" AttributeDataType="xs:string">
+				<Description>Position des Gerätes im Verhältnis zum führenden Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceManufacturer" AttributeDataType="xs:string">
+				<Description>Hersteller des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceName" AttributeDataType="xs:string">
+				<Description>Name des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="DeviceOrderNumber" AttributeDataType="xs:string">
+				<Description>Bestellnummer des Gerätes</Description>
+			</Attribute>
+			<Attribute Name="MaterialNumber" AttributeDataType="xs:string">
+				<Description>Materialnummer des Gerätes im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="PartNumber" AttributeDataType="xs:string">
+				<Description>Artikelnummer des Gerätes, bezeichnet einen Gerätetyp mit gewissen Merkmalen im betriebswirtschaftlichen Planungssystem des Projektherstellers</Description>
+			</Attribute>
+			<Attribute Name="DeviceUserDefinedText" AttributeDataType="xs:string">
+				<Description>Information des Anwenders zum Gerät</Description>
+			</Attribute>
+			<Attribute Name="DeviceParameterUser" AttributeDataType="xs:string">
+				<Description>Anwendungsspezifische Parameter des Gerätes</Description>
+				<Attribute Name="ParameterBuilt" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Autors, der den Parameter einträgt (Engineeringwerkzeug oder Autorenkürzel)</Description>
+				</Attribute>
+				<Attribute Name="ParamterName" AttributeDataType="xs:string">
+					<Description>Name des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterKey" AttributeDataType="xs:string">
+					<Description>Schlüssel des Parameters (z.B. IRDI)</Description>
+				</Attribute>
+				<Attribute Name="ParameterValue" AttributeDataType="xs:string">
+					<Description>Wert des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDataType" AttributeDataType="xs:string">
+					<Description>Datentyp des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterSIUnit" AttributeDataType="xs:string">
+					<Description>SI Einheit des Parameters</Description>
+				</Attribute>
+				<Attribute Name="ParameterDescription" AttributeDataType="xs:string">
+					<Description>Beschreibung des Parameters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="ToolID" AttributeDataType="xs:string">
+				<Description>Engineering-Werkzeug-interne Identifikation des Datenobjektes</Description>
+				<Attribute Name="ToolName" AttributeDataType="xs:string">
+					<Description>Eindeutiger Name des Engineering-Werkzeuges</Description>
+				</Attribute>
+				<Attribute Name="ToolSign" AttributeDataType="xs:string">
+					<Description>Eineindeutige Kennzeichnung der Instanz der Engineering-Software</Description>
+				</Attribute>
+				<Attribute Name="ToolIDInternal" AttributeDataType="xs:string">
+					<Description>Identifikation des Projektes im Werkzeuginternen Datenmodell</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="DataRevision" AttributeDataType="xs:string">
+				<Description>Änderungskennzeichen für das Datenobjekt</Description>
+				<Attribute Name="LastChange" AttributeDataType="xs:string">
+					<Description>Kennzeichnung der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Status" AttributeDataType="xs:string">
+					<Description>Status des Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Time" AttributeDataType="xs:dateTime">
+					<Description>Zeitpunkt der letzten Bearbeitung des Datenobjektes</Description>
+				</Attribute>
+				<Attribute Name="Author" AttributeDataType="xs:string">
+					<Description>Autorenkürzel des letzten Bearbeiters</Description>
+				</Attribute>
+			</Attribute>
+			<Attribute Name="functionOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Function oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="productOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Product oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<Attribute Name="locationOrientedReferenceDesignation" AttributeDataType="xs:string">
+				<Description>Location oriented reference designation following IEC 81346.</Description>
+				<RefSemantic CorrespondingAttributePath="IEC81346" />
+			</Attribute>
+			<ExternalInterface Name="ForceTransmissionFromHeadDrive" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/ForceTransmission" ID="259a1a84-c7a2-434e-a9a0-4359c69f484a" />
+			<ExternalInterface Name="MountingPointBelt" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="70632ee1-db75-4420-85fb-ad9c434bcbff" />
+			<ExternalInterface Name="MountingPointBeltDrive" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="8b469cb7-0a53-43af-9a0e-6a5dcedc6006" />
+			<ExternalInterface Name="MountingPointSensor" RefBaseClassPath="ExampleMechanicalIntefaceClassLib/MountingPoint" ID="0bd8f3d6-31af-4cd0-bb66-c7de7f702be5" />
+			<SupportedRoleClass RefRoleClassPath="VDMA66415RoleClassLib/VDMA66415_ProjectStructure/Device" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLReferenceDesignationRoleClassLib/ContainsReferenceDesignation" />
+			<SupportedRoleClass RefRoleClassPath="AutomationMLDMIRoleClassLib/DiscManufacturingEquipment/StaticObject" />
+		</SystemUnitClass>
+	</SystemUnitClassLib>
+</CAEXFile>
