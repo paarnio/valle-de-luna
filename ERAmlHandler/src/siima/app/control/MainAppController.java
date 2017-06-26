@@ -74,40 +74,15 @@ public class MainAppController {
 
 	public boolean genereteCaexOntologyModel(String modelkey) {
 		boolean ok = true;
-		//initVelocity();
-		//evaluateVelocityEngine();
 		this.rdfContainer.genereteCaexOntologyModel(modelkey);
 		return ok;
 
 	}
-	/* NOT USED (now implemented in RdfContainer) 
-	public void initVelocity() {
-		Object root = this.graphbuilder.getCaexRootObject();
-		CAEXFile caex = (CAEXFile) root;
-		velocity = new VeloContainer("caexfile", caex);
-	
-		velocity.putVelocityContext("StringUtils", org.apache.commons.lang3.StringUtils.class);
 
-		UriHelper helper = new UriHelper();
-		velocity.putVelocityContext("UriHelper", helper); //siima.app.model.helper.UriHelper.class);
-		AnyTypeValueHelper anyContentHelper = new AnyTypeValueHelper(this.graphbuilder);
-		velocity.putVelocityContext("AnyValueHelper", anyContentHelper); 
-	}
-	 */
-	/* NOT USED (now implemented in RdfContainer)
-	public void evaluateVelocityEngine() {
-		//Ontology submodel keys: default; ihierarchy"; systemunitclasslib; roleclasslib
-		velocity.evaluateEngine("instancehierarchy");
-	}
-	 */
 	public String  getSerializeRdfModel(String format) {
-		/* format "TURTLE"
-		 * format: e.g. "TURTLE"; TTL; RDFXML; RDFJSON; NTRIPLES
+		/* format: e.g. "TURTLE"; TTL; RDFXML; (RDFJSON; NTRIPLES)
 		 * https://jena.apache.org/documentation/io/rdf-output.html#formats
 		 */
-		//String defFormat = "TURTLE";
-		//if(format==null) format= defFormat;
-		//String serialized = velocity.getSerializedRdfModel(format);
 		
 		String serialized = this.rdfContainer.getSerializeRdfModel(format);
 		logger.log(Level.INFO,"getSerializeRdfModel()");
