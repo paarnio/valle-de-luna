@@ -42,9 +42,14 @@ public class UriHelper {
 		if("SystemUnitClassLib".equalsIgnoreCase(instanceOwlType)){		
 			uri = siimaontns + instanceOwlType + "-INST_" + "SUCLIB-" + instanceName;		
 		} else 	if("SystemUnitClass".equalsIgnoreCase(instanceOwlType)){		
-			uri = siimaontns + instanceOwlType + "-INST_" + "SUCLIB-" + hierarchy + "SUC-" + instanceName;		
+			uri = siimaontns + instanceOwlType + "-INST_" + "SUCLIB-" + hierarchy + "_SUC-" + instanceName;		
 		} 
 		
+		if("RoleClassLib".equalsIgnoreCase(instanceOwlType)){		
+			uri = siimaontns + instanceOwlType + "-INST_" + "ROLECLIB-" + instanceName;		
+		} else 	if("RoleClass".equalsIgnoreCase(instanceOwlType)){		
+			uri = siimaontns + instanceOwlType + "-INST_" + "ROLECLIB-" + hierarchy + "_ROLEC-" + instanceName;		
+		} 
 		
 		return uri;
 	}

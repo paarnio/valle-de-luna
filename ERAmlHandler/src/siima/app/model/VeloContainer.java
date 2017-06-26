@@ -14,6 +14,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -31,12 +33,24 @@ public class VeloContainer {
 	ByteArrayOutputStream vmOutputStream = new ByteArrayOutputStream();
 	Writer resultWriter;
 	public String vmFile = "./configure/velocity/vmFile.vm";
+	public String vm_ihierarchy = "./configure/velocity/vmFile_ihierarchy_ontogen.vm";
+	public String vm_systemunitclasslib = "./configure/velocity/vmFile_systemunitclasslib_ontogen.vm";
+	public String vm_roleclasslib = "./configure/velocity/vmFile_roleclasslib_ontogen.vm";
+	public Map ontoVmFileMap;	
+		
 	public String outputFile= "./configure/velocity/generated_ontology.ttl";
-	private Model rdfModel = ModelFactory.createDefaultModel();
+	private Model genRdfModel = ModelFactory.createDefaultModel();
 	
 	public VeloContainer(String key, Object value){
 		resultWriter = new OutputStreamWriter(vmOutputStream);
 		vcontext.put(key, value);
+		ontoVmFileMap = new HashMap<String,String>();
+		ontoVmFileMap.put("default", vmFile);
+		ontoVmFileMap.put("instancehierarchy", vm_ihierarchy);
+		ontoVmFileMap.put("systemunitclasslib", vm_systemunitclasslib);
+		ontoVmFileMap.put("roleclasslib", vm_roleclasslib);
+		
+		
 	}
 
 	public void putVelocityContext(String key, Object value){
@@ -44,9 +58,11 @@ public class VeloContainer {
 		vcontext.put(key, value);
 	}
 	
-	public void evaluateEngine(){
+	public void evaluateEngine(String modelkey){
 		try {
-			FileInputStream vmFileInput = new FileInputStream(vmFile);
+			String vm_file_path = (String)ontoVmFileMap.get(modelkey); //"default");
+			if(vm_file_path!=null){
+			FileInputStream vmFileInput = new FileInputStream(vm_file_path); //(vmFile);
 			//FileOutputStream outputStream = new FileOutputStream(outputFile);
 			
 			engine.evaluate(vcontext,  resultWriter,  "caexRdf", new InputStreamReader(vmFileInput));
@@ -60,8 +76,9 @@ public class VeloContainer {
 			ByteArrayInputStream modelInputStream = new ByteArrayInputStream(vmOutputStream.toByteArray());
 			
 			/* RDF Model */
-			rdfModel.read(modelInputStream,null,"RDF/XML"); // (in, base, lang)
+			genRdfModel.read(modelInputStream,null,"RDF/XML"); // (in, base, lang)
 			//rdfModel.write(outputStream,"TURTLE");
+			}
 			
 		} catch (FileNotFoundException e) {
 			
@@ -77,12 +94,12 @@ public class VeloContainer {
 	public void writeRdfModelToFile(String newOntologyFile) {
 		try {
 			FileOutputStream outputStream = new FileOutputStream(newOntologyFile);
-			if (rdfModel != null) {
+			if (genRdfModel != null) {
 				if ((newOntologyFile.contains(".ttl"))||(newOntologyFile.contains(".TTL"))) {
-					rdfModel.write(outputStream, "TURTLE");
+					genRdfModel.write(outputStream, "TURTLE");
 					logger.log(Level.INFO, "writeRdfModelToFile():TURTLE format TO File: " + newOntologyFile);
 				} else if ((newOntologyFile.contains(".owl"))||(newOntologyFile.contains(".OWL"))) { 
-					rdfModel.write(outputStream, "RDF/XML");
+					genRdfModel.write(outputStream, "RDF/XML");
 					logger.log(Level.INFO, "writeRdfModelToFile():RDF/XML Format TO File: " + newOntologyFile);
 				} else {
 					logger.log(Level.INFO, "writeRdfModelToFile():UNKNOWN suffix (expected .ttl or .owl): " + newOntologyFile);
@@ -104,9 +121,9 @@ public class VeloContainer {
 		 *  https://jena.apache.org/documentation/io/rdf-output.html#formats
 		 */
 		String serialized = null;
-		if (this.rdfModel != null) {
+		if (this.genRdfModel != null) {
 				StringWriter strWriter = new StringWriter();
-				this.rdfModel.write(strWriter, format);
+				this.genRdfModel.write(strWriter, format);
 				serialized = strWriter.toString();
 				logger.log(Level.INFO,"getSerializedRdfModel: serialized is empty: " + serialized.isEmpty());
 				//this.rdfModel.write(System.out, format);			
@@ -117,8 +134,8 @@ public class VeloContainer {
 	}
 	
 	
-	public Model getRdfModel() {
-		return rdfModel;
+	public Model getGenRdfModel() {
+		return genRdfModel;
 	}
 
 	public void setVmFile(String vmFile) {

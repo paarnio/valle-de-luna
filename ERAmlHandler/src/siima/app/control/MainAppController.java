@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.event.TreeSelectionListener;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import it.unical.mat.wrapper.DLVInvocationException;
@@ -20,6 +21,7 @@ import siima.app.asp.AspDlvReasoner;
 import siima.app.asp.AspModelContainer;
 import siima.app.gui.MainFrame;
 import siima.app.model.JaxbContainer;
+import siima.app.model.RdfContainer;
 import siima.app.model.VeloContainer;
 import siima.app.model.helper.AnyTypeValueHelper;
 import siima.app.model.helper.UriHelper;
@@ -53,6 +55,8 @@ public class MainAppController {
 
 	private VeloContainer velocity;
 	private ERAProject project;
+	
+	private RdfContainer rdfContainer;
 
 	public MainAppController(MainFrame viewFrame) {
 		this.viewFrame = viewFrame;
@@ -62,55 +66,51 @@ public class MainAppController {
 		this.project = new ERAProject();
 		this.project.parseInitFile();
 		this.graphbuilder.setValidationSchemaFile(this.project.getCaexValidationSchema());
+		this.rdfContainer = new RdfContainer(graphbuilder);
 		String lastproject = this.project.parseExitBackupFile("ResentProjectHome:");
 		if(lastproject!=null)
 			viewFrame.setEraProjectHomeDirectory(lastproject);
 	}
 
-	public void genereteCaexOntologyModel() {
-
-		initVelocity();
-		evaluateVelocityEngine();
+	public boolean genereteCaexOntologyModel(String modelkey) {
+		boolean ok = true;
+		//initVelocity();
+		//evaluateVelocityEngine();
+		this.rdfContainer.genereteCaexOntologyModel(modelkey);
+		return ok;
 
 	}
-
+	/* NOT USED (now implemented in RdfContainer) 
 	public void initVelocity() {
 		Object root = this.graphbuilder.getCaexRootObject();
 		CAEXFile caex = (CAEXFile) root;
 		velocity = new VeloContainer("caexfile", caex);
-		/*
-		 * FOR STRING FUNCTIONS: TOIMII
-		 * https://stackoverflow.com/questions/6998412/velocity-string-function
-		 * context.put("StringUtils", org.apache.commons.lang3.StringUtils.class);
-		 * Functions can be seen from reference libraries class methods list (in package explorer on the left):
-		 * 
-		 */
-		//TO SEARCH FUNCTIONS (nx100#):StringUtils.repreplace(text, searchString, replacement)
+	
 		velocity.putVelocityContext("StringUtils", org.apache.commons.lang3.StringUtils.class);
-		/*
-		 * CALLING MY OWN CLASS METHOD: TOIMII
-		 * https://stackoverflow.com/questions/20786403/calling-a-java-method-in-velocity-template
-		 */
+
 		UriHelper helper = new UriHelper();
 		velocity.putVelocityContext("UriHelper", helper); //siima.app.model.helper.UriHelper.class);
 		AnyTypeValueHelper anyContentHelper = new AnyTypeValueHelper(this.graphbuilder);
 		velocity.putVelocityContext("AnyValueHelper", anyContentHelper); 
 	}
-
+	 */
+	/* NOT USED (now implemented in RdfContainer)
 	public void evaluateVelocityEngine() {
-
-		velocity.evaluateEngine();
+		//Ontology submodel keys: default; ihierarchy"; systemunitclasslib; roleclasslib
+		velocity.evaluateEngine("instancehierarchy");
 	}
-
+	 */
 	public String  getSerializeRdfModel(String format) {
 		/* format "TURTLE"
 		 * format: e.g. "TURTLE"; TTL; RDFXML; RDFJSON; NTRIPLES
 		 * https://jena.apache.org/documentation/io/rdf-output.html#formats
 		 */
-		String defFormat = "TURTLE";
-		if(format==null) format= defFormat;
-		String serialized = velocity.getSerializedRdfModel(format);
-
+		//String defFormat = "TURTLE";
+		//if(format==null) format= defFormat;
+		//String serialized = velocity.getSerializedRdfModel(format);
+		
+		String serialized = this.rdfContainer.getSerializeRdfModel(format);
+		logger.log(Level.INFO,"getSerializeRdfModel()");
 		return serialized;
 	}
 	

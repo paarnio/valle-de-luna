@@ -7,6 +7,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.TreeSelectionEvent;
@@ -28,11 +29,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 public class MainFrame extends JFrame implements ActionListener { // TreeSelectionListener
@@ -77,6 +80,10 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JMenuItem mntmAspSolver;
 	private JMenuItem mntmSaveOntologyModel;
 	// private JTree tree;
+	private JRadioButtonMenuItem rbMenuItem1;
+	private JRadioButtonMenuItem rbMenuItem2;
+	private JRadioButtonMenuItem rbMenuItem3;
+	private JRadioButtonMenuItem rbMenuItem4;
 
 	/**
 	 * Launch the application.
@@ -185,18 +192,59 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		submenu.add(mntmInvokeTransform);
 
 		mnTransform.add(submenu);
+		/*
+		 *  Ontology JMenu
+		 */
 		
 		JMenu mnOntology = new JMenu("Ontology");
 		menuBar.add(mnOntology);
+		//NEW SUBMENU
+		JMenu mnOntSubmenu = new JMenu("Generate Ontology Model");
 
-		mntmGenOntologyModel = new JMenuItem("Generate Ontology Model");
-		mntmGenOntologyModel.addActionListener(this);
-		mnOntology.add(mntmGenOntologyModel);
+		mntmGenOntologyModel = new JMenuItem("Default Model");
+		mntmGenOntologyModel.addActionListener(this);		
+		mnOntSubmenu.add(mntmGenOntologyModel);
+		mnOntSubmenu.addSeparator();
+		// Radio buttons: https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/MenuLookDemoProject/src/components/MenuLookDemo.java
+		ButtonGroup group = new ButtonGroup();
 		
+		rbMenuItem1 = new JRadioButtonMenuItem("InstanceHierarchy");
+        rbMenuItem1.setSelected(false);
+        //rbMenuItem1.setMnemonic(KeyEvent.VK_R);
+        rbMenuItem1.addActionListener(this);       
+        group.add(rbMenuItem1);
+        mnOntSubmenu.add(rbMenuItem1);
+ 
+        rbMenuItem2 = new JRadioButtonMenuItem("SystemUnitClassLib");
+        rbMenuItem2.setSelected(false);
+        //rbMenuItem2.setMnemonic(KeyEvent.VK_O);
+        rbMenuItem2.addActionListener(this);       
+        group.add(rbMenuItem2);
+        mnOntSubmenu.add(rbMenuItem2);
+		
+		rbMenuItem3 = new JRadioButtonMenuItem("RoleClassLib");
+        rbMenuItem3.setSelected(false);
+        //rbMenuItem1.setMnemonic(KeyEvent.VK_T);
+        rbMenuItem3.addActionListener(this);       
+        group.add(rbMenuItem3);
+        mnOntSubmenu.add(rbMenuItem3);
+        
+		rbMenuItem4 = new JRadioButtonMenuItem("None");
+        rbMenuItem4.setSelected(true);
+        //rbMenuItem1.setMnemonic(KeyEvent.VK_U);
+        rbMenuItem4.addActionListener(this);       
+        group.add(rbMenuItem4);
+        mnOntSubmenu.add(rbMenuItem4);
+        
+		mnOntology.add(mnOntSubmenu);
+			
 		mntmSaveOntologyModel = new JMenuItem("Save Ontology Model...");
 		mntmSaveOntologyModel.addActionListener(this);
 		mnOntology.add(mntmSaveOntologyModel);
 
+		/*
+		 *  Rules JMenu
+		 */
 		JMenu mnAsp = new JMenu("Rules");
 		menuBar.add(mnAsp);
 		//NEW SUBMENU
@@ -425,10 +473,27 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 * mntmInvokeTransform AND mntmGenOntologyModel AND mntmNewProject AND
 		 * mntmSaveProjectAs AND mntmSaveProject AND mntmOpenProject AND
 		 * mntmAspSolver AND mntmSaveOntologyModel
-		 * 
+		 * rbMenuItem1-4
 		 */
 		
-		if (arg0.getSource() == mntmSaveOntologyModel) {
+		if ((arg0.getSource() == rbMenuItem1)||(arg0.getSource() == rbMenuItem2)||(arg0.getSource() == rbMenuItem3)||(arg0.getSource() == rbMenuItem4)) {
+			String radiocommand =arg0.getActionCommand();
+			appControl.genereteCaexOntologyModel(radiocommand);
+			rbMenuItem1.setSelected(false);
+			rbMenuItem2.setSelected(false);
+			rbMenuItem3.setSelected(false);
+			rbMenuItem4.setSelected(true);
+			//-- Console Printing
+			txtrConsoleOutput.append(newline + "LOG: SELECTED:" + radiocommand);
+			txtrConsoleOutput.append(newline + "LOG: ONTOLOGY MODEL GENERATED FROM THE MAIN CAEX MODEL! ");
+			txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+			//-- Result Printing
+			String serialized = appControl.getSerializeRdfModel(null); // if null, use default format
+			txtrResultOutput.setText(null); // CLear old text
+			txtrResultOutput.append(serialized + newline);
+			txtrResultOutput.setCaretPosition(txtrResultOutput.getText().length());
+			
+		} if (arg0.getSource() == mntmSaveOntologyModel) {
 			fileChooser.setDialogTitle("SAVE CAEX SOURCE ONTOLOGY MODEL TO FILE (.ttl, .owl)");
 			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data"));
@@ -551,7 +616,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				
 		} else if (arg0.getSource() == mntmGenOntologyModel) {
-			appControl.genereteCaexOntologyModel();;
+			appControl.genereteCaexOntologyModel("default");;
 			System.out.println("-- genereteCaexOntologyModel();! ");
 			//-- Console Printing
 			txtrConsoleOutput.append(newline + "LOG: ONTOLOGY MODEL GENERATED FROM THE MAIN CAEX MODEL! ");

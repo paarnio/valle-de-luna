@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CAEXFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" FileName="RunningExample_Libraries.aml" SchemaVersion="2.15">
+<!-- VPA: PROBLEM with 'umlauts'. 'Gehausebauform' first a was with umlauts: invalid 2 of 3-byte utf-8 sequence. -->
 	<AdditionalInformation>
 		<WriterHeader>
 			<WriterName>AutomationML Editor</WriterName>
@@ -250,7 +251,7 @@
 				<Description> höchster Grenzwert der Spannung, die am Versorgungseingang eines elektrischen Betriebsmittels zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
 				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAC965#006" />
 			</Attribute>
-			<Attribute Name="Gehäusebauform" AttributeDataType="xs:string">
+			<Attribute Name="Gehausebauform" AttributeDataType="xs:string">
 				<Description> Gibt an, welcher geometrische Grundkörper die äußere Gestalt des Gerätes bestimmt bzw. ob es sich um eine genormte Bauform handelt</Description>
 				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-BAD840#006" />
 			</Attribute>
@@ -385,7 +386,7 @@
 				<Description> höchster Grenzwert der Spannung, die am Versorgungseingang eines elektrischen Betriebsmittels zeitweise oder ständig anliegen muss, um die Funktion des Betriebsmittels aufrecht zu erhalten</Description>
 				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAC965#006" />
 			</Attribute>
-			<Attribute Name="Gehäusebauform" AttributeDataType="xs:string">
+			<Attribute Name="Gehausebauform" AttributeDataType="xs:string">
 				<Description> Gibt an, welcher geometrische Grundkörper die äußere Gestalt des Gerätes bestimmt bzw. ob es sich um eine genormte Bauform handelt</Description>
 				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-BAD840#006" />
 			</Attribute>
@@ -508,7 +509,7 @@
 				<Description>Umgebungstemperatur min ist die niedrigste Umgebungstemperatur, der das Gerät ausgesetzt ist und für die es seine Spezifikation einhalten soll bzw. ist die minimal zulässige Temperatur der Umgebung, unabhängig von der Mediumstemperatur, bei der das Gerät noch bestimmungsgemäß, d. h. mit den vom Hersteller angegebenen Genauigkeitsspezifikationen arbeitet oder ist die maximal zulässige Temperatur aufgrund weiterer Vorgaben, wie gesetzlicher Bestimmungen oder von Zulassungsbestimmungen (die Beziehung ergibt sich aus dem Kontext der Verwendung von Umgebungstemperatur min)</Description>
 				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAS160#001" />
 			</Attribute>
-			<Attribute Name="Gehäusebauform" AttributeDataType="xs:string">
+			<Attribute Name="Gehausebauform" AttributeDataType="xs:string">
 				<Description> Gibt an, welcher geometrische Grundkörper die äußere Gestalt des Gerätes bestimmt bzw. ob es sich um eine genormte Bauform handelt</Description>
 				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-BAD840#006" />
 			</Attribute>
@@ -635,7 +636,7 @@
 				<Description> Umgebungstemperatur max ist die höchste Umgebungstemperatur, der das Gerät ausgesetzt ist und für die es seine Spezifikation einhalten soll bzw. ist die maximal zulässige Temperatur der Umgebung, unabhängig von der Mediumstemperatur, bei der das Gerät noch bestimmungsgemäß, d. h. mit den vom Hersteller angegebenen Genauigkeitsspezifikationen arbeitet oder ist die maximal zulässige Temperatur aufgrund weiterer Vorgaben, wie gesetzlicher Bestimmungen oder von Zulassungsbestimmungen (die Beziehung ergibt sich aus dem Kontext der Verwendung von Umgebungstemperatur max)</Description>
 				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-AAS155#001" />
 			</Attribute>
-			<Attribute Name="Gehäusebauform" AttributeDataType="xs:string">
+			<Attribute Name="Gehausebauform" AttributeDataType="xs:string">
 				<Description> Gibt an, welcher geometrische Grundkörper die äußere Gestalt des Gerätes bestimmt bzw. ob es sich um eine genormte Bauform handelt</Description>
 				<RefSemantic CorrespondingAttributePath="ECLASS:0173-1#02-BAD840#006" />
 			</Attribute>
