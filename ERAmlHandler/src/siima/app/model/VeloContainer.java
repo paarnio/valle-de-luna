@@ -30,8 +30,8 @@ public class VeloContainer {
 	private static final Logger logger=Logger.getLogger(VeloContainer.class.getName());
 	private VelocityEngine engine = new VelocityEngine();
 	private VelocityContext vcontext = new VelocityContext();
-	ByteArrayOutputStream vmOutputStream = new ByteArrayOutputStream();
-	Writer resultWriter;
+	//ByteArrayOutputStream vmOutputStream = new ByteArrayOutputStream();
+	//Writer resultWriter;
 	public String vm_default = "./configure/velocity/vmFile_default.vm";
 	public String vm_ihierarchy = "./configure/velocity/vmFile_ihierarchy_ontogen.vm";
 	public String vm_systemunitclasslib = "./configure/velocity/vmFile_systemunitclasslib_ontogen.vm";
@@ -42,7 +42,7 @@ public class VeloContainer {
 	//private Model genRdfModel = ModelFactory.createDefaultModel();
 	
 	public VeloContainer(String key, Object value){
-		resultWriter = new OutputStreamWriter(vmOutputStream);
+		//resultWriter = new OutputStreamWriter(vmOutputStream);
 		vcontext.put(key, value);
 		ontoVmFileMap = new HashMap<String,String>();
 		ontoVmFileMap.put("default", vm_default);
@@ -59,6 +59,8 @@ public class VeloContainer {
 	}
 	
 	public void evaluateEngine(String modelkey, Model genModel){
+		ByteArrayOutputStream vmOutputStream = new ByteArrayOutputStream();
+		Writer resultWriter = new OutputStreamWriter(vmOutputStream);
 		try {
 			String vm_file_path = (String)ontoVmFileMap.get(modelkey); //"default");
 			if(vm_file_path!=null){
@@ -90,54 +92,7 @@ public class VeloContainer {
 		
 	}
 	
-	/*
-	public void wwwwriteRdfModelToFile(String newOntologyFile) {
-		try {
-			FileOutputStream outputStream = new FileOutputStream(newOntologyFile);
-			if (genRdfModel != null) {
-				if ((newOntologyFile.contains(".ttl"))||(newOntologyFile.contains(".TTL"))) {
-					genRdfModel.write(outputStream, "TURTLE");
-					logger.log(Level.INFO, "writeRdfModelToFile():TURTLE format TO File: " + newOntologyFile);
-				} else if ((newOntologyFile.contains(".owl"))||(newOntologyFile.contains(".OWL"))) { 
-					genRdfModel.write(outputStream, "RDF/XML");
-					logger.log(Level.INFO, "writeRdfModelToFile():RDF/XML Format TO File: " + newOntologyFile);
-				} else {
-					logger.log(Level.INFO, "writeRdfModelToFile():UNKNOWN suffix (expected .ttl or .owl): " + newOntologyFile);
-					//System.out.println(
-					//		"TODO: VeloContainer: writeRdfModelToFile -- Not Turtle file suffix: " + newOntologyFile);
-				}
-			}
 
-		} catch (FileNotFoundException e) {
-
-			e.printStackTrace();
-		}
-
-	}
-	
-	public String wgetSerializedRdfModel(String format) {
-		* 
-		 *  format: e.g. "TURTLE"; TTL; RDFXML; RDFJSON; NTRIPLES
-		 *  https://jena.apache.org/documentation/io/rdf-output.html#formats
-		 *
-		String serialized = null;
-		if (this.genRdfModel != null) {
-				StringWriter strWriter = new StringWriter();
-				this.genRdfModel.write(strWriter, format);
-				serialized = strWriter.toString();
-				logger.log(Level.INFO,"getSerializedRdfModel: serialized is empty: " + serialized.isEmpty());
-				//this.rdfModel.write(System.out, format);			
-
-		}
-		
-		return serialized;
-	}
-	
-	
-	public Model getGenRdfModel() {
-		return genRdfModel;
-	}
-*/
 	public void setVmDefault(String vmFile) {
 		this.vm_default = vmFile;
 	}

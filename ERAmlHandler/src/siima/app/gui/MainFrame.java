@@ -79,11 +79,13 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JMenuItem mntmOpenProject;
 	private JMenuItem mntmAspSolver;
 	private JMenuItem mntmSaveOntologyModel;
+	private JMenuItem mntmMergeModels;
 	// private JTree tree;
 	private JRadioButtonMenuItem rbMenuItem1;
 	private JRadioButtonMenuItem rbMenuItem2;
 	private JRadioButtonMenuItem rbMenuItem3;
 	private JRadioButtonMenuItem rbMenuItem4;
+	private JRadioButtonMenuItem rbMenuItem5;
 
 	/**
 	 * Launch the application.
@@ -229,15 +231,26 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         group.add(rbMenuItem3);
         mnOntSubmenu.add(rbMenuItem3);
         
-		rbMenuItem4 = new JRadioButtonMenuItem("None");
-        rbMenuItem4.setSelected(true);
+		rbMenuItem4 = new JRadioButtonMenuItem("AllModels");
+        rbMenuItem4.setSelected(false);
         //rbMenuItem1.setMnemonic(KeyEvent.VK_U);
         rbMenuItem4.addActionListener(this);       
         group.add(rbMenuItem4);
         mnOntSubmenu.add(rbMenuItem4);
         
+		rbMenuItem5 = new JRadioButtonMenuItem("None");
+        rbMenuItem5.setSelected(true);
+        //rbMenuItem1.setMnemonic(KeyEvent.VK_U);
+        rbMenuItem5.addActionListener(this);       
+        group.add(rbMenuItem5);
+        mnOntSubmenu.add(rbMenuItem5);
+        
 		mnOntology.add(mnOntSubmenu);
-			
+		
+		mntmMergeModels = new JMenuItem("Merge Existing Models");
+		mntmMergeModels.addActionListener(this);
+		mnOntology.add(mntmMergeModels);
+		
 		mntmSaveOntologyModel = new JMenuItem("Save Ontology Model...");
 		mntmSaveOntologyModel.addActionListener(this);
 		mnOntology.add(mntmSaveOntologyModel);
@@ -473,16 +486,31 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 * mntmInvokeTransform AND mntmGenOntologyModel AND mntmNewProject AND
 		 * mntmSaveProjectAs AND mntmSaveProject AND mntmOpenProject AND
 		 * mntmAspSolver AND mntmSaveOntologyModel
-		 * rbMenuItem1-4
+		 * rbMenuItem1-5 AND
+		 * mntmMergeModels
 		 */
 		
-		if ((arg0.getSource() == rbMenuItem1)||(arg0.getSource() == rbMenuItem2)||(arg0.getSource() == rbMenuItem3)||(arg0.getSource() == rbMenuItem4)) {
+		if (arg0.getSource() == mntmMergeModels) {
+			
+			appControl.mergeExistingRDFModels();
+			
+			//-- Console Printing
+			txtrConsoleOutput.append(newline + "LOG: MERGE EXISTING ONTOLOGY MODELS");
+			txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+			//-- Result Printing
+			String serialized = appControl.getSerializeRdfModel(null); // if null, use default format
+			txtrResultOutput.setText(null); // CLear old text
+			txtrResultOutput.append(serialized + newline);
+			txtrResultOutput.setCaretPosition(txtrResultOutput.getText().length());
+			
+		} else if ((arg0.getSource() == rbMenuItem1)||(arg0.getSource() == rbMenuItem2)||(arg0.getSource() == rbMenuItem3)||(arg0.getSource() == rbMenuItem4)||(arg0.getSource() == rbMenuItem5)) {
 			String radiocommand =arg0.getActionCommand();
 			appControl.genereteCaexOntologyModel(radiocommand);
 			rbMenuItem1.setSelected(false);
 			rbMenuItem2.setSelected(false);
 			rbMenuItem3.setSelected(false);
-			rbMenuItem4.setSelected(true);
+			rbMenuItem4.setSelected(false);
+			rbMenuItem5.setSelected(true);
 			//-- Console Printing
 			txtrConsoleOutput.append(newline + "LOG: SELECTED:" + radiocommand);
 			txtrConsoleOutput.append(newline + "LOG: ONTOLOGY MODEL GENERATED FROM THE MAIN CAEX MODEL! ");

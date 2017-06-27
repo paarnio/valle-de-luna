@@ -4,7 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -25,6 +27,9 @@ public class RdfContainer {
 	private Model roleClassLRdfModel = ModelFactory.createDefaultModel();
 	private Map rdfModelMap;
 	private Model genRdfModel; //latest genereted model
+	private Model combinedRdfModel;
+	private Model mergedRdfModel;
+	private String curModelKey; //latest model category key
 	
 	public RdfContainer(JaxbContainer graphbuilder){
 		
@@ -37,18 +42,41 @@ public class RdfContainer {
 	}
 	
 	public void genereteCaexOntologyModel(String modelkey) {
-		//String modelkey = "instancehierarchy";
-		modelkey=modelkey.toLowerCase();
+		// String modelkey = "instancehierarchy"; ; default; "combined"
+		modelkey = modelkey.toLowerCase();
+		this.curModelKey = modelkey;
 		initVelocity();
-		genRdfModel = ModelFactory.createDefaultModel();
-		evaluateVelocityEngine(modelkey, genRdfModel);
-		Model categorymodel= (Model)rdfModelMap.get(modelkey);
-		if(categorymodel!=null){ //TODO: Two options ?
-			categorymodel.add(genRdfModel); 
-			//categorymodel = this.genRdfModel;
+
+		if ("allmodels".equalsIgnoreCase(modelkey)) { 
+			// combining all model categories
+			combinedRdfModel = ModelFactory.createDefaultModel();
+			for (String curkey : (Set<String>) rdfModelMap.keySet()) {
+				if (!"default".equalsIgnoreCase(curkey)) {
+					genRdfModel = ModelFactory.createDefaultModel();
+					evaluateVelocityEngine(curkey, genRdfModel);
+					Model categorymodel = (Model) rdfModelMap.get(curkey);
+					if (categorymodel != null) { // TODO: Two options ?
+						categorymodel.add(genRdfModel);
+						// categorymodel = this.genRdfModel;
+						combinedRdfModel.add(genRdfModel);
+					}
+
+				}
+
+			}
+			logger.log(Level.INFO, "Genereted RDF Model category: " + modelkey + " with total size# " + combinedRdfModel.size());
+		} else {
+
+			genRdfModel = ModelFactory.createDefaultModel();
+			evaluateVelocityEngine(modelkey, genRdfModel);
+			Model categorymodel = (Model) rdfModelMap.get(modelkey);
+			if (categorymodel != null) { // TODO: Two options ?
+				categorymodel.add(genRdfModel);
+				// categorymodel = this.genRdfModel;
+			}
+			logger.log(Level.INFO, "Genereted RDF Model category: " + modelkey + " size# " + genRdfModel.size());
 		}
-		logger.log(Level.INFO, "Genereted RDF Model category: " + modelkey + " size# " + genRdfModel.size());
-		
+
 	}
 
 	public void initVelocity() {
@@ -79,30 +107,47 @@ public class RdfContainer {
 		velocity.evaluateEngine(modelkey, rdfmodel);//"instancehierarchy");
 	}
 
-	/*
-	public String  wgetSerializeRdfModel(String format) {
-		* format "TURTLE"
-		 * format: e.g. "TURTLE"; TTL; RDFXML; RDFJSON; NTRIPLES
-		 * https://jena.apache.org/documentation/io/rdf-output.html#formats
-		 *
-		String defFormat = "TURTLE";
-		if(format==null) format= defFormat;
-		String serialized = velocity.wgetSerializedRdfModel(format);
-		logger.log(Level.INFO,"getSerializeRdfModel()");
-		return serialized;
+
+	public void mergeRDFModels(){
+		// Merging all previously generated category models
+		// Merging also combined model (potential redundancy)
+		logger.log(Level.INFO, "mergeRDFModels(): Merging existing generated RDF models.");
+		this.curModelKey = "merged";
+		
+		mergedRdfModel = ModelFactory.createDefaultModel();
+		for (String curkey : (Set<String>) rdfModelMap.keySet()) {
+			if (!"default".equalsIgnoreCase(curkey)) {
+				Model categorymodel = (Model) rdfModelMap.get(curkey);
+				if (categorymodel != null) { 
+					mergedRdfModel.add(categorymodel);
+				}
+
+			}
+
+		}
+		// Merging also combined model (potential redundancy)
+		if(combinedRdfModel!=null) mergedRdfModel.add(combinedRdfModel);
+		logger.log(Level.INFO, "mergeRDFModels(): Merged model total size# " + mergedRdfModel.size());
 	}
 	
-	*/
 	
 	public void writeRdfModelToFile(String newOntologyFile) {
-		try {
+		Model savemodel;
+		try {//
+			if(("allmodels".equalsIgnoreCase(curModelKey))||("combined".equalsIgnoreCase(curModelKey))){
+				savemodel = combinedRdfModel;
+			} else if("merged".equalsIgnoreCase(curModelKey)){
+				savemodel = mergedRdfModel;
+			} else { //else the latest generated model
+				savemodel = genRdfModel;
+			}
 			FileOutputStream outputStream = new FileOutputStream(newOntologyFile);
-			if (genRdfModel != null) {
+			if (savemodel != null) {
 				if ((newOntologyFile.contains(".ttl"))||(newOntologyFile.contains(".TTL"))) {
-					genRdfModel.write(outputStream, "TURTLE");
+					savemodel.write(outputStream, "TURTLE");
 					logger.log(Level.INFO, "writeRdfModelToFile():TURTLE format TO File: " + newOntologyFile);
 				} else if ((newOntologyFile.contains(".owl"))||(newOntologyFile.contains(".OWL"))) { 
-					genRdfModel.write(outputStream, "RDF/XML");
+					savemodel.write(outputStream, "RDF/XML");
 					logger.log(Level.INFO, "writeRdfModelToFile():RDF/XML Format TO File: " + newOntologyFile);
 				} else {
 					logger.log(Level.INFO, "writeRdfModelToFile():UNKNOWN suffix (expected .ttl or .owl): " + newOntologyFile);
@@ -123,13 +168,22 @@ public class RdfContainer {
 		 *  format: e.g. "TURTLE"; TTL; RDFXML; RDFJSON; NTRIPLES
 		 *  https://jena.apache.org/documentation/io/rdf-output.html#formats
 		 */
+		Model sermodel;
 		String serialized = null;
 		String defFormat = "TURTLE";
 		if(format==null) format= defFormat;
 		
-		if (this.genRdfModel != null) {
+		if(("allmodels".equalsIgnoreCase(curModelKey))||("combined".equalsIgnoreCase(curModelKey))){
+			sermodel = combinedRdfModel;
+		} else if("merged".equalsIgnoreCase(curModelKey)){
+			sermodel = mergedRdfModel;
+		} else {
+			sermodel = genRdfModel;
+		}
+		
+		if (sermodel != null) {
 				StringWriter strWriter = new StringWriter();
-				this.genRdfModel.write(strWriter, format);
+				sermodel.write(strWriter, format);
 				serialized = strWriter.toString();
 				logger.log(Level.INFO,"getSerializedRdfModel: serialized is empty: " + serialized.isEmpty());
 				//this.rdfModel.write(System.out, format);			

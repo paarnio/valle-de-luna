@@ -136,6 +136,11 @@ public class MainAppController {
 
 	}
 
+	public void mergeExistingRDFModels(){
+		
+		rdfContainer.mergeRDFModels();
+		
+	}
 	
 	public void saveCaexOntologyModel(String ontologyfile) {
 		// System.out.println("= MainAppController: saveCaexOntologyModel() SAVING to a
