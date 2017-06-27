@@ -36,6 +36,7 @@ public class VeloContainer {
 	public String vm_ihierarchy = "./configure/velocity/vmFile_ihierarchy_ontogen.vm";
 	public String vm_systemunitclasslib = "./configure/velocity/vmFile_systemunitclasslib_ontogen.vm";
 	public String vm_roleclasslib = "./configure/velocity/vmFile_roleclasslib_ontogen.vm";
+	public String vm_interfaceclasslib = "./configure/velocity/vmFile_interfaceclasslib_ontogen.vm";
 	public Map ontoVmFileMap;	
 		
 	public String outputFile= "./configure/velocity/generated_ontology.ttl";
@@ -49,7 +50,7 @@ public class VeloContainer {
 		ontoVmFileMap.put("instancehierarchy", vm_ihierarchy);
 		ontoVmFileMap.put("systemunitclasslib", vm_systemunitclasslib);
 		ontoVmFileMap.put("roleclasslib", vm_roleclasslib);
-		
+		ontoVmFileMap.put("interfaceclasslib", vm_interfaceclasslib);
 		
 	}
 

@@ -1,0 +1,132 @@
+<rdf:RDF xmlns="http://siima.net/ontologies/2017/caex/" 
+	xml:base="http://siima.net/ontologies/2017/caex/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+	xmlns:siima="http://siima.net/ontologies/2017/caex/"
+	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
+	#* 2017-06-27 vmFile_interfaceclasslib_ontogen.vm
+	 (BASED ON: 2017-06-12 vmFile_systemunitclasslib_ontogen.vm)
+	 (BASED ON: 2017-06-11 vmFile_ihierarchy_ontogen.vm) 
+	 NOTE: VelocityContext is expected to be initiated with  JAXB object CAEXFile caex
+	 with key "caexfile" in the constructor of VeloContainer (vcontext.put("caexfile", caex))
+	 NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
+	 NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
+	 2017-06-09 CALLING MY OWN CLASS(AnyTypeValueHelper) METHOD: putVelocityContext("AnyValueHelper", anyContentHelper); 
+	 Helper method for finding out Attributes Value's content: now [Value: null]
+	 2017-05-28 FOR STRING FUNCTIONS PUT StringUtils class TO CONTEXT: $StringUtils
+	 SEE: "StringUtils", org.apache.commons.lang3.StringUtils.class
+	 SEE: https://stackoverflow.com/questions/6998412/velocity-string-function
+	 2017-05-29 CALLING MY OWN CLASS(UriHelper) METHOD:putVelocityContext("UriHelper", helper) 
+	 SEE: https://stackoverflow.com/questions/20786403/calling-a-java-method-in-velocity-template
+	 *#
+	
+	
+	#set( $amlns = 'http://data.ifs.tuwien.ac.at/aml/ontology#')
+	#set( $xsdns = 'http://www.w3.org/2001/XMLSchema#')
+	
+	#*--------------------
+			CAEXFile
+	----------------------*#
+	
+	## -- CAEXFile --
+	#set( $URIhelp = $UriHelper.createInstanceUri("CAEXFile",null,null,"$caexfile.FileName") )
+	<owl:NamedIndividual rdf:about="${URIhelp}">
+		<rdf:type rdf:resource="${amlns}CAEXFile"/>
+	</owl:NamedIndividual>
+
+	#*--------------------
+		InterfaceClassLib (Hierarchy)
+	----------------------*#
+	
+	## -- InterfaceClassLib --
+	#foreach ($interfaceclib in $caexfile.getInterfaceClassLib())
+	#set( $URIhelp = $UriHelper.createInstanceUri("InterfaceClassLib","$interfaceclib.Name",null,"$interfaceclib.Name") )
+	<owl:NamedIndividual rdf:about="${URIhelp}">
+		<rdf:type rdf:resource="${amlns}InterfaceClassLib"/>
+	</owl:NamedIndividual>		
+	#end
+	
+	#*--------------------
+		InterfaceClass in InterfaceClassLib
+	----------------------*#
+	
+	## -- InterfaceClass --
+	#foreach ($interfaceclib in $caexfile.getInterfaceClassLib())
+		#foreach ($ifacec in $interfaceclib.InterfaceClass)
+	#walkIfaceClasses($ifacec, $interfaceclib)
+		#end		
+	#end
+
+	## --Recursive walk through InterfaceClass (JAXB Type InterfaceFamilyType)--
+	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
+	## NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
+	#macro(walkIfaceClasses $node $hierarchy)
+	##set( $rbasecref = $node.RefBaseClassPath )
+	##set( $BASECrep = $StringUtils.replace($rbasecref,"/","_") )
+	#set( $URIhelp = $UriHelper.createInstanceUri("InterfaceClass","$hierarchy.Name","$node.Name", "$node.Name") )
+	<owl:NamedIndividual rdf:about="${URIhelp}">
+		<rdf:type rdf:resource="${amlns}InterfaceClass"/>
+		<amlont:name rdf:datatype="${xsdns}string">$node.Name</amlont:name>
+		#if($node.ID)
+			<amlont:iD rdf:datatype="${xsdns}string">$node.ID</amlont:iD>
+		#end		
+		## -- attribute property --
+		#foreach ($att in $node.getAttribute())
+			#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
+			<amlont:attribute rdf:resource="${URIhelp}"/>
+		#end
+	</owl:NamedIndividual>	
+	#if ($node.InterfaceClass.size() > 0)
+		#foreach ($child in $node.InterfaceClass)
+			#walkIfaceClasses($child $hierarchy)
+		#end
+	#end
+	#end
+	## -- macro end
+	
+	#*--------------------
+		  Attribute in in InterfaceClass in InterfaceClassLib
+	----------------------*#	
+	## -- Attribute --
+	#foreach ($interfaceclib in $caexfile.getInterfaceClassLib())
+		#foreach ($ifacec in $interfaceclib.InterfaceClass)
+			#walkIElementsForAttributes($ifacec $interfaceclib)
+		#end		
+	#end
+	
+	## --Recursive attribute creation from all InterfaceClass--
+	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
+	## NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
+	#macro(walkIElementsForAttributes $node $hierarchy)
+		#foreach ($att in $node.getAttribute())
+				#set( $ATTValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "Value") )
+				#set( $ATTDefValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "DefaultValue") )
+				#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
+				<owl:NamedIndividual rdf:about="${URIhelp}">
+				<rdf:type rdf:resource="${amlns}Attribute"/>
+					<amlont:name rdf:datatype="${xsdns}string">$att.Name</amlont:name>
+					<amlont:attributeDataType rdf:datatype="${xsdns}string">$att.AttributeDataType</amlont:attributeDataType>
+					#if ($ATTDefValue)
+						<amlont:defaultValue rdf:datatype="${xsdns}string">$ATTDefValue</amlont:defaultValue>
+					#end
+					<amlont:value rdf:datatype="${xsdns}string">$ATTValue</amlont:value>
+				</owl:NamedIndividual>
+		#end
+	#if ($node.InterfaceClass.size() > 0)
+		#foreach ($child in $node.InterfaceClass)
+			#walkIElementsForAttributes($child $hierarchy)
+		#end
+	#end	
+	#end
+	## -- macro end
+
+	#*--------------------
+		NO(?) ExternalInterface in InterfaceClass
+	----------------------*#
+	
+	#*--------------------
+		NO(?) InternalLink in InterfaceClass 
+	----------------------*#	
+</rdf:RDF>

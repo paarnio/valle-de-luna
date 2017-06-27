@@ -86,7 +86,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JRadioButtonMenuItem rbMenuItem3;
 	private JRadioButtonMenuItem rbMenuItem4;
 	private JRadioButtonMenuItem rbMenuItem5;
-
+	private JRadioButtonMenuItem rbMenuItem6;
 	/**
 	 * Launch the application.
 	 */
@@ -231,19 +231,26 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         group.add(rbMenuItem3);
         mnOntSubmenu.add(rbMenuItem3);
         
-		rbMenuItem4 = new JRadioButtonMenuItem("AllModels");
+		rbMenuItem4 = new JRadioButtonMenuItem("InterfaceClassLib");
         rbMenuItem4.setSelected(false);
         //rbMenuItem1.setMnemonic(KeyEvent.VK_U);
         rbMenuItem4.addActionListener(this);       
         group.add(rbMenuItem4);
         mnOntSubmenu.add(rbMenuItem4);
         
-		rbMenuItem5 = new JRadioButtonMenuItem("None");
-        rbMenuItem5.setSelected(true);
+		rbMenuItem5 = new JRadioButtonMenuItem("AllModels");
+        rbMenuItem5.setSelected(false);
         //rbMenuItem1.setMnemonic(KeyEvent.VK_U);
         rbMenuItem5.addActionListener(this);       
         group.add(rbMenuItem5);
         mnOntSubmenu.add(rbMenuItem5);
+        
+        rbMenuItem6 = new JRadioButtonMenuItem("none");
+        rbMenuItem6.setSelected(true);
+        //rbMenuItem1.setMnemonic(KeyEvent.VK_T);
+        rbMenuItem6.addActionListener(this);       
+        group.add(rbMenuItem6);
+        mnOntSubmenu.add(rbMenuItem6);
         
 		mnOntology.add(mnOntSubmenu);
 		
@@ -486,7 +493,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 * mntmInvokeTransform AND mntmGenOntologyModel AND mntmNewProject AND
 		 * mntmSaveProjectAs AND mntmSaveProject AND mntmOpenProject AND
 		 * mntmAspSolver AND mntmSaveOntologyModel
-		 * rbMenuItem1-5 AND
+		 * rbMenuItem1-6 AND
 		 * mntmMergeModels
 		 */
 		
@@ -503,14 +510,15 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			txtrResultOutput.append(serialized + newline);
 			txtrResultOutput.setCaretPosition(txtrResultOutput.getText().length());
 			
-		} else if ((arg0.getSource() == rbMenuItem1)||(arg0.getSource() == rbMenuItem2)||(arg0.getSource() == rbMenuItem3)||(arg0.getSource() == rbMenuItem4)||(arg0.getSource() == rbMenuItem5)) {
+		} else if ((arg0.getSource() == rbMenuItem1)||(arg0.getSource() == rbMenuItem2)||(arg0.getSource() == rbMenuItem3)||(arg0.getSource() == rbMenuItem4)||(arg0.getSource() == rbMenuItem5)||(arg0.getSource() == rbMenuItem6)) {
 			String radiocommand =arg0.getActionCommand();
 			appControl.genereteCaexOntologyModel(radiocommand);
 			rbMenuItem1.setSelected(false);
 			rbMenuItem2.setSelected(false);
 			rbMenuItem3.setSelected(false);
 			rbMenuItem4.setSelected(false);
-			rbMenuItem5.setSelected(true);
+			rbMenuItem5.setSelected(false);
+			rbMenuItem6.setSelected(true);
 			//-- Console Printing
 			txtrConsoleOutput.append(newline + "LOG: SELECTED:" + radiocommand);
 			txtrConsoleOutput.append(newline + "LOG: ONTOLOGY MODEL GENERATED FROM THE MAIN CAEX MODEL! ");

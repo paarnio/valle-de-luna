@@ -51,6 +51,11 @@ public class UriHelper {
 			uri = siimaontns + instanceOwlType + "-INST_" + "ROLECLIB-" + hierarchy + "_ROLEC-" + instanceName;		
 		} 
 		
+		if("InterfaceClassLib".equalsIgnoreCase(instanceOwlType)){		
+			uri = siimaontns + instanceOwlType + "-INST_" + "IFACECLIB-" + instanceName;		
+		} else 	if("InterfaceClass".equalsIgnoreCase(instanceOwlType)){		
+			uri = siimaontns + instanceOwlType + "-INST_" + "IFACECLIB-" + hierarchy + "_IFACEC-" + instanceName;		
+		} 
 		return uri;
 	}
 

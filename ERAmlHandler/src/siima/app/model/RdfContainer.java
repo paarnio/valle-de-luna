@@ -25,6 +25,7 @@ public class RdfContainer {
 	private Model instanceHRdfModel = ModelFactory.createDefaultModel();
 	private Model systemUnitClassLRdfModel = ModelFactory.createDefaultModel();
 	private Model roleClassLRdfModel = ModelFactory.createDefaultModel();
+	private Model interfaceClassLRdfModel = ModelFactory.createDefaultModel();
 	private Map rdfModelMap;
 	private Model genRdfModel; //latest genereted model
 	private Model combinedRdfModel;
@@ -39,6 +40,7 @@ public class RdfContainer {
 		rdfModelMap.put("instancehierarchy", instanceHRdfModel);
 		rdfModelMap.put("systemunitclasslib", systemUnitClassLRdfModel);
 		rdfModelMap.put("roleclasslib", roleClassLRdfModel);
+		rdfModelMap.put("interfaceclasslib", interfaceClassLRdfModel);
 	}
 	
 	public void genereteCaexOntologyModel(String modelkey) {
