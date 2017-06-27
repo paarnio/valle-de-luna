@@ -1,5 +1,8 @@
 package siima.app.model;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +23,8 @@ public class RdfContainer {
 	private Model instanceHRdfModel = ModelFactory.createDefaultModel();
 	private Model systemUnitClassLRdfModel = ModelFactory.createDefaultModel();
 	private Model roleClassLRdfModel = ModelFactory.createDefaultModel();
-	private Map rdfModelMap;	
+	private Map rdfModelMap;
+	private Model genRdfModel; //latest genereted model
 	
 	public RdfContainer(JaxbContainer graphbuilder){
 		
@@ -36,10 +40,14 @@ public class RdfContainer {
 		//String modelkey = "instancehierarchy";
 		modelkey=modelkey.toLowerCase();
 		initVelocity();
-		evaluateVelocityEngine(modelkey);
-		Model genmodel= (Model)rdfModelMap.get(modelkey);
-		genmodel= velocity.getGenRdfModel();
-		logger.log(Level.INFO, "Genereted RDF Model type: " + modelkey + " size# " + genmodel.size());
+		genRdfModel = ModelFactory.createDefaultModel();
+		evaluateVelocityEngine(modelkey, genRdfModel);
+		Model categorymodel= (Model)rdfModelMap.get(modelkey);
+		if(categorymodel!=null){ //TODO: Two options ?
+			categorymodel.add(genRdfModel); 
+			//categorymodel = this.genRdfModel;
+		}
+		logger.log(Level.INFO, "Genereted RDF Model category: " + modelkey + " size# " + genRdfModel.size());
 		
 	}
 
@@ -66,20 +74,68 @@ public class RdfContainer {
 		velocity.putVelocityContext("AnyValueHelper", anyContentHelper); 
 	}
 
-	public void evaluateVelocityEngine(String modelkey) {
+	public void evaluateVelocityEngine(String modelkey, Model rdfmodel) {
 		//Ontology submodel keys: default; instancehierarchy"; systemunitclasslib; roleclasslib
-		velocity.evaluateEngine(modelkey);//"instancehierarchy");
+		velocity.evaluateEngine(modelkey, rdfmodel);//"instancehierarchy");
 	}
 
-	public String  getSerializeRdfModel(String format) {
-		/* format "TURTLE"
+	/*
+	public String  wgetSerializeRdfModel(String format) {
+		* format "TURTLE"
 		 * format: e.g. "TURTLE"; TTL; RDFXML; RDFJSON; NTRIPLES
 		 * https://jena.apache.org/documentation/io/rdf-output.html#formats
-		 */
+		 *
 		String defFormat = "TURTLE";
 		if(format==null) format= defFormat;
-		String serialized = velocity.getSerializedRdfModel(format);
+		String serialized = velocity.wgetSerializedRdfModel(format);
 		logger.log(Level.INFO,"getSerializeRdfModel()");
+		return serialized;
+	}
+	
+	*/
+	
+	public void writeRdfModelToFile(String newOntologyFile) {
+		try {
+			FileOutputStream outputStream = new FileOutputStream(newOntologyFile);
+			if (genRdfModel != null) {
+				if ((newOntologyFile.contains(".ttl"))||(newOntologyFile.contains(".TTL"))) {
+					genRdfModel.write(outputStream, "TURTLE");
+					logger.log(Level.INFO, "writeRdfModelToFile():TURTLE format TO File: " + newOntologyFile);
+				} else if ((newOntologyFile.contains(".owl"))||(newOntologyFile.contains(".OWL"))) { 
+					genRdfModel.write(outputStream, "RDF/XML");
+					logger.log(Level.INFO, "writeRdfModelToFile():RDF/XML Format TO File: " + newOntologyFile);
+				} else {
+					logger.log(Level.INFO, "writeRdfModelToFile():UNKNOWN suffix (expected .ttl or .owl): " + newOntologyFile);
+					//System.out.println(
+					//		"TODO: VeloContainer: writeRdfModelToFile -- Not Turtle file suffix: " + newOntologyFile);
+				}
+			}
+
+		} catch (FileNotFoundException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+	
+	public String getSerializedRdfModel(String format) {
+		/* 
+		 *  format: e.g. "TURTLE"; TTL; RDFXML; RDFJSON; NTRIPLES
+		 *  https://jena.apache.org/documentation/io/rdf-output.html#formats
+		 */
+		String serialized = null;
+		String defFormat = "TURTLE";
+		if(format==null) format= defFormat;
+		
+		if (this.genRdfModel != null) {
+				StringWriter strWriter = new StringWriter();
+				this.genRdfModel.write(strWriter, format);
+				serialized = strWriter.toString();
+				logger.log(Level.INFO,"getSerializedRdfModel: serialized is empty: " + serialized.isEmpty());
+				//this.rdfModel.write(System.out, format);			
+
+		}
+		
 		return serialized;
 	}
 	

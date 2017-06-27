@@ -84,7 +84,7 @@ public class MainAppController {
 		 * https://jena.apache.org/documentation/io/rdf-output.html#formats
 		 */
 		
-		String serialized = this.rdfContainer.getSerializeRdfModel(format);
+		String serialized = this.rdfContainer.getSerializedRdfModel(format);
 		logger.log(Level.INFO,"getSerializeRdfModel()");
 		return serialized;
 	}
@@ -140,7 +140,8 @@ public class MainAppController {
 	public void saveCaexOntologyModel(String ontologyfile) {
 		// System.out.println("= MainAppController: saveCaexOntologyModel() SAVING to a
 		// File: " + ontologyfile);
-		velocity.writeRdfModelToFile(ontologyfile);	
+		//velocity.writeRdfModelToFile(ontologyfile);
+		rdfContainer.writeRdfModelToFile(ontologyfile);
 
 	}
 	

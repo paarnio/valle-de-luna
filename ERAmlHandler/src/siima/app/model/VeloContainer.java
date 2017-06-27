@@ -32,20 +32,20 @@ public class VeloContainer {
 	private VelocityContext vcontext = new VelocityContext();
 	ByteArrayOutputStream vmOutputStream = new ByteArrayOutputStream();
 	Writer resultWriter;
-	public String vmFile = "./configure/velocity/vmFile.vm";
+	public String vm_default = "./configure/velocity/vmFile_default.vm";
 	public String vm_ihierarchy = "./configure/velocity/vmFile_ihierarchy_ontogen.vm";
 	public String vm_systemunitclasslib = "./configure/velocity/vmFile_systemunitclasslib_ontogen.vm";
 	public String vm_roleclasslib = "./configure/velocity/vmFile_roleclasslib_ontogen.vm";
 	public Map ontoVmFileMap;	
 		
 	public String outputFile= "./configure/velocity/generated_ontology.ttl";
-	private Model genRdfModel = ModelFactory.createDefaultModel();
+	//private Model genRdfModel = ModelFactory.createDefaultModel();
 	
 	public VeloContainer(String key, Object value){
 		resultWriter = new OutputStreamWriter(vmOutputStream);
 		vcontext.put(key, value);
 		ontoVmFileMap = new HashMap<String,String>();
-		ontoVmFileMap.put("default", vmFile);
+		ontoVmFileMap.put("default", vm_default);
 		ontoVmFileMap.put("instancehierarchy", vm_ihierarchy);
 		ontoVmFileMap.put("systemunitclasslib", vm_systemunitclasslib);
 		ontoVmFileMap.put("roleclasslib", vm_roleclasslib);
@@ -58,7 +58,7 @@ public class VeloContainer {
 		vcontext.put(key, value);
 	}
 	
-	public void evaluateEngine(String modelkey){
+	public void evaluateEngine(String modelkey, Model genModel){
 		try {
 			String vm_file_path = (String)ontoVmFileMap.get(modelkey); //"default");
 			if(vm_file_path!=null){
@@ -76,8 +76,8 @@ public class VeloContainer {
 			ByteArrayInputStream modelInputStream = new ByteArrayInputStream(vmOutputStream.toByteArray());
 			
 			/* RDF Model */
-			genRdfModel.read(modelInputStream,null,"RDF/XML"); // (in, base, lang)
-			//rdfModel.write(outputStream,"TURTLE");
+			genModel.read(modelInputStream,null,"RDF/XML"); // (in, base, lang)
+			//this.genRdfModel = genModel; //TEMP
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -90,8 +90,8 @@ public class VeloContainer {
 		
 	}
 	
-	
-	public void writeRdfModelToFile(String newOntologyFile) {
+	/*
+	public void wwwwriteRdfModelToFile(String newOntologyFile) {
 		try {
 			FileOutputStream outputStream = new FileOutputStream(newOntologyFile);
 			if (genRdfModel != null) {
@@ -115,11 +115,11 @@ public class VeloContainer {
 
 	}
 	
-	public String getSerializedRdfModel(String format) {
-		/* 
+	public String wgetSerializedRdfModel(String format) {
+		* 
 		 *  format: e.g. "TURTLE"; TTL; RDFXML; RDFJSON; NTRIPLES
 		 *  https://jena.apache.org/documentation/io/rdf-output.html#formats
-		 */
+		 *
 		String serialized = null;
 		if (this.genRdfModel != null) {
 				StringWriter strWriter = new StringWriter();
@@ -137,9 +137,9 @@ public class VeloContainer {
 	public Model getGenRdfModel() {
 		return genRdfModel;
 	}
-
-	public void setVmFile(String vmFile) {
-		this.vmFile = vmFile;
+*/
+	public void setVmDefault(String vmFile) {
+		this.vm_default = vmFile;
 	}
 
 	public String getOutputFile() {
