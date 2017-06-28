@@ -6,28 +6,33 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
 	xmlns:siima="http://siima.net/ontologies/2017/caex/"
 	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
-	#* 2017-06-11 vmFile_ihierarchy_ontogen.vm 
-	 NOTE: VelocityContext is expected to be initiated with  JAXB object CAEXFile caex
-	 with key "caexfile" in the constructor of VeloContainer (vcontext.put("caexfile", caex))
-	 NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
-	 NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
-	 2017-06-09 CALLING MY OWN CLASS(AnyTypeValueHelper) METHOD: putVelocityContext("AnyValueHelper", anyContentHelper); 
-	 Helper method for finding out Attributes Value's content: now [Value: null]
-	 2017-05-28 FOR STRING FUNCTIONS PUT StringUtils class TO CONTEXT: $StringUtils
-	 SEE: "StringUtils", org.apache.commons.lang3.StringUtils.class
-	 SEE: https://stackoverflow.com/questions/6998412/velocity-string-function
-	 2017-05-29 CALLING MY OWN CLASS(UriHelper) METHOD:putVelocityContext("UriHelper", helper) 
-	 SEE: https://stackoverflow.com/questions/20786403/calling-a-java-method-in-velocity-template
-	 *#
-	
-	
+	#* 2017-06-11 vmFile_ihierarchy_ontogen.vm
+	NOTE: 2017-06-28 Ontology definition added (option: imports statement (Protege cannot open))
+	NOTE: VelocityContext is expected to be initiated with  JAXB object CAEXFile caex
+	with key "caexfile" in the constructor of VeloContainer (vcontext.put("caexfile", caex))
+	NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
+	NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
+	2017-06-09 CALLING MY OWN CLASS(AnyTypeValueHelper) METHOD: putVelocityContext("AnyValueHelper", anyContentHelper); 
+	Helper method for finding out Attributes Value's content: now [Value: null]
+	2017-05-28 FOR STRING FUNCTIONS PUT StringUtils class TO CONTEXT: $StringUtils
+	SEE: "StringUtils", org.apache.commons.lang3.StringUtils.class
+	SEE: https://stackoverflow.com/questions/6998412/velocity-string-function
+	2017-05-29 CALLING MY OWN CLASS(UriHelper) METHOD:putVelocityContext("UriHelper", helper) 
+	SEE: https://stackoverflow.com/questions/20786403/calling-a-java-method-in-velocity-template
+	*#
 	#set( $amlns = 'http://data.ifs.tuwien.ac.at/aml/ontology#')
 	#set( $xsdns = 'http://www.w3.org/2001/XMLSchema#')
+	#set( $siimans = 'http://siima.net/ontologies/2017/caex/')
 	
+	#*--------------------
+		   Ontology
+	----------------------*#
+	 <owl:Ontology rdf:about="${siimans}">
+        ##OPTION<owl:imports rdf:resource="${amlns}"/>
+    </owl:Ontology>
 	#*--------------------
 		   CAEXFile
 	----------------------*#
-	
 	## -- CAEXFile --
 	#set( $URIhelp = $UriHelper.createInstanceUri("CAEXFile",null,null,"$caexfile.FileName") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
@@ -37,7 +42,6 @@
 	#*--------------------
 	   InstanceHierarchy
 	----------------------*#
-	
 	## -- InstanceHierarchy --
 	#foreach ($ih in $caexfile.getInstanceHierarchy())
 	#set( $URIhelp = $UriHelper.createInstanceUri("InstanceHierarchy","$ih.Name",null,"$ih.Name") )
@@ -53,7 +57,7 @@
 	## -- InternalElement --
 	#foreach ($ih in $caexfile.getInstanceHierarchy())
        #foreach ($ie in $ih.InternalElement)
-			#walkIElements($ie, $ih)
+	#walkIElements($ie, $ih)
 		#end		
     #end
 
@@ -72,13 +76,13 @@
 		<amlont:refBaseSystemUnitPath rdf:resource="${URIhelp}"/>
 		## -- attribute property --
 		#foreach ($att in $node.getAttribute())
-			#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
-			<amlont:attribute rdf:resource="${URIhelp}"/>
+		#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
+		<amlont:attribute rdf:resource="${URIhelp}"/>
 		#end
 	</owl:NamedIndividual>	
 	#if ($node.InternalElement.size() > 0)
 		#foreach ($child in $node.InternalElement)
-			#walkIElements($child $ihierarchy)
+	#walkIElements($child $ihierarchy)
 		#end
 	#end
 	#end
@@ -101,22 +105,22 @@
 	## NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
 	#macro(walkIElementsForAttributes $node $ihierarchy)
 		#foreach ($att in $node.getAttribute())
-				#set( $ATTValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "Value") )
-				#set( $ATTDefValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "DefaultValue") )
-				#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
-				<owl:NamedIndividual rdf:about="${URIhelp}">
-				<rdf:type rdf:resource="${amlns}Attribute"/>
-					<amlont:name rdf:datatype="${xsdns}string">$att.Name</amlont:name>
-					<amlont:attributeDataType rdf:datatype="${xsdns}string">$att.AttributeDataType</amlont:attributeDataType>
-					#if ($ATTDefValue)
-						<amlont:defaultValue rdf:datatype="${xsdns}string">$ATTDefValue</amlont:defaultValue>
-					#end
-					<amlont:value rdf:datatype="${xsdns}string">$ATTValue</amlont:value>
-				</owl:NamedIndividual>
+		#set( $ATTValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "Value") )
+		#set( $ATTDefValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "DefaultValue") )
+		#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
+		<owl:NamedIndividual rdf:about="${URIhelp}">
+		<rdf:type rdf:resource="${amlns}Attribute"/>
+			<amlont:name rdf:datatype="${xsdns}string">$att.Name</amlont:name>
+			<amlont:attributeDataType rdf:datatype="${xsdns}string">$att.AttributeDataType</amlont:attributeDataType>
+		#if ($ATTDefValue)
+		<amlont:defaultValue rdf:datatype="${xsdns}string">$ATTDefValue</amlont:defaultValue>
+		#end
+		<amlont:value rdf:datatype="${xsdns}string">$ATTValue</amlont:value>
+		</owl:NamedIndividual>
 		#end
 	#if ($node.InternalElement.size() > 0)
 		#foreach ($child in $node.InternalElement)
-			#walkIElementsForAttributes($child $ihierarchy)
+		#walkIElementsForAttributes($child $ihierarchy)
 		#end
 	#end	
 	#end
@@ -134,26 +138,26 @@
 	## In JAXB: ExternalInterface is type InterfaceClassType
 	#foreach ($ih in $caexfile.getInstanceHierarchy())
        #foreach ($ie in $ih.InternalElement)
-			#walkIEForEInterface($ie $ih)
+		#walkIEForEInterface($ie $ih)
 		#end		
     #end
 	
 	## --Recursive ExternalInterface creation from all InternalElements--
 	#macro(walkIEForEInterface $node $ihierarchy)
-		#foreach ($extint in $node.getExternalInterface())
+	#foreach ($extint in $node.getExternalInterface())
 				
-				#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$ihierarchy.Name","$node.Name", "$extint.Name") )
-				#set( $RBCPath = $extint.getRefBaseClassPath() )
-				<owl:NamedIndividual rdf:about="${URIhelp}">
-				<rdf:type rdf:resource="${amlns}ExternalInterface"/>
-					<amlont:name rdf:datatype="${xsdns}string">$extint.Name</amlont:name>
-					<amlont:iD rdf:datatype="${xsdns}string">$extint.ID</amlont:iD>
-					<amlont:refBaseClassPath rdf:datatype="${xsdns}string">$RBCPath</amlont:refBaseClassPath>				
-				</owl:NamedIndividual>
-		#end
+	#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$ihierarchy.Name","$node.Name", "$extint.Name") )
+	#set( $RBCPath = $extint.getRefBaseClassPath() )
+	<owl:NamedIndividual rdf:about="${URIhelp}">
+	<rdf:type rdf:resource="${amlns}ExternalInterface"/>
+	<amlont:name rdf:datatype="${xsdns}string">$extint.Name</amlont:name>
+	<amlont:iD rdf:datatype="${xsdns}string">$extint.ID</amlont:iD>
+	<amlont:refBaseClassPath rdf:datatype="${xsdns}string">$RBCPath</amlont:refBaseClassPath>				
+	</owl:NamedIndividual>
+	#end
 	#if ($node.InternalElement.size() > 0)
 		#foreach ($child in $node.InternalElement)
-			#walkIEForEInterface($child $ihierarchy)
+		#walkIEForEInterface($child $ihierarchy)
 		#end
 	#end	
 	#end
@@ -166,39 +170,38 @@
 	## -- InternalLink -- (rdfs:subClassOf CAEXObject)
 	#foreach ($ih in $caexfile.getInstanceHierarchy())
        #foreach ($ie in $ih.InternalElement)
-			#walkIEForInternalLink($ie $ih)
+		#walkIEForInternalLink($ie $ih)
 		#end		
     #end
 	
 	## --Recursive InternalLink creation from all InternalElements--
 	#macro(walkIEForInternalLink $node $ihierarchy)
 		#foreach ($intlink in $node.getInternalLink())
-				#set( $ILINKName = $intlink.Name )
-				#set( $ILNamerep = $StringUtils.replace($ILINKName," ","_") )
-				#set( $LinkURIhelp = $UriHelper.createInstanceUri("InternalLink","$ihierarchy.Name","$node.Name", "$ILNamerep") )
-				#set( $RPSideA = $intlink.getRefPartnerSideA() )
-				#set( $RPSideB = $intlink.getRefPartnerSideB() )
-				## Calling a sub macro
-				#set( $SideURI = "" )
-				#macroReferedExtIntURI($RPSideA $ihierarchy $SideURI)
-				#set( $SideAURI = $SideURI )
-				#set( $SideURI = "" )
-				#macroReferedExtIntURI($RPSideB $ihierarchy $SideURI)
-				#set( $SideBURI = $SideURI )
-				
-				<owl:NamedIndividual rdf:about="${LinkURIhelp}">
-				<rdf:type rdf:resource="${amlns}InternalLink"/>
-					<amlont:name rdf:datatype="${xsdns}string">$intlink.Name</amlont:name>
-					## refPartnerSideA and B are owl:ObjectProperties
-					<amlont:refPartnerSideA rdf:resource="${SideAURI}"/> 
-					<amlont:refPartnerSideB rdf:resource="${SideBURI}"/> 
-					##TEST<amlont:TEMPSideA rdf:datatype="${xsdns}string">$SideAURI</amlont:TEMPSideA>
-					##TEST<amlont:TEMPSideB rdf:datatype="${xsdns}string">$RPSideB</amlont:TEMPSideB>
-				</owl:NamedIndividual>
-		#end
+	#set( $ILINKName = $intlink.Name )
+	#set( $ILNamerep = $StringUtils.replace($ILINKName," ","_") )
+	#set( $LinkURIhelp = $UriHelper.createInstanceUri("InternalLink","$ihierarchy.Name","$node.Name", "$ILNamerep") )
+	#set( $RPSideA = $intlink.getRefPartnerSideA() )
+	#set( $RPSideB = $intlink.getRefPartnerSideB() )
+	## Calling a sub macro
+	#set( $SideURI = "" )
+	#macroReferedExtIntURI($RPSideA $ihierarchy $SideURI)
+	#set( $SideAURI = $SideURI )
+	#set( $SideURI = "" )
+	#macroReferedExtIntURI($RPSideB $ihierarchy $SideURI)
+	#set( $SideBURI = $SideURI )
+	<owl:NamedIndividual rdf:about="${LinkURIhelp}">
+	<rdf:type rdf:resource="${amlns}InternalLink"/>
+	<amlont:name rdf:datatype="${xsdns}string">$intlink.Name</amlont:name>
+	## refPartnerSideA and B are owl:ObjectProperties
+	<amlont:refPartnerSideA rdf:resource="${SideAURI}"/> 
+	<amlont:refPartnerSideB rdf:resource="${SideBURI}"/> 
+	##TEST<amlont:TEMPSideA rdf:datatype="${xsdns}string">$SideAURI</amlont:TEMPSideA>
+	##TEST<amlont:TEMPSideB rdf:datatype="${xsdns}string">$RPSideB</amlont:TEMPSideB>
+	</owl:NamedIndividual>
+	#end
 	#if ($node.InternalElement.size() > 0)
 		#foreach ($child in $node.InternalElement)
-			#walkIEForInternalLink($child $ihierarchy)
+		#walkIEForInternalLink($child $ihierarchy)
 		#end
 	#end	
 	#end
@@ -213,24 +216,24 @@
 		#if($SideURI)
 		## Parsing link reference refPartnerSide
 		#set( $Cond = $StringUtils.contains($RPSide,":") )
-			#if($Cond)				
-				## First part of link reference is InternalElement's_ID
-				#set( $IElemID = $StringUtils.split($RPSide,":")[0] )
-				## Second part of link reference is EInterface's_Name
-				#set( $EIntName = $StringUtils.split($RPSide,":")[1] )
-				#set( $IEFound = "" )
-				#set( $IHReturn = "" )
-				##macroFindExtInt($ihierarchy $IElemID $EIntName $IEFound $IHReturn)
-				#macroFindExtInt($IElemID $IEFound $IHReturn)
-					#if( $IEFound != "" )
-					#set( $ExtIntURIhelp = $UriHelper.createInstanceUri("ExternalInterface","$IHReturn","$IEFound", "$EIntName") )
-					#set( $SideURI = $ExtIntURIhelp )
-					#end
-					#if( $SideURI == "" )					
-						#set( $SideURI = "EXTERNAL_INTERFACE_NOT_FOUND" )
-					#end
-			#end
-		#end
+		#if($Cond)				
+	## First part of link reference is InternalElement's_ID
+	#set( $IElemID = $StringUtils.split($RPSide,":")[0] )
+	## Second part of link reference is EInterface's_Name
+	#set( $EIntName = $StringUtils.split($RPSide,":")[1] )
+	#set( $IEFound = "" )
+	#set( $IHReturn = "" )
+	##macroFindExtInt($ihierarchy $IElemID $EIntName $IEFound $IHReturn)
+	#macroFindExtInt($IElemID $IEFound $IHReturn)
+	#if( $IEFound != "" )
+	#set( $ExtIntURIhelp = $UriHelper.createInstanceUri("ExternalInterface","$IHReturn","$IEFound", "$EIntName") )
+	#set( $SideURI = $ExtIntURIhelp )
+	#end
+	#if( $SideURI == "" )					
+	#set( $SideURI = "EXTERNAL_INTERFACE_NOT_FOUND" )
+	#end
+	#end
+	#end
 	#end
 	## -- macro end
 	
@@ -238,46 +241,45 @@
 	#macro(macroFindExtInt $IElemID $IEFound $IHReturn)
 		## Param: $ihierarchy AND $EIntName NOT in USE
 		#if($IEFound)
-			## TEMP set( $IEFound = "TESTING_TESTING" )
-			## -- SEARCHING REFERENCED InternalElement containing the ExternalInterface
-			#set( $IEReturn = "" )
-			#set( $IHReturn = "" )
-			#foreach ($ih in $caexfile.getInstanceHierarchy())
-				#if( $IHReturn == "" )
-				#foreach ($ie in $ih.InternalElement)
-				#if( $IEReturn == "" )
-					#recursiveSearchIElementsWithID($ie $ih $IElemID $IEReturn $IHReturn)
-				#end
-				#if( $IEReturn != "" )
-					#set( $IEFound = $IEReturn )				
-				#end
-				#end
-				#end				
-			#end
-		#end
+	## TEMP set( $IEFound = "TESTING_TESTING" )
+	## -- SEARCHING REFERENCED InternalElement containing the ExternalInterface
+	#set( $IEReturn = "" )
+	#set( $IHReturn = "" )
+	#foreach ($ih in $caexfile.getInstanceHierarchy())
+	#if( $IHReturn == "" )
+	#foreach ($ie in $ih.InternalElement)
+	#if( $IEReturn == "" )
+	#recursiveSearchIElementsWithID($ie $ih $IElemID $IEReturn $IHReturn)
+	#end
+	#if( $IEReturn != "" )
+	#set( $IEFound = $IEReturn )				
+	#end
+	#end
+	#end				
+	#end
+	#end
 	#end
 	## -- macro end
 	
 	#macro(recursiveSearchIElementsWithID $node $ih $IElemID $IEReturn $IHReturn)
-		## 
-		#if($IEReturn)
-			##set( $IEReturn = "RECURSIVE_TESTING" )
-			#set( $ThisID = $node.getID())
-			#set( $ThisName = $node.getName())
-			#set( $ThisHierarcyName = $ih.getName())
-			##set( $IEReturn = "$IEReturn$ThisID" )
-						
-			#if($IElemID == $ThisID)
-				##set( $IEReturn = "FOUND_FOUND_RECURSIVE_TESTING" )
-				#set( $IEReturn = $ThisName )
-				#set( $IHReturn = $ThisHierarcyName )
-			#end
-		#end
-		#if ($node.InternalElement.size() > 0)
-		#foreach ($child in $node.InternalElement)
-			#recursiveSearchIElementsWithID($child $ih $IElemID $IEReturn $IHReturn)
-		#end
-		#end	
+	## 
+	#if($IEReturn)
+	##set( $IEReturn = "RECURSIVE_TESTING" )
+	#set( $ThisID = $node.getID())
+	#set( $ThisName = $node.getName())
+	#set( $ThisHierarcyName = $ih.getName())
+	##set( $IEReturn = "$IEReturn$ThisID" )
+	#if($IElemID == $ThisID)
+	##set( $IEReturn = "FOUND_FOUND_RECURSIVE_TESTING" )
+	#set( $IEReturn = $ThisName )
+	#set( $IHReturn = $ThisHierarcyName )
+	#end
+	#end
+	#if ($node.InternalElement.size() > 0)
+	#foreach ($child in $node.InternalElement)
+	#recursiveSearchIElementsWithID($child $ih $IElemID $IEReturn $IHReturn)
+	#end
+	#end	
 	#end
 	## -- macro end
 	
