@@ -72,7 +72,7 @@
 		<rdf:type rdf:resource="${amlns}InternalElement"/>
 		<amlont:name rdf:datatype="${xsdns}string">$node.Name</amlont:name>
 		<amlont:iD rdf:datatype="${xsdns}string">$node.ID</amlont:iD>
-		#set( $URIhelp = $UriHelper.createInstanceUri("SystemUnitClass","$ihierarchy.Name","$node.Name", "${SUCrep}") )
+		#set( $URIhelp = $UriHelper.createInstanceUri("SystemUnitClass","$ihierarchy.Name","$node.Name", "$SUCrep") )
 		<amlont:refBaseSystemUnitPath rdf:resource="${URIhelp}"/>
 		## -- attribute property --
 		#foreach ($att in $node.getAttribute())
