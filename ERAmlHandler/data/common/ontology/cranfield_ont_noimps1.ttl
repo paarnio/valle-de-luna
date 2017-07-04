@@ -1,0 +1,571 @@
+@prefix :      <http://siima.net/ontologies/2017/caex/> .
+@prefix siima: <http://siima.net/ontologies/2017/caex/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix amlont: <http://data.ifs.tuwien.ac.at/aml/ontology#> .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-shaft1_ATT-color
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0.25,0" ;
+        amlont:name               "color" ;
+        amlont:value              "green" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-bolt2_ATT-color
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0.25,0" ;
+        amlont:name               "color" ;
+        amlont:value              "green" .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-back_EXTINT-circle_right
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "faee6461-1483-461f-9f5c-ba1aa3a86803" ;
+        amlont:name              "circle_right" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBolt" .
+
+siima:InterfaceClass-INST_IFACECLIB-InterfaceClassLib1_IFACEC-IShaft
+        a            owl:NamedIndividual , amlont:InterfaceClass ;
+        amlont:name  "IShaft" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-square_right
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0.664,0,1.151" ;
+        amlont:name               "square_right" ;
+        amlont:value              "0,0,0" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-front_ATT-bottom
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,-0.22,0" ;
+        amlont:name               "bottom" ;
+        amlont:value              "0,0,0" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-square_left
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "$att.AttributeDataType" ;
+        amlont:defaultValue       "-0.656,0,1.151" ;
+        amlont:name               "square_left" ;
+        amlont:value              "0,0,0" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-shaft
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "-0.006,0,0.226" ;
+        amlont:name               "shaft" ;
+        amlont:value              "0,0,0" .
+
+siima:  a       owl:Ontology .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-bolt1_ATT-color
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0.25,0" ;
+        amlont:name               "color" ;
+        amlont:value              "green" .
+
+siima:InternalLink-INST_IH-InstanceHierarchy1_ILINK-InternalLink3
+        a                       owl:NamedIndividual , amlont:InternalLink ;
+        amlont:name             "InternalLink3" ;
+        amlont:refPartnerSideA  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-back_EXTINT-circle_left ;
+        amlont:refPartnerSideB  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-bolt1_EXTINT-bottom .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-boltA2_ATT-color
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0.25,0" ;
+        amlont:name               "color" ;
+        amlont:value              "green" .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-shaft1_EXTINT-top
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "45c22fc4-bfba-4b44-aa18-f51ccf9612ca" ;
+        amlont:name              "top" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IShaft" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-bolt2_ATT-orientation
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0.25,0" ;
+        amlont:name               "orientation" ;
+        amlont:value              "0,0,0" .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-FaceplateBack_EXTINT-square_right
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "5c0dd7bb-adee-423f-8d69-7387a65d05d1" ;
+        amlont:name              "square_right" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBoltAngular" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-color
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:name               "color" ;
+        amlont:value              "pink" .
+
+siima:SystemUnitClass-INST_SUCLIB-SystemUnitClassLib1_SUC-Bolt
+        a                 owl:NamedIndividual , amlont:SystemUnitClass ;
+        amlont:attribute  siima:Attribute-INST_IH-SystemUnitClassLib1_IE-Bolt_ATT-bottom , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-Bolt_ATT-color , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-Bolt_ATT-orientation ;
+        amlont:name       "Bolt" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-pendulum1_ATT-bottom
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,-0.715,-1.05" ;
+        amlont:name               "bottom" ;
+        amlont:value              "0,0,0" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-front_ATT-orientation
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,-0.22,0" ;
+        amlont:name               "orientation" ;
+        amlont:value              "0,0,0" .
+
+siima:InternalElement-INST_IH-InstanceHierarchy1_IE-back
+        a                             owl:NamedIndividual , amlont:InternalElement ;
+        amlont:attribute              siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-square_right , siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-square_left , siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-shaft , siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-circle_right , siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-orientation , siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-color , siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-circle_left ;
+        amlont:iD                     "2ddc2cf5-1127-471f-b174-dc5b088c9d23" ;
+        amlont:name                   "back" ;
+        amlont:refBaseSystemUnitPath  siima:SystemUnitClass-INST_SUCLIB-InstanceHierarchy1_SUC-SystemUnitClassLib1_FaceplateBack .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-boltA1_ATT-color
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,-0.22,0" ;
+        amlont:name               "color" ;
+        amlont:value              "green" .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-BoltAngular_EXTINT-bottom
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "d4fe1cac-627b-40ac-bc38-664f15ded7b8" ;
+        amlont:name              "bottom" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBoltAngular" .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-FaceplateBack_EXTINT-circle_left
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "5c244537-0fea-46a5-bf81-7c81252e232e" ;
+        amlont:name              "circle_left" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBolt" .
+
+siima:SystemUnitClass-INST_SUCLIB-SystemUnitClassLib1_SUC-BoltAngular
+        a                 owl:NamedIndividual , amlont:SystemUnitClass ;
+        amlont:attribute  siima:Attribute-INST_IH-SystemUnitClassLib1_IE-BoltAngular_ATT-color , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-BoltAngular_ATT-orientation , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-BoltAngular_ATT-bottom ;
+        amlont:name       "BoltAngular" .
+
+siima:InterfaceClass-INST_IFACECLIB-InterfaceClassLib1_IFACEC-IBolt
+        a            owl:NamedIndividual , amlont:InterfaceClass ;
+        amlont:name  "IBolt" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-front_ATT-color
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,-0.22,0" ;
+        amlont:name               "color" ;
+        amlont:value              "pink" .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-boltA2_EXTINT-bottom
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "fb34c993-aa7f-4d0f-87a9-ae94420a7f1e" ;
+        amlont:name              "bottom" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBoltAngular" .
+
+siima:InternalLink-INST_IH-InstanceHierarchy1_ILINK-InternalLink2
+        a                       owl:NamedIndividual , amlont:InternalLink ;
+        amlont:name             "InternalLink2" ;
+        amlont:refPartnerSideA  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-back_EXTINT-square_right ;
+        amlont:refPartnerSideB  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-boltA2_EXTINT-bottom .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-pendulum1_ATT-orientation
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,-0.715,-1.05" ;
+        amlont:name               "orientation" ;
+        amlont:value              "0,1,0" .
+
+siima:SystemUnitClass-INST_SUCLIB-SystemUnitClassLib1_SUC-Shaft
+        a                 owl:NamedIndividual , amlont:SystemUnitClass ;
+        amlont:attribute  siima:Attribute-INST_IH-SystemUnitClassLib1_IE-Shaft_ATT-color , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-Shaft_ATT-orientation , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-Shaft_ATT-bottom , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-Shaft_ATT-middle , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-Shaft_ATT-top ;
+        amlont:name       "Shaft" .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-shaft1_EXTINT-middle
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "4d9237c3-1667-480d-b28b-e850d9530a2c" ;
+        amlont:name              "middle" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IPendulum" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-shaft1_ATT-bottom
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0.24,0" ;
+        amlont:name               "bottom" ;
+        amlont:value              "0,0,0" .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-FaceplateFront_EXTINT-bottom
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "e95198db-2133-4669-b593-d76814f8f301" ;
+        amlont:name              "bottom" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IShaft" .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-FaceplateBack_EXTINT-square_left
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "91946ab4-5e02-4c2c-b90a-6484c342bfcc" ;
+        amlont:name              "square_left" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBoltAngular" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-shaft1_ATT-orientation
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0.25,0" ;
+        amlont:name               "orientation" ;
+        amlont:value              "0,0,0" .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-back_EXTINT-square_right
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "b6f4fb91-49f2-4bac-a4ac-c83e142af2e6" ;
+        amlont:name              "square_right" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBoltAngular" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-pendulum1_ATT-color
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,-0.715,-1.05" ;
+        amlont:name               "color" ;
+        amlont:value              "yellow" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-bolt1_ATT-bottom
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0.25,0" ;
+        amlont:name               "bottom" ;
+        amlont:value              "0,0,0" .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-BoltAngular_EXTINT-top
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "d9a08a53-4fb6-4338-bdb5-4e372b8eace2" ;
+        amlont:name              "top" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBoltAngular" .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-Bolt_EXTINT-top
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "414b7316-ed08-4387-9321-25d15b8d1b82" ;
+        amlont:name              "top" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBolt" .
+
+siima:SystemUnitClass-INST_SUCLIB-SystemUnitClassLib1_SUC-FaceplateBack
+        a                 amlont:SystemUnitClass , owl:NamedIndividual ;
+        amlont:attribute  siima:Attribute-INST_IH-SystemUnitClassLib1_IE-FaceplateBack_ATT-orientation , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-FaceplateBack_ATT-square_right , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-FaceplateBack_ATT-color , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-FaceplateBack_ATT-square_left , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-FaceplateBack_ATT-shaft , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-FaceplateBack_ATT-circle_right , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-FaceplateBack_ATT-circle_left ;
+        amlont:name       "FaceplateBack" .
+
+siima:InternalLink-INST_IH-InstanceHierarchy1_ILINK-InternalLink7
+        a                       owl:NamedIndividual , amlont:InternalLink ;
+        amlont:name             "InternalLink7" ;
+        amlont:refPartnerSideA  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-shaft1_EXTINT-top ;
+        amlont:refPartnerSideB  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-front_EXTINT-bottom .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-shaft1_ATT-top
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0,-0.2" ;
+        amlont:name               "top" ;
+        amlont:value              "0,0,0" .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-Bolt_EXTINT-bottom
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "ee31293e-1568-431b-88a0-7e2c79f05cb1" ;
+        amlont:name              "bottom" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBolt" .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-bolt2_EXTINT-bottom
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "32f7e724-680b-428f-ad57-8fcee3b1bd4d" ;
+        amlont:name              "bottom" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBolt" .
+
+siima:InternalLink-INST_IH-InstanceHierarchy1_ILINK-InternalLink1
+        a                       owl:NamedIndividual , amlont:InternalLink ;
+        amlont:name             "InternalLink1" ;
+        amlont:refPartnerSideA  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-back_EXTINT-square_left ;
+        amlont:refPartnerSideB  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-boltA1_EXTINT-bottom .
+
+siima:InstanceHierarchy-INST_IH-InstanceHierarchy1
+        a       owl:NamedIndividual , amlont:InstanceHierarchy .
+
+siima:InterfaceClassLib-INST_IFACECLIB-InterfaceClassLib1
+        a       owl:NamedIndividual , amlont:InterfaceClassLib .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-pendulum1_EXTINT-bottom
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "c185902f-3953-4e16-acda-16d9223303d7" ;
+        amlont:name              "bottom" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IPendulum" .
+
+siima:InternalElement-INST_IH-InstanceHierarchy1_IE-front
+        a                             owl:NamedIndividual , amlont:InternalElement ;
+        amlont:attribute              siima:Attribute-INST_IH-InstanceHierarchy1_IE-front_ATT-bottom , siima:Attribute-INST_IH-InstanceHierarchy1_IE-front_ATT-color , siima:Attribute-INST_IH-InstanceHierarchy1_IE-front_ATT-orientation ;
+        amlont:iD                     "1f32d48e-9791-4c9c-bbf6-6648acf48d23" ;
+        amlont:name                   "front" ;
+        amlont:refBaseSystemUnitPath  siima:SystemUnitClass-INST_SUCLIB-InstanceHierarchy1_SUC-SystemUnitClassLib1_FaceplateFront .
+
+siima:SystemUnitClass-INST_SUCLIB-SystemUnitClassLib1_SUC-FaceplateFront
+        a                 owl:NamedIndividual , amlont:SystemUnitClass ;
+        amlont:attribute  siima:Attribute-INST_IH-SystemUnitClassLib1_IE-FaceplateFront_ATT-bottom , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-FaceplateFront_ATT-color , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-FaceplateFront_ATT-orientation ;
+        amlont:name       "FaceplateFront" .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-Pendulum_EXTINT-bottom
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "f4a9d9f7-c6f1-46fc-9b41-b99a26c58295" ;
+        amlont:name              "bottom" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IPendulum" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-boltA1_ATT-bottom
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0.25,0" ;
+        amlont:name               "bottom" ;
+        amlont:value              "0,0,0" .
+
+siima:InterfaceClass-INST_IFACECLIB-InterfaceClassLib1_IFACEC-IPendulum
+        a            owl:NamedIndividual , amlont:InterfaceClass ;
+        amlont:name  "IPendulum" .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-back_EXTINT-circle_left
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "c7a531e6-1411-4a39-a035-8ef19cae82ec" ;
+        amlont:name              "circle_left" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBolt" .
+
+siima:CAEXFile-INST_CF-CranfieldAML.aml
+        a       owl:NamedIndividual , amlont:CAEXFile .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-FaceplateBack_EXTINT-circle_right
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "041ad697-85aa-4c55-8f74-f81c279655b2" ;
+        amlont:name              "circle_right" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBolt" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-boltA1_ATT-orientation
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,-0.22,0" ;
+        amlont:name               "orientation" ;
+        amlont:value              "0,0,0" .
+
+siima:InternalLink-INST_IH-InstanceHierarchy1_ILINK-InternalLink6
+        a                       owl:NamedIndividual , amlont:InternalLink ;
+        amlont:name             "InternalLink6" ;
+        amlont:refPartnerSideA  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-shaft1_EXTINT-middle ;
+        amlont:refPartnerSideB  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-pendulum1_EXTINT-bottom .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-orientation
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:name               "orientation" ;
+        amlont:value              "0,0,0" .
+
+siima:InternalElement-INST_IH-InstanceHierarchy1_IE-shaft1
+        a                             amlont:InternalElement , owl:NamedIndividual ;
+        amlont:attribute              siima:Attribute-INST_IH-InstanceHierarchy1_IE-shaft1_ATT-orientation , siima:Attribute-INST_IH-InstanceHierarchy1_IE-shaft1_ATT-color , siima:Attribute-INST_IH-InstanceHierarchy1_IE-shaft1_ATT-middle , siima:Attribute-INST_IH-InstanceHierarchy1_IE-shaft1_ATT-bottom , siima:Attribute-INST_IH-InstanceHierarchy1_IE-shaft1_ATT-top ;
+        amlont:iD                     "82730f9c-d906-4909-8761-0fe7f76a4b17" ;
+        amlont:name                   "shaft1" ;
+        amlont:refBaseSystemUnitPath  siima:SystemUnitClass-INST_SUCLIB-InstanceHierarchy1_SUC-SystemUnitClassLib1_Shaft .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-boltA1_EXTINT-top
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "9d95d899-e4bd-421e-95f9-4579c46cc74f" ;
+        amlont:name              "top" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBoltAngular" .
+
+siima:InternalElement-INST_IH-InstanceHierarchy1_IE-boltA2
+        a                             owl:NamedIndividual , amlont:InternalElement ;
+        amlont:attribute              siima:Attribute-INST_IH-InstanceHierarchy1_IE-boltA2_ATT-color , siima:Attribute-INST_IH-InstanceHierarchy1_IE-boltA2_ATT-orientation , siima:Attribute-INST_IH-InstanceHierarchy1_IE-boltA2_ATT-bottom ;
+        amlont:iD                     "fdac9986-b034-4372-9801-8eb0cfd0da64" ;
+        amlont:name                   "boltA2" ;
+        amlont:refBaseSystemUnitPath  siima:SystemUnitClass-INST_SUCLIB-InstanceHierarchy1_SUC-SystemUnitClassLib1_BoltAngular .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-bolt1_EXTINT-bottom
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "9c623c81-3b22-493d-88d9-cfbd16e4ff25" ;
+        amlont:name              "bottom" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBolt" .
+
+siima:InterfaceClass-INST_IFACECLIB-InterfaceClassLib1_IFACEC-IBoltAngular
+        a            owl:NamedIndividual , amlont:InterfaceClass ;
+        amlont:name  "IBoltAngular" .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-boltA2_EXTINT-top
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "de3cb444-09b2-4edc-85e5-db2d83d7b40c" ;
+        amlont:name              "top" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBoltAngular" .
+
+siima:SystemUnitClassLib-INST_SUCLIB-SystemUnitClassLib1
+        a       owl:NamedIndividual , amlont:SystemUnitClassLib .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-bolt2_ATT-bottom
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0.25,0" ;
+        amlont:name               "bottom" ;
+        amlont:value              "0,0,0" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-circle_right
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "1.019,0,-0.774" ;
+        amlont:name               "circle_right" ;
+        amlont:value              "0,0,0" .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-shaft1_EXTINT-bottom
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "615c4ee9-7611-42fe-aec4-4a2b899f7b32" ;
+        amlont:name              "bottom" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IShaft" .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-boltA1_EXTINT-bottom
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "a25d492b-a239-4b6a-97b4-64ad31aec0eb" ;
+        amlont:name              "bottom" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBoltAngular" .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-bolt1_EXTINT-top
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "5b11544e-010b-411e-817a-aa05b7ae316c" ;
+        amlont:name              "top" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBolt" .
+
+siima:InternalLink-INST_IH-InstanceHierarchy1_ILINK-InternalLink5
+        a                       owl:NamedIndividual , amlont:InternalLink ;
+        amlont:name             "InternalLink5" ;
+        amlont:refPartnerSideA  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-back_EXTINT-shaft ;
+        amlont:refPartnerSideB  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-shaft1_EXTINT-bottom .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-back_EXTINT-shaft
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "16209505-dd77-4e85-b319-b12eae52958d" ;
+        amlont:name              "shaft" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IShaft" .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-bolt2_EXTINT-top
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "79c12a8a-80c4-41d1-b9d8-85797f826802" ;
+        amlont:name              "top" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBolt" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-bolt1_ATT-orientation
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0.25,0" ;
+        amlont:name               "orientation" ;
+        amlont:value              "0,0,0" .
+
+siima:InternalElement-INST_IH-InstanceHierarchy1_IE-bolt2
+        a                             owl:NamedIndividual , amlont:InternalElement ;
+        amlont:attribute              siima:Attribute-INST_IH-InstanceHierarchy1_IE-bolt2_ATT-bottom , siima:Attribute-INST_IH-InstanceHierarchy1_IE-bolt2_ATT-color , siima:Attribute-INST_IH-InstanceHierarchy1_IE-bolt2_ATT-orientation ;
+        amlont:iD                     "6df095db-6a22-48cd-9b9a-5ed1009b13f9" ;
+        amlont:name                   "bolt2" ;
+        amlont:refBaseSystemUnitPath  siima:SystemUnitClass-INST_SUCLIB-InstanceHierarchy1_SUC-SystemUnitClassLib1_Bolt .
+
+siima:InternalElement-INST_IH-InstanceHierarchy1_IE-boltA1
+        a                             owl:NamedIndividual , amlont:InternalElement ;
+        amlont:attribute              siima:Attribute-INST_IH-InstanceHierarchy1_IE-boltA1_ATT-color , siima:Attribute-INST_IH-InstanceHierarchy1_IE-boltA1_ATT-orientation , siima:Attribute-INST_IH-InstanceHierarchy1_IE-boltA1_ATT-bottom ;
+        amlont:iD                     "2778cfbb-0567-47a4-938a-bfcb5cdec422" ;
+        amlont:name                   "boltA1" ;
+        amlont:refBaseSystemUnitPath  siima:SystemUnitClass-INST_SUCLIB-InstanceHierarchy1_SUC-SystemUnitClassLib1_BoltAngular .
+
+siima:InternalElement-INST_IH-InstanceHierarchy1_IE-pendulum1
+        a                             owl:NamedIndividual , amlont:InternalElement ;
+        amlont:attribute              siima:Attribute-INST_IH-InstanceHierarchy1_IE-pendulum1_ATT-bottom , siima:Attribute-INST_IH-InstanceHierarchy1_IE-pendulum1_ATT-color , siima:Attribute-INST_IH-InstanceHierarchy1_IE-pendulum1_ATT-orientation ;
+        amlont:iD                     "2e506fff-5172-4334-91f4-c8c87fcf2955" ;
+        amlont:name                   "pendulum1" ;
+        amlont:refBaseSystemUnitPath  siima:SystemUnitClass-INST_SUCLIB-InstanceHierarchy1_SUC-SystemUnitClassLib1_Pendulum .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-Shaft_EXTINT-middle
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "ee3099b7-6861-4eae-b9f5-93f1d8db4633" ;
+        amlont:name              "middle" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IPendulum" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-boltA2_ATT-bottom
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0.25,0" ;
+        amlont:name               "bottom" ;
+        amlont:value              "0,0,0" .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-FaceplateBack_EXTINT-shaft
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "b430fdb5-6397-438a-b080-1d0f41d67b9e" ;
+        amlont:name              "shaft" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IShaft" .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-Shaft_EXTINT-top
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "66fb1316-2a34-4d5f-ac21-c3af74cad0cc" ;
+        amlont:name              "top" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IShaft" .
+
+siima:InternalElement-INST_IH-InstanceHierarchy1_IE-CranfieldBenchmark
+        a                             owl:NamedIndividual , amlont:InternalElement ;
+        amlont:iD                     "bbe6b4c5-43ad-43cc-9cf8-594fe7e255bb" ;
+        amlont:name                   "CranfieldBenchmark" ;
+        amlont:refBaseSystemUnitPath  <http://siima.net/ontologies/2017/caex/SystemUnitClass-INST_SUCLIB-InstanceHierarchy1_SUC-$SUCrep> .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-back_EXTINT-square_left
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "38450387-7d22-4f2b-87f5-5e9b57527d16" ;
+        amlont:name              "square_left" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IBoltAngular" .
+
+siima:InternalLink-INST_IH-InstanceHierarchy1_ILINK-InternalLink4
+        a                       owl:NamedIndividual , amlont:InternalLink ;
+        amlont:name             "InternalLink4" ;
+        amlont:refPartnerSideA  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-back_EXTINT-circle_right ;
+        amlont:refPartnerSideB  siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-bolt2_EXTINT-bottom .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-boltA2_ATT-orientation
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0.25,0" ;
+        amlont:name               "orientation" ;
+        amlont:value              "0,0,0" .
+
+siima:SystemUnitClass-INST_SUCLIB-SystemUnitClassLib1_SUC-Pendulum
+        a                 owl:NamedIndividual , amlont:SystemUnitClass ;
+        amlont:attribute  siima:Attribute-INST_IH-SystemUnitClassLib1_IE-Pendulum_ATT-bottom , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-Pendulum_ATT-color , siima:Attribute-INST_IH-SystemUnitClassLib1_IE-Pendulum_ATT-orientation ;
+        amlont:name       "Pendulum" .
+
+siima:ExternalInterface-INST_IH-InstanceHierarchy1_IE-front_EXTINT-bottom
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "187df530-7b47-4b44-a3b8-7f8a95e9b78d" ;
+        amlont:name              "bottom" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IShaft" .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-shaft1_ATT-middle
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "0,0,0" ;
+        amlont:name               "middle" ;
+        amlont:value              "0,0,0" .
+
+siima:InternalElement-INST_IH-InstanceHierarchy1_IE-bolt1
+        a                             owl:NamedIndividual , amlont:InternalElement ;
+        amlont:attribute              siima:Attribute-INST_IH-InstanceHierarchy1_IE-bolt1_ATT-bottom , siima:Attribute-INST_IH-InstanceHierarchy1_IE-bolt1_ATT-color , siima:Attribute-INST_IH-InstanceHierarchy1_IE-bolt1_ATT-orientation ;
+        amlont:iD                     "b9b5e8ae-01e7-457a-8d8c-7375d3355c97" ;
+        amlont:name                   "bolt1" ;
+        amlont:refBaseSystemUnitPath  siima:SystemUnitClass-INST_SUCLIB-InstanceHierarchy1_SUC-SystemUnitClassLib1_Bolt .
+
+siima:Attribute-INST_IH-InstanceHierarchy1_IE-back_ATT-circle_left
+        a                         owl:NamedIndividual , amlont:Attribute ;
+        amlont:attributeDataType  "xs:string" ;
+        amlont:defaultValue       "-1.021,0,-0.774" ;
+        amlont:name               "circle_left" ;
+        amlont:value              "0,0,0" .
+
+siima:ExternalInterface-INST_IH-SystemUnitClassLib1_IE-Shaft_EXTINT-bottom
+        a                        owl:NamedIndividual , amlont:ExternalInterface ;
+        amlont:iD                "0bd09269-ed93-4955-aeb6-5371b031c7b2" ;
+        amlont:name              "bottom" ;
+        amlont:refBaseClassPath  "InterfaceClassLib1/IShaft" .

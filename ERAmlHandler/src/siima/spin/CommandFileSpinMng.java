@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+//Note: Jena (old) com.hp.hpl. package updated to (new) org.apache.
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.RDFNode;
@@ -27,12 +27,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.topbraid.spin.system.SPINLabels;
-/*
-import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.Resource;
-*/
+
 import siima.spin.ModelSpinManager;
 //import siima.utils.UIPrompt;
 
@@ -834,6 +829,74 @@ public class CommandFileSpinMng {
 
 	}
 
+	
+	public void initSpinManager(String json_commandFile){
+		// copied from the orig main method
+		boolean kb_loaded = false;
+		StringBuffer strbuff = new StringBuffer();
+		StringBuffer stepnotebuffer = new StringBuffer();
+		
+		try {
+			System.out.println("================ CommandFileSpinMng running... ===============\n");
+			
+			JSONObject jsonrootobj = (JSONObject) this.parser.parse(new FileReader(json_commandFile));
+			JSONObject header = (JSONObject) jsonrootobj.get("CSMHeader");
+			
+			strbuff.append("--------------------------------------------------\n"
+					+ "+'CSMHeader':\n+----+'filename': '" + header.get("filename") + "'\n"
+					+ "+----+'created': '" + header.get("created") + "'\n"
+					+ "+----+'updated': '" + header.get("updated") + "'\n"
+					+ "+----+'history': '" + header.get("history") + "'\n"
+					+ "--------------------------------------------------\n");
+			System.out.println("\n" + strbuff.toString());
+			
+			JSONObject workflow = (JSONObject) header.get("workflow");
+			String wftype = (String) workflow.get("type");
+			System.out.println("--Reading commands from csm command file (json) ... \n\n");
+			JSONArray commands = (JSONArray) jsonrootobj.get("CSMCommands");
+
+			if ("indexed".equalsIgnoreCase(wftype)) {
+				JSONArray indexes = (JSONArray) workflow.get("indexes");
+				for (Object indobj : indexes) {
+					Number ind = (Number) indobj;
+					JSONObject comobj = (JSONObject) commands.get(ind.intValue());
+					String stepnote = (String) comobj.get("stepnote");
+					stepnotebuffer.append("->| " + stepnote + "(" + ind.intValue() + ") |-");
+					System.out.println("\n\n========== Next Command Index:(" + ind + "): " + stepnote + "========== ");					
+					this.runCMSCommand(comobj);
+				}
+			} else if ("all".equalsIgnoreCase(wftype)) {
+				/* running all Commands */
+
+				for (int ci = 0; ci < commands.size(); ci++) {
+
+					JSONObject comobj = (JSONObject) commands.get(ci);
+					String ctype = (String) comobj.get("commandType");
+					System.out.println("----+ Command type:" + ctype);
+					this.runCMSCommand(comobj);
+				}
+			} else {
+				System.out.println("???????????Workflow type:" + wftype + " Unknown????????");
+			} // end if
+			
+			System.out.println("\n\n========== WORKFLOW STEPS LOG ==========\n");
+			System.out.println(" (start)-" + stepnotebuffer.toString() + "->(end)");					
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		
+		
+		
+	}
+	
+	
+	
+	
 	/*
 	 * =======================================
 	 * 

@@ -29,6 +29,7 @@ import siima.app.model.tree.ElementModel;
 import siima.app.model.tree.ElementNode;
 import siima.app.model.tree.ElementTree;
 import siima.models.jaxb.caex.CAEXFile;
+import siima.spin.CommandFileSpinMng;
 import siima.util.FileUtil;
 
 public class MainAppController {
@@ -57,6 +58,7 @@ public class MainAppController {
 	private ERAProject project;
 	
 	private RdfContainer rdfContainer;
+	private CommandFileSpinMng spinMng;
 
 	public MainAppController(MainFrame viewFrame) {
 		this.viewFrame = viewFrame;
@@ -74,9 +76,12 @@ public class MainAppController {
 
 	
 	public StringBuffer initCommandFileSpinMng(String commandfile){
+		//TODO: 
 		logger.info("initCommandFileSpinMng() reading spin command file: " + commandfile);
 		StringBuffer sbuf = FileUtil.readTextFile("\n", commandfile);
 		
+		spinMng = new CommandFileSpinMng();
+		spinMng.initSpinManager(commandfile);
 		return sbuf;
 	}
 	
