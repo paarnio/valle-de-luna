@@ -58,10 +58,12 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JScrollPane hierarchyTreeScrollPane4;
 	private JScrollPane consoleScrollPane;
 	private JScrollPane resultScrollPane;
+	private JScrollPane spinCommandFileScrollPane;
 	private JMenuItem mntmGenerateJmonkey;
 	private JTextArea bottomLeftTextArea;
 	private JTextArea txtrConsoleOutput;
 	private JTextArea txtrResultOutput;
+	private JTextArea txtrSpinCommandFileOutput;
 	private JMenuItem mntmLoadRules;
 	private JMenuItem mntmInvokeReasoner;
 	private JMenuItem mntmSaveResultModels;
@@ -80,6 +82,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JMenuItem mntmAspSolver;
 	private JMenuItem mntmSaveOntologyModel;
 	private JMenuItem mntmMergeModels;
+	private JMenuItem mntmLoadSpinCommands;
 	// private JTree tree;
 	private JRadioButtonMenuItem rbMenuItem1;
 	private JRadioButtonMenuItem rbMenuItem2;
@@ -291,6 +294,17 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mnAsp.add(mnAspSubmenu);
 		
 		/*
+		 *  SPARQL JMenu
+		 */
+		
+		JMenu mnSparql = new JMenu("Sparql");
+		menuBar.add(mnSparql);
+
+		mntmLoadSpinCommands = new JMenuItem("Load Spin Commands...");
+		mntmLoadSpinCommands.addActionListener(this);
+		mnSparql.add(mntmLoadSpinCommands);
+		
+		/*
 		 * Main Window
 		 * 
 		 */
@@ -402,10 +416,29 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		rightVerticalSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		m_contentPane.setRightComponent(rightVerticalSplitPane);
 
-		JPanel panel = new JPanel();
-		rightVerticalSplitPane.setLeftComponent(panel);
+		/* ==== Right Top side ==== */
 		
-		/* ==== bottom_right_panel ==== */
+		/*----Right Top Side JSplitPane----*/		
+		JSplitPane rightTopVerticalSplitPane = new JSplitPane();
+		rightTopVerticalSplitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);		
+		rightVerticalSplitPane.setLeftComponent(rightTopVerticalSplitPane);
+		
+		/* ==== Right top_left_panel ==== */
+		JPanel rightTopLeftPanel = new JPanel();
+		rightTopVerticalSplitPane.setLeftComponent(rightTopLeftPanel);
+		
+		/* ==== Right top_right_panel ==== */
+		JPanel rightTopRightPanel = new JPanel();
+		rightTopVerticalSplitPane.setRightComponent(rightTopRightPanel);
+		GridBagLayout gbl_right_top_right_panel = new GridBagLayout();
+		gbl_right_top_right_panel.columnWidths = new int[] {10, 100, 10, 0};
+		gbl_right_top_right_panel.rowHeights = new int[] {5, 40, 5, 5};
+		gbl_right_top_right_panel.columnWeights = new double[]{0.1, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_right_top_right_panel.rowWeights = new double[]{0.1, 1.0, 0.0, Double.MIN_VALUE};
+		rightTopRightPanel.setLayout(gbl_right_top_right_panel);
+		
+		/* ==== Right Bottom side ==== */
+		/* ==== Right bottom_right_panel ==== */
 		JPanel bottom_right_panel = new JPanel();
 		rightVerticalSplitPane.setRightComponent(bottom_right_panel);
 		GridBagLayout gbl_bottom_right_panel = new GridBagLayout();
@@ -438,7 +471,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		consoleScrollPane.setViewportView(txtrConsoleOutput);
 		
 		resultScrollPane = new JScrollPane();
-		bottomRightTabbedPane.insertTab("Result", null, resultScrollPane, "Console", 1);
+		bottomRightTabbedPane.insertTab("Result", null, resultScrollPane, "Result", 1);
 		
 		txtrResultOutput = new JTextArea();
 		txtrResultOutput.setRows(1000);
@@ -446,6 +479,16 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		txtrResultOutput.setLineWrap(true);
 		txtrResultOutput.setText(""); //"--- RESULTS ---"
 		resultScrollPane.setViewportView(txtrResultOutput);
+		
+		spinCommandFileScrollPane = new JScrollPane();
+		bottomRightTabbedPane.insertTab("SpinCommands", null, spinCommandFileScrollPane, "SpinCommands", 2);
+		
+		txtrSpinCommandFileOutput = new JTextArea();
+		txtrSpinCommandFileOutput.setRows(1000);
+		txtrSpinCommandFileOutput.setColumns(600);
+		txtrSpinCommandFileOutput.setLineWrap(true);
+		txtrSpinCommandFileOutput.setText(""); 
+		spinCommandFileScrollPane.setViewportView(txtrSpinCommandFileOutput);
 		
 		
 	}
@@ -494,10 +537,34 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 * mntmSaveProjectAs AND mntmSaveProject AND mntmOpenProject AND
 		 * mntmAspSolver AND mntmSaveOntologyModel
 		 * rbMenuItem1-6 AND
-		 * mntmMergeModels
+		 * mntmMergeModels AND mntmLoadSpinCommands
 		 */
 		
-		if (arg0.getSource() == mntmMergeModels) {
+		if (arg0.getSource() == mntmLoadSpinCommands) {
+			fileChooser.setDialogTitle("LOAD SPIN COMMAND FILE");
+			fileChooser.setSelectedFile(new File(""));
+			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory).getParentFile());
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			int retVal = fileChooser.showOpenDialog(MainFrame.this);			
+			if (retVal == JFileChooser.APPROVE_OPTION) {
+				System.out.println("GUIFrame: Open OK pressed");
+				File selectedfile = fileChooser.getSelectedFile();
+				System.out.println("-- Selected file: " + selectedfile.getPath());
+				StringBuffer sbuf = appControl.initCommandFileSpinMng(selectedfile.getPath());
+				// -- Console Printing ---				
+				txtrConsoleOutput.append(newline + "LOG: SPIN COMMAND FILE: " + selectedfile.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+				//-- File Printing
+				txtrSpinCommandFileOutput.setText(null); // CLear old text
+				txtrSpinCommandFileOutput.append(sbuf.toString() + newline);
+				txtrSpinCommandFileOutput.setCaretPosition(0);
+
+			} else {
+				System.out.println("Frame: No SPIN COMMAND File Selected!");
+			}
+			fileChooser.setSelectedFile(new File(""));
+			
+		} else if (arg0.getSource() == mntmMergeModels) {
 			
 			appControl.mergeExistingRDFModels();
 			

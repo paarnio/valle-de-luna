@@ -72,6 +72,16 @@ public class MainAppController {
 			viewFrame.setEraProjectHomeDirectory(lastproject);
 	}
 
+	
+	public StringBuffer initCommandFileSpinMng(String commandfile){
+		logger.info("initCommandFileSpinMng() reading spin command file: " + commandfile);
+		StringBuffer sbuf = FileUtil.readTextFile("\n", commandfile);
+		
+		return sbuf;
+	}
+	
+	
+	
 	public boolean genereteCaexOntologyModel(String modelkey) {
 		boolean ok = true;
 		this.rdfContainer.genereteCaexOntologyModel(modelkey);
