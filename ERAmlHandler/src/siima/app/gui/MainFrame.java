@@ -1,7 +1,10 @@
 package siima.app.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -35,6 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
@@ -90,6 +95,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JRadioButtonMenuItem rbMenuItem4;
 	private JRadioButtonMenuItem rbMenuItem5;
 	private JRadioButtonMenuItem rbMenuItem6;
+	// test
+	protected JLabel actionLabel;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -431,11 +439,104 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		JPanel rightTopRightPanel = new JPanel();
 		rightTopVerticalSplitPane.setRightComponent(rightTopRightPanel);
 		GridBagLayout gbl_right_top_right_panel = new GridBagLayout();
-		gbl_right_top_right_panel.columnWidths = new int[] {10, 100, 10, 0};
-		gbl_right_top_right_panel.rowHeights = new int[] {5, 40, 5, 5};
+		gbl_right_top_right_panel.columnWidths = new int[] {5, 100, 10, 0};
+		gbl_right_top_right_panel.rowHeights = new int[] {5, 40, 80, 5};
 		gbl_right_top_right_panel.columnWeights = new double[]{0.1, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_right_top_right_panel.rowWeights = new double[]{0.1, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_right_top_right_panel.rowWeights = new double[]{0.1, 0.4, 0.6, Double.MIN_VALUE};
 		rightTopRightPanel.setLayout(gbl_right_top_right_panel);
+		
+		/* TextFields TODO:OOOOOOOOOOOOOOOOOO: 
+		 * See: https://docs.oracle.com/javase/tutorial/uiswing/components/editorpane.html
+		 * */
+		String textFieldString1 = "TextField1";
+		String textFieldString2 = "TextField2";
+		String textFieldString3 = "TextField3";
+		
+		//Create a regular text field.
+        JTextField textField1 = new JTextField(10);
+        textField1.setActionCommand(textFieldString1);
+        //textField1.addActionListener(this);
+        JTextField textField2 = new JTextField(10);
+        textField2.setActionCommand(textFieldString2);
+        //textField2.addActionListener(this);
+        JTextField textField3 = new JTextField(10);
+        textField3.setActionCommand(textFieldString3);
+        //textField3.addActionListener(this);
+        
+        //Create some labels for the fields.
+        JLabel textFieldLabel1 = new JLabel(textFieldString1 + ": ");
+        textFieldLabel1.setLabelFor(textField1);
+        JLabel textFieldLabel2 = new JLabel(textFieldString2 + ": ");
+        textFieldLabel2.setLabelFor(textField2);
+        JLabel textFieldLabel3 = new JLabel(textFieldString3 + ": ");
+        textFieldLabel3.setLabelFor(textField3);
+        
+      //Create a label to put messages during an action event.
+        actionLabel = new JLabel("Type text in a field and press Enter.");
+        actionLabel.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
+        
+		//Lay out the text controls and the labels.
+        JPanel textControlsPane = new JPanel();
+        GridBagLayout gridbag = new GridBagLayout();
+        GridBagConstraints c = new GridBagConstraints();
+ 
+        textControlsPane.setLayout(gridbag);
+ 
+        JLabel[] labels = {textFieldLabel1, textFieldLabel2, textFieldLabel3};
+        JTextField[] textFields = {textField1, textField2, textField3};
+        addLabelTextRows(labels, textFields, gridbag, textControlsPane);
+ 
+        c.gridwidth = GridBagConstraints.REMAINDER; //last
+        c.anchor = GridBagConstraints.WEST;
+        c.weightx = 1.0;
+        textControlsPane.add(actionLabel, c);
+        textControlsPane.setBorder(
+                BorderFactory.createCompoundBorder(
+                                BorderFactory.createTitledBorder("Text Fields"),
+                                BorderFactory.createEmptyBorder(5,5,5,5)));
+		
+		//MY ADD
+        GridBagConstraints gbc_textControlsPane = new GridBagConstraints();
+        gbc_textControlsPane.insets = new Insets(0, 0, 5, 0);
+        gbc_textControlsPane.fill = GridBagConstraints.BOTH;
+        gbc_textControlsPane.gridx = 1;
+        gbc_textControlsPane.gridy = 1;
+		
+        rightTopRightPanel.add(textControlsPane, gbc_textControlsPane);
+        
+        //Create a text area.
+        JTextArea textArea = new JTextArea(
+                "This is an editable JTextArea. " +
+                "A text area is a \"plain\" text component, " +
+                "which means that although it can display text " +
+                "in any font, all of the text is in the same font."
+        );
+        textArea.setFont(new Font("Serif", Font.ITALIC, 16));
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        JScrollPane areaScrollPane = new JScrollPane(textArea);
+        areaScrollPane.setVerticalScrollBarPolicy(
+                        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        areaScrollPane.setPreferredSize(new Dimension(250, 250));
+        areaScrollPane.setBorder(
+            BorderFactory.createCompoundBorder(
+                BorderFactory.createCompoundBorder(
+                                BorderFactory.createTitledBorder("Plain Text"),
+                                BorderFactory.createEmptyBorder(5,5,5,5)),
+                areaScrollPane.getBorder()));
+        
+      //MY ADD
+        GridBagConstraints gbc_areaScrollPane = new GridBagConstraints();
+        gbc_areaScrollPane.insets = new Insets(0, 0, 5, 0);
+        gbc_areaScrollPane.fill = GridBagConstraints.BOTH;
+        gbc_areaScrollPane.gridx = 1;
+        gbc_areaScrollPane.gridy = 2;
+		
+        rightTopRightPanel.add(areaScrollPane, gbc_areaScrollPane);
+        
+        
+        
+        //OOOOOOOOOOOODOT
 		
 		/* ==== Right Bottom side ==== */
 		/* ==== Right bottom_right_panel ==== */
@@ -955,6 +1056,24 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		return bottomLeftTextArea;
 	}
 
+	private void addLabelTextRows(JLabel[] labels, JTextField[] textFields, GridBagLayout gridbag,
+			Container container) {
+		GridBagConstraints c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.EAST;
+		int numLabels = labels.length;
+
+		for (int i = 0; i < numLabels; i++) {
+			c.gridwidth = GridBagConstraints.RELATIVE; // next-to-last
+			c.fill = GridBagConstraints.NONE; // reset to default
+			c.weightx = 0.0; // reset to default
+			container.add(labels[i], c);
+
+			c.gridwidth = GridBagConstraints.REMAINDER; // end row
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.weightx = 1.0;
+			container.add(textFields[i], c);
+		}
+	}
 	/*
 	 * Required by TreeSelectionListener interface. See Oracle:TreeDemo
 	 * 
