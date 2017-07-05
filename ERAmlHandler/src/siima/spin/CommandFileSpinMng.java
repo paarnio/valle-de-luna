@@ -19,6 +19,8 @@ import java.util.Map;
 //Note: Jena (old) com.hp.hpl. package updated to (new) org.apache.
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Model;
 
@@ -28,11 +30,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.topbraid.spin.system.SPINLabels;
 
+import siima.app.control.MainAppController;
 import siima.spin.ModelSpinManager;
 //import siima.utils.UIPrompt;
 
 public class CommandFileSpinMng {
-
+	private static final Logger logger = Logger.getLogger(CommandFileSpinMng.class.getName());
 	private JSONParser parser;
 	private JSONObject jsonrootobj;
 
@@ -49,7 +52,9 @@ public class CommandFileSpinMng {
 	public List<String> prefixlines;
 	public boolean prefixlinesfilled = false;
 	public boolean kb_loaded = false;
-
+	
+	//(2017-07-05) System.out replaced for StringBuffer
+	private StringBuffer workflowResults;
 	/* =======================================
 	 * 
 	 * CONSTRUCTOR
@@ -67,6 +72,9 @@ public class CommandFileSpinMng {
 		this.urls = new ArrayList<String>();
 		this.altlocs = new ArrayList<String>();
 		this.prefixlines = new ArrayList<String>();
+		//(2017-07-05) System.out replaced for StringBuffer
+		this.workflowResults = new StringBuffer();
+		
 	}
 
 	/* =======================================
@@ -78,13 +86,13 @@ public class CommandFileSpinMng {
 	
 	public void checkConstraintsCommands(JSONObject comobj){
 		//TODO: testing
-		System.out.println("----+ Command: checkConstraintsCommands");
+		logger.log(Level.INFO, "----+ Command: checkConstraintsCommands");
 		JSONObject subobj = (JSONObject) comobj.get("constraints");
 		//if(subobj!=null){
 		String name = (String) subobj.get("name");
 		String type = (String) subobj.get("type");
 		Boolean addrdf = (Boolean) subobj.get("addrdf");
-		System.out.println("----+----+checkConstraintsCommands name:" + name + " and type:" + type + " and addrdf:" + addrdf);
+		logger.log(Level.INFO, "----+----+checkConstraintsCommands name:" + name + " and type:" + type + " and addrdf:" + addrdf);
 		//}
 		if(!spinRegistryUpdated){ mng.createInferredModelAndRegister(); 
 		this.spinRegistryUpdated =true;
@@ -95,10 +103,10 @@ public class CommandFileSpinMng {
 			else mng.checkSPINConstraints(null); 
 		} else if("resource".equalsIgnoreCase(type)){
 			String uri = (String) subobj.get("uri");
-			System.out.println("TEST:" + uri);
+			logger.log(Level.INFO, "TEST:" + uri);
 			if(uri!=null){
 			Resource resource = mng.getMainOntModel().getResource(uri);//"http://siima.net/ont/bicycle#Bicycle_4"						
-			System.out.println("Resource " + SPINLabels.get().getLabel(resource));
+			logger.log(Level.INFO, "Resource " + SPINLabels.get().getLabel(resource));
 			if((addrdf!=null)&&(addrdf)) mng.checkSPINConstraintForResource(resource, mng.getInferredTriples());	// Save results to model			
 			else mng.checkSPINConstraintForResource(resource, null);
 			}
@@ -108,36 +116,36 @@ public class CommandFileSpinMng {
 	
 	
 	public void runSpinConstructorsCommand(JSONObject comobj){
-		System.out.println("----+ Command: runSpinConstructorsCommand");
+		logger.log(Level.INFO, "----+ Command: runSpinConstructorsCommand");
 		JSONObject subobj = (JSONObject) comobj.get("constructors");
 		if(subobj!=null){
 		String name = (String) subobj.get("name");
 		String type = (String) subobj.get("type");
-		System.out.println("----+----+runSpinConstructorsCommand name:" + name + " and type:" + type);
+		logger.log(Level.INFO, "----+----+runSpinConstructorsCommand name:" + name + " and type:" + type);
 		}
 		runSpinConstructors();
 		
 	}
 	
 	public void templateCallCommand(JSONObject comobj) {
-		System.out.println("----+ Command: templateCallCommand");
+		logger.log(Level.INFO, "----+ Command: templateCallCommand");
 		Map<String, RDFNode> argumentNodeMap = new HashMap<String, RDFNode>();
 		String queryvariable = null;
 
 		JSONObject jsontemplate = (JSONObject) comobj.get("template");
 		String name = (String) jsontemplate.get("name");
 		String type = (String) jsontemplate.get("type");
-		System.out.println("----+----+Template name:" + name + " and type:" + type);
+		logger.log(Level.INFO, "----+----+Template name:" + name + " and type:" + type);
 		JSONArray argums = (JSONArray) jsontemplate.get("args");
 		if(argums!=null){
 		for (int i = 0; i < argums.size(); i++) {
 			JSONObject argu = (JSONObject) argums.get(i);
 			String arguname = (String) argu.get("name");
-			System.out.println(i + ":----+----+----+Argument name:" + arguname);
+			logger.log(Level.INFO, i + ":----+----+----+Argument name:" + arguname);
 			String argutype = (String) argu.get("type");
-			System.out.println(i + ":----+----+----+Argument type:" + argutype);
+			logger.log(Level.INFO, i + ":----+----+----+Argument type:" + argutype);
 			String arguvalue = (String) argu.get("value");
-			System.out.println(i + ":----+----+----+Argument value:" + arguvalue);
+			logger.log(Level.INFO, i + ":----+----+----+Argument value:" + arguvalue);
 			argumentNodeMap = mng.addArgumentNodeToMap(argumentNodeMap, arguname, argutype, arguvalue, arguvalue, null);
 		} }
 
@@ -152,7 +160,7 @@ public class CommandFileSpinMng {
 	
 	public void createNewTemplateCommand(JSONObject comobj) {
 		//2016-02-18
-		System.out.println("----+ Command: createNewTemplateCommand");
+		logger.log(Level.INFO, "----+ Command: createNewTemplateCommand");
 		Map<String, RDFNode> argumentNodeMap = new HashMap<String, RDFNode>();
 		Map<String, String> argumentCommentMap = new HashMap<String, String>();
 		String queryvariable = null;
@@ -183,7 +191,7 @@ public class CommandFileSpinMng {
 			String limit = (String) subobj.get("limit");
 			if (limit != null)
 				queryStr.append(" LIMIT " + limit);
-			System.out.println("----QueryString: " + queryStr.toString() );
+			logger.log(Level.INFO, "----QueryString: " + queryStr.toString() );
 					
 		}
 			break;
@@ -195,7 +203,7 @@ public class CommandFileSpinMng {
 				queryStr.append(" INSERT { " +  subobj.get("insert") + " } ");
 			if(subobj.get("where")!=null)
 				queryStr.append(" WHERE { " + subobj.get("where") + " }");
-			System.out.println("----QueryString: " + queryStr.toString());
+			logger.log(Level.INFO, "----QueryString: " + queryStr.toString());
 		}
 			break;
 		case "construct": {
@@ -206,35 +214,35 @@ public class CommandFileSpinMng {
 			// str(666))) AS ?wouri) .}
 			String addToModel = (String) subobj.get("resultTriples");
 			queryStr.append(" CONSTRUCT {" + subobj.get("construct") + " } WHERE { " + subobj.get("where") + " }");
-			System.out.println("----QueryString: " + queryStr.toString());
+			logger.log(Level.INFO, "----QueryString: " + queryStr.toString());
 
 		}
 			break;
 		case "describe": {
 			queryStr.append(" DESCRIBE " + subobj.get("describe") + " WHERE { " + subobj.get("where") + " }");
-			System.out.println("----QueryString: " + queryStr.toString());
+			logger.log(Level.INFO, "----QueryString: " + queryStr.toString());
 		}
 		 break;
 
 		default: {
-			System.out.println("----+???? Sparql query for template name: " + name + " has UNKNOWN type: " + type + " ?????");
+			logger.log(Level.INFO, "----+???? Sparql query for template name: " + name + " has UNKNOWN type: " + type + " ?????");
 		}
 		}
 		
 		/*
 		 *  Build the ArgumentNodeMap for the template
 		 */				
-		System.out.println("----+----+Template name:" + name + " and type:" + type);
+		logger.log(Level.INFO, "----+----+Template name:" + name + " and type:" + type);
 		JSONArray argums = (JSONArray) subobj.get("args");
 		if(argums!=null){
 		for (int i = 0; i < argums.size(); i++) {
 			JSONObject argu = (JSONObject) argums.get(i);
 			String arguname = (String) argu.get("name");
-			System.out.println(i + ":----+----+----+Argument name:" + arguname);
+			logger.log(Level.INFO, i + ":----+----+----+Argument name:" + arguname);
 			String argutype = (String) argu.get("type");
-			System.out.println(i + ":----+----+----+Argument type:" + argutype);
+			logger.log(Level.INFO, i + ":----+----+----+Argument type:" + argutype);
 			String argucomment = (String) argu.get("argComment");
-			System.out.println(i + ":----+----+----+Argument comment:" + argucomment);
+			logger.log(Level.INFO, i + ":----+----+----+Argument comment:" + argucomment);
 			
 			argumentNodeMap=mng.addSPLArgumentDeclarationToMap(argumentNodeMap, arguname, argutype);
 			argumentCommentMap.put(arguname, argucomment);
@@ -244,18 +252,18 @@ public class CommandFileSpinMng {
 		 *  Creating the new template
 		 */		
 		mng.createTemplate(mng.getMainOntModel(), queryStr.toString(), templateURI, argumentNodeMap, argumentCommentMap);
-		System.out.println("===== New Template Created ======");
+		logger.log(Level.INFO, "===== New Template Created ======");
 		
 	}
 
 	
 
 	public void runInferencesCommand(JSONObject comobj) {
-		System.out.println("----+ Command: runInferencesCommand");
+		logger.log(Level.INFO, "----+ Command: runInferencesCommand");
 		JSONObject subobj = (JSONObject) comobj.get("inference");
 		String name = (String) subobj.get("name");
 		String type = (String) subobj.get("type");
-		System.out.println("----+----+ name:" + name);
+		logger.log(Level.INFO, "----+----+ name:" + name);
 		switch (name) {
 		case "pre_inference": {
 
@@ -264,14 +272,14 @@ public class CommandFileSpinMng {
 			else if ("singlepass".equalsIgnoreCase(type))
 				runInferences(true);
 			else
-				System.out.println("----+????+ type:" + type + " Unknown????");
+				logger.log(Level.INFO, "----+????+ type:" + type + " Unknown????");
 
 		}
 			break;
 		case "post_inference":
 			break;
 		default: {
-			System.out.println("----+????+ name:" + name + " Unknown?????");
+			logger.log(Level.INFO, "----+????+ name:" + name + " Unknown?????");
 		}
 		}
 
@@ -280,14 +288,14 @@ public class CommandFileSpinMng {
 	public void execAttachedQueryCommand(JSONObject comobj) {
 		//TODO: Only attached Select query exec implemented.
 		//Example in class: "http://siima.net/ont/bicycle#Bicycle"
-		System.out.println("----+ Command: execAttachedQueryCommand");
+		logger.log(Level.INFO, "----+ Command: execAttachedQueryCommand");
 		JSONObject subobj = (JSONObject) comobj.get("query");
 		String name = (String) subobj.get("name");
 		String type = (String) subobj.get("type");
 		String clsuri = (String) subobj.get("classuri");
 		Boolean reasoner=(Boolean)subobj.get("reasoner");
-		System.out.println("----+----+ name:" + name + "\n----+----+ type:" + type);
-		System.out.println("----+----+ class:" + clsuri + "\n----+----+ reasoner:" + reasoner);
+		logger.log(Level.INFO, "----+----+ name:" + name + "\n----+----+ type:" + type);
+		logger.log(Level.INFO, "----+----+ class:" + clsuri + "\n----+----+ reasoner:" + reasoner);
 		
 		if("select".equalsIgnoreCase(type)){
 		OntModel querymodel;
@@ -299,18 +307,18 @@ public class CommandFileSpinMng {
 		Resource cls = querymodel.getResource(clsuri); //mng.getMainOntModel()
 				
 		mng.execAttachedQuery(cls, querymodel, queryVars); //mng.getMainOntModel()
-		} else System.out.println("????? Only SELECT type Attached query implemented. Type was: " + name ); 
+		} else logger.log(Level.INFO, "????? Only SELECT type Attached query implemented. Type was: " + name ); 
 		
 	}
 	
 	public void sparqlQueryCommand(JSONObject comobj) {
 		//VPA: reasoner option added
-		System.out.println("----+ Command: sparqlQueryCommand");
+		logger.log(Level.INFO, "----+ Command: sparqlQueryCommand");
 		JSONObject subobj = (JSONObject) comobj.get("query");
 		String name = (String) subobj.get("name");
 		String type = (String) subobj.get("type");
 		Boolean reasoner=(Boolean)subobj.get("reasoner");
-		System.out.println("----+----+ name:" + name + "\n----+----+ reasoner:" + reasoner);
+		logger.log(Level.INFO, "----+----+ name:" + name + "\n----+----+ reasoner:" + reasoner);
 		OntModel querymodel;
 		if((reasoner!=null)&&(reasoner)) querymodel = mng.getOntModelWithReasoner();
 		else querymodel = mng.getMainOntModel();
@@ -330,7 +338,7 @@ public class CommandFileSpinMng {
 			String limit = (String) subobj.get("limit");
 			if (limit != null)
 				queryStr.append(" LIMIT " + limit);
-			// System.out.println("----QueryString: " + queryStr.toString() );
+			// logger.log(Level.INFO, "----QueryString: " + queryStr.toString() );
 			JSONArray jsonqueryvars = (JSONArray) subobj.get("queryVars");
 			List queryVars = (List)jsonqueryvars;			
 			mng.sparqlSelectQuery(querymodel, queryStr, queryVars); //mng.getMainOntModel()
@@ -345,7 +353,7 @@ public class CommandFileSpinMng {
 				queryStr.append(" INSERT { " +  subobj.get("insert") + " } ");
 			if(subobj.get("where")!=null)
 				queryStr.append(" WHERE { " + subobj.get("where") + " }");
-			System.out.println("----QueryString: " + queryStr.toString());
+			logger.log(Level.INFO, "----QueryString: " + queryStr.toString());
 			mng.sparqlUpdateQuery(querymodel, queryStr); //mng.getMainOntModel()
 		}
 			break;
@@ -357,7 +365,7 @@ public class CommandFileSpinMng {
 			// str(666))) AS ?wouri) .}
 			String addToModel = (String) subobj.get("resultTriples");
 			queryStr.append(" CONSTRUCT {" + subobj.get("construct") + " } WHERE { " + subobj.get("where") + " }");
-			System.out.println("----QueryString: " + queryStr.toString());
+			logger.log(Level.INFO, "----QueryString: " + queryStr.toString());
 			if ("add".equalsIgnoreCase(addToModel))
 				mng.sparqlConstructQuery(querymodel, mng.getInferredTriples(), queryStr); //mng.getMainOntModel()
 			else
@@ -366,25 +374,25 @@ public class CommandFileSpinMng {
 			break;
 		case "describe": {
 			queryStr.append(" DESCRIBE " + subobj.get("describe") + " WHERE { " + subobj.get("where") + " }");
-			System.out.println("----QueryString: " + queryStr.toString());
+			logger.log(Level.INFO, "----QueryString: " + queryStr.toString());
 			mng.sparqlDescribeQuery(querymodel, null, queryStr); // mng.getMainOntModel()
 		}
 		 break;
 
 		default: {
-			System.out.println("----+???? Sparql query by name: " + name + " has UNKNOWN type: " + type + " ?????");
+			logger.log(Level.INFO, "----+???? Sparql query by name: " + name + " has UNKNOWN type: " + type + " ?????");
 		}
 		}
 
 	}
 
 	public void listTemplatesCommand(JSONObject comobj){
-		System.out.println("----+ Command: listTemplatesCommand");
+		logger.log(Level.INFO, "----+ Command: listTemplatesCommand");
 		JSONObject subobj = (JSONObject) comobj.get("listing");
 		if(subobj!=null){
 			String name = (String) subobj.get("name");
 			String type = (String) subobj.get("type");
-			System.out.println("----+----+listTemplatesCommand name:" + name + " and type:" + type);
+			logger.log(Level.INFO, "----+----+listTemplatesCommand name:" + name + " and type:" + type);
 			// Listing all templates
 			mng.getTemplates();
 			// Detailed info 
@@ -400,12 +408,12 @@ public class CommandFileSpinMng {
 	}
 	
 	public void listFunctionsCommand(JSONObject comobj){
-		System.out.println("----+ Command: listFunctionsCommand");
+		logger.log(Level.INFO, "----+ Command: listFunctionsCommand");
 		JSONObject subobj = (JSONObject) comobj.get("listing");
 		if(subobj!=null){
 			String name = (String) subobj.get("name");
 			String type = (String) subobj.get("type");
-			System.out.println("----+----+listFunctionsCommand name:" + name + " and type:" + type);
+			logger.log(Level.INFO, "----+----+listFunctionsCommand name:" + name + " and type:" + type);
 			// Listing all templates
 			mng.getFunctions();
 			
@@ -413,20 +421,20 @@ public class CommandFileSpinMng {
 	}
 	
 	public void listNsPrefixesCommand(JSONObject comobj){
-		System.out.println("----+ Command: listNsPrefixesCommand");
+		logger.log(Level.INFO, "----+ Command: listNsPrefixesCommand");
 		JSONObject subobj = (JSONObject) comobj.get("listing");
 		if(subobj!=null){
 			String name = (String) subobj.get("name");
 			String type = (String) subobj.get("type");
-			System.out.println("----+----+listNsPrefixesCommand name:" + name + " and type:" + type);
+			logger.log(Level.INFO, "----+----+listNsPrefixesCommand name:" + name + " and type:" + type);
 			if("modelprefixes".equalsIgnoreCase(type)){
-				System.out.println("\n----+----+ Listing Model Prefixes with Namespaces +----+----+");
+				logger.log(Level.INFO, "\n----+----+ Listing Model Prefixes with Namespaces +----+----+");
 			 mng.getNsPrefixeMap(mng.getMainOntModel()); //returns Map<String,String> prefixMap			 
 			} else if("sparqlprefixes".equalsIgnoreCase(type)){
 				if(!this.prefixlinesfilled) prefillQueryPrefixList();
-				System.out.println("\n----+----+ Listing Predefined Sparql query Prefixes with Namespaces +----+----+");
+				logger.log(Level.INFO, "\n----+----+ Listing Predefined Sparql query Prefixes with Namespaces +----+----+");
 				for(int i=0; i<this.prefixlines.size();i++){
-					System.out.println("("+(i+1)+") " + this.prefixlines.get(i));
+					logger.log(Level.INFO, "("+(i+1)+") " + this.prefixlines.get(i));
 				}
 			}
 			
@@ -436,7 +444,7 @@ public class CommandFileSpinMng {
 	
 	
 	public void userPromptCommand(JSONObject comobj){
-		System.out.println("----+ Command: userPromptCommand");
+		logger.log(Level.INFO, "----+ Command: userPromptCommand");
 		JSONObject subobj = (JSONObject) comobj.get("userprompt");
 		String name = (String) subobj.get("name");
 		String type = (String) subobj.get("type");
@@ -444,11 +452,11 @@ public class CommandFileSpinMng {
 		String defaults = (String) subobj.get("default");		
 		String prompt = "Q" + prompttext + ">>>?";
 		//String reply=ui.getInputOrDefault(prompt, _input, defaults);
-		//System.out.println("----+ User Reply: " + reply + "\n-------------------");
+		//logger.log(Level.INFO, "----+ User Reply: " + reply + "\n-------------------");
 	}
 	
 	public void writeModelCommand(JSONObject comobj) {
-		System.out.println("----+ Command: writeModelCommand");
+		logger.log(Level.INFO, "----+ Command: writeModelCommand");
 		JSONObject subobj = (JSONObject) comobj.get("write");
 		String name = (String) subobj.get("name");
 		String type = (String) subobj.get("type"); // console/file
@@ -457,13 +465,13 @@ public class CommandFileSpinMng {
 		String format = (String) subobj.get("format"); // https://jena.apache.org/documentation/io/rdf-output.html
 		if(format==null) format="TURTLE"; //Default format
 
-		System.out.println("----+----+ KB name:" + name);
+		logger.log(Level.INFO, "----+----+ KB name:" + name);
 
 		try {
 
 			if (("file".equalsIgnoreCase(type)) && (filepath != null)) {
 				FileWriter out = new FileWriter(filepath); // "C:/Temp/test.ttl");
-				System.out.println("\n---- Printing Inferred Triples or models to File:" + filepath + " ----\n");
+				logger.log(Level.INFO, "\n---- Printing Inferred Triples or models to File:" + filepath + " ----\n");
 				if ("inferred".equalsIgnoreCase(modelcat))
 					mng.getInferredTriples().write(out, format);
 				else if ("main".equalsIgnoreCase(modelcat))
@@ -475,7 +483,7 @@ public class CommandFileSpinMng {
 				}
 					
 			} else if ("console".equalsIgnoreCase(type)) {
-				System.out.println("\n---- Printing Inferred Triples or models to Console ----\n"
+				logger.log(Level.INFO, "\n---- Printing Inferred Triples or models to Console ----\n"
 						+ "------------------------------------------------");
 				if ("inferred".equalsIgnoreCase(modelcat))
 					mng.getInferredTriples().write(System.out, format);
@@ -494,31 +502,31 @@ public class CommandFileSpinMng {
 	}
 
 	public void createInferenceModelCommand(JSONObject comobj){
-		System.out.println("----+ Command: createInferenceModelCommand");
+		logger.log(Level.INFO, "----+ Command: createInferenceModelCommand");
 		JSONObject subobj = (JSONObject) comobj.get("create");
 		String name = (String) subobj.get("name");
 		String type = (String) subobj.get("type");
-		System.out.println("----+----+ name:" + name);
+		logger.log(Level.INFO, "----+----+ name:" + name);
 		mng.createInferredModelAndRegister();
 		this.spinRegistryUpdated = true;
 		
 	}
 	/*
 	public void createInferredModelAndRegister() {
-		System.out.println("\n---- OPERATION: createInferredModelAndRegister ----\n");
+		logger.log(Level.INFO, "\n---- OPERATION: createInferredModelAndRegister ----\n");
 		mng.createInferredModelAndRegister();
 		this.spinRegistryUpdated = true;
-		System.out.println("\n---- --------- ----\n");
+		logger.log(Level.INFO, "\n---- --------- ----\n");
 	}
 	*/
 	
 	public void loadKnowledgeBaseCommand(JSONObject comobj) {
-		System.out.println("----+ Command: loadKnowledgeBaseCommand");
+		logger.log(Level.INFO, "----+ Command: loadKnowledgeBaseCommand");
 		StringBuffer sbuff= new StringBuffer();
 		JSONObject subobj = (JSONObject) comobj.get("knowledgeBase");
 		String name = (String) subobj.get("name");
 		String type = (String) subobj.get("type");
-		System.out.println("----+----+ KB name:" + name);
+		logger.log(Level.INFO, "----+----+ KB name:" + name);
 		
 		if("predefined".equalsIgnoreCase(type)){
 		
@@ -532,7 +540,7 @@ public class CommandFileSpinMng {
 		}
 			break;
 		default: {
-			System.out.println("----+????+ name:" + name + " Unknown?????");
+			logger.log(Level.INFO, "----+????+ name:" + name + " Unknown?????");
 		}
 		}
 		} else if("file&uri".equalsIgnoreCase(type)){
@@ -563,7 +571,7 @@ public class CommandFileSpinMng {
 				
 			}
 			}
-			System.out.println("\n----------- Knowledge Base Info  ----------\n" + sbuff.toString());
+			logger.log(Level.INFO, "\n----------- Knowledge Base Info  ----------\n" + sbuff.toString());
 			/* ----------- Build Models ----------*/
 			OntModel baseont = mng.loadModelWithImports(urls, altlocs);
 			// Set mainOntModel
@@ -572,7 +580,7 @@ public class CommandFileSpinMng {
 			mng.setOntModelWithReasoner(mng.createReasonerModel(mng
 							.getMainOntModel()));
 			 
-			System.out.println("\n----------- Knowledge Base Ready  ----------");
+			logger.log(Level.INFO, "\n----------- Knowledge Base Ready  ----------");
 			
 		}
 	}
@@ -669,7 +677,7 @@ public class CommandFileSpinMng {
 		} 
 			break;
 		default: {
-			System.out.println("???????????Command:" + ctype + " Unknown????????");
+			logger.log(Level.INFO, "???????????Command:" + ctype + " Unknown????????");
 		}
 		}
 	}
@@ -687,24 +695,24 @@ public class CommandFileSpinMng {
 	public void runSpinConstructors(){
 		/* RUNS ONLY SPIN:CONSTRUCTORS (not spin rules) */
 			
-		System.out.println("\n---- OPERATION: Run Constructors ----\n");	
+		logger.log(Level.INFO, "\n---- OPERATION: Run Constructors ----\n");	
 				
 		if(!spinRegistryUpdated){ mng.createInferredModelAndRegister(); 
 			this.spinRegistryUpdated =true;
 		}
 		mng.runConstructors(mng.getMainOntModel(), mng.getInferredTriples());
-		System.out.println("\n---- --------- ----\n");
+		logger.log(Level.INFO, "\n---- --------- ----\n");
 	}
 	
 	
 	
 	public void runInferences(boolean singlePass) {
-		System.out.println("\n---- OPERATION: Run Inferences ----\n");
+		logger.log(Level.INFO, "\n---- OPERATION: Run Inferences ----\n");
 		mng.createInferredModelAndRegister();
 		mng.runAllSpinInferences(singlePass);// singlePass=false: run
 												// iteratively
 		this.spinRegistryUpdated = true;
-		System.out.println("\n---- --------- ----\n");
+		logger.log(Level.INFO, "\n---- --------- ----\n");
 	}
 
 	public void prefillQueryPrefixList() {
@@ -776,7 +784,7 @@ public class CommandFileSpinMng {
 		mng.setOntModelWithReasoner(mng.createReasonerModel(mng.getMainOntModel()));
 		
 		this.mainModelLocalName="bicycle"; 
-		System.out.println("\n----------- Knowledge Base Ready  ----------");
+		logger.log(Level.INFO, "\n----------- Knowledge Base Ready  ----------");
 		
 	}
 	
@@ -825,34 +833,61 @@ public class CommandFileSpinMng {
 		mng.setOntModelWithReasoner(mng.createReasonerModel(mng.getMainOntModel()));
 
 		this.mainModelLocalName = "context_mimosa";
-		System.out.println("\n----------- Knowledge Base Ready  ----------");
+		logger.log(Level.INFO, "\n----------- Knowledge Base Ready  ----------");
 
 	}
 
+	public void mainInitSpinManager(String json_commandFile) {
+		// copied from the orig main method
+		boolean kb_loaded = false;
+		StringBuffer strbuff = new StringBuffer();
+		StringBuffer stepnotebuffer = new StringBuffer();
+
+		System.out.println("================ CommandFileSpinMng Initilized ===============\n");
+		try {
+
+			this.jsonrootobj = (JSONObject) this.parser.parse(new FileReader(json_commandFile));
+			JSONObject header = (JSONObject) jsonrootobj.get("CSMHeader");
+
+			strbuff.append("--------------------------------------------------\n" + "+'CSMHeader':\n+----+'filename': '"
+					+ header.get("filename") + "'\n" + "+----+'created': '" + header.get("created") + "'\n"
+					+ "+----+'updated': '" + header.get("updated") + "'\n" + "+----+'history': '"
+					+ header.get("history") + "'\n" + "--------------------------------------------------\n");
+			System.out.println("\n" + strbuff.toString());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 	
-	public void initSpinManager(String json_commandFile){
+	
+	
+	public void mainInvokeCommandWorkflow(){
 		// copied from the orig main method
 		boolean kb_loaded = false;
 		StringBuffer strbuff = new StringBuffer();
 		StringBuffer stepnotebuffer = new StringBuffer();
 		
-		try {
-			System.out.println("================ CommandFileSpinMng running... ===============\n");
+		if(this.jsonrootobj!=null) {
+			logger.log(Level.INFO, "================ CommandFileSpinMng Command Workflow running... ===============\n");
 			
-			JSONObject jsonrootobj = (JSONObject) this.parser.parse(new FileReader(json_commandFile));
-			JSONObject header = (JSONObject) jsonrootobj.get("CSMHeader");
+			//JSONObject jsonrootobj = (JSONObject) this.parser.parse(new FileReader(json_commandFile));
+			JSONObject header = (JSONObject) this.jsonrootobj.get("CSMHeader");
 			
-			strbuff.append("--------------------------------------------------\n"
+		/*	strbuff.append("--------------------------------------------------\n"
 					+ "+'CSMHeader':\n+----+'filename': '" + header.get("filename") + "'\n"
 					+ "+----+'created': '" + header.get("created") + "'\n"
 					+ "+----+'updated': '" + header.get("updated") + "'\n"
 					+ "+----+'history': '" + header.get("history") + "'\n"
 					+ "--------------------------------------------------\n");
 			System.out.println("\n" + strbuff.toString());
-			
+		*/	
 			JSONObject workflow = (JSONObject) header.get("workflow");
 			String wftype = (String) workflow.get("type");
-			System.out.println("--Reading commands from csm command file (json) ... \n\n");
+			logger.log(Level.INFO, "--Reading commands from csm command file (json) ... \n\n");
 			JSONArray commands = (JSONArray) jsonrootobj.get("CSMCommands");
 
 			if ("indexed".equalsIgnoreCase(wftype)) {
@@ -862,7 +897,7 @@ public class CommandFileSpinMng {
 					JSONObject comobj = (JSONObject) commands.get(ind.intValue());
 					String stepnote = (String) comobj.get("stepnote");
 					stepnotebuffer.append("->| " + stepnote + "(" + ind.intValue() + ") |-");
-					System.out.println("\n\n========== Next Command Index:(" + ind + "): " + stepnote + "========== ");					
+					logger.log(Level.INFO, "\n\n========== Next Command Index:(" + ind + "): " + stepnote + "========== ");					
 					this.runCMSCommand(comobj);
 				}
 			} else if ("all".equalsIgnoreCase(wftype)) {
@@ -872,26 +907,65 @@ public class CommandFileSpinMng {
 
 					JSONObject comobj = (JSONObject) commands.get(ci);
 					String ctype = (String) comobj.get("commandType");
-					System.out.println("----+ Command type:" + ctype);
+					logger.log(Level.INFO, "----+ Command type:" + ctype);
 					this.runCMSCommand(comobj);
 				}
 			} else {
-				System.out.println("???????????Workflow type:" + wftype + " Unknown????????");
+				logger.log(Level.INFO, "???????????Workflow type:" + wftype + " Unknown????????");
 			} // end if
 			
-			System.out.println("\n\n========== WORKFLOW STEPS LOG ==========\n");
-			System.out.println(" (start)-" + stepnotebuffer.toString() + "->(end)");					
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
+			logger.log(Level.INFO, "\n\n========== WORKFLOW STEPS LOG ==========\n");
+			logger.log(Level.INFO, "(start)-" + stepnotebuffer.toString() + "->(end)");
+			
+		} else {
+			
+			logger.log(Level.INFO, "NOTICE: CommandFileSpinMng not initialized (Command Json file not loaded)\n");
 		}
-
 		
 		
+	}
+	
+	public String searchCommandJsonString(String idcode, String index, String commandtype){
+		//Returning only the first match
+		logger.log(Level.INFO, "searchCommandJsonString()");
+		String firstmatch=null;
+		List<JSONObject> matches= searchCommandObject(idcode, index,  commandtype);
+		if((matches!=null)&&(matches.size()>0)){
+			firstmatch = matches.get(0).toJSONString().replaceAll(",", ",\n");
+			//System.out.println("\nONE MATCHING COMMAND: " + firstmatch);	
+		}
+		return firstmatch;
+	}
+	
+	private List<JSONObject> searchCommandObject(String idcode, String index, String commandtype){
 		
+		JSONArray commands = (JSONArray) jsonrootobj.get("CSMCommands");
+		List<JSONObject> matches = new ArrayList<JSONObject>();
+		
+			
+			for (int i=0; i<commands.size();i++) {
+				
+				JSONObject comobj = (JSONObject) commands.get(i);
+				Number indxnum = (Number) comobj.get("index");
+				String indx = indxnum.toString();
+				String id = (String) comobj.get("idcode");
+				String type = (String) comobj.get("commandType");
+				//System.out.println("(id; indx; type)(" + id + ";" + indx+ ";" + type + ")");	
+				
+				if((idcode!=null)&&(!idcode.isEmpty())&&(id!=null)&&((idcode.equalsIgnoreCase(id))||(id.startsWith(idcode)))){
+					matches.add(comobj);
+				} else if((index!=null)&&(index.equalsIgnoreCase(indx))){
+					matches.add(comobj);
+				} else if((commandtype!=null)&&(commandtype.equalsIgnoreCase(type))){
+					matches.add(comobj);
+				}
+				
+				
+			//System.out.println("\nSEARCHing...");					
+				
+			}
+		
+		return matches;
 	}
 	
 	
@@ -905,6 +979,14 @@ public class CommandFileSpinMng {
 	 * =======================================
 	 */
 	
+	public StringBuffer getWorkflowResults() {
+		return workflowResults;
+	}
+
+	public void setWorkflowResults(StringBuffer workflowResults) {
+		this.workflowResults = workflowResults;
+	}
+
 	public static void main(String[] args) {
 
 		CommandFileSpinMng csm = new CommandFileSpinMng();

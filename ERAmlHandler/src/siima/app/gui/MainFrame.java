@@ -88,6 +88,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JMenuItem mntmSaveOntologyModel;
 	private JMenuItem mntmMergeModels;
 	private JMenuItem mntmLoadSpinCommands;
+	private JMenuItem mntmInvokeSpinCommands;
 	// private JTree tree;
 	private JRadioButtonMenuItem rbMenuItem1;
 	private JRadioButtonMenuItem rbMenuItem2;
@@ -95,8 +96,15 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JRadioButtonMenuItem rbMenuItem4;
 	private JRadioButtonMenuItem rbMenuItem5;
 	private JRadioButtonMenuItem rbMenuItem6;
-	// test
-	protected JLabel actionLabel;
+	
+	private JTextField textField1;
+	private JTextField textField2;
+	private JTextField textField3;
+	
+	private JButton btnSearchCommandButton;
+	private  JTextArea oneJsonCommandTextArea;
+	private JButton btnUpdateCSMCommandButton;
+	//protected JLabel actionLabel;
 	
 	/**
 	 * Launch the application.
@@ -312,6 +320,10 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mntmLoadSpinCommands.addActionListener(this);
 		mnSparql.add(mntmLoadSpinCommands);
 		
+		mntmInvokeSpinCommands = new JMenuItem("Invoke Spin Commands");
+		mntmInvokeSpinCommands.addActionListener(this);
+		mnSparql.add(mntmInvokeSpinCommands);
+		
 		/*
 		 * Main Window
 		 * 
@@ -440,26 +452,26 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		rightTopVerticalSplitPane.setRightComponent(rightTopRightPanel);
 		GridBagLayout gbl_right_top_right_panel = new GridBagLayout();
 		gbl_right_top_right_panel.columnWidths = new int[] {5, 100, 10, 0};
-		gbl_right_top_right_panel.rowHeights = new int[] {5, 40, 80, 5};
+		gbl_right_top_right_panel.rowHeights = new int[] {5, 40, 80, 10, 0};
 		gbl_right_top_right_panel.columnWeights = new double[]{0.1, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_right_top_right_panel.rowWeights = new double[]{0.1, 0.4, 0.6, Double.MIN_VALUE};
+		gbl_right_top_right_panel.rowWeights = new double[]{0.1, 0.4, 0.6, 0.1, Double.MIN_VALUE};
 		rightTopRightPanel.setLayout(gbl_right_top_right_panel);
 		
 		/* TextFields TODO:OOOOOOOOOOOOOOOOOO: 
 		 * See: https://docs.oracle.com/javase/tutorial/uiswing/components/editorpane.html
 		 * */
-		String textFieldString1 = "TextField1";
-		String textFieldString2 = "TextField2";
-		String textFieldString3 = "TextField3";
+		String textFieldString1 = "Idcode"; //"TextField1";
+		String textFieldString2 = "Index"; //"TextField2";
+		String textFieldString3 = "CmdType"; //"TextField3";
 		
 		//Create a regular text field.
-        JTextField textField1 = new JTextField(10);
+        textField1 = new JTextField(10); //index
         textField1.setActionCommand(textFieldString1);
         //textField1.addActionListener(this);
-        JTextField textField2 = new JTextField(10);
+        textField2 = new JTextField(10); //idcode
         textField2.setActionCommand(textFieldString2);
         //textField2.addActionListener(this);
-        JTextField textField3 = new JTextField(10);
+        textField3 = new JTextField(10); //commandType
         textField3.setActionCommand(textFieldString3);
         //textField3.addActionListener(this);
         
@@ -472,8 +484,25 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         textFieldLabel3.setLabelFor(textField3);
         
       //Create a label to put messages during an action event.
-        actionLabel = new JLabel("Type text in a field and press Enter.");
-        actionLabel.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
+      //  actionLabel = new JLabel("Type text in a field and press Enter.");
+      //  actionLabel.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
+        
+        btnSearchCommandButton = new JButton("Search");
+        btnSearchCommandButton.setEnabled(false);
+        btnSearchCommandButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String idcode = textField1.getText();
+				String index = textField2.getText();
+				String commandType = textField3.getText();
+				
+				StringBuffer commandjson = appControl.searchCommandJsonString(idcode, index, commandType);
+				//bottomLeftTextArea.setText(info);
+				oneJsonCommandTextArea.setText(commandjson.toString());
+				oneJsonCommandTextArea.setCaretPosition(0);
+				System.out.println("TODO: SEARCH BUTTON PRESSED......");
+				btnUpdateCSMCommandButton.setEnabled(true);
+			}
+		});
         
 		//Lay out the text controls and the labels.
         JPanel textControlsPane = new JPanel();
@@ -487,12 +516,12 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         addLabelTextRows(labels, textFields, gridbag, textControlsPane);
  
         c.gridwidth = GridBagConstraints.REMAINDER; //last
-        c.anchor = GridBagConstraints.WEST;
+        c.anchor = GridBagConstraints.CENTER;
         c.weightx = 1.0;
-        textControlsPane.add(actionLabel, c);
+        textControlsPane.add(btnSearchCommandButton, c); //(actionLabel, c);
         textControlsPane.setBorder(
                 BorderFactory.createCompoundBorder(
-                                BorderFactory.createTitledBorder("Text Fields"),
+                                BorderFactory.createTitledBorder("Search CSMCommand"), //"Text Fields"),
                                 BorderFactory.createEmptyBorder(5,5,5,5)));
 		
 		//MY ADD
@@ -505,23 +534,23 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         rightTopRightPanel.add(textControlsPane, gbc_textControlsPane);
         
         //Create a text area.
-        JTextArea textArea = new JTextArea(
+        oneJsonCommandTextArea = new JTextArea(
                 "This is an editable JTextArea. " +
                 "A text area is a \"plain\" text component, " +
                 "which means that although it can display text " +
                 "in any font, all of the text is in the same font."
         );
-        textArea.setFont(new Font("Serif", Font.ITALIC, 16));
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        JScrollPane areaScrollPane = new JScrollPane(textArea);
+        //oneJsonCommandTextArea.setFont(new Font("Serif", Font.ITALIC, 16));
+        oneJsonCommandTextArea.setLineWrap(true);
+        oneJsonCommandTextArea.setWrapStyleWord(true);
+        JScrollPane areaScrollPane = new JScrollPane(oneJsonCommandTextArea);
         areaScrollPane.setVerticalScrollBarPolicy(
                         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         areaScrollPane.setPreferredSize(new Dimension(250, 250));
         areaScrollPane.setBorder(
             BorderFactory.createCompoundBorder(
                 BorderFactory.createCompoundBorder(
-                                BorderFactory.createTitledBorder("Plain Text"),
+                                BorderFactory.createTitledBorder("CSMCommand"),
                                 BorderFactory.createEmptyBorder(5,5,5,5)),
                 areaScrollPane.getBorder()));
         
@@ -534,8 +563,21 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		
         rightTopRightPanel.add(areaScrollPane, gbc_areaScrollPane);
         
+        btnUpdateCSMCommandButton = new JButton("Update");
+        btnUpdateCSMCommandButton.setEnabled(false);
+        btnUpdateCSMCommandButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				System.out.println("TODO: UPDATE BUTTON PRESSED......");
+			}
+		});
         
-        
+        GridBagConstraints gbc_UpdateCSMCommandButton = new GridBagConstraints();
+        //gbc_UpdateCSMCommandButton.insets = new Insets(0, 0, 5, 0);
+        //gbc_UpdateCSMCommandButton.fill = GridBagConstraints.BOTH;
+        gbc_UpdateCSMCommandButton.gridx = 1;
+        gbc_UpdateCSMCommandButton.gridy = 3;
+        rightTopRightPanel.add(btnUpdateCSMCommandButton, gbc_UpdateCSMCommandButton);
         //OOOOOOOOOOOODOT
 		
 		/* ==== Right Bottom side ==== */
@@ -639,9 +681,22 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 * mntmAspSolver AND mntmSaveOntologyModel
 		 * rbMenuItem1-6 AND
 		 * mntmMergeModels AND mntmLoadSpinCommands
+		 * mntmInvokeSpinCommands
 		 */
 		
-		if (arg0.getSource() == mntmLoadSpinCommands) {
+		if (arg0.getSource() == mntmInvokeSpinCommands) {
+			
+			StringBuffer resultbuf = appControl.invokeCSMCommandWorkflow();
+			
+			//-- Console Printing
+			txtrConsoleOutput.append(newline + "LOG: CSM (SPIN) COMMANDS INVOKED");
+			txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+			//-- Result Printing
+			txtrResultOutput.setText(null); // CLear old text
+			txtrResultOutput.append(resultbuf.toString() + newline);
+			txtrResultOutput.setCaretPosition(0); //txtrResultOutput.getText().length());
+			
+		} else if (arg0.getSource() == mntmLoadSpinCommands) {
 			fileChooser.setDialogTitle("LOAD SPIN COMMAND FILE");
 			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory).getParentFile());
@@ -659,7 +714,8 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				txtrSpinCommandFileOutput.setText(null); // CLear old text
 				txtrSpinCommandFileOutput.append(sbuf.toString() + newline);
 				txtrSpinCommandFileOutput.setCaretPosition(0);
-
+				
+				btnSearchCommandButton.setEnabled(true);
 			} else {
 				System.out.println("Frame: No SPIN COMMAND File Selected!");
 			}

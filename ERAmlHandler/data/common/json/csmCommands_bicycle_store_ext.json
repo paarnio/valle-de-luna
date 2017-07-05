@@ -165,7 +165,7 @@
     "TEMPLATE_CREATE_COMMANDS": [
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T6_",
         "commandType": "createNewTemplate",
         "stepnote": "CREATE_TEMPLATE",
         "comment": "NOTE:testing select template creation: based on BicycleNameTemplate2(TOIMII)",
@@ -188,7 +188,7 @@
       },
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T6_",
         "commandType": "createNewTemplate",
         "stepnote": "CREATE_TEMPLATE",
         "comment": "NOTE:testing select template creation: based on BicycleNameTemplate2(TOIMII)",
@@ -213,7 +213,7 @@
     "TEMPLATE_CALL_COMMANDS": [
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T7_",
         "commandType": "templateCall",
         "stepnote": "CALL_TEMPLATE",
         "comment": "NOTE:Only the first queryvariable used (TODO)",
@@ -235,7 +235,7 @@
       },
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T7_",
         "commandType": "templateCall",
         "stepnote": "CALL_TEMPLATE",
         "comment": "NOTE:TESTING UPDATE TEMPLATE: EI TOIMI?? MUTTA EI TOIMI TMCssäkään!!!!",
@@ -259,7 +259,7 @@
       },
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T7_",
         "commandType": "templateCall",
         "stepnote": "CALL_TEMPLATE",
         "comment": "NOTE:TESTING UPDATE TEMPLATE (no arqs) ?? TOIMIIII!!!!!!!!",
@@ -274,7 +274,7 @@
 	"CLASS_ATTACHED_QUERY_COMMANDS": [
 	{
       "index": null,
-	  "idcode": "R1_",
+	  "idcode": "R1_T8_",
       "commandType": "execAttachedQuery",
       "stepnote": "ATTACHED_QUERY",
       "comment": "TODO: This is only an example for bicycle.ttl model",
@@ -293,7 +293,7 @@
     "QUERY_WITH_EVAL_COMMANDS": [
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T9_",
         "commandType": "sparqlQuery",
         "stepnote": "SELECT_EVAL",
         "query": {
@@ -313,7 +313,7 @@
 	"SERVICE_COMMANDS": [
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T10_",
         "commandType": "sparqlQuery",
         "stepnote": "SELECT_SERVICE",
         "comment": "Federated query to an external SPARQL endpoint SERVICE example: first start d2rq-0.8.1>d2r-server mapping-iswc_uri_pdf.ttl)",
@@ -334,7 +334,7 @@
       },
 	   {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T10_",
         "commandType": "sparqlQuery",
         "stepnote": "SELECT_SERVICE",
         "comment": "Federated query to an external SPARQL endpoint SERVICE example: first start d2rq-0.8.1>d2r-server mapping-iswc_uri_pdf.ttl)",
@@ -354,7 +354,7 @@
     "SELECT_COMMANDS": [
 		{
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T11_",
         "commandType": "sparqlQuery",
         "stepnote": "SELECT_VIOLATIONS",
         "query": {
@@ -373,7 +373,7 @@
       },
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T11_",
         "commandType": "sparqlQuery",
         "stepnote": "SELECT",
         "comment": "TODO: ?bell a access:Bell . ?bell rdfs:label ?label .",
@@ -393,7 +393,7 @@
       },
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T11_",
         "commandType": "sparqlQuery",
         "stepnote": "SELECT",
         "query": {
@@ -413,7 +413,7 @@
       },
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T11_",
         "commandType": "sparqlQuery",
         "stepnote": "SELECT",
         "query": {
@@ -433,7 +433,7 @@
     "DESCRIBE_COMMANDS": [
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T12_",
         "commandType": "sparqlQuery",
         "stepnote": "DESCRIBE",
         "query": {
@@ -451,7 +451,7 @@
     "UPDATE_COMMANDS": [
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T13_",
         "commandType": "sparqlQuery",
 		"stepnote": "UPDATE",
         "comment": "PROBLEM: Not working?",
@@ -469,7 +469,7 @@
       },
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T13_",
         "commandType": "sparqlQuery",
         "stepnote": "UPDATE",
         "query": {
@@ -486,7 +486,7 @@
       },
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T13_",
         "commandType": "sparqlQuery",
         "stepnote": "UPDATE",
         "query": {
@@ -505,7 +505,7 @@
     "LIST_TEMPLATES_COMMANDS": [
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T14_",
         "commandType": "listTemplates",
         "stepnote": "LIST",
         "comment": "Lists all templates and detailed info about templates in 'list.info' list",
@@ -536,7 +536,7 @@
     "LIST_FUNCTION_COMMANDS": [
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T15_",
         "commandType": "listFunctions",
         "stepnote": "LIST",
         "comment": "Lists all SPIN Functions",
@@ -549,7 +549,7 @@
 	"LIST_PREFIXES_COMMANDS": [
 	  {
       "index": null,
-	  "idcode": "R1_",
+	  "idcode": "R1_T16_",
       "commandType": "listNsPrefixes",
       "stepnote": "LIST_PREFIXES",
       "comment": "Listing prefixes with namespaces in the model or in predefined list for sparql queries (type options: 'sparqlprefixes', 'modelprefixes')",
@@ -562,7 +562,7 @@
     "WRITE_MODEL_COMMANDS": [
        {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T17_",
         "commandType": "writeModel",
         "stepnote": "WRITE",
         "comment": "Write type can be 'file' or 'console'. Modelcat can be 'merged', 'inferred' or 'main'. Format options: TTL, RDF/JSON, JSON-LD, etc. (https://jena.apache.org/documentation/io/rdf-output.html)",
@@ -576,7 +576,7 @@
 	},
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T17_",
         "commandType": "writeModel",
         "stepnote": "WRITE",
         "comment": "Write type can be 'file' or 'console'. Modelcat can be one of 'inferred'/'main'/'mainall'?=?'merged'.",
@@ -591,7 +591,7 @@
     "USER_INPUT_COMMANDS": [
       {
         "index": null,
-		"idcode": "R1_",
+		"idcode": "R1_T18_",
         "commandType": "userinput",
         "stepnote": "USER_INPUT",
         "comment": "NOTE: Pause execution for user checks .",

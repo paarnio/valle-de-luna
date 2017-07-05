@@ -22,6 +22,7 @@
   "CSMCommands": [
     {
       "index": 0,
+	  "idcode": "R1_T1_LKB_1",
       "commandType": "loadKnowledgeBase",
       "stepnote": "LOAD_KB",
       "comment": "REQUIRED: ALLWAYS RUN THIS AS THE FIRST COMMAND! (Types: 'predefined' | 'file&uri')",
@@ -39,6 +40,7 @@
     },
     {
       "index": 1,
+	  "idcode": "R1_T2_CIM_1",
       "commandType": "createInferenceModel",
       "stepnote": "INF_MODEL",
       "comment": "NOTE:OFTEN REQUIRED: This command creates the inference model and registers spin.",
@@ -49,6 +51,7 @@
     },
     {
       "index": 2,
+	  "idcode": "R1_T3_RI_1",
       "commandType": "runInferences",
       "stepnote": "INFER",
       "comment": "NOTE:OFTEN REQUIRED: This command runs all spin inferences: type options: 'singlepass' | 'iterative' (creates the inference model, if not yet created) .",
@@ -59,6 +62,7 @@
     },
 	{
         "index": 3,
+		"idcode": "R1_T11_SQ1_1",
         "commandType": "sparqlQuery",
         "stepnote": "SELECT",
         "query": {
@@ -75,6 +79,7 @@
       },
 	  {
         "index": 4,
+		"idcode": "R1_T6_",
         "commandType": "createNewTemplate",
         "stepnote": "CREATE_TEMPLATE",
         "comment": "NOTE:testing select template creation.",
@@ -97,6 +102,7 @@
       },
 	        {
         "index": 5,
+		"idcode": "R1_T20_SQET1_1",
         "commandType": "sparqlQuery",
         "stepnote": "SELECT_EVAL",
         "query": {
@@ -113,6 +119,7 @@
       },
 	    {
         "index": 6,
+		"idcode": "R1_T4_CC_1",
         "commandType": "checkConstraints",
         "stepnote": "CONSTRAINTS",
         "comment": "run 'all' (type 'all') Spin Constraints or only for one 'resource'. If 'addrdf': true, violations are added to the inferred model. ",
@@ -125,6 +132,7 @@
       },
 	    {
         "index": 7,
+		"idcode": "R1_T17_",
         "commandType": "writeModel",
         "stepnote": "WRITE",
         "comment": "Write type can be 'file' or 'console'. Modelcat can be 'merged', 'inferred' or 'main'.",
@@ -137,6 +145,7 @@
       },
 	   {
         "index": 8,
+		"idcode": "R1_T11_",
         "commandType": "sparqlQuery",
         "stepnote": "SELECT_VIOLATIONS",
         "query": {
@@ -155,6 +164,7 @@
       },
 	   {
         "index": 9,
+		"idcode": "R1_T_",
         "commandType": "sparqlQuery",
         "stepnote": "SELECT_SERVICE",
         "comment": "Federated query to an external SPARQL endpoint SERVICE example: first start d2rq-0.8.1>d2r-server mapping-iswc_uri_pdf.ttl)",
@@ -172,6 +182,7 @@
       },
 	   {
         "index": 10,
+		"idcode": "R1_T_",
         "commandType": "sparqlQuery",
         "stepnote": "SELECT_SERVICE",
         "comment": "Federated query to an external SPARQL endpoint SERVICE example: first start d2rq-0.8.1>d2r-server mapping-iswc_uri_pdf.ttl)",

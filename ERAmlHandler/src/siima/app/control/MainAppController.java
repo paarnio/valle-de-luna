@@ -75,13 +75,42 @@ public class MainAppController {
 	}
 
 	
+	public StringBuffer searchCommandJsonString(String idcode, String index, String commandType){
+		//TODO:
+		logger.info("searchCommandJsonString()");
+		StringBuffer sbuf = new StringBuffer();
+		String jsonstr = spinMng.searchCommandJsonString(idcode, index, commandType);
+		//String jsonstr = spinMng.searchCommandJsonString(null,null,"loadKnowledgeBase");
+		//spinMng.searchCommandJsonString("R1_T2_CIM_1",null,null);
+		//spinMng.searchCommandJsonString(null,"2",null);
+		sbuf.append(jsonstr);
+		return sbuf;
+	}
+	
+	public StringBuffer invokeCSMCommandWorkflow(){
+		//TODO: 
+		logger.info("invokeCSMCommandWorkflow() invoking CSMCommand workflow: ");
+		
+		spinMng.setWorkflowResults(new StringBuffer());
+		spinMng.mainInvokeCommandWorkflow();
+		StringBuffer workflowResults = spinMng.getWorkflowResults();
+		System.out.println("-----invokeCSMCommandWorkflow()----\n" + workflowResults.toString());
+		return workflowResults;
+	}
+	
+	
+	
 	public StringBuffer initCommandFileSpinMng(String commandfile){
 		//TODO: 
 		logger.info("initCommandFileSpinMng() reading spin command file: " + commandfile);
 		StringBuffer sbuf = FileUtil.readTextFile("\n", commandfile);
 		
 		spinMng = new CommandFileSpinMng();
-		spinMng.initSpinManager(commandfile);
+		spinMng.mainInitSpinManager(commandfile);
+		spinMng.setWorkflowResults(new StringBuffer());
+		//spinMng.mainInvokeCommandWorkflow();
+		//StringBuffer workflowResults = spinMng.getWorkflowResults();
+		
 		return sbuf;
 	}
 	
