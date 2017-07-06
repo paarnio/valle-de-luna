@@ -55,7 +55,8 @@ public class CommandFileSpinMng {
 	
 	//(2017-07-06) 
 	private Map<String,String> cmdTypeObjectMap;
-	private StringBuffer workflowResults; 
+	private JSONObject targetCSMCommandObject=null;
+	//private StringBuffer workflowResults; 
 	/* =======================================
 	 * 
 	 * CONSTRUCTOR
@@ -74,7 +75,7 @@ public class CommandFileSpinMng {
 		this.altlocs = new ArrayList<String>();
 		this.prefixlines = new ArrayList<String>();
 		//(2017-07-05) 
-		this.workflowResults = new StringBuffer();
+		//this.workflowResults = new StringBuffer();
 		defineCmdTypeObjectMap();
 		
 	}
@@ -927,24 +928,75 @@ public class CommandFileSpinMng {
 		
 	}
 	
-	public String searchCommandJsonString(String idcode, String index, String commandtype){
+	public void updateCSMCommandJsonObject(Map<String,String> fieldKeyDataMap ){
+		
+		if(this.targetCSMCommandObject!=null){
+			
+			this.targetCSMCommandObject.put("index", fieldKeyDataMap.get("index"));
+			this.targetCSMCommandObject.put("idcode", fieldKeyDataMap.get("idcode"));
+			this.targetCSMCommandObject.put("commandType", fieldKeyDataMap.get("commandType"));
+			this.targetCSMCommandObject.put("stepnote", fieldKeyDataMap.get("stepnote"));
+			this.targetCSMCommandObject.put("comment", fieldKeyDataMap.get("comment"));
+			
+			String bodyobjectkey = fieldKeyDataMap.get("bodyobjectkey");
+			if(this.targetCSMCommandObject.containsKey(bodyobjectkey)){
+				String bodycontentstr = fieldKeyDataMap.get(bodyobjectkey);
+				JSONParser parser = new JSONParser();
+				try {
+					JSONObject newbody = (JSONObject) parser.parse(bodycontentstr);
+					this.targetCSMCommandObject.replace(bodyobjectkey, newbody); 
+					
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			}
+			
+			//System.out.println("UPDATED COMMAND:\n" + this.targetCSMCommandObject.toString().replaceAll(",", ",\n"));
+			//JSONObject body =(JSONObject)this.targetCSMCommandObject.get(bodyobjectkey);
+			//System.out.println("UPDATED BODY:\n" + body.toString().replaceAll(",", ",\n"));
+		}
+	}
+	
+	
+	public Map<String,String> searchCSMCommandContent(String idcode, String index, String commandtype){
 		// (2017-07-05) Returning only the first match
 		logger.log(Level.INFO, "searchCommandJsonString()");
+		Map<String,String> fieldKeyDataMap =null;
+				
 		Map<String,String> typeobjectmap= this.getCmdTypeObjectMap();
-		String firstmatch=null;
+		
 		List<JSONObject> matches= searchCommandObject(idcode, index,  commandtype);
 		if((matches!=null)&&(matches.size()>0)){
-			//firstmatch = matches.get(0).toJSONString().replaceAll(",", ",\n");
-			JSONObject firstobject = matches.get(0);
-			firstmatch = firstobject.toString().replaceAll(",", ",\n");
+
+			fieldKeyDataMap = new HashMap<String,String>();
+			JSONObject comobj = matches.get(0);
+			targetCSMCommandObject = comobj;
+			Number indxnum = (Number) comobj.get("index");
+			String indexstr = indxnum.toString();
+			fieldKeyDataMap.put("index", indexstr);
+			String idcodestr = (String) comobj.get("idcode");
+			fieldKeyDataMap.put("idcode", idcodestr);
+			String commandtypestr = (String) comobj.get("commandType");
+			fieldKeyDataMap.put("commandType", commandtypestr);
+			String stepnotestr = (String) comobj.get("stepnote");
+			fieldKeyDataMap.put("stepnote", stepnotestr);
+			String commentstr = (String) comobj.get("comment");
+			fieldKeyDataMap.put("comment", commentstr);
 			
-			String type = (String) firstobject.get("commandType");
-			String bodyobjectname = typeobjectmap.get(type);
-			JSONObject bodyobject = (JSONObject) firstobject.get(bodyobjectname); 
-			System.out.println("\n----------ONE MATCHING COMMAND: type: " + type + " body: " + bodyobjectname);
-			System.out.println("\nCOMMAND: " + bodyobject.toString());
+			String bodyobjectkey = typeobjectmap.get(commandtypestr);
+			fieldKeyDataMap.put("bodyobjectkey", bodyobjectkey);
+			
+			JSONObject bodyobject = (JSONObject) comobj.get(bodyobjectkey);
+			fieldKeyDataMap.put(bodyobjectkey, bodyobject.toString());
+			
+			//System.out.println("\n----------ONE MATCHING COMMAND: type: " + commandtypestr + " body: " + bodyobjectkey);
+			//System.out.println("\nCOMMAND: " + bodyobject.toString());
+			
 		}
-		return firstmatch;
+		return fieldKeyDataMap;
 	}
 	
 	private List<JSONObject> searchCommandObject(String idcode, String index, String commandtype){
@@ -1008,13 +1060,16 @@ public class CommandFileSpinMng {
 	}
 
 	public StringBuffer getWorkflowResults() {
-		//(2017-07-05) 
-		return workflowResults;
+		//(2017-07-05)
+		
+		return mng.getWorkflowResults();
+				
 	}
 
 	public void setWorkflowResults(StringBuffer workflowResults) {
-		//(2017-07-05) 
-		this.workflowResults = workflowResults;
+		//(2017-07-05)
+		 mng.setWorkflowResults(workflowResults);
+		
 	}
 
 	

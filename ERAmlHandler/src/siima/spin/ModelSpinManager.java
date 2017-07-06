@@ -22,6 +22,7 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -102,11 +103,14 @@ public class ModelSpinManager {
 	public Model inferredTriples;
 	public boolean readyToRun = false;
 	public OntModel ontModelWithReasoner;
+	//(2017-07-06)
+	private StringBuffer workflowResults; 
 
 	// Class Constructor
 	public ModelSpinManager() {
 		// Initialize system functions and templates
 		SPINModuleRegistry.get().init();
+		this.workflowResults = new StringBuffer();
 	}
 
 	public Model runConstructors(Model queryModel, Model targetModel){
@@ -118,6 +122,9 @@ public class ModelSpinManager {
 		 * Further, Bell constructor creates a statement: this-created->datetime.
 		 */
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: runConstructors()");
+		this.workflowResults.append("\nWFR:");
+		this.workflowResults.append("Entering: " + getClass().getName() + " method: runConstructors()");
+		
 		SPINConstructors.constructAll(queryModel, targetModel, null);
 		return targetModel;
 	}
@@ -125,6 +132,8 @@ public class ModelSpinManager {
 	public Map<String,RDFNode> addSPLArgumentDeclarationToMap(Map<String,RDFNode> argumentNodeMap, String argName, String argType){
 		/* This method fills argumentNodeMap (argument -> argtype) for new constraint SPL.Arguments to be used for new Template creation */
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: addSPLArgumentDeclarationToMap()");
+		this.workflowResults.append("\nWFR:");
+		this.workflowResults.append("Entering: " + getClass().getName() + " method: addSPLArgumentDeclarationToMap()");
 		RDFNode node=null;
 		
 		
@@ -174,6 +183,8 @@ public class ModelSpinManager {
 		/* This method fills argumentNodeMap (argument -> value) for a Template to be called */		
 		//?? Kumpaa tulisi käyttää RDFNoden luontiin model vai ResourceFactory??
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: addArgumentNodeToMap()");
+		this.workflowResults.append("\nWFR:");
+		this.workflowResults.append("Entering: " + getClass().getName() + " method: addArgumentNodeToMap()");
 		RDFNode node=null;
 		switch(argType){
 		case "lang": node=ResourceFactory.createLangLiteral(literalValue, "en"); break; //TODO: parse from format text@en
@@ -201,6 +212,8 @@ public class ModelSpinManager {
 	
 	public Template getTemplate(String templateName){
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: getTemplate()");
+		this.workflowResults.append("\nWFR:");
+		this.workflowResults.append("Entering: " + getClass().getName() + " method: getTemplate()");
 		Template template=null;
 		Collection<Template> alltemplates = SPINModuleRegistry.get()
 				.getTemplates();
@@ -216,6 +229,8 @@ public class ModelSpinManager {
 	
 	public void printTemplateInfo(String localName, String uri){
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: printTemplateInfo()");
+		this.workflowResults.append("\nWFR:");
+		this.workflowResults.append("Entering: " + getClass().getName() + " method: printTemplateInfo()");
 		Template tpl=null;
 		if((uri==null)&&(localName!=null)){
 			
@@ -228,20 +243,33 @@ public class ModelSpinManager {
 		System.out.println("Template is " + tpl.getLocalName()
 		+ "------- with URI:" + tpl.getURI()
 		+ "\n-------- with comment:" + tpl.getComment());
+		this.workflowResults.append("\nWFR:");
+		this.workflowResults.append("Template is " + tpl.getLocalName()
+		+ "------- with URI:" + tpl.getURI()
+		+ "\n-------- with comment:" + tpl.getComment());
 		
 		System.out.println("Template body " + tpl.getBody());
+		this.workflowResults.append("\nWFR:");
+		this.workflowResults.append("Template body " + tpl.getBody());
 		Map<String, Argument> argumMap = tpl.getArgumentsMap();
 		Set<String> keys=argumMap.keySet();
 		Iterator<String> keyiter=keys.iterator();
 		while(keyiter.hasNext()){
 			System.out.println("Template argument key: " + keyiter.next());
 		}
-		} else System.out.println("???Template NOT FOUND");
+		} else {
+			System.out.println("???Template NOT FOUND");
+			this.workflowResults.append("\nWFR:");
+			this.workflowResults.append("???Template NOT FOUND");
+		}
 	}
 	
 	
 	public Map<String,String> getTemplatesNameUriMap(){
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: getTemplatesNameUriMap()");
+		this.workflowResults.append("\nWFR:");
+		this.workflowResults.append("Entering: " + getClass().getName() + " method: getTemplatesNameUriMap()");
+		
 		Map<String,String> nameUriMap = new HashMap<String,String>();
 		Collection<Template> alltemplates = SPINModuleRegistry.get()
 				.getTemplates();
@@ -256,33 +284,50 @@ public class ModelSpinManager {
 	
 	public Collection<Template> getTemplates() {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: getTemplates()");
+		this.workflowResults.append("\nWFR:");
+		this.workflowResults.append("Entering: " + getClass().getName() + " method: getTemplates()");
 		// ----------Templates
 		Collection<Template> alltemplates = SPINModuleRegistry.get()
 				.getTemplates();
 		Iterator<Template> iter = alltemplates.iterator();
 		System.out
 				.println("\n================ALL MODEL TEMPLATES ================\n");
+		this.workflowResults.append("\nWFR:");
+		this.workflowResults.append("\n================ALL MODEL TEMPLATES ================\n");
+		
 		for (; iter.hasNext();) {
 			Template tpl = iter.next();
 			System.out.println("Template is " + tpl.getLocalName()
 					+ "------- with URI:" + tpl.getURI()
 					+ "\n------- with comment:" + tpl.getComment());
+			this.workflowResults.append("\nWFR:");
+			this.workflowResults.append("Template is " + tpl.getLocalName()
+			+ "------- with URI:" + tpl.getURI()
+			+ "\n------- with comment:" + tpl.getComment());
 		}
 		return alltemplates;
 	}
 
 	public Collection<Function> getFunctions() {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: getFunctions()");
+		this.workflowResults.append("\nWFR:");
+		this.workflowResults.append("Entering: " + getClass().getName() + " method: getFunctions()");
 		// -----------Functions
 		Collection<Function> allfuncs = SPINModuleRegistry.get().getFunctions();
 		Iterator<Function> fiter = allfuncs.iterator();
 		System.out
 				.println("\n================ALL MODEL FUNCTIONS ================\n");
+		this.workflowResults.append("\nWFR:");
+		this.workflowResults.append("\n================ALL MODEL FUNCTIONS ================\n");
 		for (; fiter.hasNext();) {
 			Function fun = fiter.next();
 			System.out.println("Function is " + fun.getLocalName()
 					+ "------- with URI:" + fun.getURI()
 					+ "\n-------- with comment:" + fun.getComment());
+			this.workflowResults.append("\nWFR:\n" + "Function is " + fun.getLocalName()
+			+ "------- with URI:" + fun.getURI()
+			+ "\n-------- with comment:" + fun.getComment());
+			
 		}
 
 		return allfuncs;
@@ -290,6 +335,7 @@ public class ModelSpinManager {
 
 	public OntModel createReasonerModel(Model model) {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: createReasonerModel()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: createReasonerModel()");
 		Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
 		// reasoner = reasoner.bindSchema(ontModel);
 		// Obtain standard OWL-DL spec and attach the Pellet reasoner
@@ -305,6 +351,7 @@ public class ModelSpinManager {
 	public void callTemplateByName(String templateName, 
 			Map<String, RDFNode> argumentNodeMap, String querytype, List<String> queryVars) {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: callTemplateByName()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: callTemplateByName()");
 		// Now call the template
 		Model model=getOntModelWithReasoner();
 		Template template=getTemplate(templateName);
@@ -318,14 +365,21 @@ public class ModelSpinManager {
 			callConstructTemplate(template, model, resultModel, argumentNodeMap);
 			System.out.println("=================CONSTRUCT TEMPLATE RESULTS===============\n");
 			resultModel.write(System.out);
+			this.workflowResults.append("\nWFR:\n" + "=================CONSTRUCT TEMPLATE RESULTS===============\n");
+			StringWriter outstring = new StringWriter();
+			resultModel.write(outstring);
+			this.workflowResults.append("\nWFR:\n" + outstring.toString());
+			
 		} else if("update".equalsIgnoreCase(querytype)){
 			System.out.println("=================CALLING UPDATE TEMPLATE ===============\n");
+			this.workflowResults.append("\nWFR:\n" + "=================CALLING UPDATE TEMPLATE ===============\n");
 			callUpdateTemplate(template, model, model, argumentNodeMap);
 		}
 		//--------------
 		
 		System.out
 				.println("==================================================\n");
+		
 	}
 
 	public void  callUpdateTemplate(Template template, Model queryModel, Model targetModel,
@@ -335,10 +389,13 @@ public class ModelSpinManager {
 				//See: https://groups.google.com/forum/#!topic/topbraid-users/1aDefUKlPnw 
 				//SPINConstructors.java row 226-
 				logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: callUpdateTemplate()");
+				this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: callUpdateTemplate()");
 				if(template!=null){
 				if (template.getBody() instanceof ModifyImpl) {
                     System.out.println("Running update template ["+ template.getLabelTemplate()+"]");
                     System.out.println("Running update template BODY: ["+ template.getBody()+"]");
+                    this.workflowResults.append("\nWFR:\n" + "Running update template ["+ template.getLabelTemplate()+"]");
+                    this.workflowResults.append("\nWFR:\n" + "Running update template BODY: ["+ template.getBody()+"]");
                     
                     UpdateRequest updateRequest = ARQFactory.get().createUpdateRequest((Modify)template.getBody());
                    
@@ -348,6 +405,7 @@ public class ModelSpinManager {
 							RDFNode value = initialBindings.get(varName);
 							bindings.add(varName, value);
 							 System.out.println("varName: " + varName + " value: " + value );
+							 this.workflowResults.append("\nWFR:\n" + "varName: " + varName + " value: " + value );
 						}
 					}
                     
@@ -362,7 +420,10 @@ public class ModelSpinManager {
 					proc.execute();                   
                 
                 }
-				} else { System.out.println("???Template missing: " + template);}
+				} else { 
+					System.out.println("???Template missing: " + template);
+					this.workflowResults.append("\nWFR:\n" + "???Template missing: " + template);
+				}
 				
 		}
 				
@@ -372,6 +433,7 @@ public class ModelSpinManager {
 	Map<String, RDFNode> initialBindings) {
 		//TODO See SPINConstructors.java row 226-
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: callConstructTemplate()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: callConstructTemplate()");
 		// Create query execution
 		org.apache.jena.query.Query arq=null;
 		List<Resource> newResources = new ArrayList<Resource>();
@@ -442,6 +504,7 @@ public class ModelSpinManager {
 	public void callSelectTemplate(Template template, Model model,
 			Map<String, RDFNode> predicateNodeMap, List<String> queryVars) { //String queryVar) {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: callSelectTemplate()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: callSelectTemplate()");
 		// Create query execution
 		org.apache.jena.query.Query arq=null;
 		QueryExecution qexec=null;
@@ -462,6 +525,7 @@ public class ModelSpinManager {
 		while (iter.hasNext()) {
 			String predicateName = iter.next();
 			System.out.println("predicateName: " + predicateName);
+			this.workflowResults.append("\nWFR:\n" + "predicateName: " + predicateName);
 			// Eg. ("predicate",RDF.type)
 			arqBindings.add(predicateName, predicateNodeMap.get(predicateName)); 
 
@@ -472,37 +536,41 @@ public class ModelSpinManager {
 		
 		if(arq.isSelectType()){
 		
-		ResultSet rs = qexec.execSelect();
-		int solcnt=0;
-		System.out
-				.println("============ MyTemplate Query Result ==============");
-		while (rs.hasNext()) {
-			++solcnt;
-			QuerySolution solution=rs.next();
-			for(String qvar: queryVars){
-				if(qvar.startsWith("?")) qvar=qvar.substring(1);
-				RDFNode varunif = solution.get(qvar); //rs.next().get(qvar); // "bicycle");
-				if (varunif != null)
-					System.out.println("(" + solcnt + ") Template Query result: " + qvar + " = "
-						+ varunif);
-				else
-					System.out.println("NO template Query variable result");
+			ResultSet rs = qexec.execSelect();
+			int solcnt = 0;
+			System.out.println("============ MyTemplate Query Result ==============");
+			this.workflowResults.append("\nWFR:\n" + "============ MyTemplate Query Result ==============");
+			while (rs.hasNext()) {
+				++solcnt;
+				QuerySolution solution = rs.next();
+				for (String qvar : queryVars) {
+					if (qvar.startsWith("?"))
+						qvar = qvar.substring(1);
+					RDFNode varunif = solution.get(qvar); // rs.next().get(qvar);
+															// // "bicycle");
+					if (varunif != null) {
+						System.out.println("(" + solcnt + ") Template Query result: " + qvar + " = " + varunif);
+						this.workflowResults.append("\nWFR:\n" + "(" + solcnt + ") Template Query result: " + qvar + " = " + varunif);
+					} else {
+						System.out.println("NO template Query variable result");
+						this.workflowResults.append("\nWFR:\n" + "NO template Query variable result");
+					}
+				}
 			}
-		}
 		} else {
-			//See SPINConstructors.java row 226-
+			// See SPINConstructors.java row 226-
 			System.out.println("Method: callSelectTemplate() ??? WRONG QUERY TYPE: SELECT QUERY EXPECTED ??? ");
-			
+			this.workflowResults.append("\nWFR:\n" + "Method: callSelectTemplate() ??? WRONG QUERY TYPE: SELECT QUERY EXPECTED ??? ");
 		}
-		
-		System.out
-				.println("==================================================\n");
+
+		System.out.println("==================================================\n");
 	}
 
 	public Template createTemplate(Model model, String query,
 			String templateURI, Map<String, RDFNode> argumNodeMap,
 			Map<String, String> argumCommentMap) {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: createTemplate()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: createTemplate()");
 		/*
 		 * See MyModelTemplate.java Ex: valueType: for instance XSD.integer,
 		 * RDF.Property, RDFS.Resource from com.hp.hpl.jena.vocabulary.
@@ -524,7 +592,7 @@ public class ModelSpinManager {
 		while (iter.hasNext()) {
 			String argumentName = iter.next();
 			System.out.println("argumentName: " + argumentName);
-
+			this.workflowResults.append("\nWFR:\n" + "argumentName: " + argumentName);
 			// Define spl:Argument at the template
 			Resource argument = model.createResource(SPL.Argument);
 			argument.addProperty(SPL.predicate,
@@ -544,7 +612,7 @@ public class ModelSpinManager {
 			String query, String templateURI, String argumentName,
 			RDFNode valueType, String argComment) {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: createTemplateWithOneArgument()");
-		
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: createTemplateWithOneArgument()");
 		/*
 		 * See MyModelTemplate.java Ex: valueType: for instance XSD.integer,
 		 * RDF.Property, RDFS.Resource from com.hp.hpl.jena.vocabulary.
@@ -575,6 +643,7 @@ public class ModelSpinManager {
 
 	public List<ConstraintViolation> checkSPINConstraintForResource(Resource resource, Model result) {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: checkSPINConstraintForResource()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: checkSPINConstraintForResource()");
 		// Run constraints on a single instance only
 		List<ConstraintViolation> localCVS = SPINConstraints.check(resource,
 				null);
@@ -586,6 +655,10 @@ public class ModelSpinManager {
 				.println("---Constraint violations for "
 						+ SPINLabels.get().getLabel(resource) + ": #"
 						+ localCVS.size());
+		this.workflowResults.append("\nWFR:\n" + "---Constraint violations for "
+				+ SPINLabels.get().getLabel(resource) + ": #"
+				+ localCVS.size());
+		
 		if (localCVS.size() > 0)
 			//System.out.println("- first Constraint violation for "
 			//		+ SPINLabels.get().getLabel(resource) + ": "
@@ -594,7 +667,11 @@ public class ModelSpinManager {
 			System.out.println(" - at "
 					+ SPINLabels.get().getLabel(cv.getRoot()) + " with msg: '"
 					+ cv.getMessage() + "'");
+			this.workflowResults.append("\nWFR:\n" + " - at "
+					+ SPINLabels.get().getLabel(cv.getRoot()) + " with msg: '"
+					+ cv.getMessage() + "'");
 			System.out.println("---Constraint source query:\n" + cv.getSource());
+			this.workflowResults.append("\nWFR:\n" + "---Constraint source query:\n" + cv.getSource());
 		}
 		
 		return localCVS;
@@ -602,6 +679,7 @@ public class ModelSpinManager {
 
 	public List<ConstraintViolation> checkSPINConstraints(Model result) {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: checkSPINConstraints()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: checkSPINConstraints()");
 		// Run all constraints
 		List<ConstraintViolation> cvs = SPINConstraints.check(
 				this.mainOntModel, null);
@@ -610,26 +688,33 @@ public class ModelSpinManager {
 		
 		// Print results to console
 		System.out.println("---Constraint violations:");
+		this.workflowResults.append("\nWFR:\n" + "---Constraint violations:");
 		for (ConstraintViolation cv : cvs) {
 			System.out.println(" - at "
 					+ SPINLabels.get().getLabel(cv.getRoot()) + " with msg: '"
 					+ cv.getMessage() + "'");
+			this.workflowResults.append("\nWFR:\n" + " - at "
+					+ SPINLabels.get().getLabel(cv.getRoot()) + " with msg: '"
+					+ cv.getMessage() + "'");
 			System.out.println("---Constraint source query:\n" + cv.getSource());
+			this.workflowResults.append("\nWFR:\n" + "---Constraint source query:\n" + cv.getSource());
 		}
 		return cvs;
 	}
 
 	public void runAllSpinInferences(boolean singlePass) {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: runAllSpinInferences()");
+		this.workflowResults
+				.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: runAllSpinInferences()");
 		// Run all inferences (SPIN rules)
 		if (readyToRun) {
-			SPINInferences.run(this.mainOntModel, this.inferredTriples, null,
-					null, singlePass, null);
-			System.out.println("---Inferred triples: "
-					+ this.inferredTriples.size());
-		} else
-			System.out
-					.println("---WARN: Model NOT ready-to-run SPIN inferences");
+			SPINInferences.run(this.mainOntModel, this.inferredTriples, null, null, singlePass, null);
+			System.out.println("---Inferred triples: " + this.inferredTriples.size());
+			this.workflowResults.append("\nWFR:\n" + "---Inferred triples: " + this.inferredTriples.size());
+		} else {
+			System.out.println("---WARN: Model NOT ready-to-run SPIN inferences");
+			this.workflowResults.append("\nWFR:\n" + "---WARN: Model NOT ready-to-run SPIN inferences");
+		}
 	}
 
 	public void registerAllSpin(Model model, String toregister) {
@@ -644,6 +729,7 @@ public class ModelSpinManager {
 		 * that also imports the SPIN system namespaces.
 		 */
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: registerAllSpin()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: registerAllSpin()");
 		
 		if ((toregister == null) || ("all".equalsIgnoreCase(toregister)))
 			SPINModuleRegistry.get().registerAll(this.mainOntModel, null);
@@ -655,6 +741,7 @@ public class ModelSpinManager {
 
 	public OntModel mergeMainModelAndInferredTriples(){
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: mergeMainModelAndInferredTriples()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: mergeMainModelAndInferredTriples()");
 		OntModelSpec ontModelSpec = OntModelSpec.OWL_DL_MEM;
 		
 		OntModel mergedModel = ModelFactory.createOntologyModel(
@@ -670,10 +757,12 @@ public class ModelSpinManager {
 	public void createInferredModelAndRegister() {
 		// Create and add Model for inferred triples
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: createInferredModelAndRegister()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: createInferredModelAndRegister()");
 		
 		if ((this.mainOntModel != null) && (this.inferredTriples == null)) {
 			System.out
 					.println("---Creating inferred sub-model and registering locally defined functions");
+			this.workflowResults.append("\nWFR:\n" + "---Creating inferred sub-model and registering locally defined functions");
 			this.inferredTriples = ModelFactory.createDefaultModel();
 			this.mainOntModel.addSubModel(this.inferredTriples);
 			// Register locally defined functions
@@ -683,15 +772,19 @@ public class ModelSpinManager {
 			SPINModuleRegistry.get().registerAll(this.mainOntModel, null);
 			System.out
 			.println("---SPIN REGISTRING ONLY (this.inferredTriples already created)");
+			this.workflowResults.append("\nWFR:\n" + "---SPIN REGISTRING ONLY (this.inferredTriples already created)");
 			
-		} else if (this.mainOntModel == null)
+		} else if (this.mainOntModel == null){
 			System.out.println("---ERROR: this.mainOntModel==null");
+			this.workflowResults.append("\nWFR:\n" + "---ERROR: this.mainOntModel==null");
+		}
 		
 	}
 
 	
 	public void setNsPrefixes(Map<String,String> prefixMap){
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: setNsPrefixes()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: setNsPrefixes()");
 		if(this.mainOntModel!=null){
 			Set<String> keys=prefixMap.keySet();
 			Iterator keyiter = keys.iterator();
@@ -701,6 +794,7 @@ public class ModelSpinManager {
 				this.mainOntModel.setNsPrefix(key, prefixMap.get(key));
 				++i;
 				System.out.println("===== ("+(i+1)+") PREFIX:" + key + " NS:" + prefixMap.get(key));
+				this.workflowResults.append("\nWFR:\n" + "===== ("+(i+1)+") PREFIX:" + key + " NS:" + prefixMap.get(key));
 			}
 			
 		}
@@ -710,6 +804,7 @@ public class ModelSpinManager {
 	public Map<String,String> getNsPrefixeMap(Model model){
 		//this.mainOntModel
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: getNsPrefixeMap()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: getNsPrefixeMap()");
 		Map<String,String> prefixMap=null;
 		if(model!=null){
 			prefixMap=model.getNsPrefixMap();
@@ -717,10 +812,12 @@ public class ModelSpinManager {
 			Iterator keyiter = keys.iterator();
 			int i=0;
 			System.out.println("\n===== Listing Model Prefixes with Namespaces =====");
+			this.workflowResults.append("\nWFR:\n" + "\n===== Listing Model Prefixes with Namespaces =====");
 			while(keyiter.hasNext()) {
 				String key=(String)keyiter.next();
 				++i;
 				System.out.println("-- ("+(i+1)+") PREFIX:" + key + " NS:" + prefixMap.get(key));
+				this.workflowResults.append("\nWFR:\n" + "-- ("+(i+1)+") PREFIX:" + key + " NS:" + prefixMap.get(key));
 			}			
 		}
 		return prefixMap;
@@ -752,7 +849,9 @@ public class ModelSpinManager {
 		//VPA: 2016-02-14 (Ei onnistunut->: Kokeile tehdä myös importatuista OntModel:ja)
 		/* from MySpinInference.java */
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: loadModelWithImports()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: loadModelWithImports()");
 		System.out.println("---loadModelWithImports()");
+		this.workflowResults.append("\nWFR:\n" + "---loadModelWithImports()");
 
 		for (int i = 0; i < urls.size(); i++) {
 			FileManager.get().getLocationMapper()
@@ -776,6 +875,8 @@ public class ModelSpinManager {
 		System.out
 				.println("loadModelWithImports: loaded basemodel + imports = #"
 						+ urls.size());
+		this.workflowResults.append("\nWFR:\n" + "loadModelWithImports: loaded basemodel + imports = #"
+				+ urls.size());
 		return ontModel;
 	}
 
@@ -804,17 +905,26 @@ public class ModelSpinManager {
 		// Pick the attached spin:query from the class
 		Property spinqueryprop=model.getProperty("http://spinrdf.org/spin#query");
 		if(cls.hasProperty(spinqueryprop)){
-			System.out.println("---- Resource: " + cls.getLocalName() + "has spin:query property");	
+			System.out.println("---- Resource: " + cls.getLocalName() + "has spin:query property");
+			this.workflowResults.append("\nWFR:\n" + "---- Resource: " + cls.getLocalName() + "has spin:query property");
+			
 			StmtIterator stmts=cls.listProperties(spinqueryprop);
 			if(stmts.hasNext()){ // Find only one attached query 
 				Resource res=stmts.next().getResource();
 				org.topbraid.spin.model.Query spinQuery= SPINFactory.asQuery(res);
 				//Select spinQuery = (Select) res;
 				System.out.println("----SPIN QUERY:\n" + spinQuery.toString());
+				this.workflowResults.append("\nWFR:\n" + "----SPIN QUERY:\n" + spinQuery.toString());
+				
 				qstrbuff.append(spinQuery.toString());
 				System.out.println("===== ATTACHED QUERY ======\n" + qstrbuff.toString());
+				this.workflowResults.append("\nWFR:\n" + "===== ATTACHED QUERY ======\n" + qstrbuff.toString());
+				
 				sparqlSelectQuery(model, qstrbuff, queryVars);
-			} else System.out.println("----???? Resource: " + cls.getLocalName() + " DOES NOT have any attached queries (spin:query property)");	
+			} else { 
+				System.out.println("----???? Resource: " + cls.getLocalName() + " DOES NOT have any attached queries (spin:query property)");
+				this.workflowResults.append("\nWFR:\n" + "----???? Resource: " + cls.getLocalName() + " DOES NOT have any attached queries (spin:query property)");
+			}	
 			System.out.println("------------------------------");
 		}
 		
@@ -823,39 +933,56 @@ public class ModelSpinManager {
 	
 	public void sparqlDescribeQuery(OntModel ontModel, Model targetModel, StringBuffer queryStr) {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: sparqlDescribeQuery()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: sparqlDescribeQuery()");
+		
 		Query query = QueryFactory.create(queryStr.toString());
 		QueryExecution qexec = QueryExecutionFactory.create(query, ontModel);
 		Model results = qexec.execDescribe();
 		if(targetModel!=null) targetModel.add(results);
 		System.out.println("---DESCRIBE QUERY:\n " + queryStr.toString());
+		this.workflowResults.append("\nWFR:\n" + "---DESCRIBE QUERY:\n " + queryStr.toString());
 		results.write(System.out, "TURTLE");
+		StringWriter outstring = new StringWriter();
+		results.write(outstring, "TURTLE");
+		this.workflowResults.append("\nWFR:\n" + outstring.toString());
+		
 	}
 	
 	public void sparqlConstructQuery(OntModel ontModel, Model targetModel, StringBuffer queryStr) {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: sparqlConstructQuery()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: sparqlConstructQuery()");
+		
 		Query query = QueryFactory.create(queryStr.toString());
 		QueryExecution qexec = QueryExecutionFactory.create(query, ontModel);
 		Model results = qexec.execConstruct();
 		if(targetModel!=null) targetModel.add(results);
 		System.out.println("---CONSTRUCT QUERY:\n " + queryStr.toString());
+		this.workflowResults.append("\nWFR:\n" + "---CONSTRUCT QUERY:\n " + queryStr.toString());
 		results.write(System.out, "TURTLE");
+		StringWriter outstring = new StringWriter();
+		results.write(outstring, "TURTLE");
+		this.workflowResults.append("\nWFR:\n" + outstring.toString());
 	}
 	
 	public void sparqlUpdateQuery(OntModel ontModel, StringBuffer updateQueryStr) {
 		//See: http://stackoverflow.com/questions/23102507/how-to-update-a-model-with-jena-api-and-sparql-eg-update-value-of-a-node
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: sparqlUpdateQuery()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: sparqlUpdateQuery()");
 		UpdateAction.parseExecute(updateQueryStr.toString(), ontModel) ;
 		System.out.println("---UPDATE QUERY:\n " + updateQueryStr.toString());
+		this.workflowResults.append("\nWFR:\n" + "---UPDATE QUERY:\n " + updateQueryStr.toString());
 	}
 	
 	public void sparqlSelectQuery(OntModel ontModel, StringBuffer queryStr,
 			List<String> queryVars) { //String queryVar) {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: sparqlQuery()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: sparqlQuery()");
 		System.out.println("---sparqlQuery()");
 		Query query = QueryFactory.create(queryStr.toString());
 		QueryExecution qexec = QueryExecutionFactory.create(query, ontModel);
 		System.out
 		.println("============ Sparql SELECT Query Results ==============");
+		this.workflowResults.append("\nWFR:\n" + "============ Sparql SELECT Query Results ==============");
 		int cnt = 0;
 		try {
 			ResultSet response = qexec.execSelect();
@@ -866,11 +993,14 @@ public class ModelSpinManager {
 				for(String qvar: queryVars){
 					//if(qvar.startsWith("?")) qvar=qvar.substring(1); // Do we need this??			
 					RDFNode varunif = solution.get(qvar); // "?acc");
-					if (varunif != null)
-						System.out.println("(" + cnt + ") Select Query result: " + qvar + " = "
-							+ varunif);
-					else
+					if (varunif != null){
+						System.out.println("(" + cnt + ") Select Query result: " + qvar + " = "	+ varunif);
+						this.workflowResults.append("\nWFR:\n" + "(" + cnt + ") Select Query result: " + qvar + " = " + varunif);
+					}
+					else {
 						System.out.println("NO Select Query variable result");
+						this.workflowResults.append("\nWFR:\n" + "NO Select Query variable result");
+					}
 				}
 			}
 
@@ -878,6 +1008,7 @@ public class ModelSpinManager {
 			qexec.close();
 		}
 		System.out.println("sparqlQuery: result rows #" + cnt);
+		this.workflowResults.append("\nWFR:\n" + "sparqlQuery: result rows #" + cnt);
 
 	}
 
@@ -1069,4 +1200,13 @@ public class ModelSpinManager {
 		this.inferredTriples = inferredTriples;
 	}
 
+	public StringBuffer getWorkflowResults() {
+		return workflowResults;
+	}
+
+	public void setWorkflowResults(StringBuffer workflowResults) {
+		this.workflowResults = workflowResults;
+	}
+
+	
 }

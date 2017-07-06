@@ -114,6 +114,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JButton btnSearchCommandButton;
 	private  JTextArea oneJsonCommandTextArea;
 	private JButton btnUpdateCSMCommandButton;
+	private Map<String,JTextField> dataDisplayMap;
 	//protected JLabel actionLabel;
 	
 	/**
@@ -463,10 +464,10 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		JPanel rightTopRightPanel = new JPanel();
 		rightTopVerticalSplitPane.setRightComponent(rightTopRightPanel);
 		GridBagLayout gbl_right_top_right_panel = new GridBagLayout();
-		gbl_right_top_right_panel.columnWidths = new int[] {5, 100, 10, 0};
-		gbl_right_top_right_panel.rowHeights = new int[] {5, 20, 30, 60, 5, 0};
-		gbl_right_top_right_panel.columnWeights = new double[]{0.1, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_right_top_right_panel.rowWeights = new double[]{0.1, 0.2, 0.3, 0.6, 0.1, Double.MIN_VALUE};
+		gbl_right_top_right_panel.columnWidths = new int[] {1, 100, 10, 0};
+		gbl_right_top_right_panel.rowHeights = new int[] {1, 20, 30, 60, 5, 0};
+		gbl_right_top_right_panel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_right_top_right_panel.rowWeights = new double[]{0.0, 0.2, 0.3, 0.6, 0.1, Double.MIN_VALUE};
 		rightTopRightPanel.setLayout(gbl_right_top_right_panel);
 		
 		/* TextFields for Search CSMCommand 
@@ -507,9 +508,19 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				String index = textField2.getText();
 				String commandType = textField3.getText();
 				
-				StringBuffer commandjson = appControl.searchCommandJsonString(idcode, index, commandType);
-				//bottomLeftTextArea.setText(info);
-				oneJsonCommandTextArea.setText(commandjson.toString());
+				// fieldKeyDataMap Map filled in CommandFileSpinMng class searchCSMCommandContent() method
+				Map<String,String> fieldKeyDataMap = appControl.searchCSMCommandContent(idcode, index, commandType);
+				// dataDisplayMap Map filled in this class below
+				//textFieldKey11
+				dataDisplayMap.get("idcode").setText(fieldKeyDataMap.get("idcode"));
+				dataDisplayMap.get("index").setText(fieldKeyDataMap.get("index"));
+				dataDisplayMap.get("commandType").setText(fieldKeyDataMap.get("commandType"));
+				dataDisplayMap.get("stepnote").setText(fieldKeyDataMap.get("stepnote"));
+				dataDisplayMap.get("comment").setText(fieldKeyDataMap.get("comment"));
+				dataDisplayMap.get("bodyobjectkey").setText(fieldKeyDataMap.get("bodyobjectkey"));
+				String bodyobjectContent = fieldKeyDataMap.get(fieldKeyDataMap.get("bodyobjectkey"));
+
+				oneJsonCommandTextArea.setText(bodyobjectContent.replaceAll(",", ",\n"));
 				oneJsonCommandTextArea.setCaretPosition(0);
 				System.out.println("TODO: SEARCH BUTTON PRESSED......");
 				btnUpdateCSMCommandButton.setEnabled(true);
@@ -533,7 +544,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         textSearchPanel.add(btnSearchCommandButton, c); //(actionLabel, c);
         textSearchPanel.setBorder(
                 BorderFactory.createCompoundBorder(
-                                BorderFactory.createTitledBorder("Search CSMCommand"), //"Text Fields"),
+                                BorderFactory.createTitledBorder("CSMCommand Search"), //"Text Fields"),
                                 BorderFactory.createEmptyBorder(5,5,5,5)));
 		
 		//MY ADD
@@ -549,53 +560,53 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 * See: https://docs.oracle.com/javase/tutorial/uiswing/components/editorpane.html
 		 **/
         //NOTE: DO NOT CHANGE, because these strings are used also as dataDisplayMap keys
-		String textFieldString11 = "idcode"; //"TextField11";
-		String textFieldString12 = "index"; //"TextField12";
-		String textFieldString13 = "commandType"; //"TextField13";
-		String textFieldString14 = "stepnote"; //"TextField14";
-		String textFieldString15 = "comment"; //"TextField15";
-		String textFieldString16 = "aux"; //"TextField16";
+		String textFieldKey11 = "idcode"; //"TextField11";
+		String textFieldKey12 = "index"; //"TextField12";
+		String textFieldKey13 = "commandType"; //"TextField13";
+		String textFieldKey14 = "stepnote"; //"TextField14";
+		String textFieldKey15 = "comment"; //"TextField15";
+		String textFieldKey16 = "bodyobjectkey"; //"TextField16";
 		
 		//Create a regular text field.
         textField11 = new JTextField(10); //index
-        textField11.setActionCommand(textFieldString11);
+        textField11.setActionCommand(textFieldKey11);
         //textField11.addActionListener(this);
         textField12 = new JTextField(10); //idcode
-        textField12.setActionCommand(textFieldString12);
+        textField12.setActionCommand(textFieldKey12);
         //textField12.addActionListener(this);
         textField13 = new JTextField(10); //commandType
-        textField13.setActionCommand(textFieldString13);
+        textField13.setActionCommand(textFieldKey13);
         //textField13.addActionListener(this);
         textField14 = new JTextField(10); //index
-        textField14.setActionCommand(textFieldString14);
+        textField14.setActionCommand(textFieldKey14);
         //textField14.addActionListener(this);
         textField15 = new JTextField(10); //idcode
-        textField15.setActionCommand(textFieldString15);
+        textField15.setActionCommand(textFieldKey15);
         //textField15.addActionListener(this);
         textField16 = new JTextField(10); //commandType
-        textField16.setActionCommand(textFieldString16);
+        textField16.setActionCommand(textFieldKey16);
         //textField16.addActionListener(this);
         
-        Map<String,JTextField> dataDisplayMap = new HashMap<String,JTextField>();
-        dataDisplayMap.put(textFieldString11, textField11);
-        dataDisplayMap.put(textFieldString12, textField12);
-        dataDisplayMap.put(textFieldString13, textField13);
-        dataDisplayMap.put(textFieldString14, textField14);
-        dataDisplayMap.put(textFieldString15, textField15);
-        dataDisplayMap.put(textFieldString16, textField16);
+        dataDisplayMap = new HashMap<String,JTextField>();
+        dataDisplayMap.put(textFieldKey11, textField11);
+        dataDisplayMap.put(textFieldKey12, textField12);
+        dataDisplayMap.put(textFieldKey13, textField13);
+        dataDisplayMap.put(textFieldKey14, textField14);
+        dataDisplayMap.put(textFieldKey15, textField15);
+        dataDisplayMap.put(textFieldKey16, textField16);
         
         //Create some labels for the fields.
-        JLabel textFieldLabel11 = new JLabel(textFieldString11 + ": ");
+        JLabel textFieldLabel11 = new JLabel(textFieldKey11 + ": ");
         textFieldLabel1.setLabelFor(textField11);
-        JLabel textFieldLabel12 = new JLabel(textFieldString12 + ": ");
+        JLabel textFieldLabel12 = new JLabel(textFieldKey12 + ": ");
         textFieldLabel2.setLabelFor(textField12);
-        JLabel textFieldLabel13 = new JLabel(textFieldString13 + ": ");
+        JLabel textFieldLabel13 = new JLabel(textFieldKey13 + ": ");
         textFieldLabel3.setLabelFor(textField13);
-        JLabel textFieldLabel14 = new JLabel(textFieldString14 + ": ");
+        JLabel textFieldLabel14 = new JLabel(textFieldKey14 + ": ");
         textFieldLabel1.setLabelFor(textField14);
-        JLabel textFieldLabel15 = new JLabel(textFieldString15 + ": ");
+        JLabel textFieldLabel15 = new JLabel(textFieldKey15 + ": ");
         textFieldLabel2.setLabelFor(textField15);
-        JLabel textFieldLabel16 = new JLabel(textFieldString16 + ": ");
+        JLabel textFieldLabel16 = new JLabel(textFieldKey16 + ": ");
         textFieldLabel3.setLabelFor(textField16);
         
       //Layout the search panel and the labels.
@@ -611,7 +622,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         
         textCSMCommandPanel.setBorder(
                 BorderFactory.createCompoundBorder(
-                                BorderFactory.createTitledBorder("CSMCommand Metainfo"), 
+                                BorderFactory.createTitledBorder("CSMCommand"), 
                                 BorderFactory.createEmptyBorder(5,5,5,5)));
 		
 		//MY ADD
@@ -638,13 +649,14 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         areaScrollPane.setVerticalScrollBarPolicy(
                         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         areaScrollPane.setPreferredSize(new Dimension(250, 300));
+        /* TEMP
         areaScrollPane.setBorder(
             BorderFactory.createCompoundBorder(
                 BorderFactory.createCompoundBorder(
                                 BorderFactory.createTitledBorder("CSMCommand Body"),
                                 BorderFactory.createEmptyBorder(5,5,5,5)),
                 areaScrollPane.getBorder()));
-        
+         TEMP */
       //MY ADD
         GridBagConstraints gbc_areaScrollPane = new GridBagConstraints();
         gbc_areaScrollPane.insets = new Insets(0, 0, 0, 0);
@@ -653,13 +665,25 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         gbc_areaScrollPane.gridy = 3;
 		
         rightTopRightPanel.add(areaScrollPane, gbc_areaScrollPane);
-        
+       
         btnUpdateCSMCommandButton = new JButton("Update");
         btnUpdateCSMCommandButton.setEnabled(false);
         btnUpdateCSMCommandButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
+			public void actionPerformed(ActionEvent arg0) {				
 				System.out.println("TODO: UPDATE BUTTON PRESSED......");
+				Map<String,String> fieldKeyDataMap = new HashMap<String,String>();
+				
+				fieldKeyDataMap.put("idcode", dataDisplayMap.get("idcode").getText()); //fieldKeyDataMap.get("idcode"));
+				fieldKeyDataMap.put("index", dataDisplayMap.get("index").getText()); //.setText(fieldKeyDataMap.get("index"));
+				fieldKeyDataMap.put("commandType", dataDisplayMap.get("commandType").getText()); //.setText(fieldKeyDataMap.get("commandType"));
+				fieldKeyDataMap.put("stepnote", dataDisplayMap.get("stepnote").getText()); //.setText(fieldKeyDataMap.get("stepnote"));
+				fieldKeyDataMap.put("comment", dataDisplayMap.get("comment").getText()); //.setText(fieldKeyDataMap.get("comment"));
+				
+				fieldKeyDataMap.put("bodyobjectkey", dataDisplayMap.get("bodyobjectkey").getText()); //.setText(fieldKeyDataMap.get("bodyobjectkey"));
+				String bodyobject = dataDisplayMap.get("bodyobjectkey").getText();
+				fieldKeyDataMap.put(bodyobject, oneJsonCommandTextArea.getText());
+										
+				appControl.updateCSMCommandJsonObject(fieldKeyDataMap );
 			}
 		});
         
@@ -789,6 +813,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			txtrResultOutput.setText(null); // CLear old text
 			txtrResultOutput.append(resultbuf.toString() + newline);
 			txtrResultOutput.setCaretPosition(0); //txtrResultOutput.getText().length());
+			bottomRightTabbedPane.setEnabledAt(1, true);
 			
 		} else if (arg0.getSource() == mntmLoadSpinCommands) {
 			fileChooser.setDialogTitle("LOAD SPIN COMMAND FILE");
@@ -808,7 +833,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				txtrSpinCommandFileOutput.setText(null); // CLear old text
 				txtrSpinCommandFileOutput.append(sbuf.toString() + newline);
 				txtrSpinCommandFileOutput.setCaretPosition(0);
-				
+				bottomRightTabbedPane.setEnabledAt(2, true);
 				btnSearchCommandButton.setEnabled(true);
 			} else {
 				System.out.println("Frame: No SPIN COMMAND File Selected!");
@@ -846,6 +871,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			txtrResultOutput.setText(null); // CLear old text
 			txtrResultOutput.append(serialized + newline);
 			txtrResultOutput.setCaretPosition(txtrResultOutput.getText().length());
+			bottomRightTabbedPane.setEnabledAt(1, true);
 			
 		} if (arg0.getSource() == mntmSaveOntologyModel) {
 			fileChooser.setDialogTitle("SAVE CAEX SOURCE ONTOLOGY MODEL TO FILE (.ttl, .owl)");
@@ -980,6 +1006,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			txtrResultOutput.setText(null); // CLear old text
 			txtrResultOutput.append(serialized + newline);
 			txtrResultOutput.setCaretPosition(txtrResultOutput.getText().length());
+			bottomRightTabbedPane.setEnabledAt(1, true);
 	
 		} else if (arg0.getSource() == mntmInvokeTransform) {
 				appControl.invokeXslContextTransform();
@@ -1093,6 +1120,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 					txtrResultOutput.append(strmodels.toString() + newline);
 				else txtrResultOutput.append("ASP RESULT MODELS: null");
 				txtrResultOutput.setCaretPosition(txtrResultOutput.getText().length());
+				bottomRightTabbedPane.setEnabledAt(1, true);
 
 		} else if (arg0.getSource() == mntmLoadRules) {
 			fileChooser.setDialogTitle("LOAD ASP RULE AND FACT FILES");

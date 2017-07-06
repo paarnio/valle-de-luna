@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.event.TreeSelectionListener;
@@ -74,17 +75,23 @@ public class MainAppController {
 			viewFrame.setEraProjectHomeDirectory(lastproject);
 	}
 
+	public void updateCSMCommandJsonObject(Map<String,String> fieldKeyDataMap ){
+		
+		spinMng.updateCSMCommandJsonObject(fieldKeyDataMap);
+		
+	}
 	
-	public StringBuffer searchCommandJsonString(String idcode, String index, String commandType){
+	public Map<String,String> searchCSMCommandContent(String idcode, String index, String commandType){
 		//TODO:
 		logger.info("searchCommandJsonString()");
-		StringBuffer sbuf = new StringBuffer();
-		String jsonstr = spinMng.searchCommandJsonString(idcode, index, commandType);
+			
+		//StringBuffer sbuf = new StringBuffer();
+		Map<String,String> fieldKeyDataMap = spinMng.searchCSMCommandContent(idcode, index, commandType);
 		//String jsonstr = spinMng.searchCommandJsonString(null,null,"loadKnowledgeBase");
 		//spinMng.searchCommandJsonString("R1_T2_CIM_1",null,null);
 		//spinMng.searchCommandJsonString(null,"2",null);
-		sbuf.append(jsonstr);
-		return sbuf;
+		//sbuf.append(jsonstr);
+		return fieldKeyDataMap;
 	}
 	
 	public StringBuffer invokeCSMCommandWorkflow(){
@@ -94,7 +101,7 @@ public class MainAppController {
 		spinMng.setWorkflowResults(new StringBuffer());
 		spinMng.mainInvokeCommandWorkflow();
 		StringBuffer workflowResults = spinMng.getWorkflowResults();
-		System.out.println("-----invokeCSMCommandWorkflow()----\n" + workflowResults.toString());
+		//System.out.println("-----invokeCSMCommandWorkflow()----\n" + workflowResults.toString());
 		return workflowResults;
 	}
 	
