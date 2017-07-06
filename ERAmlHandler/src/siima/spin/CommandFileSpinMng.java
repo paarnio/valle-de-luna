@@ -53,8 +53,9 @@ public class CommandFileSpinMng {
 	public boolean prefixlinesfilled = false;
 	public boolean kb_loaded = false;
 	
-	//(2017-07-05) System.out replaced for StringBuffer
-	private StringBuffer workflowResults;
+	//(2017-07-06) 
+	private Map<String,String> cmdTypeObjectMap;
+	private StringBuffer workflowResults; 
 	/* =======================================
 	 * 
 	 * CONSTRUCTOR
@@ -72,8 +73,9 @@ public class CommandFileSpinMng {
 		this.urls = new ArrayList<String>();
 		this.altlocs = new ArrayList<String>();
 		this.prefixlines = new ArrayList<String>();
-		//(2017-07-05) System.out replaced for StringBuffer
+		//(2017-07-05) 
 		this.workflowResults = new StringBuffer();
+		defineCmdTypeObjectMap();
 		
 	}
 
@@ -838,7 +840,7 @@ public class CommandFileSpinMng {
 	}
 
 	public void mainInitSpinManager(String json_commandFile) {
-		// copied from the orig main method
+		//(2017-07-05) copied from the orig main method
 		boolean kb_loaded = false;
 		StringBuffer strbuff = new StringBuffer();
 		StringBuffer stepnotebuffer = new StringBuffer();
@@ -866,7 +868,7 @@ public class CommandFileSpinMng {
 	
 	
 	public void mainInvokeCommandWorkflow(){
-		// copied from the orig main method
+		// (2017-07-05) copied from the orig main method
 		boolean kb_loaded = false;
 		StringBuffer strbuff = new StringBuffer();
 		StringBuffer stepnotebuffer = new StringBuffer();
@@ -926,19 +928,27 @@ public class CommandFileSpinMng {
 	}
 	
 	public String searchCommandJsonString(String idcode, String index, String commandtype){
-		//Returning only the first match
+		// (2017-07-05) Returning only the first match
 		logger.log(Level.INFO, "searchCommandJsonString()");
+		Map<String,String> typeobjectmap= this.getCmdTypeObjectMap();
 		String firstmatch=null;
 		List<JSONObject> matches= searchCommandObject(idcode, index,  commandtype);
 		if((matches!=null)&&(matches.size()>0)){
-			firstmatch = matches.get(0).toJSONString().replaceAll(",", ",\n");
-			//System.out.println("\nONE MATCHING COMMAND: " + firstmatch);	
+			//firstmatch = matches.get(0).toJSONString().replaceAll(",", ",\n");
+			JSONObject firstobject = matches.get(0);
+			firstmatch = firstobject.toString().replaceAll(",", ",\n");
+			
+			String type = (String) firstobject.get("commandType");
+			String bodyobjectname = typeobjectmap.get(type);
+			JSONObject bodyobject = (JSONObject) firstobject.get(bodyobjectname); 
+			System.out.println("\n----------ONE MATCHING COMMAND: type: " + type + " body: " + bodyobjectname);
+			System.out.println("\nCOMMAND: " + bodyobject.toString());
 		}
 		return firstmatch;
 	}
 	
 	private List<JSONObject> searchCommandObject(String idcode, String index, String commandtype){
-		
+		//(2017-07-05) 
 		JSONArray commands = (JSONArray) jsonrootobj.get("CSMCommands");
 		List<JSONObject> matches = new ArrayList<JSONObject>();
 		
@@ -950,8 +960,8 @@ public class CommandFileSpinMng {
 				String indx = indxnum.toString();
 				String id = (String) comobj.get("idcode");
 				String type = (String) comobj.get("commandType");
-				//System.out.println("(id; indx; type)(" + id + ";" + indx+ ";" + type + ")");	
-				
+				//System.out.println("(id; indx; type)(" + id + ";" + indx+ ";" + type + ")");
+								
 				if((idcode!=null)&&(!idcode.isEmpty())&&(id!=null)&&((idcode.equalsIgnoreCase(id))||(id.startsWith(idcode)))){
 					matches.add(comobj);
 				} else if((index!=null)&&(index.equalsIgnoreCase(indx))){
@@ -968,7 +978,45 @@ public class CommandFileSpinMng {
 		return matches;
 	}
 	
+	private void defineCmdTypeObjectMap(){
+		//This mapping should comply with that used in runCMSCommand()
+		//and in different command execution methods.
+		
+		cmdTypeObjectMap = new HashMap<String,String>();
+		
+		cmdTypeObjectMap.put("loadKnowledgeBase", "knowledgeBase");
+		cmdTypeObjectMap.put("createInferenceModel", "create");
+		cmdTypeObjectMap.put("runInferences", "inference");
+		cmdTypeObjectMap.put("createNewTemplate", "template");
+		cmdTypeObjectMap.put("templateCall", "template");
+		cmdTypeObjectMap.put("sparqlQuery", "query");
+		cmdTypeObjectMap.put("execAttachedQuery", "query");
+		cmdTypeObjectMap.put("runSpinConstructors", "constructors");
+		cmdTypeObjectMap.put("checkConstraints", "constraints");
+		cmdTypeObjectMap.put("writeModel", "write");
+		cmdTypeObjectMap.put("listTemplates", "listing");
+		cmdTypeObjectMap.put("listFunctions", "listing");
+		cmdTypeObjectMap.put("listNsPrefixes", "listing");
+		cmdTypeObjectMap.put("userinput", "userprompt");
+				
+		
+	}
 	
+	
+	public Map<String, String> getCmdTypeObjectMap() {
+		return cmdTypeObjectMap;
+	}
+
+	public StringBuffer getWorkflowResults() {
+		//(2017-07-05) 
+		return workflowResults;
+	}
+
+	public void setWorkflowResults(StringBuffer workflowResults) {
+		//(2017-07-05) 
+		this.workflowResults = workflowResults;
+	}
+
 	
 	
 	/*
@@ -979,14 +1027,7 @@ public class CommandFileSpinMng {
 	 * =======================================
 	 */
 	
-	public StringBuffer getWorkflowResults() {
-		return workflowResults;
-	}
-
-	public void setWorkflowResults(StringBuffer workflowResults) {
-		this.workflowResults = workflowResults;
-	}
-
+	
 	public static void main(String[] args) {
 
 		CommandFileSpinMng csm = new CommandFileSpinMng();

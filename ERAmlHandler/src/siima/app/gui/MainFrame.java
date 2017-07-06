@@ -35,7 +35,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -97,9 +99,17 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JRadioButtonMenuItem rbMenuItem5;
 	private JRadioButtonMenuItem rbMenuItem6;
 	
+	//For Search CSMCommand block
 	private JTextField textField1;
 	private JTextField textField2;
 	private JTextField textField3;
+	//For found CSMCommand block
+	private JTextField textField11;
+	private JTextField textField12;
+	private JTextField textField13;
+	private JTextField textField14;
+	private JTextField textField15;
+	private JTextField textField16;
 	
 	private JButton btnSearchCommandButton;
 	private  JTextArea oneJsonCommandTextArea;
@@ -447,22 +457,24 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		JPanel rightTopLeftPanel = new JPanel();
 		rightTopVerticalSplitPane.setLeftComponent(rightTopLeftPanel);
 		
-		/* ==== Right top_right_panel ==== */
+		/* =============================== 
+		 * 		Right top_right_panel 
+		 * =============================== */
 		JPanel rightTopRightPanel = new JPanel();
 		rightTopVerticalSplitPane.setRightComponent(rightTopRightPanel);
 		GridBagLayout gbl_right_top_right_panel = new GridBagLayout();
 		gbl_right_top_right_panel.columnWidths = new int[] {5, 100, 10, 0};
-		gbl_right_top_right_panel.rowHeights = new int[] {5, 40, 80, 10, 0};
+		gbl_right_top_right_panel.rowHeights = new int[] {5, 20, 30, 60, 5, 0};
 		gbl_right_top_right_panel.columnWeights = new double[]{0.1, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_right_top_right_panel.rowWeights = new double[]{0.1, 0.4, 0.6, 0.1, Double.MIN_VALUE};
+		gbl_right_top_right_panel.rowWeights = new double[]{0.1, 0.2, 0.3, 0.6, 0.1, Double.MIN_VALUE};
 		rightTopRightPanel.setLayout(gbl_right_top_right_panel);
 		
-		/* TextFields TODO:OOOOOOOOOOOOOOOOOO: 
+		/* TextFields for Search CSMCommand 
 		 * See: https://docs.oracle.com/javase/tutorial/uiswing/components/editorpane.html
 		 * */
-		String textFieldString1 = "Idcode"; //"TextField1";
-		String textFieldString2 = "Index"; //"TextField2";
-		String textFieldString3 = "CmdType"; //"TextField3";
+		String textFieldString1 = "S_idcode"; //"TextField1";
+		String textFieldString2 = "S_index"; //"TextField2";
+		String textFieldString3 = "S_commandType"; //"TextField3";
 		
 		//Create a regular text field.
         textField1 = new JTextField(10); //index
@@ -504,36 +516,115 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			}
 		});
         
-		//Lay out the text controls and the labels.
-        JPanel textControlsPane = new JPanel();
+		//Layout the search panel and the labels.
+        JPanel textSearchPanel = new JPanel();
         GridBagLayout gridbag = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
  
-        textControlsPane.setLayout(gridbag);
+        textSearchPanel.setLayout(gridbag);
  
         JLabel[] labels = {textFieldLabel1, textFieldLabel2, textFieldLabel3};
         JTextField[] textFields = {textField1, textField2, textField3};
-        addLabelTextRows(labels, textFields, gridbag, textControlsPane);
+        addLabelTextRows(labels, textFields, gridbag, textSearchPanel);
  
         c.gridwidth = GridBagConstraints.REMAINDER; //last
         c.anchor = GridBagConstraints.CENTER;
         c.weightx = 1.0;
-        textControlsPane.add(btnSearchCommandButton, c); //(actionLabel, c);
-        textControlsPane.setBorder(
+        textSearchPanel.add(btnSearchCommandButton, c); //(actionLabel, c);
+        textSearchPanel.setBorder(
                 BorderFactory.createCompoundBorder(
                                 BorderFactory.createTitledBorder("Search CSMCommand"), //"Text Fields"),
                                 BorderFactory.createEmptyBorder(5,5,5,5)));
 		
 		//MY ADD
-        GridBagConstraints gbc_textControlsPane = new GridBagConstraints();
-        gbc_textControlsPane.insets = new Insets(0, 0, 5, 0);
-        gbc_textControlsPane.fill = GridBagConstraints.BOTH;
-        gbc_textControlsPane.gridx = 1;
-        gbc_textControlsPane.gridy = 1;
+        GridBagConstraints gbc_textSearchPanel = new GridBagConstraints();
+        gbc_textSearchPanel.insets = new Insets(0, 0, 0, 0);
+        gbc_textSearchPanel.fill = GridBagConstraints.BOTH;
+        gbc_textSearchPanel.gridx = 1;
+        gbc_textSearchPanel.gridy = 1;
 		
-        rightTopRightPanel.add(textControlsPane, gbc_textControlsPane);
+        rightTopRightPanel.add(textSearchPanel, gbc_textSearchPanel);
         
-        //Create a text area.
+    	/* TextFields for one found CSMCommand content info 
+		 * See: https://docs.oracle.com/javase/tutorial/uiswing/components/editorpane.html
+		 **/
+        //NOTE: DO NOT CHANGE, because these strings are used also as dataDisplayMap keys
+		String textFieldString11 = "idcode"; //"TextField11";
+		String textFieldString12 = "index"; //"TextField12";
+		String textFieldString13 = "commandType"; //"TextField13";
+		String textFieldString14 = "stepnote"; //"TextField14";
+		String textFieldString15 = "comment"; //"TextField15";
+		String textFieldString16 = "aux"; //"TextField16";
+		
+		//Create a regular text field.
+        textField11 = new JTextField(10); //index
+        textField11.setActionCommand(textFieldString11);
+        //textField11.addActionListener(this);
+        textField12 = new JTextField(10); //idcode
+        textField12.setActionCommand(textFieldString12);
+        //textField12.addActionListener(this);
+        textField13 = new JTextField(10); //commandType
+        textField13.setActionCommand(textFieldString13);
+        //textField13.addActionListener(this);
+        textField14 = new JTextField(10); //index
+        textField14.setActionCommand(textFieldString14);
+        //textField14.addActionListener(this);
+        textField15 = new JTextField(10); //idcode
+        textField15.setActionCommand(textFieldString15);
+        //textField15.addActionListener(this);
+        textField16 = new JTextField(10); //commandType
+        textField16.setActionCommand(textFieldString16);
+        //textField16.addActionListener(this);
+        
+        Map<String,JTextField> dataDisplayMap = new HashMap<String,JTextField>();
+        dataDisplayMap.put(textFieldString11, textField11);
+        dataDisplayMap.put(textFieldString12, textField12);
+        dataDisplayMap.put(textFieldString13, textField13);
+        dataDisplayMap.put(textFieldString14, textField14);
+        dataDisplayMap.put(textFieldString15, textField15);
+        dataDisplayMap.put(textFieldString16, textField16);
+        
+        //Create some labels for the fields.
+        JLabel textFieldLabel11 = new JLabel(textFieldString11 + ": ");
+        textFieldLabel1.setLabelFor(textField11);
+        JLabel textFieldLabel12 = new JLabel(textFieldString12 + ": ");
+        textFieldLabel2.setLabelFor(textField12);
+        JLabel textFieldLabel13 = new JLabel(textFieldString13 + ": ");
+        textFieldLabel3.setLabelFor(textField13);
+        JLabel textFieldLabel14 = new JLabel(textFieldString14 + ": ");
+        textFieldLabel1.setLabelFor(textField14);
+        JLabel textFieldLabel15 = new JLabel(textFieldString15 + ": ");
+        textFieldLabel2.setLabelFor(textField15);
+        JLabel textFieldLabel16 = new JLabel(textFieldString16 + ": ");
+        textFieldLabel3.setLabelFor(textField16);
+        
+      //Layout the search panel and the labels.
+        JPanel textCSMCommandPanel = new JPanel();
+        //GridBagLayout gridbag = new GridBagLayout();
+        //GridBagConstraints c = new GridBagConstraints();
+ 
+        textCSMCommandPanel.setLayout(gridbag);
+ 
+        JLabel[] comlabels = {textFieldLabel11, textFieldLabel12, textFieldLabel13, textFieldLabel14, textFieldLabel15, textFieldLabel16};
+        JTextField[] comtextFields = {textField11, textField12, textField13, textField14, textField15, textField16};
+        addLabelTextRows(comlabels, comtextFields, gridbag, textCSMCommandPanel);
+        
+        textCSMCommandPanel.setBorder(
+                BorderFactory.createCompoundBorder(
+                                BorderFactory.createTitledBorder("CSMCommand Metainfo"), 
+                                BorderFactory.createEmptyBorder(5,5,5,5)));
+		
+		//MY ADD
+        GridBagConstraints gbc_textCSMCommandPanel = new GridBagConstraints();
+        gbc_textCSMCommandPanel.insets = new Insets(0, 0, 0, 0); //(0, 0, 5, 0);
+        gbc_textCSMCommandPanel.fill = GridBagConstraints.BOTH;
+        gbc_textCSMCommandPanel.gridx = 1;
+        gbc_textCSMCommandPanel.gridy = 2;
+		
+        rightTopRightPanel.add(textCSMCommandPanel, gbc_textCSMCommandPanel);
+        
+        
+        //Create a JTextArea for CSMCommand body object.
         oneJsonCommandTextArea = new JTextArea(
                 "This is an editable JTextArea. " +
                 "A text area is a \"plain\" text component, " +
@@ -546,20 +637,20 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         JScrollPane areaScrollPane = new JScrollPane(oneJsonCommandTextArea);
         areaScrollPane.setVerticalScrollBarPolicy(
                         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        areaScrollPane.setPreferredSize(new Dimension(250, 250));
+        areaScrollPane.setPreferredSize(new Dimension(250, 300));
         areaScrollPane.setBorder(
             BorderFactory.createCompoundBorder(
                 BorderFactory.createCompoundBorder(
-                                BorderFactory.createTitledBorder("CSMCommand"),
+                                BorderFactory.createTitledBorder("CSMCommand Body"),
                                 BorderFactory.createEmptyBorder(5,5,5,5)),
                 areaScrollPane.getBorder()));
         
       //MY ADD
         GridBagConstraints gbc_areaScrollPane = new GridBagConstraints();
-        gbc_areaScrollPane.insets = new Insets(0, 0, 5, 0);
+        gbc_areaScrollPane.insets = new Insets(0, 0, 0, 0);
         gbc_areaScrollPane.fill = GridBagConstraints.BOTH;
         gbc_areaScrollPane.gridx = 1;
-        gbc_areaScrollPane.gridy = 2;
+        gbc_areaScrollPane.gridy = 3;
 		
         rightTopRightPanel.add(areaScrollPane, gbc_areaScrollPane);
         
@@ -576,17 +667,20 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         //gbc_UpdateCSMCommandButton.insets = new Insets(0, 0, 5, 0);
         //gbc_UpdateCSMCommandButton.fill = GridBagConstraints.BOTH;
         gbc_UpdateCSMCommandButton.gridx = 1;
-        gbc_UpdateCSMCommandButton.gridy = 3;
+        gbc_UpdateCSMCommandButton.gridy = 4;
         rightTopRightPanel.add(btnUpdateCSMCommandButton, gbc_UpdateCSMCommandButton);
-        //OOOOOOOOOOOODOT
+       
 		
-		/* ==== Right Bottom side ==== */
+		/* ================================= 
+		 * 			Right Bottom side 
+		 * ================================== */
+        
 		/* ==== Right bottom_right_panel ==== */
 		JPanel bottom_right_panel = new JPanel();
 		rightVerticalSplitPane.setRightComponent(bottom_right_panel);
 		GridBagLayout gbl_bottom_right_panel = new GridBagLayout();
 		gbl_bottom_right_panel.columnWidths = new int[] {10, 200, 10, 0};
-		gbl_bottom_right_panel.rowHeights = new int[] {5, 40, 5, 5};
+		gbl_bottom_right_panel.rowHeights = new int[] {5, 20, 5, 5};
 		gbl_bottom_right_panel.columnWeights = new double[]{0.0, 1.0, 0.1, Double.MIN_VALUE};
 		gbl_bottom_right_panel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		bottom_right_panel.setLayout(gbl_bottom_right_panel);
