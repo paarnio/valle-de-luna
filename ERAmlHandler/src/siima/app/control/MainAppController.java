@@ -75,6 +75,22 @@ public class MainAppController {
 			viewFrame.setEraProjectHomeDirectory(lastproject);
 	}
 
+	public StringBuffer getCSMCommandContent(boolean updated){
+		//If updated = true, returns content only if CSMCommands
+		// have been resently updated in json root object.
+		StringBuffer sbuf =null;
+		if(updated){
+			if(spinMng.isCsmcommand_updated()){
+				sbuf=spinMng.parseCSMCommandJsonRoot();
+				spinMng.setCsmcommand_updated(false);
+			}
+		} else {
+			sbuf=spinMng.parseCSMCommandJsonRoot();
+		}
+		
+		return sbuf;
+	}
+	
 	public void updateCSMCommandJsonObject(Map<String,String> fieldKeyDataMap ){
 		
 		spinMng.updateCSMCommandJsonObject(fieldKeyDataMap);
@@ -97,12 +113,14 @@ public class MainAppController {
 	public StringBuffer invokeCSMCommandWorkflow(){
 		//TODO: 
 		logger.info("invokeCSMCommandWorkflow() invoking CSMCommand workflow: ");
-		
+		if(spinMng!=null){
 		spinMng.setWorkflowResults(new StringBuffer());
-		spinMng.mainInvokeCommandWorkflow();
+		StringBuffer stepnotebuffer= spinMng.mainInvokeCommandWorkflow();
 		StringBuffer workflowResults = spinMng.getWorkflowResults();
 		//System.out.println("-----invokeCSMCommandWorkflow()----\n" + workflowResults.toString());
-		return workflowResults;
+		return workflowResults.append(stepnotebuffer.toString());
+		}
+		return null;
 	}
 	
 	

@@ -56,7 +56,8 @@ public class CommandFileSpinMng {
 	//(2017-07-06) 
 	private Map<String,String> cmdTypeObjectMap;
 	private JSONObject targetCSMCommandObject=null;
-	//private StringBuffer workflowResults; 
+	public boolean csmcommand_updated = false;
+	
 	/* =======================================
 	 * 
 	 * CONSTRUCTOR
@@ -868,7 +869,7 @@ public class CommandFileSpinMng {
 	
 	
 	
-	public void mainInvokeCommandWorkflow(){
+	public StringBuffer mainInvokeCommandWorkflow(){
 		// (2017-07-05) copied from the orig main method
 		boolean kb_loaded = false;
 		StringBuffer strbuff = new StringBuffer();
@@ -925,41 +926,104 @@ public class CommandFileSpinMng {
 			logger.log(Level.INFO, "NOTICE: CommandFileSpinMng not initialized (Command Json file not loaded)\n");
 		}
 		
-		
+		return stepnotebuffer;
 	}
 	
-	public void updateCSMCommandJsonObject(Map<String,String> fieldKeyDataMap ){
+	public StringBuffer parseCSMCommandJsonRoot(){
+		StringBuffer jsonstr=null;
+		if(this.jsonrootobj!=null){
+			 jsonstr = new StringBuffer();
+			 String pretty = this.jsonrootobj.toString().replaceAll(",", ",\n");
+			 pretty = pretty.replaceAll("}", "}\n");
+			 pretty = pretty.replaceAll("[", "[\n");
+			 jsonstr.append(pretty);
+		}
+		return jsonstr;
+	}
+	
+	
+	public void updateCSMCommandJsonObject(Map<String, String> fieldKeyDataMap) {
+		// (2017-07-07) If index value has not been changed, i.e. index values are equal do
+		// DO UPDATE,
+		// else DO INSERT in array location defined by the new index value.
+		// TODO: If new index=null save into CSM_STORE/UNCATEGORIZED JSONArray
+		boolean update = false;
+		try {
+
+			if (this.targetCSMCommandObject != null) { // Normally it cannot be null
+
+			if (this.targetCSMCommandObject.get("index") != null) {
+				Number trginx = (Number) this.targetCSMCommandObject.get("index");
+				String trginxstr = trginx.toString();
+				String upinxstr = fieldKeyDataMap.get("index");
+				if (trginxstr.equals(upinxstr))
+					update = true; // DO target update
+			} else if ((fieldKeyDataMap.get("index") == null)
+					|| ("null".equalsIgnoreCase(fieldKeyDataMap.get("index")))) { // Both
+																					// null
+				update = true; // DO target update
+			}
+		}
 		
-		if(this.targetCSMCommandObject!=null){
-			
-			this.targetCSMCommandObject.put("index", fieldKeyDataMap.get("index"));
+		if (update) { // DO target update; equal index values or both null
+			//indexes are equal
 			this.targetCSMCommandObject.put("idcode", fieldKeyDataMap.get("idcode"));
 			this.targetCSMCommandObject.put("commandType", fieldKeyDataMap.get("commandType"));
 			this.targetCSMCommandObject.put("stepnote", fieldKeyDataMap.get("stepnote"));
 			this.targetCSMCommandObject.put("comment", fieldKeyDataMap.get("comment"));
-			
+
 			String bodyobjectkey = fieldKeyDataMap.get("bodyobjectkey");
-			if(this.targetCSMCommandObject.containsKey(bodyobjectkey)){
-				String bodycontentstr = fieldKeyDataMap.get(bodyobjectkey);
-				JSONParser parser = new JSONParser();
-				try {
-					JSONObject newbody = (JSONObject) parser.parse(bodycontentstr);
-					this.targetCSMCommandObject.replace(bodyobjectkey, newbody); 
-					
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				
+			if (this.targetCSMCommandObject.containsKey(bodyobjectkey)) {
+				String bodycontentstr = fieldKeyDataMap.get(bodyobjectkey);				
+				JSONObject newbody = (JSONObject) parser.parse(bodycontentstr);
+				this.targetCSMCommandObject.replace(bodyobjectkey, newbody);
+
 			}
+
+			// System.out.println("UPDATED COMMAND:\n" +
+			// this.targetCSMCommandObject.toString().replaceAll(",", ",\n"));
+			// JSONObject body
+			// =(JSONObject)this.targetCSMCommandObject.get(bodyobjectkey);
+			// System.out.println("UPDATED BODY:\n" +
+			// body.toString().replaceAll(",", ",\n"));
 			
-			//System.out.println("UPDATED COMMAND:\n" + this.targetCSMCommandObject.toString().replaceAll(",", ",\n"));
-			//JSONObject body =(JSONObject)this.targetCSMCommandObject.get(bodyobjectkey);
-			//System.out.println("UPDATED BODY:\n" + body.toString().replaceAll(",", ",\n"));
+		} else { // DO insert
+
+			JSONArray commands = (JSONArray) this.jsonrootobj.get("CSMCommands");
+			String newinxstr = fieldKeyDataMap.get("index");
+			if ((newinxstr != null) && (!"null".equalsIgnoreCase(newinxstr))) {
+				Integer newindnum = Integer.valueOf(newinxstr);
+				JSONObject newcommand = new JSONObject();
+				
+				newcommand.put("index", newindnum); 
+				newcommand.put("idcode", fieldKeyDataMap.get("idcode"));
+				newcommand.put("commandType", fieldKeyDataMap.get("commandType"));
+				newcommand.put("stepnote", fieldKeyDataMap.get("stepnote"));
+				newcommand.put("comment", fieldKeyDataMap.get("comment"));
+
+				String bodyobjectkey = fieldKeyDataMap.get("bodyobjectkey");
+				String bodycontentstr = fieldKeyDataMap.get(bodyobjectkey);				
+				JSONObject newbody = (JSONObject) parser.parse(bodycontentstr);
+				newcommand.put(bodyobjectkey, newbody);			
+				
+				//INSERT new object to the CSMCommands list
+				commands.add(newindnum.intValue(), newcommand);
+				
+				//Update all index values to their order in the list
+				for (int i = 0; i < commands.size(); i++) {
+					Integer idx = Integer.valueOf(i);
+					JSONObject comobj = (JSONObject) commands.get(i);
+					comobj.replace("index", idx);					
+				}
+			}
+		}
+
+		this.csmcommand_updated = true;
+		
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 	}
-	
 	
 	public Map<String,String> searchCSMCommandContent(String idcode, String index, String commandtype){
 		// (2017-07-05) Returning only the first match
@@ -1072,6 +1136,14 @@ public class CommandFileSpinMng {
 		
 	}
 
+	public boolean isCsmcommand_updated() {
+		return csmcommand_updated;
+	}
+
+	public void setCsmcommand_updated(boolean csmcommand_updated) {
+		this.csmcommand_updated = csmcommand_updated;
+	}
+	
 	
 	
 	/*
@@ -1083,6 +1155,7 @@ public class CommandFileSpinMng {
 	 */
 	
 	
+
 	public static void main(String[] args) {
 
 		CommandFileSpinMng csm = new CommandFileSpinMng();

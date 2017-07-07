@@ -670,7 +670,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         btnUpdateCSMCommandButton.setEnabled(false);
         btnUpdateCSMCommandButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
-				System.out.println("TODO: UPDATE BUTTON PRESSED......");
+				System.out.println("--- CSMCommand UPDATE BUTTON PRESSED......");
 				Map<String,String> fieldKeyDataMap = new HashMap<String,String>();
 				
 				fieldKeyDataMap.put("idcode", dataDisplayMap.get("idcode").getText()); //fieldKeyDataMap.get("idcode"));
@@ -684,6 +684,14 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				fieldKeyDataMap.put(bodyobject, oneJsonCommandTextArea.getText());
 										
 				appControl.updateCSMCommandJsonObject(fieldKeyDataMap );
+				//Printing updated json content to SpinCommands tab
+				StringBuffer sbuf = appControl.getCSMCommandContent(true);
+				//-- File Printing
+				txtrSpinCommandFileOutput.setText(null); // CLear old text
+				txtrSpinCommandFileOutput.append(sbuf.toString() + newline);
+				txtrSpinCommandFileOutput.setCaretPosition(0);
+				bottomRightTabbedPane.setEnabledAt(2, true);
+				
 			}
 		});
         
