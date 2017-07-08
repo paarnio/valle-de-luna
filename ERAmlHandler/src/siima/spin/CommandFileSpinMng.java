@@ -935,18 +935,23 @@ public class CommandFileSpinMng {
 			 jsonstr = new StringBuffer();
 			 String pretty = this.jsonrootobj.toString().replaceAll(",", ",\n");
 			 pretty = pretty.replaceAll("}", "}\n");
-			 pretty = pretty.replaceAll("[", "[\n");
+			 pretty = pretty.replaceAll("\\[", "\\[\n"); 
 			 jsonstr.append(pretty);
 		}
 		return jsonstr;
 	}
 	
+	public void updateCSMHeaderJsonObject(Map<String, String> fieldKeyDataMap){
+		System.out.println("??????TODO: updateCSMHeaderJsonObject(): update inxsequence ");
+		
+	}
 	
 	public void updateCSMCommandJsonObject(Map<String, String> fieldKeyDataMap) {
 		// (2017-07-07) If index value has not been changed, i.e. index values are equal do
 		// DO UPDATE,
 		// else DO INSERT in array location defined by the new index value.
 		// TODO: If new index=null save into CSM_STORE/UNCATEGORIZED JSONArray
+		// TODO: Allways update idxsequence
 		boolean update = false;
 		try {
 
@@ -1060,6 +1065,12 @@ public class CommandFileSpinMng {
 			//System.out.println("\nCOMMAND: " + bodyobject.toString());
 			
 		}
+		//TODO: Loading also Workflow indexes sequence to the map
+		JSONObject header = (JSONObject) jsonrootobj.get("CSMHeader");
+		JSONObject workflow = (JSONObject) header.get("workflow");
+		JSONArray sequence = (JSONArray) workflow.get("indexes");
+		fieldKeyDataMap.put("idxsequence", sequence.toString());
+		
 		return fieldKeyDataMap;
 	}
 	

@@ -114,6 +114,8 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JButton btnSearchCommandButton;
 	private  JTextArea oneJsonCommandTextArea;
 	private JButton btnUpdateCSMCommandButton;
+	private JButton btnSequenceRunButton;
+	private JTextField idxsequencetext; 
 	private Map<String,JTextField> dataDisplayMap;
 	//protected JLabel actionLabel;
 	
@@ -465,9 +467,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		rightTopVerticalSplitPane.setRightComponent(rightTopRightPanel);
 		GridBagLayout gbl_right_top_right_panel = new GridBagLayout();
 		gbl_right_top_right_panel.columnWidths = new int[] {1, 100, 10, 0};
-		gbl_right_top_right_panel.rowHeights = new int[] {1, 20, 30, 60, 5, 0};
+		gbl_right_top_right_panel.rowHeights = new int[] {1, 20, 30, 60, 5, 5, 0};
 		gbl_right_top_right_panel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_right_top_right_panel.rowWeights = new double[]{0.0, 0.2, 0.3, 0.6, 0.1, Double.MIN_VALUE};
+		gbl_right_top_right_panel.rowWeights = new double[]{0.0, 0.2, 0.3, 0.6, 0.1, 0.1, Double.MIN_VALUE};
 		rightTopRightPanel.setLayout(gbl_right_top_right_panel);
 		
 		/* TextFields for Search CSMCommand 
@@ -507,7 +509,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				String idcode = textField1.getText();
 				String index = textField2.getText();
 				String commandType = textField3.getText();
-				
+				System.out.println("SEARCH BUTTON PRESSED......");
 				// fieldKeyDataMap Map filled in CommandFileSpinMng class searchCSMCommandContent() method
 				Map<String,String> fieldKeyDataMap = appControl.searchCSMCommandContent(idcode, index, commandType);
 				// dataDisplayMap Map filled in this class below
@@ -522,8 +524,12 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 
 				oneJsonCommandTextArea.setText(bodyobjectContent.replaceAll(",", ",\n"));
 				oneJsonCommandTextArea.setCaretPosition(0);
-				System.out.println("TODO: SEARCH BUTTON PRESSED......");
+				
+				//TODO NEW:
+				dataDisplayMap.get("idxsequence").setText(fieldKeyDataMap.get("idxsequence"));
+					
 				btnUpdateCSMCommandButton.setEnabled(true);
+				btnSequenceRunButton.setEnabled(true);
 			}
 		});
         
@@ -594,6 +600,8 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         dataDisplayMap.put(textFieldKey14, textField14);
         dataDisplayMap.put(textFieldKey15, textField15);
         dataDisplayMap.put(textFieldKey16, textField16);
+        //dataDisplayMap.put("idxsequence", idxsequencetext);
+        //NOTE:JTextfield idxsequencetext added to this map later below
         
         //Create some labels for the fields.
         JLabel textFieldLabel11 = new JLabel(textFieldKey11 + ": ");
@@ -682,6 +690,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				fieldKeyDataMap.put("bodyobjectkey", dataDisplayMap.get("bodyobjectkey").getText()); //.setText(fieldKeyDataMap.get("bodyobjectkey"));
 				String bodyobject = dataDisplayMap.get("bodyobjectkey").getText();
 				fieldKeyDataMap.put(bodyobject, oneJsonCommandTextArea.getText());
+				
+				//TODO: 
+				fieldKeyDataMap.put("idxsequence", dataDisplayMap.get("idxsequence").getText());
 										
 				appControl.updateCSMCommandJsonObject(fieldKeyDataMap );
 				//Printing updated json content to SpinCommands tab
@@ -695,14 +706,54 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			}
 		});
         
+        /* Update button moved to sequencepanel
         GridBagConstraints gbc_UpdateCSMCommandButton = new GridBagConstraints();
         //gbc_UpdateCSMCommandButton.insets = new Insets(0, 0, 5, 0);
-        //gbc_UpdateCSMCommandButton.fill = GridBagConstraints.BOTH;
+        gbc_UpdateCSMCommandButton.fill = GridBagConstraints.WEST;
         gbc_UpdateCSMCommandButton.gridx = 1;
         gbc_UpdateCSMCommandButton.gridy = 4;
-        rightTopRightPanel.add(btnUpdateCSMCommandButton, gbc_UpdateCSMCommandButton);
-       
+        rightTopRightPanel.add(btnUpdateCSMCommandButton, gbc_UpdateCSMCommandButton);     
+        */
+        JPanel sequencepanel = new JPanel();
+        sequencepanel.setLayout(gridbag);
+        
+        btnSequenceRunButton = new JButton("Run");
+        btnSequenceRunButton.setEnabled(false);
+        btnSequenceRunButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				System.out.println("--- TODO??????: RUN BUTTON PRESSED......");
+				//TODO: remember first to do update idxsequence always before the run execution
+			}
+			});
+        
+		idxsequencetext = new JTextField(10);
+		dataDisplayMap.put("idxsequence", idxsequencetext);
 		
+	    GridBagConstraints gbc_sequencecomp = new GridBagConstraints();
+	    gbc_sequencecomp.anchor = GridBagConstraints.EAST;
+	    gbc_sequencecomp.insets = new Insets(0, 5, 0, 0);
+		
+	    gbc_sequencecomp.gridwidth = GridBagConstraints.EAST; // next-to-last
+	    gbc_sequencecomp.fill = GridBagConstraints.NONE; // reset to default
+	    gbc_sequencecomp.weightx = 0.0; // reset to default
+	    
+	    sequencepanel.add(btnUpdateCSMCommandButton, gbc_sequencecomp);
+	    gbc_sequencecomp.gridwidth = GridBagConstraints.RELATIVE; // next-to-last
+	    sequencepanel.add(btnSequenceRunButton, gbc_sequencecomp);
+
+		gbc_sequencecomp.gridwidth = GridBagConstraints.REMAINDER; // end row
+		gbc_sequencecomp.fill = GridBagConstraints.HORIZONTAL;
+		gbc_sequencecomp.weightx = 1.0;
+		sequencepanel.add(idxsequencetext, gbc_sequencecomp);
+	       
+		GridBagConstraints gbc_sequencepanel = new GridBagConstraints();
+		gbc_sequencepanel.insets = new Insets(0, 0, 0, 0); // (0, 0, 5, 0);
+		gbc_sequencepanel.fill = GridBagConstraints.BOTH;
+		gbc_sequencepanel.gridx = 1;
+		gbc_sequencepanel.gridy = 4;
+
+		rightTopRightPanel.add(sequencepanel, gbc_sequencepanel);    
+	        
 		/* ================================= 
 		 * 			Right Bottom side 
 		 * ================================== */

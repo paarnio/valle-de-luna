@@ -94,6 +94,7 @@ public class MainAppController {
 	public void updateCSMCommandJsonObject(Map<String,String> fieldKeyDataMap ){
 		
 		spinMng.updateCSMCommandJsonObject(fieldKeyDataMap);
+		spinMng.updateCSMHeaderJsonObject(fieldKeyDataMap);//TODO: update inxsequence
 		
 	}
 	
