@@ -91,10 +91,17 @@ public class MainAppController {
 		return sbuf;
 	}
 	
-	public void updateCSMCommandJsonObject(Map<String,String> fieldKeyDataMap ){
+	public void updateCSMHeaderJsonObject(Map<String,String> fieldKeyDataMap ){
+		//Update only CSMHeader i.e.indexes sequence
+		spinMng.updateCSMHeaderJsonObject(fieldKeyDataMap);//update inxsequence
 		
+	}
+	
+	public void updateCSMCommandJsonObject(Map<String,String> fieldKeyDataMap ){
+		//Update CSMCommands and CSMHeader i.e.indexes sequence
 		spinMng.updateCSMCommandJsonObject(fieldKeyDataMap);
-		spinMng.updateCSMHeaderJsonObject(fieldKeyDataMap);//TODO: update inxsequence
+		updateCSMHeaderJsonObject(fieldKeyDataMap);//update inxsequence
+		//spinMng.updateCSMHeaderJsonObject(fieldKeyDataMap);
 		
 	}
 	
@@ -119,7 +126,8 @@ public class MainAppController {
 		StringBuffer stepnotebuffer= spinMng.mainInvokeCommandWorkflow();
 		StringBuffer workflowResults = spinMng.getWorkflowResults();
 		//System.out.println("-----invokeCSMCommandWorkflow()----\n" + workflowResults.toString());
-		return workflowResults.append(stepnotebuffer.toString());
+		String wflowsketch = "\n(start)-" + stepnotebuffer.toString() + "->(end)";
+		return workflowResults.append(wflowsketch);
 		}
 		return null;
 	}

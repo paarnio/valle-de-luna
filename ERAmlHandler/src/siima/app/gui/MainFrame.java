@@ -691,7 +691,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				String bodyobject = dataDisplayMap.get("bodyobjectkey").getText();
 				fieldKeyDataMap.put(bodyobject, oneJsonCommandTextArea.getText());
 				
-				//TODO: 
+				//TODO: Update indexes sequence in CSMHeader 
 				fieldKeyDataMap.put("idxsequence", dataDisplayMap.get("idxsequence").getText());
 										
 				appControl.updateCSMCommandJsonObject(fieldKeyDataMap );
@@ -701,7 +701,8 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				txtrSpinCommandFileOutput.setText(null); // CLear old text
 				txtrSpinCommandFileOutput.append(sbuf.toString() + newline);
 				txtrSpinCommandFileOutput.setCaretPosition(0);
-				bottomRightTabbedPane.setEnabledAt(2, true);
+
+				bottomRightTabbedPane.setSelectedIndex(2);
 				
 			}
 		});
@@ -721,8 +722,23 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         btnSequenceRunButton.setEnabled(false);
         btnSequenceRunButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
-				System.out.println("--- TODO??????: RUN BUTTON PRESSED......");
-				//TODO: remember first to do update idxsequence always before the run execution
+				System.out.println("--- RUN BUTTON PRESSED...");
+				//First UPDATE indexes sequence in CSMHeader (map key: "idxsequence")
+				Map<String,String> fieldKeyDataMap = new HashMap<String,String>();
+				fieldKeyDataMap.put("idxsequence", dataDisplayMap.get("idxsequence").getText());									
+				appControl.updateCSMHeaderJsonObject(fieldKeyDataMap );
+				// RUN CSMCommands
+				StringBuffer resultbuf = appControl.invokeCSMCommandWorkflow();			
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: CSM (SPIN) COMMANDS INVOKED");
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+				//-- Result Printing
+				txtrResultOutput.setText(null); // CLear old text
+				txtrResultOutput.append(resultbuf.toString() + newline);
+				txtrResultOutput.setCaretPosition(0); //txtrResultOutput.getText().length());
+				
+				bottomRightTabbedPane.setSelectedIndex(1);
+				
 			}
 			});
         
@@ -863,8 +879,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		
 		if (arg0.getSource() == mntmInvokeSpinCommands) {
 			
-			StringBuffer resultbuf = appControl.invokeCSMCommandWorkflow();
-			
+			StringBuffer resultbuf = appControl.invokeCSMCommandWorkflow();			
 			//-- Console Printing
 			txtrConsoleOutput.append(newline + "LOG: CSM (SPIN) COMMANDS INVOKED");
 			txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
@@ -872,7 +887,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			txtrResultOutput.setText(null); // CLear old text
 			txtrResultOutput.append(resultbuf.toString() + newline);
 			txtrResultOutput.setCaretPosition(0); //txtrResultOutput.getText().length());
-			bottomRightTabbedPane.setEnabledAt(1, true);
+			bottomRightTabbedPane.setSelectedIndex(1);
 			
 		} else if (arg0.getSource() == mntmLoadSpinCommands) {
 			fileChooser.setDialogTitle("LOAD SPIN COMMAND FILE");
@@ -892,8 +907,8 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				txtrSpinCommandFileOutput.setText(null); // CLear old text
 				txtrSpinCommandFileOutput.append(sbuf.toString() + newline);
 				txtrSpinCommandFileOutput.setCaretPosition(0);
-				bottomRightTabbedPane.setEnabledAt(2, true);
 				btnSearchCommandButton.setEnabled(true);
+				bottomRightTabbedPane.setSelectedIndex(2);
 			} else {
 				System.out.println("Frame: No SPIN COMMAND File Selected!");
 			}

@@ -943,7 +943,18 @@ public class CommandFileSpinMng {
 	
 	public void updateCSMHeaderJsonObject(Map<String, String> fieldKeyDataMap){
 		System.out.println("??????TODO: updateCSMHeaderJsonObject(): update inxsequence ");
+		try {
+		JSONObject header = (JSONObject) jsonrootobj.get("CSMHeader");
+		JSONObject workflow = (JSONObject) header.get("workflow");
+		//JSONArray indexes = (JSONArray) workflow.get("indexes");
 		
+		JSONArray newindexes = (JSONArray) parser.parse((String)fieldKeyDataMap.get("idxsequence"));
+		workflow.replace("indexes", newindexes);
+		
+		System.out.println("??????NEW INDEXES: " + newindexes.toString());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void updateCSMCommandJsonObject(Map<String, String> fieldKeyDataMap) {
