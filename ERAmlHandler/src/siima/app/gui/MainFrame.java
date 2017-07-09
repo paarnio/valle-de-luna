@@ -518,6 +518,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				Map<String,String> fieldKeyDataMap = appControl.searchCSMCommandContent(idcode, index, commandtype);
 				// dataDisplayMap Map filled in this class below
 				//textFieldKey11
+				if((fieldKeyDataMap.get("bodyobjectkey")!=null)&&(!fieldKeyDataMap.get("bodyobjectkey").isEmpty())){
 				dataDisplayMap.get("idcode").setText(fieldKeyDataMap.get("idcode"));
 				dataDisplayMap.get("index").setText(fieldKeyDataMap.get("index"));
 				dataDisplayMap.get("commandtype").setText(fieldKeyDataMap.get("commandtype"));
@@ -528,8 +529,19 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 
 				oneJsonCommandTextArea.setText(bodyobjectContent.replaceAll(",", ",\n"));
 				oneJsonCommandTextArea.setCaretPosition(0);
-				
-				//TODO NEW:
+				} else { //NOT FOUND ADD ""
+					
+					dataDisplayMap.get("idcode").setText("");
+					dataDisplayMap.get("index").setText("");
+					dataDisplayMap.get("commandtype").setText("");
+					dataDisplayMap.get("stepnote").setText("");
+					dataDisplayMap.get("comment").setText("");
+					dataDisplayMap.get("bodyobjectkey").setText("");
+					
+					oneJsonCommandTextArea.setText("");
+					oneJsonCommandTextArea.setCaretPosition(0);
+					
+				}
 				dataDisplayMap.get("idxsequence").setText(fieldKeyDataMap.get("idxsequence"));
 					
 				btnUpdateCSMCommandButton.setEnabled(true);

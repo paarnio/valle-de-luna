@@ -133,7 +133,7 @@
       },
 	    {
         "index": 7,
-		"idcode": "R1_T17_",
+		"idcode": "R1_T17_1",
         "commandtype": "writeModel",
         "stepnote": "WRITE",
         "comment": "Write type can be 'file' or 'console'. Modelcat can be 'merged', 'inferred' or 'main'.",
@@ -146,7 +146,7 @@
       },
 	   {
         "index": 8,
-		"idcode": "R1_T11_",
+		"idcode": "R1_T11_1",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_VIOLATIONS",
         "query": {
@@ -165,7 +165,7 @@
       },
 	   {
         "index": 9,
-		"idcode": "R1_T_",
+		"idcode": "R1_T11_2",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_SERVICE",
         "comment": "Federated query to an external SPARQL endpoint SERVICE example: first start d2rq-0.8.1>d2r-server mapping-iswc_uri_pdf.ttl)",
@@ -183,7 +183,7 @@
       },
 	   {
         "index": 10,
-		"idcode": "R1_T_",
+		"idcode": "R1_T11_3",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_SERVICE",
         "comment": "Federated query to an external SPARQL endpoint SERVICE example: first start d2rq-0.8.1>d2r-server mapping-iswc_uri_pdf.ttl)",
@@ -206,6 +206,7 @@
   "CSMStore": [
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "loadKnowledgeBase",
         "stepnote": "LOAD_KB",
         "comment": "KB_COMMANDS:REQUIRED: ALLWAYS RUN THIS AS THE FIRST COMMAND! (Types: 'predefined' | 'file&uri')",
@@ -218,6 +219,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "loadKnowledgeBase",
         "stepnote": "LOAD_KB",
         "comment": "KB_COMMANDS: REQUIRED: ALLWAYS RUN THIS AS THE FIRST COMMAND! (Types: 'predefined' | 'file&uri')",
@@ -255,6 +257,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "createInferenceModel",
         "stepnote": "INF_MODEL",
         "comment": "INFERENCE_COMMANDS NOTE:OFTEN REQUIRED: This command creates the inference model and registers spin.",
@@ -265,6 +268,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "runInferences",
         "stepnote": "INFER",
         "comment": "INFERENCE_COMMANDS NOTE:OFTEN REQUIRED: This command runs all spin inferences: type options: 'singlepass' | 'iterative' (creates the inference model, if not yet created) .",
@@ -275,6 +279,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "checkConstraints",
         "stepnote": "CONSTRAINTS",
         "comment": "SPIN_CONSTRAINT_CHECK_COMMANDS run 'all' (type 'all') Spin Constraints or only for one 'resource'",
@@ -286,6 +291,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "runSpinConstructors",
         "stepnote": "CONSTRUCT",
         "comment": "SPIN_CONSTRUCTOR_COMMANDS run all Spin Constructors",
@@ -296,6 +302,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "createNewTemplate",
         "stepnote": "CREATE_TEMPLATE",
         "comment": "TEMPLATE_CREATE_COMMANDS NOTE:testing select template creation: based on BicycleNameTemplate2(TOIMII)",
@@ -318,6 +325,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "createNewTemplate",
         "stepnote": "CREATE_TEMPLATE",
         "comment": "TEMPLATE_CREATE_COMMANDS NOTE:testing select template creation.",
@@ -340,6 +348,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "templateCall",
         "stepnote": "CALL_TEMPLATE",
         "comment": "TEMPLATE_CALL_COMMANDS NOTE:Only the first queryvariable used (TODO)",
@@ -361,6 +370,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "templateCall",
         "stepnote": "CALL_TEMPLATE",
         "comment": "TEMPLATE_CALL_COMMANDS NOTE:TESTING UPDATE TEMPLATE: EI TOIMI?? MUTTA EI TOIMI TMCssäkään!!!!",
@@ -384,6 +394,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "templateCall",
         "stepnote": "CALL_TEMPLATE",
         "comment": "TEMPLATE_CALL_COMMANDS NOTE:TESTING UPDATE TEMPLATE (no arqs) TOIMI",
@@ -396,6 +407,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_EVAL",
 		"comment": "QUERY_WITH_EVAL_COMMANDS",
@@ -413,6 +425,7 @@
       },
 	  {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_SERVICE",
         "comment": "SERVICE_COMMANDS Federated query to an external SPARQL endpoint SERVICE example: first start d2rq-0.8.1>d2r-server mapping-iswc_uri_pdf.ttl)",
@@ -433,6 +446,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_SERVICE",
         "comment": "SERVICE_COMMANDS Federated query to an external SPARQL endpoint SERVICE example: first start d2rq-0.8.1>d2r-server mapping-iswc_uri_pdf.ttl)",
@@ -450,6 +464,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
         "comment": "SELECT_COMMANDS TODO: ?bell a access:Bell . ?bell rdfs:label ?label .",
@@ -468,6 +483,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
 		"comment": "SELECT_COMMANDS.",
@@ -487,6 +503,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
 		"comment": "SELECT_COMMANDS.",
@@ -504,6 +521,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "DESCRIBE",
 		"comment": "DESCRIBE_COMMANDS.",
@@ -519,6 +537,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "comment": "UPDATE_COMMANDS PROBLEM: Not working?",
         "query": {
@@ -534,6 +553,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "UPDATE",
 		"comment": "UPDATE_COMMANDS",
@@ -550,6 +570,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "UPDATE",
 		"comment": "UPDATE_COMMANDS",
@@ -566,6 +587,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "listTemplates",
         "stepnote": "LIST",
         "comment": "LIST_TEMPLATES_COMMANDS Lists all templates and detailed info about templates in 'list.info' list",
@@ -594,6 +616,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "listFunctions",
         "stepnote": "LIST",
         "comment": "LIST_FUNCTION_COMMANDS Lists all SPIN Functions",
@@ -604,6 +627,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "writeModel",
         "stepnote": "WRITE",
         "comment": "WRITE_MODEL_COMMANDS Write type can be 'file' or 'console'. Modelcat can be 'merged', 'inferred' or 'main'.",
@@ -616,6 +640,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "writeModel",
         "stepnote": "WRITE",
         "comment": "WRITE_MODEL_COMMANDS Write type can be 'file' or 'console'. Modelcat can be one of 'inferred'/'main'/'mainall'?=?'merged'.",
@@ -628,6 +653,7 @@
       },
       {
         "index": null,
+		"idcode": "R1_T",
         "commandtype": "userinput",
         "stepnote": "USER_INPUT",
         "comment": "USER_INPUT_COMMANDS NOTE: Pause execution for user checks .",

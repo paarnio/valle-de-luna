@@ -1063,19 +1063,23 @@ public class CommandFileSpinMng {
 	public Map<String,String> searchCSMCommandContent(String idcode, String index, String commandtype){
 		// (2017-07-05) Returning only the first match
 		logger.log(Level.INFO, "searchCommandJsonString()");
-		Map<String,String> fieldKeyDataMap =null;
+		Map<String,String> fieldKeyDataMap =new HashMap<String,String>();
 				
 		Map<String,String> typeobjectmap= this.getCmdTypeObjectMap();
 		
 		List<JSONObject> matches= searchCommandObject(idcode, index,  commandtype);
 		if((matches!=null)&&(matches.size()>0)){
 
-			fieldKeyDataMap = new HashMap<String,String>();
+			//fieldKeyDataMap = new HashMap<String,String>();
 			JSONObject comobj = matches.get(0);
 			targetCSMCommandObject = comobj;
 			Number indxnum = (Number) comobj.get("index");
+			if(indxnum!=null){
 			String indexstr = indxnum.toString();
 			fieldKeyDataMap.put("index", indexstr);
+			} else {
+				fieldKeyDataMap.put("index", "null");
+			}
 			String idcodestr = (String) comobj.get("idcode");
 			fieldKeyDataMap.put("idcode", idcodestr);
 			String commandtypestr = (String) comobj.get("commandtype");
@@ -1105,33 +1109,46 @@ public class CommandFileSpinMng {
 	}
 	
 	private List<JSONObject> searchCommandObject(String idcode, String index, String commandtype){
-		//(2017-07-05) 
+		//(2017-07-05) Searching from "CSMCommands" and "CSMStore"
 		JSONArray commands = (JSONArray) jsonrootobj.get("CSMCommands");
-		List<JSONObject> matches = new ArrayList<JSONObject>();
-		
-			
-			for (int i=0; i<commands.size();i++) {
-				
+		JSONArray store = (JSONArray) jsonrootobj.get("CSMStore");	
+		List<JSONObject> matches = new ArrayList<JSONObject>();		
+			for (int i=0; i<commands.size();i++) {			
 				JSONObject comobj = (JSONObject) commands.get(i);
 				Number indxnum = (Number) comobj.get("index");
 				String indx = indxnum.toString();
 				String id = (String) comobj.get("idcode");
 				String type = (String) comobj.get("commandtype");
-				//System.out.println("(id; indx; type)(" + id + ";" + indx+ ";" + type + ")");
-								
+				//System.out.println("(id; indx; type)(" + id + ";" + indx+ ";" + type + ")");								
 				if((idcode!=null)&&(!idcode.isEmpty())&&(id!=null)&&((idcode.equalsIgnoreCase(id))||(id.startsWith(idcode)))){
 					matches.add(comobj);
 				} else if((index!=null)&&(index.equalsIgnoreCase(indx))){
 					matches.add(comobj);
 				} else if((commandtype!=null)&&(commandtype.equalsIgnoreCase(type))){
 					matches.add(comobj);
+				}								
+			}
+			if((index==null)||("null".equalsIgnoreCase(index))||(index.isEmpty())){
+				System.out.println("\nSEARCHing.from CSMStore...");	
+				for (int i=0; i<store.size();i++) {
+					
+					JSONObject comobj = (JSONObject) store.get(i);
+					//Number indxnum = (Number) comobj.get("index");
+					//String indx = indxnum.toString();
+					String id = (String) comobj.get("idcode");
+					String type = (String) comobj.get("commandtype");
+					//System.out.println("(id; indx; type)(" + id + ";" + indx+ ";" + type + ")");
+									
+					if((idcode!=null)&&(!idcode.isEmpty())&&(id!=null)&&((idcode.equalsIgnoreCase(id))||(id.startsWith(idcode)))){
+						matches.add(comobj);
+					} else if((commandtype!=null)&&(commandtype.equalsIgnoreCase(type))){
+						matches.add(comobj);
+					}				
+				//System.out.println("\nSEARCHing...");					
 				}
 				
-				
-			//System.out.println("\nSEARCHing...");					
-				
 			}
-		
+			
 		return matches;
 	}
 	
