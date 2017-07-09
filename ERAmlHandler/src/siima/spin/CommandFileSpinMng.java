@@ -915,7 +915,7 @@ public class CommandFileSpinMng {
 					this.runCMSCommand(comobj);
 				}
 			} else {
-				logger.log(Level.INFO, "???????????Workflow type:" + wftype + " Unknown????????");
+				logger.log(Level.INFO, "????Workflow type:" + wftype + " Unknown????????");
 			} // end if
 			
 			logger.log(Level.INFO, "\n\n========== WORKFLOW STEPS LOG ==========\n");
@@ -942,7 +942,7 @@ public class CommandFileSpinMng {
 	}
 	
 	public void updateCSMHeaderJsonObject(Map<String, String> fieldKeyDataMap){
-		System.out.println("??????TODO: updateCSMHeaderJsonObject(): update inxsequence ");
+		System.out.println("-----updateCSMHeaderJsonObject(): update inxsequence ");
 		try {
 		JSONObject header = (JSONObject) jsonrootobj.get("CSMHeader");
 		JSONObject workflow = (JSONObject) header.get("workflow");
@@ -951,7 +951,7 @@ public class CommandFileSpinMng {
 		JSONArray newindexes = (JSONArray) parser.parse((String)fieldKeyDataMap.get("idxsequence"));
 		workflow.replace("indexes", newindexes);
 		
-		System.out.println("??????NEW INDEXES: " + newindexes.toString());
+		System.out.println("----updateCSMHeaderJsonObject() NEW INDEXES: " + newindexes.toString());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -961,7 +961,7 @@ public class CommandFileSpinMng {
 		// (2017-07-07) If index value has not been changed, i.e. index values are equal do
 		// DO UPDATE,
 		// else DO INSERT in array location defined by the new index value.
-		// TODO: If new index=null save into CSM_STORE/UNCATEGORIZED JSONArray
+		// If new_index=null save into CSM_STORE/UNCATEGORIZED JSONArray
 	
 		boolean update = false;
 		boolean addtocsmstore = false;
@@ -971,7 +971,7 @@ public class CommandFileSpinMng {
 				|| ("null".equalsIgnoreCase(fieldKeyDataMap.get("index")))
 				|| ("".equalsIgnoreCase(fieldKeyDataMap.get("index")))) newindexnull=true;
 		try {
-			System.out.println("????TODO: updateCSMCommandJsonObject() index: " + fieldKeyDataMap.get("index"));
+			//System.out.println("updateCSMCommandJsonObject() index: " + fieldKeyDataMap.get("index"));
 			if (this.targetCSMCommandObject != null) { // Normally it cannot be null
 
 			if ((this.targetCSMCommandObject.get("index") != null)&&(!newindexnull)) {
@@ -1000,13 +1000,6 @@ public class CommandFileSpinMng {
 
 			}
 
-			// System.out.println("UPDATED COMMAND:\n" +
-			// this.targetCSMCommandObject.toString().replaceAll(",", ",\n"));
-			// JSONObject body
-			// =(JSONObject)this.targetCSMCommandObject.get(bodyobjectkey);
-			// System.out.println("UPDATED BODY:\n" +
-			// body.toString().replaceAll(",", ",\n"));
-			
 		} else if(!addtocsmstore){ // DO insert to CSMCommands JSONArray
 
 			JSONArray commands = (JSONArray) this.jsonrootobj.get("CSMCommands");
@@ -1041,7 +1034,7 @@ public class CommandFileSpinMng {
 			// ADD to CSMStore JSONArray with index = null
 			// NOTE:Does not check if the same idcode already exists
 			
-			System.out.println("????TODO: updateCSMCommandJsonObject()TODO ADDING TO STORE.....");
+			System.out.println("--- updateCSMCommandJsonObject() ADDING TO CSMSTORE...");
 			JSONArray store = (JSONArray) this.jsonrootobj.get("CSMStore");
 			JSONObject newcommand = new JSONObject();
 			
@@ -1259,7 +1252,7 @@ public class CommandFileSpinMng {
 					csm.runCMSCommand(comobj);
 				}
 			} else {
-				System.out.println("???????????Workflow type:" + wftype + " Unknown????????");
+				System.out.println("????Workflow type:" + wftype + " Unknown?????");
 			} // end if
 			
 			System.out.println("\n\n========== WORKFLOW STEPS LOG ==========\n");

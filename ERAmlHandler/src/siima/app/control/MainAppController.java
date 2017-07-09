@@ -75,6 +75,13 @@ public class MainAppController {
 			viewFrame.setEraProjectHomeDirectory(lastproject);
 	}
 
+	public void saveCSMCommandsToJsonFile(String jsonfile){
+		
+		StringBuffer sbuf = getCSMCommandContent(false);
+		FileUtil.writeTextFile(sbuf.toString(), jsonfile);
+		
+	}
+	
 	public StringBuffer getCSMCommandContent(boolean updated){
 		//If updated = true, returns content only if CSMCommands
 		// have been resently updated in json root object.

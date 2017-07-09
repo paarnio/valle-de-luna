@@ -91,6 +91,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JMenuItem mntmMergeModels;
 	private JMenuItem mntmLoadSpinCommands;
 	private JMenuItem mntmInvokeSpinCommands;
+	private JMenuItem mntmSaveSpinCommands;
 	// private JTree tree;
 	private JRadioButtonMenuItem rbMenuItem1;
 	private JRadioButtonMenuItem rbMenuItem2;
@@ -337,6 +338,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mntmInvokeSpinCommands.addActionListener(this);
 		mnSparql.add(mntmInvokeSpinCommands);
 		
+		mntmSaveSpinCommands = new JMenuItem("Save Spin Commands...");
+		mntmSaveSpinCommands.addActionListener(this);
+		mnSparql.add(mntmSaveSpinCommands);
 		/*
 		 * Main Window
 		 * 
@@ -874,10 +878,31 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 * mntmAspSolver AND mntmSaveOntologyModel
 		 * rbMenuItem1-6 AND
 		 * mntmMergeModels AND mntmLoadSpinCommands
-		 * mntmInvokeSpinCommands
+		 * mntmInvokeSpinCommands AND mntmSaveSpinCommands
 		 */
 		
-		if (arg0.getSource() == mntmInvokeSpinCommands) {
+		if (arg0.getSource() == mntmSaveSpinCommands) {
+			fileChooser.setDialogTitle("SAVE SPIN CSMCOMMANDS TO JSON FILE (.json)");
+			fileChooser.setSelectedFile(new File(""));
+			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data"));
+			
+			int retVal = fileChooser.showSaveDialog(MainFrame.this);
+
+			if (retVal == JFileChooser.APPROVE_OPTION) {
+				System.out.println("GUIFrame: Save OK pressed");
+				File saveFile = fileChooser.getSelectedFile();
+				appControl.saveCSMCommandsToJsonFile(saveFile.getPath());
+				System.out.println("-- Saved file: " + saveFile.getName());
+				String dir = saveFile.getParent();
+				this.latestOpenedFolder = "dir";
+				// -- Console Printing ---				
+				txtrConsoleOutput.append(newline + "LOG: SPIN CSMCOMMANDS SAVED INTO FILE: " + saveFile.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+			} else {
+				System.out.println("Frame: No Save File Selected!");
+			}
+
+		} else if (arg0.getSource() == mntmInvokeSpinCommands) {
 			
 			StringBuffer resultbuf = appControl.invokeCSMCommandWorkflow();			
 			//-- Console Printing
