@@ -486,7 +486,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         textField2 = new JTextField(10); //idcode
         textField2.setActionCommand(textFieldString2);
         //textField2.addActionListener(this);
-        textField3 = new JTextField(10); //commandType
+        textField3 = new JTextField(10); //commandtype
         textField3.setActionCommand(textFieldString3);
         //textField3.addActionListener(this);
         
@@ -508,15 +508,15 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			public void actionPerformed(ActionEvent arg0) {
 				String idcode = textField1.getText();
 				String index = textField2.getText();
-				String commandType = textField3.getText();
+				String commandtype = textField3.getText();
 				System.out.println("SEARCH BUTTON PRESSED......");
 				// fieldKeyDataMap Map filled in CommandFileSpinMng class searchCSMCommandContent() method
-				Map<String,String> fieldKeyDataMap = appControl.searchCSMCommandContent(idcode, index, commandType);
+				Map<String,String> fieldKeyDataMap = appControl.searchCSMCommandContent(idcode, index, commandtype);
 				// dataDisplayMap Map filled in this class below
 				//textFieldKey11
 				dataDisplayMap.get("idcode").setText(fieldKeyDataMap.get("idcode"));
 				dataDisplayMap.get("index").setText(fieldKeyDataMap.get("index"));
-				dataDisplayMap.get("commandType").setText(fieldKeyDataMap.get("commandType"));
+				dataDisplayMap.get("commandtype").setText(fieldKeyDataMap.get("commandtype"));
 				dataDisplayMap.get("stepnote").setText(fieldKeyDataMap.get("stepnote"));
 				dataDisplayMap.get("comment").setText(fieldKeyDataMap.get("comment"));
 				dataDisplayMap.get("bodyobjectkey").setText(fieldKeyDataMap.get("bodyobjectkey"));
@@ -568,7 +568,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         //NOTE: DO NOT CHANGE, because these strings are used also as dataDisplayMap keys
 		String textFieldKey11 = "idcode"; //"TextField11";
 		String textFieldKey12 = "index"; //"TextField12";
-		String textFieldKey13 = "commandType"; //"TextField13";
+		String textFieldKey13 = "commandtype"; //"TextField13";
 		String textFieldKey14 = "stepnote"; //"TextField14";
 		String textFieldKey15 = "comment"; //"TextField15";
 		String textFieldKey16 = "bodyobjectkey"; //"TextField16";
@@ -580,7 +580,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         textField12 = new JTextField(10); //idcode
         textField12.setActionCommand(textFieldKey12);
         //textField12.addActionListener(this);
-        textField13 = new JTextField(10); //commandType
+        textField13 = new JTextField(10); //commandtype
         textField13.setActionCommand(textFieldKey13);
         //textField13.addActionListener(this);
         textField14 = new JTextField(10); //index
@@ -589,7 +589,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         textField15 = new JTextField(10); //idcode
         textField15.setActionCommand(textFieldKey15);
         //textField15.addActionListener(this);
-        textField16 = new JTextField(10); //commandType
+        textField16 = new JTextField(10); //commandtype
         textField16.setActionCommand(textFieldKey16);
         //textField16.addActionListener(this);
         
@@ -683,7 +683,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				
 				fieldKeyDataMap.put("idcode", dataDisplayMap.get("idcode").getText()); //fieldKeyDataMap.get("idcode"));
 				fieldKeyDataMap.put("index", dataDisplayMap.get("index").getText()); //.setText(fieldKeyDataMap.get("index"));
-				fieldKeyDataMap.put("commandType", dataDisplayMap.get("commandType").getText()); //.setText(fieldKeyDataMap.get("commandType"));
+				fieldKeyDataMap.put("commandtype", dataDisplayMap.get("commandtype").getText()); //.setText(fieldKeyDataMap.get("commandtype"));
 				fieldKeyDataMap.put("stepnote", dataDisplayMap.get("stepnote").getText()); //.setText(fieldKeyDataMap.get("stepnote"));
 				fieldKeyDataMap.put("comment", dataDisplayMap.get("comment").getText()); //.setText(fieldKeyDataMap.get("comment"));
 				

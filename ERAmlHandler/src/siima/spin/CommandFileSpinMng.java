@@ -597,7 +597,7 @@ public class CommandFileSpinMng {
 	
 
 	public void runCMSCommand(JSONObject comobj) {
-		String ctype = (String) comobj.get("commandType");
+		String ctype = (String) comobj.get("commandtype");
 		switch (ctype) {
 		case "loadKnowledgeBase": {
 			if (!kb_loaded)
@@ -910,7 +910,7 @@ public class CommandFileSpinMng {
 				for (int ci = 0; ci < commands.size(); ci++) {
 
 					JSONObject comobj = (JSONObject) commands.get(ci);
-					String ctype = (String) comobj.get("commandType");
+					String ctype = (String) comobj.get("commandtype");
 					logger.log(Level.INFO, "----+ Command type:" + ctype);
 					this.runCMSCommand(comobj);
 				}
@@ -962,29 +962,33 @@ public class CommandFileSpinMng {
 		// DO UPDATE,
 		// else DO INSERT in array location defined by the new index value.
 		// TODO: If new index=null save into CSM_STORE/UNCATEGORIZED JSONArray
-		// TODO: Allways update idxsequence
+	
 		boolean update = false;
+		boolean addtocsmstore = false;
+		boolean newindexnull=false;
+		
+		if((fieldKeyDataMap.get("index") == null)
+				|| ("null".equalsIgnoreCase(fieldKeyDataMap.get("index")))
+				|| ("".equalsIgnoreCase(fieldKeyDataMap.get("index")))) newindexnull=true;
 		try {
-
+			System.out.println("????TODO: updateCSMCommandJsonObject() index: " + fieldKeyDataMap.get("index"));
 			if (this.targetCSMCommandObject != null) { // Normally it cannot be null
 
-			if (this.targetCSMCommandObject.get("index") != null) {
+			if ((this.targetCSMCommandObject.get("index") != null)&&(!newindexnull)) {
 				Number trginx = (Number) this.targetCSMCommandObject.get("index");
 				String trginxstr = trginx.toString();
 				String upinxstr = fieldKeyDataMap.get("index");
 				if (trginxstr.equals(upinxstr))
 					update = true; // DO target update
-			} else if ((fieldKeyDataMap.get("index") == null)
-					|| ("null".equalsIgnoreCase(fieldKeyDataMap.get("index")))) { // Both
-																					// null
-				update = true; // DO target update
+			} else if (newindexnull) { 
+				addtocsmstore = true; // ADD to CSMStore Array
 			}
 		}
 		
 		if (update) { // DO target update; equal index values or both null
 			//indexes are equal
 			this.targetCSMCommandObject.put("idcode", fieldKeyDataMap.get("idcode"));
-			this.targetCSMCommandObject.put("commandType", fieldKeyDataMap.get("commandType"));
+			this.targetCSMCommandObject.put("commandtype", fieldKeyDataMap.get("commandtype"));
 			this.targetCSMCommandObject.put("stepnote", fieldKeyDataMap.get("stepnote"));
 			this.targetCSMCommandObject.put("comment", fieldKeyDataMap.get("comment"));
 
@@ -1003,9 +1007,10 @@ public class CommandFileSpinMng {
 			// System.out.println("UPDATED BODY:\n" +
 			// body.toString().replaceAll(",", ",\n"));
 			
-		} else { // DO insert
+		} else if(!addtocsmstore){ // DO insert to CSMCommands JSONArray
 
 			JSONArray commands = (JSONArray) this.jsonrootobj.get("CSMCommands");
+			
 			String newinxstr = fieldKeyDataMap.get("index");
 			if ((newinxstr != null) && (!"null".equalsIgnoreCase(newinxstr))) {
 				Integer newindnum = Integer.valueOf(newinxstr);
@@ -1013,7 +1018,7 @@ public class CommandFileSpinMng {
 				
 				newcommand.put("index", newindnum); 
 				newcommand.put("idcode", fieldKeyDataMap.get("idcode"));
-				newcommand.put("commandType", fieldKeyDataMap.get("commandType"));
+				newcommand.put("commandtype", fieldKeyDataMap.get("commandtype"));
 				newcommand.put("stepnote", fieldKeyDataMap.get("stepnote"));
 				newcommand.put("comment", fieldKeyDataMap.get("comment"));
 
@@ -1032,6 +1037,27 @@ public class CommandFileSpinMng {
 					comobj.replace("index", idx);					
 				}
 			}
+		} else if(addtocsmstore){ 
+			// ADD to CSMStore JSONArray with index = null
+			// NOTE:Does not check if the same idcode already exists
+			
+			System.out.println("????TODO: updateCSMCommandJsonObject()TODO ADDING TO STORE.....");
+			JSONArray store = (JSONArray) this.jsonrootobj.get("CSMStore");
+			JSONObject newcommand = new JSONObject();
+			
+			newcommand.put("index", null); 
+			newcommand.put("idcode", fieldKeyDataMap.get("idcode"));
+			newcommand.put("commandtype", fieldKeyDataMap.get("commandtype"));
+			newcommand.put("stepnote", fieldKeyDataMap.get("stepnote"));
+			newcommand.put("comment", fieldKeyDataMap.get("comment"));
+
+			String bodyobjectkey = fieldKeyDataMap.get("bodyobjectkey");
+			String bodycontentstr = fieldKeyDataMap.get(bodyobjectkey);				
+			JSONObject newbody = (JSONObject) parser.parse(bodycontentstr);
+			newcommand.put(bodyobjectkey, newbody);			
+			
+			store.add(newcommand);
+			
 		}
 
 		this.csmcommand_updated = true;
@@ -1059,8 +1085,8 @@ public class CommandFileSpinMng {
 			fieldKeyDataMap.put("index", indexstr);
 			String idcodestr = (String) comobj.get("idcode");
 			fieldKeyDataMap.put("idcode", idcodestr);
-			String commandtypestr = (String) comobj.get("commandType");
-			fieldKeyDataMap.put("commandType", commandtypestr);
+			String commandtypestr = (String) comobj.get("commandtype");
+			fieldKeyDataMap.put("commandtype", commandtypestr);
 			String stepnotestr = (String) comobj.get("stepnote");
 			fieldKeyDataMap.put("stepnote", stepnotestr);
 			String commentstr = (String) comobj.get("comment");
@@ -1097,7 +1123,7 @@ public class CommandFileSpinMng {
 				Number indxnum = (Number) comobj.get("index");
 				String indx = indxnum.toString();
 				String id = (String) comobj.get("idcode");
-				String type = (String) comobj.get("commandType");
+				String type = (String) comobj.get("commandtype");
 				//System.out.println("(id; indx; type)(" + id + ";" + indx+ ";" + type + ")");
 								
 				if((idcode!=null)&&(!idcode.isEmpty())&&(id!=null)&&((idcode.equalsIgnoreCase(id))||(id.startsWith(idcode)))){
@@ -1228,7 +1254,7 @@ public class CommandFileSpinMng {
 				for (int ci = 0; ci < commands.size(); ci++) {
 
 					JSONObject comobj = (JSONObject) commands.get(ci);
-					String ctype = (String) comobj.get("commandType");
+					String ctype = (String) comobj.get("commandtype");
 					System.out.println("----+ Command type:" + ctype);
 					csm.runCMSCommand(comobj);
 				}

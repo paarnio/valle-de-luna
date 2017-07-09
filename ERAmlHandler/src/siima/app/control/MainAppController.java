@@ -105,12 +105,12 @@ public class MainAppController {
 		
 	}
 	
-	public Map<String,String> searchCSMCommandContent(String idcode, String index, String commandType){
+	public Map<String,String> searchCSMCommandContent(String idcode, String index, String commandtype){
 		//TODO:
 		logger.info("searchCommandJsonString()");
 			
 		//StringBuffer sbuf = new StringBuffer();
-		Map<String,String> fieldKeyDataMap = spinMng.searchCSMCommandContent(idcode, index, commandType);
+		Map<String,String> fieldKeyDataMap = spinMng.searchCSMCommandContent(idcode, index, commandtype);
 		//String jsonstr = spinMng.searchCommandJsonString(null,null,"loadKnowledgeBase");
 		//spinMng.searchCommandJsonString("R1_T2_CIM_1",null,null);
 		//spinMng.searchCommandJsonString(null,"2",null);
