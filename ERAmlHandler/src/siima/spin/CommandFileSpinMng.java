@@ -761,7 +761,8 @@ public class CommandFileSpinMng {
 	}
 	public void startPredefinedKB_Bicycle(){
 		/* --- Main ontology --- */
-		String ont_folder = "data/models/importing_models"; 
+		//(2017-07-10) changed
+		String ont_folder = "data/common/owl_models/importing_models"; 
 		
 		String main_ont_file= "bicycle.ttl"; 
 		String main_ont_url="http://siima.net/ont/bicycle"; 
