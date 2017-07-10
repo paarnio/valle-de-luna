@@ -15,6 +15,8 @@
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
 </rdf:Description>
 <!-- VPA: Ontology parsed from ifs.tuwien html pages by PA  -->
+<!-- VPA:MOD1: 2017-07-10 caex_ontology_mod1_owl.owl-->
+<!-- VPA:MOD1: 2017-07-10 all statements 'subClassOf owl:Ontology' commented out. -->
 <!--  -->
 <!-- ################################################################# -->
 <!-- # -->
@@ -860,7 +862,7 @@
 
 <rdf:Description rdf:about="http://data.ifs.tuwien.ac.at/aml/ontology#CAEXBasicObject">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-	<rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/>
+	<!-- VPA:MOD1: rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/-->
 	<rdfs:comment>Description:CAEX basis object that comprises a basic set of attributes and header information which exist for all CAEX elements.</rdfs:comment>
 	<rdfs:comment>ID:md5-fe5725f06e97c0ef05716231bf8dd8f4</rdfs:comment>
 	<rdfs:comment>Type:(OWL Class)</rdfs:comment>
@@ -894,7 +896,7 @@ Name (required) and ID (optional).</rdfs:comment>
 
 <rdf:Description rdf:about="http://data.ifs.tuwien.ac.at/aml/ontology#Copyright">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-	<rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/>
+	<!-- VPA:MOD1: rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/-->
 	<rdfs:comment>Description:</rdfs:comment>
 	<rdfs:comment>ID:md5-55c658d6d97ac43385295010840c2aa9</rdfs:comment>
 	<rdfs:comment>Type:(OWL Class)</rdfs:comment>
@@ -905,7 +907,7 @@ Name (required) and ID (optional).</rdfs:comment>
 
 <rdf:Description rdf:about="http://data.ifs.tuwien.ac.at/aml/ontology#Description">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-	<rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/>
+	<!-- VPA:MOD1:rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/-->
 	<rdfs:comment>Description:</rdfs:comment>
 	<rdfs:comment>ID:md5-9a066a4103427ddbe511139838cf7431</rdfs:comment>
 	<rdfs:comment>Type:(OWL Class)</rdfs:comment>
@@ -916,7 +918,7 @@ Name (required) and ID (optional).</rdfs:comment>
 
 <rdf:Description rdf:about="http://data.ifs.tuwien.ac.at/aml/ontology#DocumentRoot">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-	<rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/>
+	<!-- VPA:MOD1: rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/-->
 	<rdfs:comment>Description:</rdfs:comment>
 	<rdfs:comment>ID:md5-160a4c139471b59da89e82b29b1a7a64</rdfs:comment>
 	<rdfs:comment>Type:(OWL Class)</rdfs:comment>
@@ -1037,7 +1039,7 @@ Name (required) and ID (optional).</rdfs:comment>
 
 <rdf:Description rdf:about="http://data.ifs.tuwien.ac.at/aml/ontology#NominalScaled">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-	<rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/>
+	<!-- VPA:MOD1: rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/-->
 	<rdfs:comment>Description:</rdfs:comment>
 	<rdfs:comment>ID:md5-cda8baad3a32ab9963c6cb8fa4d2589c</rdfs:comment>
 	<rdfs:comment>Type:(OWL Class)</rdfs:comment>
@@ -1048,7 +1050,7 @@ Name (required) and ID (optional).</rdfs:comment>
 
 <rdf:Description rdf:about="http://data.ifs.tuwien.ac.at/aml/ontology#OrdinalScaled">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-	<rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/>
+	<!-- VPA:MOD1: rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/-->
 	<rdfs:comment>Description:</rdfs:comment>
 	<rdfs:comment>ID:md5-4a944b66031a07692ae3926a6c558d6</rdfs:comment>
 	<rdfs:comment>Type:(OWL Class)</rdfs:comment>
@@ -1169,7 +1171,7 @@ Name (required) and ID (optional).</rdfs:comment>
 
 <rdf:Description rdf:about="http://data.ifs.tuwien.ac.at/aml/ontology#UnknownType">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-	<rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/>
+	<!-- VPA:MOD1: rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/-->
 	<rdfs:comment>Description:</rdfs:comment>
 	<rdfs:comment>ID:md5-ef937a45d6ad28e64da53ef972da6d80</rdfs:comment>
 	<rdfs:comment>Type:(OWL Class)</rdfs:comment>
@@ -1180,7 +1182,7 @@ Name (required) and ID (optional).</rdfs:comment>
 
 <rdf:Description rdf:about="http://data.ifs.tuwien.ac.at/aml/ontology#Version">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-	<rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/>
+	<!-- VPA:MOD1: rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/-->
 	<rdfs:comment>Description:</rdfs:comment>
 	<rdfs:comment>ID:md5-3338827d46a9561f41d58d12bdd52378</rdfs:comment>
 	<rdfs:comment>Type:(OWL Class)</rdfs:comment>
@@ -1188,7 +1190,7 @@ Name (required) and ID (optional).</rdfs:comment>
 </rdf:Description>
 <!--  -->
 <!-- http://www.eclipse.org/emf/2002/Ecore#EStringToStringMapEntry -->
-
+<!-- VPA:MOD1: 
 <rdf:Description rdf:about="http://www.eclipse.org/emf/2002/Ecore#EStringToStringMapEntry">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
 	<rdfs:subClassOf rdf:resource="http://data.ifs.tuwien.ac.at/aml/ontology"/>
@@ -1197,6 +1199,7 @@ Name (required) and ID (optional).</rdfs:comment>
 	<rdfs:comment>Type:(OWL Class)</rdfs:comment>
 	<rdfs:label>EStringToStringMapEntry</rdfs:label>
 </rdf:Description>
+-->
 <!--  -->
 <!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
 
