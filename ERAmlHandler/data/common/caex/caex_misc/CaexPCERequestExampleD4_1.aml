@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CAEXFile FileName="CaexPCERequestExampleFigD9_1.aml" SchemaVersion="2.15" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!-- CaexPCERequestExampleD4_1.aml -->
+<!-- VPA: Demo example D4 from EVS-EN 62424:2016 Fig D9 p.161 (CAEX Schema 3.0)-->
+<InstanceHierarchy Name="PlantA">
+	<InternalElement Name="AreaB" ID="ID1">
+		<InternalElement Name="Unit7" ID="ID2">		
+			<InternalElement Name="080.1" ID="ID3">
+				<RoleRequirements RefBaseRoleClassPath="IEC62424RoleLib/PCERequest">
+				<Attribute Name="m_PCECategory" AttributeDataType="xs:string">
+					<Value>Y</Value>
+				</Attribute>
+				<Attribute Name="m_PCEReferenceDesignation" AttributeDataType="xs:string">
+					<Value>080.1</Value>
+				</Attribute>
+				<Attribute Name="M_Location">
+					<Value>Central Control System</Value>
+				</Attribute>
+				<Attribute Name="ProcessingFunction" AttributeDataType="xs:string">
+					<Value>C</Value>
+				</Attribute>
+				<ExternalInterface Name="In000" ID="ID4" RefBaseClassPath="IEC62424InterfaceLib/SignalSink"/>
+				<ExternalInterface Name="Y" ID="ID5" RefBaseClassPath="IEC62424InterfaceLib/FinalControllingEquipmentSource"/>
+				</RoleRequirements>
+			</InternalElement>
+			<InternalElement Name="080.2" ID="ID6">
+				<RoleRequirements RefBaseRoleClassPath="IEC62424RoleLib/PCERequest">
+				<Attribute Name="m_PCECategory" AttributeDataType="xs:string">
+					<Value>T</Value>
+				</Attribute>
+				<Attribute Name="m_PCEReferenceDesignation" AttributeDataType="xs:string">
+					<Value>080.2</Value>
+				</Attribute>
+				<Attribute Name="M_Location">
+					<Value>Central Control System</Value>
+				</Attribute>
+				<Attribute Name="ProcessingFunction" AttributeDataType="xs:string">
+					<Value>IC</Value>
+				</Attribute>
+				<ExternalInterface Name="TIC" ID="ID7" RefBaseClassPath="IEC62424InterfaceLib/SignalSource"/>
+				<ExternalInterface Name="AH" ID="ID8" RefBaseClassPath="IEC62424InterfaceLib/AlarmSource"/>
+				<ExternalInterface Name="AL" ID="ID9" RefBaseClassPath="IEC62424InterfaceLib/AlarmSource"/>
+				<ExternalInterface Name="In000" ID="ID10" RefBaseClassPath="IEC62424InterfaceLib/SensorSink"/>
+				<ExternalInterface Name="I" ID="ID11" RefBaseClassPath="IEC62424InterfaceLib/IndicationSource"/>
+				<ExternalInterface Name="SL" ID="ID111" RefBaseClassPath="IEC62424InterfaceLib/SignalSource"/>
+				</RoleRequirements>
+			</InternalElement>
+			<InternalElement Name="080.3" ID="ID12">
+				<RoleRequirements RefBaseRoleClassPath="IEC62424RoleLib/PCERequest">
+				<Attribute Name="m_PCECategory" AttributeDataType="xs:string">
+					<Value>H</Value>
+				</Attribute>
+				<Attribute Name="m_PCEReferenceDesignation" AttributeDataType="xs:string">
+					<Value>080.3</Value>
+				</Attribute>
+				<Attribute Name="M_Location">
+					<Value>Local Control Panel</Value>
+				</Attribute>
+				<ExternalInterface Name="SH" ID="ID13" RefBaseClassPath="IEC62424InterfaceLib/SignalSource"/>
+				<ExternalInterface Name="SL" ID="ID14" RefBaseClassPath="IEC62424InterfaceLib/SignalSource"/>
+				</RoleRequirements>
+			</InternalElement>
+			<InternalElement Name="080.4" ID="ID15">
+				<RoleRequirements RefBaseRoleClassPath="IEC62424RoleLib/PCERequest">
+				<Attribute Name="m_PCECategory" AttributeDataType="xs:string">
+					<Value>U</Value>
+				</Attribute>
+				<Attribute Name="m_PCEReferenceDesignation" AttributeDataType="xs:string">
+					<Value>080.4</Value>
+				</Attribute>
+				<Attribute Name="M_Location">
+					<Value>Central Control System</Value>
+				</Attribute>
+				<Attribute Name="ProcessingFunction" AttributeDataType="xs:string">
+					<Value>Y</Value>
+				</Attribute>
+				<ExternalInterface Name="Y" ID="ID16" RefBaseClassPath="IEC62424InterfaceLib/SignalSource"/>
+				<ExternalInterface Name="In000" ID="ID17" RefBaseClassPath="IEC62424InterfaceLib/SignalSink"/>
+				<ExternalInterface Name="In001" ID="ID18" RefBaseClassPath="IEC62424InterfaceLib/SignalSink"/>
+				<ExternalInterface Name="In002" ID="ID19" RefBaseClassPath="IEC62424InterfaceLib/SignalSink"/>
+				<ExternalInterface Name="In003" ID="ID20" RefBaseClassPath="IEC62424InterfaceLib/SignalSink"/>
+				<ExternalInterface Name="In004" ID="ID21" RefBaseClassPath="IEC62424InterfaceLib/SignalSink"/>
+				</RoleRequirements>
+			</InternalElement>
+			<InternalElement Name="080.5" ID="ID22">
+				<RoleRequirements RefBaseRoleClassPath="IEC62424RoleLib/PCERequest">
+				<Attribute Name="m_PCECategory" AttributeDataType="xs:string">
+					<Value>H</Value>
+				</Attribute>
+				<Attribute Name="m_PCEReferenceDesignation" AttributeDataType="xs:string">
+					<Value>080.5</Value>
+				</Attribute>
+				<Attribute Name="M_Location">
+					<Value>Central Control System</Value>
+				</Attribute>
+				<ExternalInterface Name="SH" ID="ID23" RefBaseClassPath="IEC62424InterfaceLib/SignalSource"/>
+				<ExternalInterface Name="SL" ID="ID24" RefBaseClassPath="IEC62424InterfaceLib/SignalSource"/>
+				<ExternalInterface Name="OH" ID="ID25" RefBaseClassPath="IEC62424InterfaceLib/SignalSource"/>
+				<ExternalInterface Name="OL" ID="ID26" RefBaseClassPath="IEC62424InterfaceLib/SignalSource"/>
+				</RoleRequirements>
+			</InternalElement>			
+			<InternalLink Name="L1" RefPartnerSideA="ID23" RefPartnerSideB="ID17"/>
+			<InternalLink Name="L2" RefPartnerSideA="ID24" RefPartnerSideB="ID17"/>
+			<InternalLink Name="L3" RefPartnerSideA="ID13" RefPartnerSideB="ID19"/>
+			<InternalLink Name="L4" RefPartnerSideA="ID14" RefPartnerSideB="ID20"/>
+			<InternalLink Name="L5" RefPartnerSideA="ID111" RefPartnerSideB="ID21"/>
+			<InternalLink Name="L6" RefPartnerSideA="ID16" RefPartnerSideB="ID4"/>		
+		</InternalElement>
+	</InternalElement>
+</InstanceHierarchy>
+	
+	
+<!-- VPA:PAKKI Not included to Example Fig D9	
+<InterfaceClassLib Name="IEC62424InterfaceLib">
+		<Version>1.0.0</Version>
+		<InterfaceClass Name="SignalSource" />
+		<InterfaceClass Name="SignalSink" />
+</InterfaceClassLib>		
+<SystemUnitClassLib Name="SystemUnitClassLib1">
+		<Version>1.0.0</Version>
+		<SystemUnitClass Name="FaceplateBack">
+			<Attribute Name="color" AttributeDataType="xs:string">
+				<Description>color</Description>
+			</Attribute>
+			<ExternalInterface Name="square_right" RefBaseClassPath="InterfaceClassLib1/IBoltAngular" ID="ID666" />
+		</SystemUnitClass>
+</SystemUnitClassLib>
+-->
+	
+</CAEXFile>

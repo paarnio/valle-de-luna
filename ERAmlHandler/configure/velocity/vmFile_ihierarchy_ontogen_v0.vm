@@ -19,8 +19,6 @@
 	SEE: https://stackoverflow.com/questions/6998412/velocity-string-function
 	2017-05-29 CALLING MY OWN CLASS(UriHelper) METHOD:putVelocityContext("UriHelper", helper) 
 	SEE: https://stackoverflow.com/questions/20786403/calling-a-java-method-in-velocity-template
-	SEE: https://stackoverflow.com/questions/6914312/calling-macro-function-in-velocity-template
-	NOTE:"To get rid of spaces and blank lines use multi-line comments"
 	*#
 	#set( $amlns = 'http://data.ifs.tuwien.ac.at/aml/ontology#')
 	#set( $xsdns = 'http://www.w3.org/2001/XMLSchema#')
@@ -74,22 +72,12 @@
 		<rdf:type rdf:resource="${amlns}InternalElement"/>
 		<amlont:name rdf:datatype="${xsdns}string">$node.Name</amlont:name>
 		<amlont:iD rdf:datatype="${xsdns}string">$node.ID</amlont:iD>
-		#if ($SUCrep)
 		#set( $URIhelp = $UriHelper.createInstanceUri("SystemUnitClass","$ihierarchy.Name","$node.Name", "$SUCrep") )
 		<amlont:refBaseSystemUnitPath rdf:resource="${URIhelp}"/>
-		#end
 		## -- attribute property --
 		#foreach ($att in $node.getAttribute())
 		#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
 		<amlont:attribute rdf:resource="${URIhelp}"/>
-		#end
-		## -- roleRequirements property --
-		## NOTE: in schema v. 2.15 RoleRequirements is a single object (Not a list of RoleRequirements like in the new v3.0)
-		## TODO in future for v3.0 add a foreach loop (Velocity provides a loop counter reference $velocityCount)
-		#set( $rreq = $node.getRoleRequirements())
-		#if ($rreq)
-		#set( $URIhelp = $UriHelper.createInstanceUri("RoleRequirements","$ihierarchy.Name","$node.Name", "RR1") )
-		<amlont:roleRequirements rdf:resource="${URIhelp}"/>
 		#end
 	</owl:NamedIndividual>	
 	#if ($node.InternalElement.size() > 0)
@@ -156,10 +144,9 @@
 	
 	## --Recursive ExternalInterface creation from all InternalElements--
 	#macro(walkIEForEInterface $node $ihierarchy)
-	#set( $nodeName = $node.Name )
-	## - ExternalInterfaces in InternalElement
 	#foreach ($extint in $node.getExternalInterface())
-	#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$ihierarchy.Name","$nodeName", "$extint.Name") )
+				
+	#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$ihierarchy.Name","$node.Name", "$extint.Name") )
 	#set( $RBCPath = $extint.getRefBaseClassPath() )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 	<rdf:type rdf:resource="${amlns}ExternalInterface"/>
@@ -168,23 +155,6 @@
 	<amlont:refBaseClassPath rdf:datatype="${xsdns}string">$RBCPath</amlont:refBaseClassPath>				
 	</owl:NamedIndividual>
 	#end
-	## - ExternalInterfaces in RoleRequirements in InternalElement
-	## Note: in old schema 2.15 InternalElement can have only one RoleRequirements object
-	#set( $rreq = $node.getRoleRequirements())
-	#if ($rreq)
-	#set( $RRstr = "-RoleReq1" )	
-	#foreach ($extint in $rreq.getExternalInterface())				
-	#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$ihierarchy.Name","$nodeName$RRstr", "$extint.Name") )
-	#set( $RBCPath = $extint.getRefBaseClassPath() )
-	<owl:NamedIndividual rdf:about="${URIhelp}">
-	<rdf:type rdf:resource="${amlns}ExternalInterface"/>
-	<amlont:name rdf:datatype="${xsdns}string">$extint.Name</amlont:name>
-	<amlont:iD rdf:datatype="${xsdns}string">$extint.ID</amlont:iD>
-	<amlont:refBaseClassPath rdf:datatype="${xsdns}string">$RBCPath</amlont:refBaseClassPath>				
-	</owl:NamedIndividual>
-	#end
-	#end
-	
 	#if ($node.InternalElement.size() > 0)
 		#foreach ($child in $node.InternalElement)
 		#walkIEForEInterface($child $ihierarchy)
@@ -212,33 +182,13 @@
 	#set( $LinkURIhelp = $UriHelper.createInstanceUri("InternalLink","$ihierarchy.Name","$node.Name", "$ILNamerep") )
 	#set( $RPSideA = $intlink.getRefPartnerSideA() )
 	#set( $RPSideB = $intlink.getRefPartnerSideB() )
-	## NEW TEST: RefPartnerSide is Old version 2.15 reference OR New 3.0 reference
-	## OLD SCHEMA VERSION 2.15 reference RefPartnerSide consists of (InternalElement's_ID:EInterface's_Name)(separator':')
-	## NEW VERSION FOR SCHEMA 3.0 reference RefPartnerSide consists ONLY of ExternalInterface's ID
-	#set( $OVCond = $StringUtils.contains($RPSideA,":") )
-		#if($OVCond)					
-		## Calling a sub macro
-		#set( $SideURI = "" )
-		#macroReferedExtIntURI($RPSideA $ihierarchy $SideURI)
-		#set( $SideAURI = $SideURI )
-		#else
-		##**** NEW VERSION ***
-		#set( $SideURI = "" )
-		#macroNEWReferedExtIntURI($RPSideA $ihierarchy $SideURI)
-		#set( $SideAURI = $SideURI )
-		#end
-	
-	#set( $OVCond = $StringUtils.contains($RPSideB,":") )
-		#if($OVCond)					
-		#set( $SideURI = "" )
-		#macroReferedExtIntURI($RPSideB $ihierarchy $SideURI)
-		#set( $SideBURI = $SideURI )
-		#else
-		##**** NEW VERSION ***
-		#set( $SideURI = "" )
-		#macroNEWReferedExtIntURI($RPSideB $ihierarchy $SideURI)
-		#set( $SideBURI = $SideURI )
-		#end
+	## Calling a sub macro
+	#set( $SideURI = "" )
+	#macroReferedExtIntURI($RPSideA $ihierarchy $SideURI)
+	#set( $SideAURI = $SideURI )
+	#set( $SideURI = "" )
+	#macroReferedExtIntURI($RPSideB $ihierarchy $SideURI)
+	#set( $SideBURI = $SideURI )
 	<owl:NamedIndividual rdf:about="${LinkURIhelp}">
 	<rdf:type rdf:resource="${amlns}InternalLink"/>
 	<amlont:name rdf:datatype="${xsdns}string">$intlink.Name</amlont:name>
@@ -258,7 +208,7 @@
 	## -- macro end
 	
 	## -- ExternalInterface URIs Referenced in InternalLink --
-	## OLD SCHEMA VERSION 2.15 reference RefPartnerSide consists of (InternalElement's_ID:EInterface's_Name)
+	## reference RefPartnerSide consists of (InternalElement's_ID:EInterface's_Name)
 	## See: https://stackoverflow.com/questions/6914312/calling-macro-function-in-velocity-template
 	## "To get rid of spaces and blank lines use multi-line comments"
 	## "preferably an externally defined result variable can be passed 'by reference'"
@@ -332,55 +282,5 @@
 	#end	
 	#end
 	## -- macro end
-	
-	## -- NEW MACRO FOR searching ExternalInterface URIs Referenced in InternalLink --
-	## NEW VERSION FOR SCHEMA 3.0 reference RefPartnerSide consists ONLY of ExternalInterface's_ID
-	## See: https://stackoverflow.com/questions/6914312/calling-macro-function-in-velocity-template
-	## "preferably an externally defined result variable can be passed 'by reference'"
-	#macro(macroNEWReferedExtIntURI $RPSide $ihierarchy $SideURI)
-	## $RPSide contains the ID of an ExternalInterface
-    #foreach ($node in $ihierarchy.InternalElement)
-		#if($SideURI=="")
-		#recursiveNEWReferedExtIntURI($RPSide $ihierarchy $node $SideURI)
-		#end
-	#end		
-    #end
-	## -- macro end
-	
-	## --Recursive Search For ExternalInterfaces by their ID from all InternalElements and RoleRequirements--
-	#macro(recursiveNEWReferedExtIntURI $RPSide $ihierarchy $node $SideURI )
-	## - ExternalInterfaces in InternalElement
-	#if($SideURI=="")
-	#foreach ($extint in $node.getExternalInterface())
-	#if($RPSide == $extint.ID)
-	#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$ihierarchy.Name","$node.Name", "$extint.Name") )
-	#set( $SideURI = $URIhelp )
-	#end
-	#end
-	## - ExternalInterfaces in RoleRequirements in InternalElement
-	## Note: in old schema 2.15 InternalElement can have only one RoleRequirements object
-	#set( $rreq = $node.getRoleRequirements())
-	#if ($rreq)
-	#foreach ($extint in $rreq.getExternalInterface())
-	#if($RPSide == $extint.ID)
-	#set( $nodeName = $node.Name )
-	#set( $RRstr = "-RoleReq1" )
-	#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$ihierarchy.Name","$nodeName$RRstr", "$extint.Name") )
-	#set( $RBCPath = $extint.getRefBaseClassPath() )
-	#set( $SideURI = $URIhelp )
-	#end
-	#end
-	#end
-	#if($SideURI=="")
-	#if ($node.InternalElement.size() > 0)
-		#foreach ($child in $node.InternalElement)
-		#recursiveNEWReferedExtIntURI($RPSide $ihierarchy $child $SideURI )
-		#end
-	#end
-	#end	
-	#end
-	#end
-	## -- macro end
-	
 	
 </rdf:RDF>

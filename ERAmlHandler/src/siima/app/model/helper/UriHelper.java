@@ -36,6 +36,9 @@ public class UriHelper {
 			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy + "_IE-" + iElement + "_EXTINT-" + instanceName;		
 		} else if("InternalLink".equalsIgnoreCase(instanceOwlType)){ // subClass of CAEXObject		
 			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy +  "_ILINK-" + instanceName; //NO: "_IE-" + iElement +		
+		} else if("RoleRequirements".equalsIgnoreCase(instanceOwlType)){ // subClass of CAEXBasicObject		
+			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy + "_IE-" + iElement + "_RR-" + instanceName;
+			System.out.println("????????????URIHELP: RoleRequirements " + uri);
 		}
 		
 		
