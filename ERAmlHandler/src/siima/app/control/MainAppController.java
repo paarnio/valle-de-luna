@@ -174,6 +174,11 @@ public class MainAppController {
 		return serialized;
 	}
 	
+	public void clearRDFModels(boolean partials, boolean combined, boolean merged){
+		
+		this.rdfContainer.clearRDFModels(partials, combined, merged);
+		
+	}
 	
 	public ElementTree buildJaxbModel(String xmlfile) {
 		// Example file: "data/caex_exs/RunningExample_SimpleIH.aml"

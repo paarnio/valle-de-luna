@@ -92,6 +92,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JMenuItem mntmLoadSpinCommands;
 	private JMenuItem mntmInvokeSpinCommands;
 	private JMenuItem mntmSaveSpinCommands;
+	private JMenuItem mntmClearPartials;
+	private JMenuItem mntmClearCombined;
+	private JMenuItem mntmClearMerged;
 	// private JTree tree;
 	private JRadioButtonMenuItem rbMenuItem1;
 	private JRadioButtonMenuItem rbMenuItem2;
@@ -294,9 +297,26 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mntmSaveOntologyModel = new JMenuItem("Save Ontology Model...");
 		mntmSaveOntologyModel.addActionListener(this);
 		mnOntology.add(mntmSaveOntologyModel);
+		
+		// NEW SUBMENU
+		JMenu mnClearOntmenu = new JMenu("Clear Ontology Models...");
+
+		mntmClearPartials = new JMenuItem("Partials");
+		mntmClearPartials.addActionListener(this);
+		mnClearOntmenu.add(mntmClearPartials);
+
+		mntmClearCombined = new JMenuItem("Combined");
+		mntmClearCombined.addActionListener(this);
+		mnClearOntmenu.add(mntmClearCombined);
+
+		mntmClearMerged = new JMenuItem("Merged");
+		mntmClearMerged.addActionListener(this);
+		mnClearOntmenu.add(mntmClearMerged);
+
+		mnOntology.add(mnClearOntmenu);
 
 		/*
-		 *  Rules JMenu
+		 * Rules JMenu
 		 */
 		JMenu mnAsp = new JMenu("Rules");
 		menuBar.add(mnAsp);
@@ -660,12 +680,13 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         
         
         //Create a JTextArea for CSMCommand body object.
-        oneJsonCommandTextArea = new JTextArea(
+        oneJsonCommandTextArea = new JTextArea("CSMCommand Body Content:");
+        /*
                 "This is an editable JTextArea. " +
                 "A text area is a \"plain\" text component, " +
                 "which means that although it can display text " +
                 "in any font, all of the text is in the same font."
-        );
+        */
         //oneJsonCommandTextArea.setFont(new Font("Serif", Font.ITALIC, 16));
         oneJsonCommandTextArea.setLineWrap(true);
         oneJsonCommandTextArea.setWrapStyleWord(true);
@@ -891,9 +912,34 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 * rbMenuItem1-6 AND
 		 * mntmMergeModels AND mntmLoadSpinCommands
 		 * mntmInvokeSpinCommands AND mntmSaveSpinCommands
+		 * mntmClearPartials AND mntmClearCombined AND mntmClearMerged
 		 */
 		
-		if (arg0.getSource() == mntmSaveSpinCommands) {
+		if (arg0.getSource() == mntmClearPartials) {
+			
+			appControl.clearRDFModels(true,false,false);
+			
+			//-- Console Printing
+			txtrConsoleOutput.append(newline + "LOG: CLEARING PARTIAL ONTOLOGY MODELS");
+			txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+			
+		} else if (arg0.getSource() == mntmClearCombined) {
+			
+			appControl.clearRDFModels(false,true,false);
+			
+			//-- Console Printing
+			txtrConsoleOutput.append(newline + "LOG: CLEARING COMBINED ONTOLOGY MODEL");
+			txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+			
+		} else if (arg0.getSource() == mntmClearMerged) {
+			
+			appControl.clearRDFModels(false,false,true);
+			
+			//-- Console Printing
+			txtrConsoleOutput.append(newline + "LOG: CLEARING MERGED ONTOLOGY MODEL");
+			txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+			
+		} else if (arg0.getSource() == mntmSaveSpinCommands) {
 			fileChooser.setDialogTitle("SAVE SPIN CSMCOMMANDS TO JSON FILE (.json)");
 			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data"));

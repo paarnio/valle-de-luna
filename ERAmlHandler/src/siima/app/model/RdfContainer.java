@@ -41,6 +41,8 @@ public class RdfContainer {
 		rdfModelMap.put("systemunitclasslib", systemUnitClassLRdfModel);
 		rdfModelMap.put("roleclasslib", roleClassLRdfModel);
 		rdfModelMap.put("interfaceclasslib", interfaceClassLRdfModel);
+		
+		this.mergedRdfModel = ModelFactory.createDefaultModel();
 	}
 	
 	public void genereteCaexOntologyModel(String modelkey) {
@@ -116,7 +118,7 @@ public class RdfContainer {
 		logger.log(Level.INFO, "mergeRDFModels(): Merging existing generated RDF models.");
 		this.curModelKey = "merged";
 		
-		mergedRdfModel = ModelFactory.createDefaultModel();
+		//mergedRdfModel = ModelFactory.createDefaultModel();
 		for (String curkey : (Set<String>) rdfModelMap.keySet()) {
 			if (!"default".equalsIgnoreCase(curkey)) {
 				Model categorymodel = (Model) rdfModelMap.get(curkey);
@@ -132,7 +134,26 @@ public class RdfContainer {
 		logger.log(Level.INFO, "mergeRDFModels(): Merged model total size# " + mergedRdfModel.size());
 	}
 	
-	
+	public void clearRDFModels(boolean partials, boolean combined, boolean merged){
+
+		if (partials) {
+			genRdfModel = ModelFactory.createDefaultModel();
+			defaultRdfModel = ModelFactory.createDefaultModel();
+			instanceHRdfModel = ModelFactory.createDefaultModel();
+			systemUnitClassLRdfModel = ModelFactory.createDefaultModel();
+			roleClassLRdfModel = ModelFactory.createDefaultModel();
+			interfaceClassLRdfModel = ModelFactory.createDefaultModel();
+		}
+
+		if (combined) {
+			combinedRdfModel = ModelFactory.createDefaultModel();
+
+		}
+		if (merged) {
+			mergedRdfModel = ModelFactory.createDefaultModel();
+		}
+	}
+
 	public void writeRdfModelToFile(String newOntologyFile) {
 		Model savemodel;
 		try {//
