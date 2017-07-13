@@ -3,6 +3,8 @@ package siima.app.control;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,18 @@ public class ERAProject {
 			logger.info("saveProjectInFolder() TOOL PATH FORBIDDEN: " + toolpath);
 			return ok;
 		}
-
+		// (2017-07-13) Creating and Saving project.meta file
+		StringBuffer metabuf = new StringBuffer();		
+		Path folderpath = Paths.get(projectHomeDirectory);
+		folderpath.getFileName();
+		metabuf.append("PROJECT NAME: " + folderpath.getFileName());
+		// http://howtodoinjava.com/core-java/date-time/java-get-current-datetime-examples/
+		LocalDateTime today = LocalDateTime.now();	 
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String formattedDateTime = today.format(formatter);		
+		metabuf.append("\nCREATED: " + formattedDateTime);
+		FileUtil.writeTextFile(metabuf.toString(), projectHomeDirectory + "/" + "project.meta");
+		
 		if (initfileparsed) {
 			// Create/copy Project Sub Directories
 			if ((!copydirsrcpaths.isEmpty()) && (copydirsrcpaths.size() == copydirtrgpaths.size())) {

@@ -302,10 +302,17 @@ public class MainAppController {
 		logger.info("setAspSolverEngine()");
 	}
 	
-	public void openProjectInFolder(String openProjectDirectory){
+	public boolean openProjectInFolder(String openProjectDirectory){
 		// TODO: open projects metadata(?) file to read latest configuration.
-		logger.info("openProjectInFolder():");
-		
+		boolean ok=false;
+		File metafile = new File(openProjectDirectory + "/" + "project.meta");
+		if(metafile.exists()){//project.meta file should exist, If correct era-project file
+			ok=true;
+			logger.info("openProjectInFolder(): Project Opened in folder:" + openProjectDirectory);
+		 } else {
+			logger.info("openProjectInFolder() ??? NOT a Project Home Directory: project.meta does not exist " + openProjectDirectory);
+		 }
+		return ok;
 	}
 	
 	public void saveProject(){
@@ -324,12 +331,14 @@ public class MainAppController {
 			ok = this.project.createSubDirectoriesAndCopyFiles(newProjectHomeDirectory);
 			if (ok){
 				this.viewFrame.setEraProjectHomeDirectory(newProjectHomeDirectory);
+				clearRDFModels(true,true,true);
 				logger.info("saveProjectInFolder() New Project Home Directory created: " + newProjectHomeDirectory);
 			}
 		}
 		// SAVING WORK FILES TO CURRENT OR NEW PROJECT FOLDERS
 		String homedir = this.viewFrame.getEraProjectHomeDirectory();
 		if ((homedir != null) && (!".".equalsIgnoreCase(homedir))) {
+			
 			// Saving essential files in work memory
 			String subFolderCaex = "/data/caex";
 			String maincaexname = null;
@@ -350,6 +359,7 @@ public class MainAppController {
 				saveXMLModel(copyloc);
 				logger.info("saveProjectInFolder() Main CAEX file saved into project: " + copyloc);
 			}
+		 
 		}
 		return ok;
 

@@ -1081,13 +1081,18 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			if (retVal == JFileChooser.APPROVE_OPTION) {
 				System.out.println("GUIFrame: Open OK pressed");
 				File openProjectDirectory = fileChooser.getSelectedFile();
-				appControl.openProjectInFolder(openProjectDirectory.getPath());
+				boolean ok = appControl.openProjectInFolder(openProjectDirectory.getPath());
+				if(ok){
 				this.eraProjectHomeDirectory = openProjectDirectory.getPath();
 				this.latestOpenedFolder = openProjectDirectory.getPath();
 				System.out.println("-- Project Folder Opened: " + openProjectDirectory.getName());
 				//-- Console Printing
 				txtrConsoleOutput.append(newline + "LOG: ERA PROJECT OPENED: " + openProjectDirectory.getName());
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+				} else {
+					txtrConsoleOutput.append(newline + "LOG: ERA PROJECT NOT FOUND??? 'project.meta' file does not exist?");
+					txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+				}
 			} else {
 				System.out.println("Frame: No Project Folder Selected!");
 			}
