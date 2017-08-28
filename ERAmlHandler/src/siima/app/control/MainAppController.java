@@ -270,7 +270,7 @@ public class MainAppController {
 
 	public void invokeXslContextTransform() {
 
-		this.xslt.doSpecificTransform("contextSrc2Trg", null, null);
+		this.xslt.doSpecificTransform("contextSrc2Trout", null, null);
 		logger.info("invokeXslContextTransform()");
 	}
 

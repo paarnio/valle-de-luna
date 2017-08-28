@@ -23,13 +23,13 @@ public class XSLTransform {
 	
 	private String xslContextSrcFile; //source .xml
 	private String xslContextXslFile; //.xsl
-	private String xslContextTrgFile; //target file .trg
+	private String xslContextTroutFile; //transform result file .trout
 	
 
-	public void doSpecificTransform(String transformtype, String sourcefile, String targetfile) {
+	public void doSpecificTransform(String transformtype, String sourcefile, String troutfile) {
 		/*
 		 * Implemented specific transform types:"caex2jmonkey"; "caex2aspfacts"; 
-		 * Implemented generic transform: "contextSrc2Trg"
+		 * Implemented generic transform: "contextSrc2Trout"
 		 * 
 		 */
 		System.out.println("-XSLTransform: doTransform(): " + transformtype);
@@ -42,17 +42,17 @@ public class XSLTransform {
 			xslstream = new StreamSource(caex2jmonkey_xsl);
 		} else if ("caex2aspfacts".equalsIgnoreCase(transformtype)) {
 			xslstream = new StreamSource(caex2aspfacts_xsl);
-		} else if ("contextSrc2Trg".equalsIgnoreCase(transformtype)) {
+		} else if ("contextSrc2Trout".equalsIgnoreCase(transformtype)) {
 			sourcefile = this.getXslContextSrcFile();
-			targetfile = this.getXslContextTrgFile();
+			troutfile = this.getXslContextTroutFile();
 			String xslfile = this.getXslContextXslFile();
 			xslstream = new StreamSource(this.getXslContextXslFile());
 			if((xslfile==null)||(sourcefile==null)){
 				logger.info("doSpecificTransform: All XSL Context files not specified for transform: " + transformtype);
 				return;
 			}			
-			if(targetfile==null){ //Target file name based on source name extended with .trg
-			targetfile = sourcefile.replaceAll("\\.xml", "_target.trg");
+			if(troutfile==null){ //Transform result/out file name based on source name extended with .trout
+			troutfile = sourcefile.replaceAll("\\.xml", "_trout.trout");
 				
 			}
 			
@@ -63,9 +63,9 @@ public class XSLTransform {
 			try {
 				transformer = factory.newTransformer(xslstream);
 				Source xml = new StreamSource(sourcefile); // "data/caex_lego/Lego_example_mod1.aml"
-				Result result = new StreamResult(targetfile); // "data/generated/CAEXLego2monkey3_results.xml");
+				Result result = new StreamResult(troutfile); // "data/generated/CAEXLego2monkey3_results.xml");
 				transformer.transform(xml, result);
-				logger.info("doSpecificTransform: Transformation target saved: " + targetfile);
+				logger.info("doSpecificTransform: Transformation result file (.trout) saved: " + troutfile);
 
 			} catch (TransformerConfigurationException e) {
 				logger.log(Level.ERROR, e.getMessage());
@@ -81,27 +81,27 @@ public class XSLTransform {
 	public void setXslContex(File[] ctxfiles) {
 		boolean srcbool = false;
 		boolean xslbool = false;
-		boolean trgbool = false;
+		boolean troutbool = false;
 		
 		if (ctxfiles != null) {
 			
 			for (int i = 0; i < ctxfiles.length; i++) {
 				File file = ctxfiles[i];
 				String path = file.getAbsolutePath();
-				if (path.contains(".xml")) {
+				if ((path.contains(".xml"))||(path.contains(".aml"))) {
 					setXslContextSrcFile(path);
 					srcbool = true;
 				} else if (path.contains(".xsl")) {
 					setXslContextXslFile(path);
 					xslbool = true;
-				} else if (path.contains(".trg")) {
-					setXslContextTrgFile(path);
-					trgbool = true;
+				} else if (path.contains(".trout")) {
+					setXslContextTroutFile(path);
+					troutbool = true;
 				}			
 			}
 			
 		}
-		logger.info("setXslContex: loaded (.xml;.xsl;.trg):(" + srcbool + ";" + xslbool + ";" + trgbool + ")");
+		logger.info("setXslContex: loaded (.xml/aml;.xsl;.trout):(" + srcbool + ";" + xslbool + ";" + troutbool + ")");
 	}
 	
 	public String getXslContextSrcFile() {
@@ -124,13 +124,13 @@ public class XSLTransform {
 	}
 
 
-	public String getXslContextTrgFile() {
-		return xslContextTrgFile;
+	public String getXslContextTroutFile() {
+		return xslContextTroutFile;
 	}
 
 
-	public void setXslContextTrgFile(String xslContextTrgFile) {
-		this.xslContextTrgFile = xslContextTrgFile;
+	public void setXslContextTroutFile(String xslContextTroutFile) {
+		this.xslContextTroutFile = xslContextTroutFile;
 	}
 
 }

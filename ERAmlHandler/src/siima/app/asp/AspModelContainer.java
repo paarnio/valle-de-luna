@@ -11,6 +11,8 @@ public class AspModelContainer {
 	public String rulefile; // .dlv
 	public String factfile; // .db
 	public boolean rulesAndFactsLoaded = false;
+	public boolean rulesLoaded = false;
+	public boolean factsLoaded = false;
 	public int numOfModels = 1;
 	public List<Model> resultAspModels;
 	public StringBuffer resultModelsAsXML;
@@ -28,13 +30,15 @@ public class AspModelContainer {
 				String path = file.getAbsolutePath();
 				if (path.contains(".dlv")) {
 					rulefile = path;
+					rulesLoaded = true;
 				}
 				if (path.contains(".db")) {
 					factfile = path;
+					factsLoaded = true;
 				}
 				
 			}
-			this.rulesAndFactsLoaded = true;
+			if(rulesLoaded&&factsLoaded) this.rulesAndFactsLoaded = true;
 		}
 		System.out.println("-AspModel:setRulesAndFacts");
 	}

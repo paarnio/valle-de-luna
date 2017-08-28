@@ -1178,7 +1178,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 		
 		} else if (arg0.getSource() == mntmSetTransformContext) {
-			fileChooser.setDialogTitle("SELECT XSL TRANSFORM CONTEXT FILES (xsl,xml,trg)");
+			fileChooser.setDialogTitle("SELECT XSL TRANSFORM CONTEXT FILES (xsl,xml/aml,trout)");
 			
 			if(!".".equals(eraProjectHomeDirectory))
 				fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory));
@@ -1283,6 +1283,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				else txtrResultOutput.append("ASP RESULT MODELS: null");
 				txtrResultOutput.setCaretPosition(txtrResultOutput.getText().length());
 				bottomRightTabbedPane.setEnabledAt(1, true);
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: ASP REASONING INVOKED:: (See RESULTS tab)");
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
 
 		} else if (arg0.getSource() == mntmLoadRules) {
 			fileChooser.setDialogTitle("LOAD ASP RULE AND FACT FILES");
