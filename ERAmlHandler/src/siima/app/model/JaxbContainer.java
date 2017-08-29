@@ -651,7 +651,11 @@ public class JaxbContainer {
 				}
 			}
 			
-			// ROLE_REQUIREMENTS
+			/*
+			 *  ROLE_REQUIREMENTS
+			 *  TODO for CAEX Schema v3.0: in CAEX v 3.0 getRoleRequirements() returns a list of RoleRequirements!
+			 *  public List<InternalElementType.RoleRequirements> getRoleRequirements()
+			 */
 			RoleRequirements rolerequirements = jaxbParent.getRoleRequirements();
 			if(rolerequirements!=null){
 			ElementNode parentsRoleReqsNode = new ElementNode("ROLEREQS OF:" + parentNode.getName());
