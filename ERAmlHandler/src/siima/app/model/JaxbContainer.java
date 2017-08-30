@@ -72,7 +72,7 @@ import siima.app.control.MainAppController;
 //import siima.models.jaxb.caex.WriterHeader;
 import siima.app.model.tree.ElementNode;
 
-public class JaxbContainer {
+public class JaxbContainer implements JaxbContainerInterface {
 	private static final Logger logger=Logger.getLogger(JaxbContainer.class.getName());
 	//Modified schema path: configure/schema/caex_2.1.5_modified/CAEX_V2.15_modified.xsd
 	public static String CAEX_SCHEMA ="configure/schema/caex_2.1.5_orig/CAEX_ClassModel_V2.15.xsd";
@@ -342,7 +342,7 @@ public class JaxbContainer {
 	 * @return
 	 */
 
-	public boolean parseCAEXObjectTypesRecursion(ElementNode parentNode, CAEXObject jaxbParent,
+	private boolean parseCAEXObjectTypesRecursion(ElementNode parentNode, CAEXObject jaxbParent,
 			List<CAEXObject> parentsCaexObjectTypes, int level) {
 		// Used for parsing InterfaceFamilyType hierarchy
 		
@@ -399,7 +399,7 @@ public class JaxbContainer {
 	 * @return
 	 */
 
-	public boolean parseAttributeTypeRecursion(ElementNode parentNode, AttributeType jaxbParent,
+	private boolean parseAttributeTypeRecursion(ElementNode parentNode, AttributeType jaxbParent,
 			List<AttributeType> parentsAttributeTypes, int level) {
 		
 		boolean ok = true;
@@ -450,7 +450,7 @@ public class JaxbContainer {
 	 * @return
 	 */
 
-	public boolean parseRoleFamilyTypeRecursion(ElementNode parentNode, RoleFamilyType jaxbParent,
+	private boolean parseRoleFamilyTypeRecursion(ElementNode parentNode, RoleFamilyType jaxbParent,
 			List<RoleFamilyType> parentsRoleFamilyTypes, int level) {
 		// NOTE: After first round jaxbParent is always of RoleFamilyType
 		// NOTE: RoleFamilyType object can have RoleFamilyType children
@@ -529,7 +529,7 @@ public class JaxbContainer {
 	 * @return
 	 */
 
-	public boolean parseSystemUnitFamilyTypeRecursion(ElementNode parentNode, SystemUnitFamilyType jaxbParent,
+	private boolean parseSystemUnitFamilyTypeRecursion(ElementNode parentNode, SystemUnitFamilyType jaxbParent,
 			List<SystemUnitFamilyType> parentsSystemUnitFamilyTypes, int level) {
 		// NOTE: After first round jaxbParent is always of SystemUnitFamilyType
 		// NOTE: SystemUnitFamilyType object can have SystemUnitFamilyType
@@ -595,7 +595,7 @@ public class JaxbContainer {
 	 * @return
 	 */
 
-	public boolean parseInternalElementsRecursion(ElementNode parentNode, InternalElementType jaxbParent,
+	private boolean parseInternalElementsRecursion(ElementNode parentNode, InternalElementType jaxbParent,
 			List<InternalElementType> parentsInternalElements, int level) {
 		// NOTE: After first round parent is always of InternalElementType
 		boolean ok = true;

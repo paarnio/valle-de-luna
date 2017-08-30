@@ -30,8 +30,9 @@ import siima.app.gui.MainFrame;
 //OPTIONAL CEAX SCHEMA VERSIONS 2.15 AND 3.0
 //---- CAEX 3.0 Would REQUIRE CHANGES
 import siima.app.model.JaxbContainer;
+import siima.app.model.JaxbContainerCaex3;
 //import siima.app.model.JaxbContainerCaex3;
-
+import siima.app.model.JaxbContainerInterface;
 import siima.app.model.RdfContainer;
 import siima.app.model.VeloContainer;
 import siima.app.model.helper.AnyTypeValueHelper;
@@ -46,7 +47,8 @@ import siima.util.FileUtil;
 public class MainAppController {
 	private static final Logger logger = Logger.getLogger(MainAppController.class.getName());
 	//---- CAEX 3.0 WOULD REQUIRE CHANGES
-	public JaxbContainer graphbuilder;
+	public JaxbContainerInterface graphbuilder;
+	//public JaxbContainerCaex graphbuilder;
 	//public JaxbContainerCaex3 graphbuilder;
 	public MainFrame viewFrame;
 	// TREE: CAEXFile with InternalElement Hierarchy
@@ -74,9 +76,10 @@ public class MainAppController {
 
 	public MainAppController(MainFrame viewFrame) {
 		this.viewFrame = viewFrame;
+		//TODO: Read from ERAinit file which version to use!!
 		//---- CAEX 3.0 WOULD REQUIRE CHANGES
-		this.graphbuilder = new JaxbContainer();
-		//this.graphbuilder = new JaxbContainerCaex3();
+		//this.graphbuilder = new JaxbContainer(); //CEAX V. 2.15
+		this.graphbuilder = new JaxbContainerCaex3(); //CEAX V. 3.0
 		this.xslt = new XSLTransform();
 		this.aspReasoner = new AspDlvReasoner();
 		this.project = new ERAProject();

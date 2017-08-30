@@ -1,3 +1,7 @@
+/* RdfContainer.java
+ * 
+ * initVelocity() //TODO: CAEX 3.0 CHANGES NEEDED HERE!!!
+ */
 package siima.app.model;
 
 import java.io.FileNotFoundException;
@@ -24,7 +28,8 @@ public class RdfContainer {
 	private static final Logger logger=Logger.getLogger(RdfContainer.class.getName());
 	private VeloContainer velocity;
 	//---- CAEX 3.0 WOULD REQUIRE CHANGES
-	private JaxbContainer graphbuilder;
+	private JaxbContainerInterface graphbuilder;
+	//private JaxbContainer graphbuilder;
 	//private JaxbContainerCaex3 graphbuilder;
 	
 	private Model defaultRdfModel = ModelFactory.createDefaultModel();
@@ -38,7 +43,7 @@ public class RdfContainer {
 	private Model mergedRdfModel;
 	private String curModelKey; //latest model category key
 	
-	public RdfContainer(JaxbContainer graphbuilder){//---- CAEX 3.0 REQUIRED CHANGES
+	public RdfContainer(JaxbContainerInterface graphbuilder){//---- CAEX 3.0 REQUIRED CHANGES (JaxbContainer graphbuilder)
 		
 		this.graphbuilder=graphbuilder;
 		rdfModelMap = new HashMap<String,Model>();
@@ -90,9 +95,12 @@ public class RdfContainer {
 	}
 
 	public void initVelocity() {
+		
 		Object root = this.graphbuilder.getCaexRootObject();
-		CAEXFile caex = (CAEXFile) root;
-		velocity = new VeloContainer("caexfile", caex);
+		//TODO: CAEX 3.0 CHANGES NEEDED HERE!!!
+		//CAEXFile caex = (CAEXFile) root;
+		//velocity = new VeloContainer("caexfile", caex);
+		velocity = new VeloContainer("caexfile", root);
 		/*
 		 * FOR STRING FUNCTIONS: TOIMII
 		 * https://stackoverflow.com/questions/6998412/velocity-string-function

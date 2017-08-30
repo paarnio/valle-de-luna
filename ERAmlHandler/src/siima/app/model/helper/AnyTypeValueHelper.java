@@ -11,13 +11,15 @@
 package siima.app.model.helper;
 
 import siima.app.model.JaxbContainer;
+import siima.app.model.JaxbContainerInterface;
 import siima.app.model.XsAnyTypeSolver;
 import siima.models.jaxb.caex.AttributeType;
 
 public class AnyTypeValueHelper {
-	public JaxbContainer jaxbc;
+	//---- CAEX 3.0 REQUIRED CHANGES
+	public JaxbContainerInterface jaxbc; //(JaxbContainer)
 	
-	public AnyTypeValueHelper(JaxbContainer jaxbcontainer){
+	public AnyTypeValueHelper(JaxbContainerInterface jaxbcontainer){//---- CAEX 3.0 REQUIRED CHANGES (JaxbContainer jaxbcontainer)
 		
 		this.jaxbc = jaxbcontainer;
 	}
