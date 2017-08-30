@@ -15,12 +15,18 @@ import org.apache.log4j.Logger;
 
 import siima.app.model.helper.AnyTypeValueHelper;
 import siima.app.model.helper.UriHelper;
+//---- CAEX 3.0 REQUIRED CHANGES
+//import siima.models.jaxb.caex.CAEXFile;
+//import siima.models.jaxb.caex3.CAEXFile;
 import siima.models.jaxb.caex.CAEXFile;
 
 public class RdfContainer {
 	private static final Logger logger=Logger.getLogger(RdfContainer.class.getName());
 	private VeloContainer velocity;
+	//---- CAEX 3.0 WOULD REQUIRE CHANGES
 	private JaxbContainer graphbuilder;
+	//private JaxbContainerCaex3 graphbuilder;
+	
 	private Model defaultRdfModel = ModelFactory.createDefaultModel();
 	private Model instanceHRdfModel = ModelFactory.createDefaultModel();
 	private Model systemUnitClassLRdfModel = ModelFactory.createDefaultModel();
@@ -32,7 +38,7 @@ public class RdfContainer {
 	private Model mergedRdfModel;
 	private String curModelKey; //latest model category key
 	
-	public RdfContainer(JaxbContainer graphbuilder){
+	public RdfContainer(JaxbContainer graphbuilder){//---- CAEX 3.0 REQUIRED CHANGES
 		
 		this.graphbuilder=graphbuilder;
 		rdfModelMap = new HashMap<String,Model>();
@@ -102,6 +108,7 @@ public class RdfContainer {
 		 */
 		UriHelper helper = new UriHelper();
 		velocity.putVelocityContext("UriHelper", helper); //siima.app.model.helper.UriHelper.class);
+		//---- CAEX 3.0 REQUIRED CHANGES
 		AnyTypeValueHelper anyContentHelper = new AnyTypeValueHelper(this.graphbuilder);
 		velocity.putVelocityContext("AnyValueHelper", anyContentHelper); 
 	}

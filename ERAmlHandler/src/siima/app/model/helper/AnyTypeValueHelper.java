@@ -11,6 +11,7 @@
 package siima.app.model.helper;
 
 import siima.app.model.JaxbContainer;
+import siima.app.model.XsAnyTypeSolver;
 import siima.models.jaxb.caex.AttributeType;
 
 public class AnyTypeValueHelper {
@@ -42,7 +43,8 @@ public class AnyTypeValueHelper {
 					Object defvalue = element.getDefaultValue();
 					if (defvalue != null) {
 						// **** using anyType parser ******
-						content = this.jaxbc.parseAnyTypeContent("AttributeType", nodeobject, "DefaultValue", 1);
+						//content = this.jaxbc.parseAnyTypeContent("AttributeType", nodeobject, "DefaultValue", 1);
+						content = XsAnyTypeSolver.parseAnyTypeContent("AttributeType", nodeobject, "DefaultValue", 1);
 						// infobuff.append("\nDEFAULT VALUE: \t" +
 						// defvalue.toString());
 						// infobuff.append("\nDEFAULT VALUE content: " +
@@ -57,7 +59,9 @@ public class AnyTypeValueHelper {
 					if (value != null) {
 
 						// **** using anyType parser ******
-						content = this.jaxbc.parseAnyTypeContent("AttributeType", nodeobject, "Value", 1);
+						//content = this.jaxbc.parseAnyTypeContent("AttributeType", nodeobject, "Value", 1);
+						content = XsAnyTypeSolver.parseAnyTypeContent("AttributeType", nodeobject, "Value", 1);
+						
 						// infobuff.append("\nVALUE: \t" + value.toString());
 						// infobuff.append("\nVALUE content: " + content);
 

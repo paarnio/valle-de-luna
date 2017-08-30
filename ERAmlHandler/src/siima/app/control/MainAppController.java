@@ -1,3 +1,9 @@
+/* MainAppController.java
+ * 
+ * //---- CAEX 3.0 WOULD REQUIRE CHANGES
+ * 
+ */
+
 package siima.app.control;
 
 import java.io.File;
@@ -21,7 +27,11 @@ import it.unical.mat.wrapper.DLVInvocationException;
 import siima.app.asp.AspDlvReasoner;
 import siima.app.asp.AspModelContainer;
 import siima.app.gui.MainFrame;
+//OPTIONAL CEAX SCHEMA VERSIONS 2.15 AND 3.0
+//---- CAEX 3.0 Would REQUIRE CHANGES
 import siima.app.model.JaxbContainer;
+//import siima.app.model.JaxbContainerCaex3;
+
 import siima.app.model.RdfContainer;
 import siima.app.model.VeloContainer;
 import siima.app.model.helper.AnyTypeValueHelper;
@@ -35,8 +45,9 @@ import siima.util.FileUtil;
 
 public class MainAppController {
 	private static final Logger logger = Logger.getLogger(MainAppController.class.getName());
-
+	//---- CAEX 3.0 WOULD REQUIRE CHANGES
 	public JaxbContainer graphbuilder;
+	//public JaxbContainerCaex3 graphbuilder;
 	public MainFrame viewFrame;
 	// TREE: CAEXFile with InternalElement Hierarchy
 	public ElementTree tree;
@@ -63,13 +74,15 @@ public class MainAppController {
 
 	public MainAppController(MainFrame viewFrame) {
 		this.viewFrame = viewFrame;
+		//---- CAEX 3.0 WOULD REQUIRE CHANGES
 		this.graphbuilder = new JaxbContainer();
+		//this.graphbuilder = new JaxbContainerCaex3();
 		this.xslt = new XSLTransform();
 		this.aspReasoner = new AspDlvReasoner();
 		this.project = new ERAProject();
 		this.project.parseInitFile();
 		this.graphbuilder.setValidationSchemaFile(this.project.getCaexValidationSchema());
-		this.rdfContainer = new RdfContainer(graphbuilder);
+		this.rdfContainer = new RdfContainer(graphbuilder);	//---- CAEX 3.0 WOULD REQUIRE CHANGES
 		String lastproject = this.project.parseExitBackupFile("ResentProjectHome:");
 		if(lastproject!=null)
 			viewFrame.setEraProjectHomeDirectory(lastproject);

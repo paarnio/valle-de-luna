@@ -1,12 +1,15 @@
-/* JaxbContainer.java
- * FOR Caex version 2.15
+/* JaxbContainerCaex3.java
+ * TODO: preparing a new JaxbContainer for CAEX 3.0 version.
+ * (JaxbContainer is made for CAEX version 2.15)
+ * NOTE: Jaxb 3.0 classes now in package: siima.models.jaxb.caex3.
  * 
- * (PROBLEM: XML elements with type xs:anyType are bind to java Object class, 
- * which does not allow data access. How to customize binding of these types???
- * SAMA ONGELMA:
- * http://stackoverflow.com/questions/40338721/xsdanytype-to-java-object
- * http://markmail.org/message/tjswjuamqdekkwsy)
- * 
+ * Required changes marked with: //---- CAEX 3.0 REQUIRED CHANGES
+ * CHANGES made (until now):
+ *  1. For CAEX Schema v3.0: InternalElement's method getRoleRequirements() returns 
+ *  a list of RoleRequirements!
+ *  2. Element name changed to InterfaceIDMapping (in 2.15 InterfaceNameMapping)
+ *  3. In loadData() context = JAXBContext.newInstance("siima.models.jaxb.caex3");
+ *  
  */
 
 package siima.app.model;
@@ -37,42 +40,42 @@ import javax.xml.validation.SchemaFactory;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import siima.models.jaxb.caex.AppInfoEXTRAContentType;
-import siima.models.jaxb.caex.AppInfoEXTRAContentType.WriterHeader;
-import siima.models.jaxb.caex.AttributeType;
-import siima.models.jaxb.caex.CAEXBasicObject;
-//import siima.models.jaxb.caex.AttributeType.AttributeValueInterface;
-import siima.models.jaxb.caex.CAEXBasicObject.Copyright;
-import siima.models.jaxb.caex.CAEXBasicObject.Description;
-import siima.models.jaxb.caex.CAEXBasicObject.Revision;
-import siima.models.jaxb.caex.CAEXBasicObject.Version;
-import siima.models.jaxb.caex.CAEXFile;
-import siima.models.jaxb.caex.CAEXFile.ExternalReference;
-import siima.models.jaxb.caex.CAEXFile.InstanceHierarchy;
-import siima.models.jaxb.caex.CAEXFile.InterfaceClassLib;
-import siima.models.jaxb.caex.CAEXFile.RoleClassLib;
-import siima.models.jaxb.caex.CAEXFile.SystemUnitClassLib;
-import siima.models.jaxb.caex.CAEXObject;
-import siima.models.jaxb.caex.ChangeMode;
-import siima.models.jaxb.caex.InterfaceClassType;
-import siima.models.jaxb.caex.InterfaceFamilyType;
-import siima.models.jaxb.caex.InternalElementType;
-import siima.models.jaxb.caex.RoleClassType;
-import siima.models.jaxb.caex.InternalElementType.RoleRequirements;
-import siima.models.jaxb.caex.MappingType;
-import siima.models.jaxb.caex.RoleClassType.ExternalInterface;
-import siima.models.jaxb.caex.RoleFamilyType;
-import siima.models.jaxb.caex.SystemUnitClassType;
-import siima.models.jaxb.caex.SystemUnitClassType.InternalLink;
-import siima.models.jaxb.caex.SystemUnitClassType.SupportedRoleClass;
-import siima.models.jaxb.caex.SystemUnitFamilyType;
-import siima.models.jaxb.caex.TEMP_Helpper;
-//import siima.models.jaxb.caex.WriterHeader;
+import siima.models.jaxb.caex3.AppInfoEXTRAContentType;
+import siima.models.jaxb.caex3.AppInfoEXTRAContentType.WriterHeader;
+import siima.models.jaxb.caex3.AttributeType;
+import siima.models.jaxb.caex3.CAEXBasicObject;
+//import siima.models.jaxb.caex3.AttributeType.AttributeValueInterface;
+import siima.models.jaxb.caex3.CAEXBasicObject.Copyright;
+import siima.models.jaxb.caex3.CAEXBasicObject.Description;
+import siima.models.jaxb.caex3.CAEXBasicObject.Revision;
+import siima.models.jaxb.caex3.CAEXBasicObject.Version;
+import siima.models.jaxb.caex3.CAEXFile;
+import siima.models.jaxb.caex3.CAEXFile.ExternalReference;
+import siima.models.jaxb.caex3.CAEXFile.InstanceHierarchy;
+import siima.models.jaxb.caex3.CAEXFile.InterfaceClassLib;
+import siima.models.jaxb.caex3.CAEXFile.RoleClassLib;
+import siima.models.jaxb.caex3.CAEXFile.SystemUnitClassLib;
+import siima.models.jaxb.caex3.CAEXObject;
+import siima.models.jaxb.caex3.ChangeMode;
+import siima.models.jaxb.caex3.InterfaceClassType;
+import siima.models.jaxb.caex3.InterfaceFamilyType;
+import siima.models.jaxb.caex3.InternalElementType;
+import siima.models.jaxb.caex3.RoleClassType;
+import siima.models.jaxb.caex3.InternalElementType.RoleRequirements;
+import siima.models.jaxb.caex3.MappingType;
+import siima.models.jaxb.caex3.RoleClassType.ExternalInterface;
+import siima.models.jaxb.caex3.RoleFamilyType;
+import siima.models.jaxb.caex3.SystemUnitClassType;
+import siima.models.jaxb.caex3.SystemUnitClassType.InternalLink;
+import siima.models.jaxb.caex3.SystemUnitClassType.SupportedRoleClass;
+import siima.models.jaxb.caex3.SystemUnitFamilyType;
+import siima.models.jaxb.caex3.TEMP_Helpper;
+//import siima.models.jaxb.caex3.WriterHeader;
 import siima.app.control.MainAppController;
-//import siima.models.jaxb.caex.WriterHeader;
+//import siima.models.jaxb.caex3.WriterHeader;
 import siima.app.model.tree.ElementNode;
 
-public class JaxbContainer {
+public class JaxbContainerCaex3 {
 	private static final Logger logger=Logger.getLogger(JaxbContainer.class.getName());
 	//Modified schema path: configure/schema/caex_2.1.5_modified/CAEX_V2.15_modified.xsd
 	public static String CAEX_SCHEMA ="configure/schema/caex_2.1.5_orig/CAEX_ClassModel_V2.15.xsd";
@@ -150,7 +153,6 @@ public class JaxbContainer {
 		
 		CAEXBasicObject newbasic = TEMP_Helpper.insertCopyContent(basicObject); 		
 		// If several "AdditionalInformation" elements select the first (1)
-		//NEW LOC
 		String addInfoContent = XsAnyTypeSolver.parseAnyTypeContent("CAEXBasicObject", newbasic, "AdditionalInformation", 1 );	
 		//List<Object> addInfoList = caex.getAdditionalInformation();
 		//System.out.println("========== CAEX ADD INFO: " + addInfoList.toString());
@@ -652,10 +654,15 @@ public class JaxbContainer {
 			
 			/*
 			 *  ROLE_REQUIREMENTS
-			 *  TODO for CAEX Schema v3.0: in CAEX v 3.0 getRoleRequirements() returns a list of RoleRequirements!
+			 *  For CAEX Schema v3.0: in CAEX v 3.0 getRoleRequirements() returns a list of RoleRequirements!
 			 *  public List<InternalElementType.RoleRequirements> getRoleRequirements()
 			 */
-			RoleRequirements rolerequirements = jaxbParent.getRoleRequirements();
+			//---- CAEX 3.0 REQUIRED CHANGES
+			//(Caex 2.15: RoleRequirements rolerequirements = jaxbParent.getRoleRequirements();)
+			List<RoleRequirements> rolerequirementsList = jaxbParent.getRoleRequirements();
+			
+			if(rolerequirementsList!=null){
+			for(RoleRequirements rolerequirements : rolerequirementsList){
 			if(rolerequirements!=null){
 			ElementNode parentsRoleReqsNode = new ElementNode("ROLEREQS OF:" + parentNode.getName());
 			parentsRoleReqsNode.setJaxbObject(rolerequirements);
@@ -683,6 +690,9 @@ public class JaxbContainer {
 			ElementNode.linkChildren(parentsRoleReqsNode, rolereqChildren);
 			children.add(parentsRoleReqsNode);
 			}
+			}
+			} //end if(rolerequirementsList!=null) 
+			
 			
 			// SUPPORTED ROLES (SystemUnitClassType.SupportedRoleClass extends CAEXBasicObject)
 			List<SupportedRoleClass> suportedRoles = jaxbParent.getSupportedRoleClass();
@@ -746,7 +756,9 @@ public class JaxbContainer {
 		loadedCaexFilePaths.add(path);
 		
 		try {
-			context = JAXBContext.newInstance("siima.models.jaxb.caex");
+			//---- CAEX 3.0 REQUIRED CHANGES
+			//context = JAXBContext.newInstance("siima.models.jaxb.caex");
+			context = JAXBContext.newInstance("siima.models.jaxb.caex3");
 			if (context == null) logger.log(Level.ERROR, "loadData() jaxb context is null");
 				//System.out.println("VPA: JAXBContext context is null");
 
@@ -1122,7 +1134,11 @@ public class JaxbContainer {
 				infobuff.append("\nTYPE: \t" + element.getClass().getSimpleName());
 				if(!element.getAttributeNameMapping().isEmpty())
 					infobuff.append("\nCONTAINS: AttributeNameMapping: true");
-				if(!element.getInterfaceNameMapping().isEmpty())
+				/*---- CAEX 3.0 REQUIRED CHANGES
+				 * Element name changed to InterfaceIDMapping (in 2.15 InterfaceNameMapping)
+				 */
+				
+				if(!element.getInterfaceIDMapping().isEmpty())
 					infobuff.append("\nCONTAINS: InterfaceNameMapping: true");
 				Description description = element.getDescription();
 				if (description != null)

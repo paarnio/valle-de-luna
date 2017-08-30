@@ -40,6 +40,121 @@ public class XsAnyTypeSolver {
 	
 	private static final Logger logger=Logger.getLogger(XsAnyTypeSolver.class.getName());
 	
+	/* NEW
+	 * parseAnyTypeContent() 
+	 * TODO: Testing method here
+	 * Moved from JaxbContainer
+	 */
+	public static String parseAnyTypeContent(String parentObjectType, Object parentNodeObject, String anyTypePropertyName,
+			int propOrder) {
+		/*
+		 * Parameters: parentObjectType is JAXB type Note: propOrder not in use.
+		 * If several 'anyTypePropertyName' elements, select the one with in
+		 * order propOrder (>=1) 
+		 * 
+		 */
+		
+		logger.log(Level.INFO, "parseAnyTypeContent() parentObjectType: " + parentObjectType
+				+ " & anyTypePropertyName: " + anyTypePropertyName);
+		String content = null;
+
+		if ("AttributeType".equals(parentObjectType)) {
+			/*
+			 * AttributeType Order| Property
+			 * 
+			 * @XmlElement(name = "DefaultValue") 1. protected Object
+			 * defaultValue;
+			 * 
+			 * @XmlElement(name = "Value") 2. protected Object value;
+			 */
+			//REMOVED cLASS PREFIX:XsAnyTypeSolver.
+			//content = XsAnyTypeSolver.getAnyTypeStringContent(parentNodeObject, anyTypePropertyName); // NEW
+			content = getAnyTypeStringContent(parentNodeObject, anyTypePropertyName);
+			logger.log(Level.INFO,
+					"parseAnyTypeContent() AttributeType/" + anyTypePropertyName + " String value: " + content);
+
+		} else if ("CAEXBasicObject".equals(parentObjectType)) {
+			/*
+			 * CAEXFile: ------ AdditionalInformation -------- (e.g.
+			 * common/caex/caex_lego/Lego_example_mod2.aml) 2017-06-01 TOIMII
+			 * ------------------------------------------------------------
+			 * 
+			 * @XmlRootElement(name = "CAEXFile") public class CAEXFile extends
+			 * CAEXBasicObject
+			 * 
+			 * public class CAEXBasicObject {
+			 * 
+			 * @XmlElement(name = "Description") protected
+			 * CAEXBasicObject.Description description;
+			 * 
+			 * @XmlElement(name = "Version") protected CAEXBasicObject.Version
+			 * version;
+			 * 
+			 * @XmlElement(name = "Revision") protected
+			 * List<CAEXBasicObject.Revision> revision;
+			 * 
+			 * @XmlElement(name = "Copyright") protected
+			 * CAEXBasicObject.Copyright copyright;
+			 * 
+			 * @XmlElement(name = "AdditionalInformation") protected
+			 * List<Object> additionalInformation;
+			 * 
+			 * @XmlAttribute(name = "ChangeMode") protected ChangeMode
+			 * changeMode;
+			 * 
+			 */
+
+			StringBuffer addinfobuf = new StringBuffer();
+			//String strContent = XsAnyTypeSolver.getAnyTypeStringContent(parentNodeObject, anyTypePropertyName); // NEW
+			String strContent = getAnyTypeStringContent(parentNodeObject, anyTypePropertyName);
+			if (strContent != null) {
+
+				logger.log(Level.INFO,
+						"parseAnyTypeContent() AdditionalInformation has a String content: " + strContent);
+				addinfobuf.append("\n----CAEXFile: ADDITIONAL INFORMATION-----------------");
+				addinfobuf.append("\n" + strContent);
+				addinfobuf.append("\n ----------------------------------------------------");
+				content = addinfobuf.toString();
+
+			} else {
+
+				/*
+				 * EXTRA content class defined for xs:anyType content container
+				 */
+				logger.log(Level.INFO, "parseAnyTypeContent(): AdditionalInformation has special object content:(AppInfoEXTRAContentType)!\n");
+				AppInfoEXTRAContentType appInfoExtra = new AppInfoEXTRAContentType();
+				appInfoExtra = (AppInfoEXTRAContentType) getAnyTypeElementContent(parentNodeObject,
+						anyTypePropertyName, null, AppInfoEXTRAContentType.class);
+				if (appInfoExtra != null) {
+					WriterHeader header = appInfoExtra.getWriterHeader();
+
+					if ((header != null)) {
+						addinfobuf.append("\n----CAEXFile: ADDITIONAL INFORMATION-----------------");
+						addinfobuf.append("\nINFO: WriterName: " + header.getWriterName());
+						addinfobuf.append("\nINFO: getWriterID: " + header.getWriterID());
+						addinfobuf.append("\nINFO: getWriterVendor: " + header.getWriterVendor());
+						addinfobuf.append("\nINFO: getWriterVendorURL: " + header.getWriterVendorURL());
+						addinfobuf.append("\nINFO: getWriterVersion: " + header.getWriterVersion());
+						addinfobuf.append("\nINFO: getWriterRelease: " + header.getWriterRelease());
+						addinfobuf.append("\nINFO: getLastWritingDateTime: " + header.getLastWritingDateTime());
+						addinfobuf.append("\nINFO: getWriterProjectTitle: " + header.getWriterProjectTitle());
+						addinfobuf.append("\nINFO: getWriterProjectID: " + header.getWriterProjectID());
+						addinfobuf.append("\n-----------------------------------------------------");
+						content = addinfobuf.toString();
+
+					} else {
+						System.out.println("parseAnyTypeContent: WriterHeader header is NULL: ");
+					}
+				} else {
+					System.out.println("parseAnyTypeContent: appInfoExtra is NULL: ");
+				}
+
+			}
+		}
+		return content;
+	}
+
+	
 	
 	public static String getAnyTypeStringContent( Object parentNodeObject, String anyTypePropertyName){
 		//NOTE: Returns only the first element's string value
