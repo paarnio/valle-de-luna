@@ -19,6 +19,7 @@ public class ERAProject {
 	public static String initfile = "./configure/eraproject.ini";
 	public static String exitbackupfile = "./configure/exitbackup.meta";
 	public String caexValidationSchema; //"configure/schema/caex_2.1.5_orig/CAEX_ClassModel_V2.15.xsd";
+	public String caexSchemaVersion; // 2.15 or 3.0
 	public static List<String> copydirsrcpaths = new ArrayList<String>();
 	public static List<String> copydirtrgpaths = new ArrayList<String>();
 	
@@ -27,6 +28,26 @@ public class ERAProject {
 	
 	public boolean initfileparsed=false;
 	
+	public boolean createProjectMetaFile(String projectHomeDirectory) {
+		boolean ok = false;
+		// Creating and Saving project.meta file
+		StringBuffer metabuf = new StringBuffer();
+		Path folderpath = Paths.get(projectHomeDirectory);
+		folderpath.getFileName();
+		metabuf.append("% ERAmlHandler project metadata file.");
+		metabuf.append("\n#Project:");
+		metabuf.append("\nname:" + folderpath.getFileName());
+		// http://howtodoinjava.com/core-java/date-time/java-get-current-datetime-examples/
+		LocalDateTime today = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String formattedDateTime = today.format(formatter);
+		metabuf.append("\ncreated:" + formattedDateTime);
+		metabuf.append("\ncaex_version:" + this.caexSchemaVersion);
+		metabuf.append("\n#end\n");
+		FileUtil.writeTextFile(metabuf.toString(), projectHomeDirectory + "/" + "project.meta");
+		logger.info("createProjectMetaFile() project.meta file created.");
+		return ok = true;
+	}
 	
 	public boolean createSubDirectoriesAndCopyFiles(String projectHomeDirectory) {
 		boolean ok = false;
@@ -36,20 +57,28 @@ public class ERAProject {
 		String toolpath_dot = toolHome.getAbsolutePath();
 		String toolpath = toolpath_dot.substring(0, toolpath_dot.length() - 2);
 		if (projectHomeDirectory.startsWith(toolpath)) {
-			logger.info("saveProjectInFolder() TOOL PATH FORBIDDEN: " + toolpath);
+			logger.info("createSubDirectoriesAndCopyFiles() TOOL PATH FORBIDDEN: " + toolpath);
 			return ok;
 		}
-		// (2017-07-13) Creating and Saving project.meta file
+		
+		createProjectMetaFile(projectHomeDirectory);
+		
+		/* (2017-07-13) Creating and Saving project.meta file
 		StringBuffer metabuf = new StringBuffer();		
 		Path folderpath = Paths.get(projectHomeDirectory);
 		folderpath.getFileName();
-		metabuf.append("PROJECT NAME: " + folderpath.getFileName());
+		metabuf.append("% ERAmlHandler project metadata file.");
+		metabuf.append("\n#Project:");
+		metabuf.append("\nname:" + folderpath.getFileName());
 		// http://howtodoinjava.com/core-java/date-time/java-get-current-datetime-examples/
 		LocalDateTime today = LocalDateTime.now();	 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		String formattedDateTime = today.format(formatter);		
-		metabuf.append("\nCREATED: " + formattedDateTime);
+		metabuf.append("\ncreated:" + formattedDateTime);
+		metabuf.append("\ncaex_version:" + "?");
+		metabuf.append("\n#end\n");
 		FileUtil.writeTextFile(metabuf.toString(), projectHomeDirectory + "/" + "project.meta");
+		*/
 		
 		if (initfileparsed) {
 			// Create/copy Project Sub Directories
@@ -91,7 +120,12 @@ public class ERAProject {
 		for (int i = 0; i < blocks.length; i++) {
 			String block = blocks[i];
 			
-			if (block.startsWith("CAEXValidation:")) {
+			if (block.startsWith("CAEXSchemaVersion:")) {
+				StringBuffer dirblockbuf = new StringBuffer();
+				dirblockbuf.append(block);
+				this.caexSchemaVersion= parseBlockBuffer(dirblockbuf, "CAEXSchemaVersion:", null, null);
+				
+			} else if (block.startsWith("CAEXValidation:")) {
 				StringBuffer dirblockbuf = new StringBuffer();
 				dirblockbuf.append(block);
 				this.caexValidationSchema= parseBlockBuffer(dirblockbuf, "CAEXValidation:", null, null);
@@ -121,6 +155,7 @@ public class ERAProject {
 		for (int i = 0; i < lines.length; i++) {
 			String line = lines[i];
 			if (("CopyDirectories:".equalsIgnoreCase(blocktype))||("CopyFiles:".equalsIgnoreCase(blocktype))) {
+				//Block in eraproject.ini file
 				String src = null;
 				String trg = null;
 				// System.out.println("==LINE: " + i + " = " + line);
@@ -139,12 +174,20 @@ public class ERAProject {
 						copytrgpaths.add(trg);
 					}
 				}
+			} else if (("CAEXSchemaVersion:".equalsIgnoreCase(blocktype))) {
+				//Block in eraproject.ini file
+				if (line.startsWith("version:")) {
+					singleValue = line.split("version:")[1];
+				}
+
 			} else if (("CAEXValidation:".equalsIgnoreCase(blocktype))) {
+				//Block in eraproject.ini file
 				if (line.startsWith("caexschema:")) {
 					singleValue = line.split("caexschema:")[1];
 				}
 
 			} else if (("ResentProjectHome:".equalsIgnoreCase(blocktype))) {
+				//Block in exitbackup.meta file
 				if (line.startsWith("directory:")) {
 					singleValue = line.split("directory:")[1];
 				}
