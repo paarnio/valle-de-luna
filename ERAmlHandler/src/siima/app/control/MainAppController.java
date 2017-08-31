@@ -46,6 +46,9 @@ import siima.util.FileUtil;
 
 public class MainAppController {
 	private static final Logger logger = Logger.getLogger(MainAppController.class.getName());
+	public static String CAEX_SCHEMA_215 ="configure/schema/caex_2.1.5_orig/CAEX_ClassModel_V2.15.xsd";
+	public static String CAEX_SCHEMA_300 ="configure/schema/caex_3.0_vpa/CAEX_ClassModel_V3.0_byVPA.xsd";
+	
 	//---- CAEX 3.0 WOULD REQUIRE CHANGES
 	public JaxbContainerInterface graphbuilder;
 	//public JaxbContainerCaex graphbuilder;
@@ -251,9 +254,15 @@ public class MainAppController {
 		return instanceHtree;
 	}
 
-	public void setValidationSchema(String schemafile) {
+	public void setValidationSchema(String schemafile, String version) {
+		
+		if((schemafile==null)&&(version!=null)){		
+			if("2.15".equals(version)) schemafile = CAEX_SCHEMA_215;
+			if("3.0".equals(version)) schemafile = CAEX_SCHEMA_300;		
+		}
 
 		this.graphbuilder.setValidationSchemaFile(schemafile);
+		this.project.setCaexValidationSchema(schemafile);
 
 	}
 
@@ -345,7 +354,8 @@ public class MainAppController {
 			} else {
 				logger.info("openProjectInFolder(): ??? CAEX Schema version not suported: " + caexVersion);
 			}
-			this.graphbuilder.setValidationSchemaFile(this.project.getCaexValidationSchema());
+			//this.graphbuilder.setValidationSchemaFile(this.project.getCaexValidationSchema());
+			setValidationSchema(null,caexVersion);
 			this.rdfContainer = new RdfContainer(graphbuilder);	
 			//clearRDFModels(true,true,true);
 			logger.info("openProjectInFolder(): Project Opened in folder:" + openProjectDirectory + "with version " + caexVersion);
@@ -423,7 +433,8 @@ public class MainAppController {
 				} else if("3.0".equals(caexVersion)){
 					this.graphbuilder = new JaxbContainerCaex3(); //CEAX V. 3.0
 				}
-				this.graphbuilder.setValidationSchemaFile(this.project.getCaexValidationSchema());
+				//this.graphbuilder.setValidationSchemaFile(this.project.getCaexValidationSchema());
+				setValidationSchema(null,caexVersion);
 				this.rdfContainer = new RdfContainer(graphbuilder);		
 				//clearRDFModels(true,true,true);
 				logger.info("createNewProject() New Project Home Directory created: " + newProjectHomeDirectory);

@@ -1325,7 +1325,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				//mainOpenFile = fileChooser.getSelectedFile();
 				File schemafile = fileChooser.getSelectedFile();
 				System.out.println("-- Opened file: " + schemafile.getPath());
-				appControl.setValidationSchema(schemafile.getPath());
+				appControl.setValidationSchema(schemafile.getPath(), null);
 				//-- Console Printing
 				txtrConsoleOutput.append(newline + "LOG: CAEX VALIDATIN SCHEMA SELECTED:" + schemafile.getName());
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
