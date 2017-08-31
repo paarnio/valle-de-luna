@@ -54,7 +54,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JFileChooser fileChooser;
 	private JSplitPane m_contentPane;
 	private JMenuItem mntmOpen;
-	private JMenu openCaexSubmenu;
+	private JMenu newProjectVersionSubmenu;
 
 	private File mainOpenFile;
 	private JMenuItem mntmSave;
@@ -171,30 +171,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mntmOpen = new JMenuItem("Open Caex File");
 		mntmOpen.addActionListener(this); // See: method											// actionPerformed(ActionEvent arg0)
 		mnFile.add(mntmOpen);
-		mntmOpen.setEnabled(false);
-		
-		//NEW SUBMENU
-				openCaexSubmenu = new JMenu("Open Caex File Version");
-				openCaexSubmenu.setEnabled(false);
-				// Radio buttons: https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/MenuLookDemoProject/src/components/MenuLookDemo.java
-				ButtonGroup caexVersionGroup = new ButtonGroup();
-				
-				versionMenuItem1 = new JRadioButtonMenuItem("2.15");
-				versionMenuItem1.setSelected(false);
-		        //versionMenuItem1.setMnemonic(KeyEvent.VK_R);
-				versionMenuItem1.addActionListener(this);       
-		        caexVersionGroup.add(versionMenuItem1);
-		        openCaexSubmenu.add(versionMenuItem1);
-		 
-		        versionMenuItem2 = new JRadioButtonMenuItem("3.0");
-				versionMenuItem2.setSelected(false);
-		        //versionMenuItem2.setMnemonic(KeyEvent.VK_R);
-				versionMenuItem2.addActionListener(this);       
-		        caexVersionGroup.add(versionMenuItem2);
-		        openCaexSubmenu.add(versionMenuItem2);
-
-				mnFile.add(openCaexSubmenu);
-		
+		mntmOpen.setEnabled(false);	
 		
 		mntmSave = new JMenuItem("Save Caex File");
 		mntmSave.addActionListener(this);// See: method											// actionPerformed(ActionEvent arg0)
@@ -210,6 +187,29 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mntmNewProject = new JMenuItem("New Project...");
 		mntmNewProject.addActionListener(this);
 		mnFile.add(mntmNewProject);
+		
+		//NEW SUBMENU
+		newProjectVersionSubmenu = new JMenu("New Project Version");
+		newProjectVersionSubmenu.setEnabled(true);
+		// Radio buttons: https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/MenuLookDemoProject/src/components/MenuLookDemo.java
+		ButtonGroup caexVersionGroup = new ButtonGroup();
+		
+		versionMenuItem1 = new JRadioButtonMenuItem("2.15");
+		versionMenuItem1.setSelected(false);
+        //versionMenuItem1.setMnemonic(KeyEvent.VK_R);
+		versionMenuItem1.addActionListener(this);       
+        caexVersionGroup.add(versionMenuItem1);
+        newProjectVersionSubmenu.add(versionMenuItem1);
+ 
+        versionMenuItem2 = new JRadioButtonMenuItem("3.0");
+		versionMenuItem2.setSelected(false);
+        //versionMenuItem2.setMnemonic(KeyEvent.VK_R);
+		versionMenuItem2.addActionListener(this);       
+        caexVersionGroup.add(versionMenuItem2);
+        newProjectVersionSubmenu.add(versionMenuItem2);
+
+		mnFile.add(newProjectVersionSubmenu);
+
 		
 		mntmSaveProject = new JMenuItem("Save Project");
 		mntmSaveProject.addActionListener(this);
@@ -1127,7 +1127,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				System.out.println("-- Project Folder Opened: " + openProjectDirectory.getName());
 				// -- Enabling other menuitems
 				mntmOpen.setEnabled(true);
-				openCaexSubmenu.setEnabled(true);
+				newProjectVersionSubmenu.setEnabled(true);
 				mntmSaveProject.setEnabled(true);
 				mntmSaveProjectAs.setEnabled(true);
 				//-- Console Printing
@@ -1197,7 +1197,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				System.out.println("-- New Project Home Directory: " + newProjectDirectory.getName());
 				// -- Enabling other menuitems
 				mntmOpen.setEnabled(true);
-				openCaexSubmenu.setEnabled(true);
+				newProjectVersionSubmenu.setEnabled(true);
 				mntmSaveProject.setEnabled(true);
 				mntmSaveProjectAs.setEnabled(true);
 				//-- Console Printing
@@ -1213,7 +1213,55 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			}
 			fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				
-		} else if (arg0.getSource() == mntmGenOntologyModel) {
+		} else if ((arg0.getSource() == versionMenuItem1)||(arg0.getSource() == versionMenuItem2)) {
+			//Create a new Project with caex version 2.15 or 3.0 (radiocommand)
+			String radiocommand =arg0.getActionCommand();
+			versionMenuItem1.setSelected(false);
+			versionMenuItem2.setSelected(false);				
+			if(arg0.getSource() == versionMenuItem1) versionMenuItem1.setSelected(true);
+			if(arg0.getSource() == versionMenuItem2) versionMenuItem2.setSelected(true);
+		
+		//---
+			this.getHierarchyTreeScrollPane().setViewportView(null);
+			this.getHierarchyTreeScrollPane2().setViewportView(null);
+			this.getHierarchyTreeScrollPane3().setViewportView(null);
+			this.getHierarchyTreeScrollPane4().setViewportView(null);			
+			this.bottomLeftTextArea.setText("Selected Element:\n");		
+			System.out.println("-- createNewProject(); Element Tree Cleared! ");
+			
+			fileChooser.setDialogTitle("CREATE A NEW PROJECT HOME (CAEX VERSION " + radiocommand + ")");
+			fileChooser.setCurrentDirectory((new File(this.eraProjectHomeDirectory)).getParentFile());
+			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			int retVal = fileChooser.showSaveDialog(MainFrame.this);
+
+			if (retVal == JFileChooser.APPROVE_OPTION) {
+				System.out.println("GUIFrame: Save OK pressed");
+				File newProjectDirectory = fileChooser.getSelectedFile();
+				//appControl.saveProjectInFolder(newProjectDirectory.getPath());
+				boolean ok= appControl.createNewProject(newProjectDirectory.getPath(), radiocommand); //"2.15");
+				if(ok){
+				this.eraProjectHomeDirectory = newProjectDirectory.getPath();
+				this.latestOpenedFolder = newProjectDirectory.getPath();
+				System.out.println("-- New Project Home Directory: " + newProjectDirectory.getName());
+				// -- Enabling other menuitems
+				mntmOpen.setEnabled(true);
+				newProjectVersionSubmenu.setEnabled(true);
+				mntmSaveProject.setEnabled(true);
+				mntmSaveProjectAs.setEnabled(true);
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: NEW ERA PROJECT HOME DIRECTORY: " +newProjectDirectory.getName() + " (CAEX version: " + radiocommand + " )");
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+				} else {
+					//-- Console Printing
+					txtrConsoleOutput.append(newline + "LOG: PROBLEM: NEW ERA PROJECT COULD NOT BE CREATED INTO DIRECTORY: " +newProjectDirectory.getName());
+					txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+				}
+			} else {
+				System.out.println("Frame: No Project Folder Selected!");
+			}
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+	} else if (arg0.getSource() == mntmGenOntologyModel) {
 			appControl.genereteCaexOntologyModel("default");;
 			System.out.println("-- genereteCaexOntologyModel();! ");
 			//-- Console Printing
@@ -1404,55 +1452,6 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				//JTree elementTree = appControl.buildJaxbModel(mainOpenFile.getPath());
 				//appControl.buildJaxbModel(mainOpenFile.getPath());
 				boolean ok = appControl.openCaexFile(mainOpenFile.getPath(), "2.15");
-				JTree elementTree = appControl.getInstanceHtree();
-				if (elementTree != null)
-					this.getHierarchyTreeScrollPane().setViewportView(elementTree);
-				// SystemUnitClassLib hierarchy
-				JTree systemUCLibTree = appControl.getSucltree();
-				if (systemUCLibTree != null)
-					this.getHierarchyTreeScrollPane2().setViewportView(systemUCLibTree);
-				// RoleClassLib hierarchy
-				JTree roleCLibTree = appControl.getRolecltree();
-				if (roleCLibTree != null)
-					this.getHierarchyTreeScrollPane3().setViewportView(roleCLibTree);
-				// InterfaceClassLib hierarchy
-				JTree interfaceCLibTree = appControl.getInterfacecltree();
-				if (interfaceCLibTree != null)
-					this.getHierarchyTreeScrollPane4().setViewportView(interfaceCLibTree);
-				String dir = mainOpenFile.getParent();
-				this.latestOpenedFolder = "dir";
-				// -- Enabling other menuitems
-				mntmSave.setEnabled(true);
-				// -- Console Printing ---				
-				txtrConsoleOutput.append(newline + "LOG: CAEX FILE OPENED: " + mainOpenFile.getName());
-				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
-
-			} else {
-				System.out.println("Frame: No Open File Selected!");
-			}
-
-		} else if ((arg0.getSource() == versionMenuItem1)||(arg0.getSource() == versionMenuItem2)) {
-				String radiocommand =arg0.getActionCommand();
-				//appControl.genereteCaexOntologyModel(radiocommand);
-				versionMenuItem1.setSelected(false);
-				versionMenuItem2.setSelected(false);				
-				if(arg0.getSource() == versionMenuItem1) versionMenuItem1.setSelected(true);
-				if(arg0.getSource() == versionMenuItem2) versionMenuItem2.setSelected(true);
-			
-			//---
-			fileChooser.setDialogTitle("OPEN CAEX XML FILE VERSION " + radiocommand);
-			fileChooser.setSelectedFile(new File(""));
-			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data"));
-			int retVal = fileChooser.showOpenDialog(MainFrame.this);
-
-			if (retVal == JFileChooser.APPROVE_OPTION) {
-				System.out.println("GUIFrame: Open OK pressed");
-
-				mainOpenFile = fileChooser.getSelectedFile();
-				System.out.println("-- Opened file: " + mainOpenFile.getPath());
-				// InternalElements hierarchy
-				//JTree elementTree = appControl.buildJaxbModel(mainOpenFile.getPath());
-				boolean ok = appControl.openCaexFile(mainOpenFile.getPath(), radiocommand); //2.15 or 3.0
 				JTree elementTree = appControl.getInstanceHtree();
 				if (elementTree != null)
 					this.getHierarchyTreeScrollPane().setViewportView(elementTree);
