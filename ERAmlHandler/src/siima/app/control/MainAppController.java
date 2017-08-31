@@ -52,7 +52,7 @@ public class MainAppController {
 	//public JaxbContainerCaex3 graphbuilder;
 	public MainFrame viewFrame;
 	// TREE: CAEXFile with InternalElement Hierarchy
-	public ElementTree tree;
+	public ElementTree instanceHtree;
 	public ElementModel treemodel;
 	// TREE: CAEXFile with SystemUnitClassLib Hierarchy
 	public ElementTree sucltree;
@@ -76,19 +76,27 @@ public class MainAppController {
 
 	public MainAppController(MainFrame viewFrame) {
 		this.viewFrame = viewFrame;
-		//TODO: Read from ERAinit file which version to use!!
-		//---- CAEX 3.0 WOULD REQUIRE CHANGES
-		//this.graphbuilder = new JaxbContainer(); //CEAX V. 2.15
-		this.graphbuilder = new JaxbContainerCaex3(); //CEAX V. 3.0
-		this.xslt = new XSLTransform();
-		this.aspReasoner = new AspDlvReasoner();
 		this.project = new ERAProject();
 		this.project.parseInitFile();
-		this.graphbuilder.setValidationSchemaFile(this.project.getCaexValidationSchema());
-		this.rdfContainer = new RdfContainer(graphbuilder);	//---- CAEX 3.0 WOULD REQUIRE CHANGES
 		String lastproject = this.project.parseExitBackupFile("ResentProjectHome:");
 		if(lastproject!=null)
 			viewFrame.setEraProjectHomeDirectory(lastproject);
+		
+		this.xslt = new XSLTransform();
+		this.aspReasoner = new AspDlvReasoner();
+		
+		/* NOTE: this.graphbuilder and this.rdfContainer
+		 * objects are created in methods
+		 * createNewProject() and openProject()
+		 * REASON: this.graphbuilder is CAEX version dependent
+		 */
+		//TODO: Read from ERAinit file which version to use!!
+		//---- CAEX 3.0 WOULD REQUIRE CHANGES
+		/*this.graphbuilder = new JaxbContainer(); //CEAX V. 2.15
+		this.graphbuilder = new JaxbContainerCaex3(); //CEAX V. 3.0
+		this.graphbuilder.setValidationSchemaFile(this.project.getCaexValidationSchema());
+		this.rdfContainer = new RdfContainer(graphbuilder);	//---- CAEX 3.0 WOULD REQUIRE CHANGES
+		*/
 	}
 
 	public void saveCSMCommandsToJsonFile(String jsonfile){
@@ -196,6 +204,13 @@ public class MainAppController {
 		
 	}
 	
+	public boolean openCaexFile(String xmlfile, String caexVersion){
+		// TODO: Set version before calling EI TAIDA Onnistua näin
+		boolean ok = true;
+		buildJaxbModel(xmlfile);
+		return ok;
+	}
+	
 	public ElementTree buildJaxbModel(String xmlfile) {
 		// Example file: "data/caex_exs/RunningExample_SimpleIH.aml"
 		Path path = Paths.get(xmlfile);
@@ -206,7 +221,7 @@ public class MainAppController {
 		if (iecount > 0) {
 			// Construct the jtree for InternalElement.
 			this.treemodel = new ElementModel(ieRootElement);
-			this.tree = new ElementTree(this.treemodel);
+			this.instanceHtree = new ElementTree(this.treemodel);
 		}
 
 		// Construct the jtree for SystemUnitClassLib hierarchy.
@@ -233,7 +248,7 @@ public class MainAppController {
 			this.interfacecltree = new ElementTree(this.interfacecltreemodel);
 		}
 
-		return tree;
+		return instanceHtree;
 	}
 
 	public void setValidationSchema(String schemafile) {
@@ -319,14 +334,23 @@ public class MainAppController {
 	}
 	
 	public boolean openProjectInFolder(String openProjectDirectory){
-		// TODO: open projects metadata(?) file to read latest configuration.
 		boolean ok=false;
-		File metafile = new File(openProjectDirectory + "/" + "project.meta");
-		if(metafile.exists()){//project.meta file should exist, If correct era-project file
-			ok=true;
-			logger.info("openProjectInFolder(): Project Opened in folder:" + openProjectDirectory);
+		ok = this.project.openProject(openProjectDirectory);
+		if(ok){
+			String caexVersion= this.project.getCaexSchemaVersion();
+			if("2.15".equals(caexVersion)){
+				this.graphbuilder = new JaxbContainer(); //CEAX V. 2.15
+			} else if("3.0".equals(caexVersion)){
+				this.graphbuilder = new JaxbContainerCaex3(); //CEAX V. 3.0
+			} else {
+				logger.info("openProjectInFolder(): ??? CAEX Schema version not suported: " + caexVersion);
+			}
+			this.graphbuilder.setValidationSchemaFile(this.project.getCaexValidationSchema());
+			this.rdfContainer = new RdfContainer(graphbuilder);	
+			//clearRDFModels(true,true,true);
+			logger.info("openProjectInFolder(): Project Opened in folder:" + openProjectDirectory + "with version " + caexVersion);
 		 } else {
-			logger.info("openProjectInFolder() ??? NOT a Project Home Directory: project.meta does not exist " + openProjectDirectory);
+			logger.info("openProjectInFolder(): ??? NOT a Project Home Directory: project.meta does not exist " + openProjectDirectory);
 		 }
 		return ok;
 	}
@@ -338,6 +362,28 @@ public class MainAppController {
 		
 	}
 	
+	public boolean createNewProject(String newProjectHomeDirectory, String caexVersion) {
+		// IF newProjectHomeDirectory ==null SAVE files into current project
+		boolean ok = false;
+		if (newProjectHomeDirectory != null) {
+			// Creating new project folders and copying common files
+			//ok = this.project.createSubDirectoriesAndCopyFiles(newProjectHomeDirectory);
+			ok = this.project.createNewProject(newProjectHomeDirectory, caexVersion);
+			if (ok){
+				this.project.setCaexSchemaVersion(caexVersion);
+				if("2.15".equals(caexVersion)){
+					this.graphbuilder = new JaxbContainer(); //CEAX V. 2.15
+				} else if("3.0".equals(caexVersion)){
+					this.graphbuilder = new JaxbContainerCaex3(); //CEAX V. 3.0
+				}
+				this.graphbuilder.setValidationSchemaFile(this.project.getCaexValidationSchema());
+				this.rdfContainer = new RdfContainer(graphbuilder);		
+				//clearRDFModels(true,true,true);
+				logger.info("createNewProject() New Project Home Directory created: " + newProjectHomeDirectory);
+			}
+		}
+		return ok;
+	}
 	
 	public boolean saveProjectInFolder(String newProjectHomeDirectory) {
 		// IF newProjectHomeDirectory ==null SAVE files into current project
@@ -396,7 +442,7 @@ public class MainAppController {
 
 		graphbuilder.clearRootElements();
 		this.treemodel = null;
-		this.tree = null;
+		this.instanceHtree = null;
 		this.sucltreemodel = null;
 		this.sucltree = null;
 		this.rolecltreemodel = null;
@@ -459,8 +505,8 @@ public class MainAppController {
 		return true;
 	}
 	
-	public ElementTree getTree() {
-		return tree;
+	public ElementTree getInstanceHtree() {
+		return instanceHtree;
 	}
 
 	public ElementTree getSucltree() {

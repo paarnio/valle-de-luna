@@ -18,8 +18,10 @@ public class ERAProject {
 	
 	public static String initfile = "./configure/eraproject.ini";
 	public static String exitbackupfile = "./configure/exitbackup.meta";
-	public String caexValidationSchema; //"configure/schema/caex_2.1.5_orig/CAEX_ClassModel_V2.15.xsd";
-	public String caexSchemaVersion; // 2.15 or 3.0
+	
+	public String currentProjectHome;
+	public String caexValidationSchema = "configure/schema/caex_2.1.5_orig/CAEX_ClassModel_V2.15.xsd";
+	public String caexSchemaVersion = "2.15"; // 2.15 or 3.0
 	public static List<String> copydirsrcpaths = new ArrayList<String>();
 	public static List<String> copydirtrgpaths = new ArrayList<String>();
 	
@@ -28,7 +30,36 @@ public class ERAProject {
 	
 	public boolean initfileparsed=false;
 	
-	public boolean createProjectMetaFile(String projectHomeDirectory) {
+	public boolean openProject(String openProjectDirectory){
+		// Open project.meta file to read latest configuration.
+		boolean ok=false;
+		File metafile = new File(openProjectDirectory + "/" + "project.meta");
+		if(metafile.exists()){//project.meta file should exist, If correct era-project folder
+			setCurrentProjectHome(openProjectDirectory);
+			String caexVersion = parseProjectMetaFile(metafile.getAbsolutePath(), "caex_version");
+			setCaexSchemaVersion(caexVersion);
+			ok=true;
+			logger.info("openProject(): Project Opened in folder:" + openProjectDirectory + " caex version:" + caexVersion);
+			
+		 } else {
+			logger.info("openProject() ??? NOT a Project Home Directory: project.meta does not exist " + openProjectDirectory);
+		 }
+		return ok;
+	}
+	
+	public boolean createNewProject(String newProjectHomeDirectory, String caexVersion) {
+		boolean ok = false;
+		ok = createSubDirectoriesAndCopyFiles(newProjectHomeDirectory);
+		if(ok){			
+			createProjectMetaFile(newProjectHomeDirectory, caexVersion);
+			setCurrentProjectHome(newProjectHomeDirectory);
+			setCaexSchemaVersion(caexVersion);
+		}
+		
+		return ok;
+	}
+	
+	public boolean createProjectMetaFile(String projectHomeDirectory, String caexVersion) {
 		boolean ok = false;
 		// Creating and Saving project.meta file
 		StringBuffer metabuf = new StringBuffer();
@@ -42,7 +73,7 @@ public class ERAProject {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		String formattedDateTime = today.format(formatter);
 		metabuf.append("\ncreated:" + formattedDateTime);
-		metabuf.append("\ncaex_version:" + this.caexSchemaVersion);
+		metabuf.append("\ncaex_version:" + caexVersion); //this.caexSchemaVersion);
 		metabuf.append("\n#end\n");
 		FileUtil.writeTextFile(metabuf.toString(), projectHomeDirectory + "/" + "project.meta");
 		logger.info("createProjectMetaFile() project.meta file created.");
@@ -58,10 +89,10 @@ public class ERAProject {
 		String toolpath = toolpath_dot.substring(0, toolpath_dot.length() - 2);
 		if (projectHomeDirectory.startsWith(toolpath)) {
 			logger.info("createSubDirectoriesAndCopyFiles() TOOL PATH FORBIDDEN: " + toolpath);
-			return ok;
+			return false;
 		}
 		
-		createProjectMetaFile(projectHomeDirectory);
+		//createProjectMetaFile(projectHomeDirectory);
 		
 		/* (2017-07-13) Creating and Saving project.meta file
 		StringBuffer metabuf = new StringBuffer();		
@@ -223,6 +254,37 @@ public class ERAProject {
 		return value;
 	}
 	
+	public String parseProjectMetaFile(String metafile, String fieldkey){
+		//project.meta 
+		// fieldkey e.g. 'caex_version'
+		String singleValue=null;
+		
+		logger.info("parseProjectMetaFile() reading metafile: " + metafile);
+		StringBuffer sbuf = FileUtil.readTextFile("\n", metafile);
+		//System.out.println("==INIFILE CONTENT: " + sbuf.toString());
+		
+		String[] blocks = sbuf.toString().split("#");
+		for (int i = 0; i < blocks.length; i++) {
+			String block = blocks[i];			
+			if (block.startsWith("Project:")) {
+				StringBuffer blockbuf = new StringBuffer();
+				blockbuf.append(block);
+				String[] lines = blockbuf.toString().split("\n");
+				// System.out.println("==LINES #: " + lines.length);
+				for (int k = 0; k < lines.length; k++) {
+					String line = lines[k];
+					if (line.startsWith(fieldkey + ":")) { //"caex_version:"
+						singleValue = line.split(fieldkey + ":")[1];
+						 
+					}
+				}
+			}
+		}
+		return singleValue;
+	}
+
+
+	
 	public boolean tODOcreateDirectories(String newProjectHomeDirectory) { // NOT
 																			// IN
 																			// USE
@@ -290,10 +352,31 @@ public class ERAProject {
 	
 	
 	
+	public String getCaexSchemaVersion() {
+		return caexSchemaVersion;
+	}
+
+	public void setCaexSchemaVersion(String caexSchemaVersion) {
+		this.caexSchemaVersion = caexSchemaVersion;
+	}
+
 	public String getCaexValidationSchema() {
 		return caexValidationSchema;
 	}
 
+	
+
+	public String getCurrentProjectHome() {
+		return currentProjectHome;
+	}
+
+	public void setCurrentProjectHome(String currentProjectHome) {
+		this.currentProjectHome = currentProjectHome;
+	}
+
+	public void setCaexValidationSchema(String caexValidationSchema) {
+		this.caexValidationSchema = caexValidationSchema;
+	}
 
 	public static void main(String[] args) {
 		ERAProject era = new ERAProject();

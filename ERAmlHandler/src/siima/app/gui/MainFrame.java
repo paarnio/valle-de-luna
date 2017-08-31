@@ -54,6 +54,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JFileChooser fileChooser;
 	private JSplitPane m_contentPane;
 	private JMenuItem mntmOpen;
+	private JMenu openCaexSubmenu;
 
 	private File mainOpenFile;
 	private JMenuItem mntmSave;
@@ -96,6 +97,9 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JMenuItem mntmClearCombined;
 	private JMenuItem mntmClearMerged;
 	// private JTree tree;
+	private JRadioButtonMenuItem versionMenuItem1;
+	private JRadioButtonMenuItem versionMenuItem2;
+	
 	private JRadioButtonMenuItem rbMenuItem1;
 	private JRadioButtonMenuItem rbMenuItem2;
 	private JRadioButtonMenuItem rbMenuItem3;
@@ -167,10 +171,35 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mntmOpen = new JMenuItem("Open Caex File");
 		mntmOpen.addActionListener(this); // See: method											// actionPerformed(ActionEvent arg0)
 		mnFile.add(mntmOpen);
+		mntmOpen.setEnabled(false);
+		
+		//NEW SUBMENU
+				openCaexSubmenu = new JMenu("Open Caex File Version");
+				openCaexSubmenu.setEnabled(false);
+				// Radio buttons: https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/MenuLookDemoProject/src/components/MenuLookDemo.java
+				ButtonGroup caexVersionGroup = new ButtonGroup();
+				
+				versionMenuItem1 = new JRadioButtonMenuItem("2.15");
+				versionMenuItem1.setSelected(false);
+		        //versionMenuItem1.setMnemonic(KeyEvent.VK_R);
+				versionMenuItem1.addActionListener(this);       
+		        caexVersionGroup.add(versionMenuItem1);
+		        openCaexSubmenu.add(versionMenuItem1);
+		 
+		        versionMenuItem2 = new JRadioButtonMenuItem("3.0");
+				versionMenuItem2.setSelected(false);
+		        //versionMenuItem2.setMnemonic(KeyEvent.VK_R);
+				versionMenuItem2.addActionListener(this);       
+		        caexVersionGroup.add(versionMenuItem2);
+		        openCaexSubmenu.add(versionMenuItem2);
+
+				mnFile.add(openCaexSubmenu);
+		
 		
 		mntmSave = new JMenuItem("Save Caex File");
 		mntmSave.addActionListener(this);// See: method											// actionPerformed(ActionEvent arg0)
 		mnFile.add(mntmSave);
+		mntmSave.setEnabled(false);
 		
 		mnFile.addSeparator();
 
@@ -185,10 +214,12 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mntmSaveProject = new JMenuItem("Save Project");
 		mntmSaveProject.addActionListener(this);
 		mnFile.add(mntmSaveProject);
+		mntmSaveProject.setEnabled(false);
 		
 		mntmSaveProjectAs = new JMenuItem("Save Project As...");
 		mntmSaveProjectAs.addActionListener(this);
 		mnFile.add(mntmSaveProjectAs);
+		mntmSaveProjectAs.setEnabled(false);
 		
 		mnFile.addSeparator();
 		
@@ -913,6 +944,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 * mntmMergeModels AND mntmLoadSpinCommands
 		 * mntmInvokeSpinCommands AND mntmSaveSpinCommands
 		 * mntmClearPartials AND mntmClearCombined AND mntmClearMerged
+		 * versionMenuItem1-2
 		 */
 		
 		if (arg0.getSource() == mntmClearPartials) {
@@ -1018,7 +1050,14 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			rbMenuItem3.setSelected(false);
 			rbMenuItem4.setSelected(false);
 			rbMenuItem5.setSelected(false);
-			rbMenuItem6.setSelected(true);
+			rbMenuItem6.setSelected(false);
+			if(arg0.getSource() == rbMenuItem1) rbMenuItem1.setSelected(true);
+			if(arg0.getSource() == rbMenuItem2) rbMenuItem2.setSelected(true);
+			if(arg0.getSource() == rbMenuItem3) rbMenuItem3.setSelected(true);
+			if(arg0.getSource() == rbMenuItem4) rbMenuItem4.setSelected(true);
+			if(arg0.getSource() == rbMenuItem5) rbMenuItem5.setSelected(true);
+			if(arg0.getSource() == rbMenuItem6) rbMenuItem6.setSelected(true);
+			
 			//-- Console Printing
 			txtrConsoleOutput.append(newline + "LOG: SELECTED:" + radiocommand);
 			txtrConsoleOutput.append(newline + "LOG: ONTOLOGY MODEL GENERATED FROM THE MAIN CAEX MODEL! ");
@@ -1086,6 +1125,11 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				this.eraProjectHomeDirectory = openProjectDirectory.getPath();
 				this.latestOpenedFolder = openProjectDirectory.getPath();
 				System.out.println("-- Project Folder Opened: " + openProjectDirectory.getName());
+				// -- Enabling other menuitems
+				mntmOpen.setEnabled(true);
+				openCaexSubmenu.setEnabled(true);
+				mntmSaveProject.setEnabled(true);
+				mntmSaveProjectAs.setEnabled(true);
 				//-- Console Printing
 				txtrConsoleOutput.append(newline + "LOG: ERA PROJECT OPENED: " + openProjectDirectory.getName());
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
@@ -1129,7 +1173,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
 		} else if (arg0.getSource() == mntmNewProject) {
-			appControl.clearProject();
+			//appControl.clearProject();
 			this.getHierarchyTreeScrollPane().setViewportView(null);
 			this.getHierarchyTreeScrollPane2().setViewportView(null);
 			this.getHierarchyTreeScrollPane3().setViewportView(null);
@@ -1145,13 +1189,25 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			if (retVal == JFileChooser.APPROVE_OPTION) {
 				System.out.println("GUIFrame: Save OK pressed");
 				File newProjectDirectory = fileChooser.getSelectedFile();
-				appControl.saveProjectInFolder(newProjectDirectory.getPath());
+				//appControl.saveProjectInFolder(newProjectDirectory.getPath());
+				boolean ok= appControl.createNewProject(newProjectDirectory.getPath(), "2.15");
+				if(ok){
 				this.eraProjectHomeDirectory = newProjectDirectory.getPath();
 				this.latestOpenedFolder = newProjectDirectory.getPath();
 				System.out.println("-- New Project Home Directory: " + newProjectDirectory.getName());
+				// -- Enabling other menuitems
+				mntmOpen.setEnabled(true);
+				openCaexSubmenu.setEnabled(true);
+				mntmSaveProject.setEnabled(true);
+				mntmSaveProjectAs.setEnabled(true);
 				//-- Console Printing
 				txtrConsoleOutput.append(newline + "LOG: NEW ERA PROJECT HOME DIRECTORY: " +newProjectDirectory.getName());
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+				} else {
+					//-- Console Printing
+					txtrConsoleOutput.append(newline + "LOG: PROBLEM: NEW ERA PROJECT COULD NOT BE CREATED INTO DIRECTORY: " +newProjectDirectory.getName());
+					txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+				}
 			} else {
 				System.out.println("Frame: No Project Folder Selected!");
 			}
@@ -1345,7 +1401,10 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				mainOpenFile = fileChooser.getSelectedFile();
 				System.out.println("-- Opened file: " + mainOpenFile.getPath());
 				// InternalElements hierarchy
-				JTree elementTree = appControl.buildJaxbModel(mainOpenFile.getPath());
+				//JTree elementTree = appControl.buildJaxbModel(mainOpenFile.getPath());
+				//appControl.buildJaxbModel(mainOpenFile.getPath());
+				boolean ok = appControl.openCaexFile(mainOpenFile.getPath(), "2.15");
+				JTree elementTree = appControl.getInstanceHtree();
 				if (elementTree != null)
 					this.getHierarchyTreeScrollPane().setViewportView(elementTree);
 				// SystemUnitClassLib hierarchy
@@ -1362,6 +1421,57 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 					this.getHierarchyTreeScrollPane4().setViewportView(interfaceCLibTree);
 				String dir = mainOpenFile.getParent();
 				this.latestOpenedFolder = "dir";
+				// -- Enabling other menuitems
+				mntmSave.setEnabled(true);
+				// -- Console Printing ---				
+				txtrConsoleOutput.append(newline + "LOG: CAEX FILE OPENED: " + mainOpenFile.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+
+			} else {
+				System.out.println("Frame: No Open File Selected!");
+			}
+
+		} else if ((arg0.getSource() == versionMenuItem1)||(arg0.getSource() == versionMenuItem2)) {
+				String radiocommand =arg0.getActionCommand();
+				//appControl.genereteCaexOntologyModel(radiocommand);
+				versionMenuItem1.setSelected(false);
+				versionMenuItem2.setSelected(false);				
+				if(arg0.getSource() == versionMenuItem1) versionMenuItem1.setSelected(true);
+				if(arg0.getSource() == versionMenuItem2) versionMenuItem2.setSelected(true);
+			
+			//---
+			fileChooser.setDialogTitle("OPEN CAEX XML FILE VERSION " + radiocommand);
+			fileChooser.setSelectedFile(new File(""));
+			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data"));
+			int retVal = fileChooser.showOpenDialog(MainFrame.this);
+
+			if (retVal == JFileChooser.APPROVE_OPTION) {
+				System.out.println("GUIFrame: Open OK pressed");
+
+				mainOpenFile = fileChooser.getSelectedFile();
+				System.out.println("-- Opened file: " + mainOpenFile.getPath());
+				// InternalElements hierarchy
+				//JTree elementTree = appControl.buildJaxbModel(mainOpenFile.getPath());
+				boolean ok = appControl.openCaexFile(mainOpenFile.getPath(), radiocommand); //2.15 or 3.0
+				JTree elementTree = appControl.getInstanceHtree();
+				if (elementTree != null)
+					this.getHierarchyTreeScrollPane().setViewportView(elementTree);
+				// SystemUnitClassLib hierarchy
+				JTree systemUCLibTree = appControl.getSucltree();
+				if (systemUCLibTree != null)
+					this.getHierarchyTreeScrollPane2().setViewportView(systemUCLibTree);
+				// RoleClassLib hierarchy
+				JTree roleCLibTree = appControl.getRolecltree();
+				if (roleCLibTree != null)
+					this.getHierarchyTreeScrollPane3().setViewportView(roleCLibTree);
+				// InterfaceClassLib hierarchy
+				JTree interfaceCLibTree = appControl.getInterfacecltree();
+				if (interfaceCLibTree != null)
+					this.getHierarchyTreeScrollPane4().setViewportView(interfaceCLibTree);
+				String dir = mainOpenFile.getParent();
+				this.latestOpenedFolder = "dir";
+				// -- Enabling other menuitems
+				mntmSave.setEnabled(true);
 				// -- Console Printing ---				
 				txtrConsoleOutput.append(newline + "LOG: CAEX FILE OPENED: " + mainOpenFile.getName());
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
