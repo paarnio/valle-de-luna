@@ -184,9 +184,11 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mntmOpenProject.addActionListener(this);
 		mnFile.add(mntmOpenProject);
 		
+		/* Replaced with JMenu("New Project Version");
 		mntmNewProject = new JMenuItem("New Project...");
 		mntmNewProject.addActionListener(this);
 		mnFile.add(mntmNewProject);
+		*/
 		
 		//NEW SUBMENU
 		newProjectVersionSubmenu = new JMenu("New Project Version");
@@ -1160,7 +1162,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			if (retVal == JFileChooser.APPROVE_OPTION) {
 				System.out.println("GUIFrame: Save OK pressed");
 				File newProjectDirectory = fileChooser.getSelectedFile();
-				appControl.saveProjectInFolder(newProjectDirectory.getPath());
+				appControl.saveProjectInNewDirectory(newProjectDirectory.getPath());
 				this.eraProjectHomeDirectory = newProjectDirectory.getPath();
 				this.latestOpenedFolder = newProjectDirectory.getPath();
 				System.out.println("-- New Project Folder: " + newProjectDirectory.getName());
@@ -1173,7 +1175,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
 		} else if (arg0.getSource() == mntmNewProject) {
-			//appControl.clearProject();
+			//NOT IN USE: Replaced with the version selection option (See next else if)
 			this.getHierarchyTreeScrollPane().setViewportView(null);
 			this.getHierarchyTreeScrollPane2().setViewportView(null);
 			this.getHierarchyTreeScrollPane3().setViewportView(null);

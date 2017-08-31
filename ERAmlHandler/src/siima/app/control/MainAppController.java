@@ -355,13 +355,60 @@ public class MainAppController {
 		return ok;
 	}
 	
-	public void saveProject(){
-		//SAVING files into the current project directory
-		logger.info("saveProject()");
-		saveProjectInFolder(null);
-		
+	public boolean saveProjectInNewDirectory(String newProjectHomeDirectory){
+		/*
+		 * 'Save Project As' command
+		 * Retaining current versions of JaxbContainer (this.graphbuilder) and rdfContainer
+		 * 
+		 */
+		boolean ok = false;
+		ok = this.project.saveProjectInNewDirectory(newProjectHomeDirectory);
+		if(ok){
+			saveProject();			
+		}
+		return ok;		
 	}
-	
+			
+		
+	public boolean saveProject() {
+		// TODO: gleaning..
+		// SAVING files into the current project directory
+		logger.info("saveProject()");
+		boolean ok = false;
+		// saveProjectInFolder(null);
+		String homedir = this.project.getCurrentProjectHome();
+		// SAVING WORK FILES TO CURRENT OR NEW PROJECT FOLDERS
+
+		if ((homedir != null) && (!".".equalsIgnoreCase(homedir))) {
+
+			// Saving essential files in work memory
+			String subFolderCaex = "/data/caex";
+			String maincaexname = null;
+			Path maincaexpath = graphbuilder.getMainFilePath();
+			// TODO: save all loaded files if not exist already (if not the same
+			// location)
+			// List<Path> allLoadedPaths =
+			// graphbuilder.getLoadedCaexFilePaths();
+
+			if (maincaexpath != null) {
+				maincaexname = maincaexpath.getFileName().toString();
+				String copyloc = homedir + subFolderCaex + "/" + maincaexname;
+				if (copyloc.equalsIgnoreCase(maincaexpath.toString())) { // TODO?
+					logger.info("saveProject() Saveing to origal location?: " + copyloc);
+				} else {
+					logger.info("saveProject() Saveing to DIFFERENT locations?:\n ORIG: " + maincaexpath.toString()
+							+ "\n NEW: " + copyloc);
+				}
+
+				saveXMLModel(copyloc);
+				logger.info("saveProject() Main CAEX file saved into project: " + copyloc);
+				ok = true;
+			}
+
+		}
+		return ok;
+	}
+
 	public boolean createNewProject(String newProjectHomeDirectory, String caexVersion) {
 		// IF newProjectHomeDirectory ==null SAVE files into current project
 		boolean ok = false;
@@ -385,7 +432,7 @@ public class MainAppController {
 		return ok;
 	}
 	
-	public boolean saveProjectInFolder(String newProjectHomeDirectory) {
+	/*public boolean saveProjectInFolder(String newProjectHomeDirectory) {
 		// IF newProjectHomeDirectory ==null SAVE files into current project
 		boolean ok = false;
 		if (newProjectHomeDirectory != null) {
@@ -426,7 +473,7 @@ public class MainAppController {
 		return ok;
 
 	}
-	
+	*/
 
 	public boolean clearProject() {
 		// TODO: to be called when new project is created

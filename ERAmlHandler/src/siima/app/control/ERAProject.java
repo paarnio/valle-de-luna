@@ -30,6 +30,32 @@ public class ERAProject {
 	
 	public boolean initfileparsed=false;
 	
+	public boolean saveProjectInNewDirectory(String newProjectHomeDirectory){
+		/*
+		 * 'Save Project As' command
+		 * Retaining current versions of JaxbContainer and RDFContainer
+		 * Open project.meta file to read current configuration to copy.
+		 */
+		
+		boolean ok=false;
+		if (newProjectHomeDirectory != null) {
+			// Collect current/old project info
+			String currentHome=getCurrentProjectHome();
+			String caexVersion = parseProjectMetaFile(currentHome + "/project.meta", "caex_version");
+			// Creating new project folders and copying common files
+			ok = createSubDirectoriesAndCopyFiles(newProjectHomeDirectory);
+			if (ok){
+				createProjectMetaFile(newProjectHomeDirectory, caexVersion);
+				setCurrentProjectHome(newProjectHomeDirectory);			
+				logger.info("saveProjectInNewDirectory() Project Saved as: " + newProjectHomeDirectory);
+			} else {
+				logger.info("saveProjectInNewDirectory() Project Could not be Saved as: " + newProjectHomeDirectory);
+			 }
+		}
+		
+		return ok;
+	}
+	
 	public boolean openProject(String openProjectDirectory){
 		// Open project.meta file to read latest configuration.
 		boolean ok=false;
