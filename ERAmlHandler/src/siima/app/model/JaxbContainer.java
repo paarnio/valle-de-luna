@@ -88,7 +88,15 @@ public class JaxbContainer implements JaxbContainerInterface {
 	public ElementNode roleclRootElement = new ElementNode("CAEXFile:RoleClassLibraries");
 	public ElementNode ifaceclRootElement = new ElementNode("CAEXFile:InterfaceClassLibraries");
 	
-
+	/*---- 
+	 * This Getter is CAEX 3.0 REQUIRED ADDITION in JaxbContainerInterface class
+	 * NOT USED IN THIS CAEX 2.15 JAXBCONTAINER
+	 */
+	public ElementNode getAttributetlRootElement() {
+		//NOT USED IN CAEX 2.15: SO return null.
+		return null; //attributetlRootElement;
+	}
+	
 	public ElementNode getIfaceclRootElement() {
 		return ifaceclRootElement;
 	}

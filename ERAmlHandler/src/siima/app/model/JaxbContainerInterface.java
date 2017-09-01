@@ -10,35 +10,31 @@ import siima.models.jaxb.caex.CAEXObject;
 public interface JaxbContainerInterface {
 	
 	//Getters & Setters
+	//---- CAEX 3.0 REQUIRED ADDITION
+	public ElementNode getAttributetlRootElement();
+	
 	public ElementNode getIfaceclRootElement(); 
 
 	public ElementNode getRoleclRootElement();
 	
-
 	public ElementNode getSuclRootElement();
 	
-
 	public ElementNode getIeRootElement();
 	
-
 	public void setIeRootElement(ElementNode rootElement);
-	
-	
+		
 	public int getCaexFileCount();
 	
-
 	public void setCaexFileCount(int caexFileCount);
 	
 	public Object getCaexRootObject(); 
 	public Path getMainFilePath(); 
-	
 	
 	public void setMainFilePath(Path mainFilePath); 
 	public List<Path> getLoadedCaexFilePaths();
 
 	public void setLoadedCaexFilePaths(List<Path> loadedCaexFilePaths); 
 	public void setValidationSchemaFile(String validationSchemaFile); 
-
 	
 	//Basic methods
 
@@ -51,5 +47,6 @@ public interface JaxbContainerInterface {
 	public boolean saveData(String filepath);
 	
 	public String getBasicInfo(Object nodeobject);
+
 
 }

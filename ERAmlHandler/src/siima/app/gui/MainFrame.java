@@ -64,6 +64,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JScrollPane hierarchyTreeScrollPane2;
 	private JScrollPane hierarchyTreeScrollPane3;
 	private JScrollPane hierarchyTreeScrollPane4;
+	private JScrollPane hierarchyTreeScrollPane5;
 	private JScrollPane consoleScrollPane;
 	private JScrollPane resultScrollPane;
 	private JScrollPane spinCommandFileScrollPane;
@@ -445,6 +446,10 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 
 		hierarchyTreeScrollPane4 = new JScrollPane();
 		tabbedPane.insertTab("InterfaceCL", null, hierarchyTreeScrollPane4, "InterfaceClasses", 3);
+		
+		hierarchyTreeScrollPane5 = new JScrollPane();
+		tabbedPane.insertTab("AttrTL", null, hierarchyTreeScrollPane5, "AttributeTypes", 4);
+		
 		// The following line enables to use scrolling tabs.
 		tabbedPane.setTabLayoutPolicy(JTabbedPane.WRAP_TAB_LAYOUT);
 		topLeftPanel.add(tabbedPane, gbc_tabbedPane);
@@ -686,7 +691,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         JLabel textFieldLabel16 = new JLabel(textFieldKey16 + ": ");
         textFieldLabel3.setLabelFor(textField16);
         
-      //Layout the search panel and the labels.
+        //Layout the search panel and the labels.
         JPanel textCSMCommandPanel = new JPanel();
         //GridBagLayout gridbag = new GridBagLayout();
         //GridBagConstraints c = new GridBagConstraints();
@@ -777,14 +782,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			}
 		});
         
-        /* Update button moved to sequencepanel
-        GridBagConstraints gbc_UpdateCSMCommandButton = new GridBagConstraints();
-        //gbc_UpdateCSMCommandButton.insets = new Insets(0, 0, 5, 0);
-        gbc_UpdateCSMCommandButton.fill = GridBagConstraints.WEST;
-        gbc_UpdateCSMCommandButton.gridx = 1;
-        gbc_UpdateCSMCommandButton.gridy = 4;
-        rightTopRightPanel.add(btnUpdateCSMCommandButton, gbc_UpdateCSMCommandButton);     
-        */
+        /* Update button moved to sequence panel     */
         JPanel sequencepanel = new JPanel();
         sequencepanel.setLayout(gridbag);
         

@@ -66,6 +66,10 @@ public class MainAppController {
 	// TREE: CAEXFile with RoleClassLib Hierarchy
 	public ElementTree interfacecltree;
 	public ElementModel interfacecltreemodel;
+	//---- CAEX 3.0 REQUIRED ADDITION
+	// TREE: CAEXFile with AttributeTypeLib Hierarchy
+	public ElementTree attributetltree;
+	public ElementModel attributetltreemodel;
 
 	private XSLTransform xslt;
 	private AspDlvReasoner aspReasoner;
@@ -243,7 +247,7 @@ public class MainAppController {
 			this.rolecltree = new ElementTree(this.rolecltreemodel);
 		}
 
-		// Construct the jtree for RoleClassLib hierarchy.
+		// Construct the jtree for InterfaceClassLib hierarchy.
 		ElementNode interfaceclRootElement = graphbuilder.getIfaceclRootElement();
 		int ifaceccount = interfaceclRootElement.getChildCount();
 		if (ifaceccount > 0) {
@@ -251,6 +255,16 @@ public class MainAppController {
 			this.interfacecltree = new ElementTree(this.interfacecltreemodel);
 		}
 
+		// ---- CAEX 3.0 REQUIRED ADDITION
+
+		// Construct the jtree for AttributeTypeLib hierarchy.
+		ElementNode attributetlRootElement = graphbuilder.getAttributetlRootElement();
+		int attrtccount = attributetlRootElement.getChildCount();
+		if (attrtccount > 0) {
+			this.attributetltreemodel = new ElementModel(graphbuilder.getAttributetlRootElement());
+			this.attributetltree = new ElementTree(this.attributetltreemodel);
+		}
+			
 		return instanceHtree;
 	}
 
@@ -443,48 +457,7 @@ public class MainAppController {
 		return ok;
 	}
 	
-	/*public boolean saveProjectInFolder(String newProjectHomeDirectory) {
-		// IF newProjectHomeDirectory ==null SAVE files into current project
-		boolean ok = false;
-		if (newProjectHomeDirectory != null) {
-			// Creating new project folders and copying common files
-			ok = this.project.createSubDirectoriesAndCopyFiles(newProjectHomeDirectory);
-			if (ok){
-				this.viewFrame.setEraProjectHomeDirectory(newProjectHomeDirectory);
-				clearRDFModels(true,true,true);
-				logger.info("saveProjectInFolder() New Project Home Directory created: " + newProjectHomeDirectory);
-			}
-		}
-		// SAVING WORK FILES TO CURRENT OR NEW PROJECT FOLDERS
-		String homedir = this.viewFrame.getEraProjectHomeDirectory();
-		if ((homedir != null) && (!".".equalsIgnoreCase(homedir))) {
-			
-			// Saving essential files in work memory
-			String subFolderCaex = "/data/caex";
-			String maincaexname = null;
-			Path maincaexpath = graphbuilder.getMainFilePath();
-			// TODO: save all loaded files if not exist already (if not the same location)
-			//List<Path> allLoadedPaths = graphbuilder.getLoadedCaexFilePaths();
-					
-
-			if (maincaexpath != null) {
-				maincaexname = maincaexpath.getFileName().toString();
-				String copyloc = homedir + subFolderCaex + "/" + maincaexname;
-				if(copyloc.equalsIgnoreCase(maincaexpath.toString())){ //TODO?
-					logger.info("saveProjectInFolder() Saveing to origal location?: " + copyloc);
-				} else {
-					logger.info("saveProjectInFolder() Saveing to DIFFERENT locations?:\n ORIG: " + maincaexpath.toString() + "\n NEW: "  + copyloc);
-				}
-				
-				saveXMLModel(copyloc);
-				logger.info("saveProjectInFolder() Main CAEX file saved into project: " + copyloc);
-			}
-		 
-		}
-		return ok;
-
-	}
-	*/
+	
 
 	public boolean clearProject() {
 		// TODO: to be called when new project is created
@@ -506,7 +479,12 @@ public class MainAppController {
 		this.rolecltreemodel = null;
 		this.rolecltree = null;
 		this.interfacecltreemodel = null;
-		this.interfacecltree = null;
+		this.interfacecltree = null;		
+		//---- CAEX 3.0 REQUIRED ADDITION
+		this.attributetltreemodel = null;
+		this.attributetltree = null;
+		
+		
 		logger.info("clearProject() All tree models cleared!");
 		return treesCleared;
 	}

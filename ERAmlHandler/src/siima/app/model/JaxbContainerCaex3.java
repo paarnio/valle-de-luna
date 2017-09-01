@@ -1,15 +1,18 @@
 /* JaxbContainerCaex3.java
- * TODO: preparing a new JaxbContainer for CAEX 3.0 version.
+ * A new JaxbContainer for CAEX 3.0 version.
  * (JaxbContainer is made for CAEX version 2.15)
  * NOTE: Jaxb 3.0 classes now in package: siima.models.jaxb.caex3.
  * 
- * Required changes marked with: //---- CAEX 3.0 REQUIRED CHANGES
- * CHANGES made (until now):
+ * Required changes marked with: 
+ * //---- CAEX 3.0 REQUIRED CHANGES
+ * //---- CAEX 3.0 REQUIRED ADDITION
+ * CHANGES made e.g.:
  *  1. For CAEX Schema v3.0: InternalElement's method getRoleRequirements() returns 
  *  a list of RoleRequirements!
  *  2. Element name changed to InterfaceIDMapping (in 2.15 InterfaceNameMapping)
  *  3. In loadData() context = JAXBContext.newInstance("siima.models.jaxb.caex3");
- *  
+ * ADDITIONS MADE e.g.
+ *  1. Caex 3.0 has a new library: AttributeTypeLib
  */
 
 package siima.app.model;
@@ -50,6 +53,7 @@ import siima.models.jaxb.caex3.CAEXBasicObject.Description;
 import siima.models.jaxb.caex3.CAEXBasicObject.Revision;
 import siima.models.jaxb.caex3.CAEXBasicObject.Version;
 import siima.models.jaxb.caex3.CAEXFile;
+import siima.models.jaxb.caex3.CAEXFile.AttributeTypeLib;
 import siima.models.jaxb.caex3.CAEXFile.ExternalReference;
 import siima.models.jaxb.caex3.CAEXFile.InstanceHierarchy;
 import siima.models.jaxb.caex3.CAEXFile.InterfaceClassLib;
@@ -90,7 +94,13 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 	public ElementNode suclRootElement = new ElementNode("CAEXFile:SysUnitClassLibraries");
 	public ElementNode roleclRootElement = new ElementNode("CAEXFile:RoleClassLibraries");
 	public ElementNode ifaceclRootElement = new ElementNode("CAEXFile:InterfaceClassLibraries");
-	
+	//---- CAEX 3.0 REQUIRED ADDITION
+	public ElementNode attributetlRootElement = new ElementNode("CAEXFile:AttributeTypeLibraries");
+
+	//---- CAEX 3.0 REQUIRED ADDITION	
+	public ElementNode getAttributetlRootElement() {
+		return attributetlRootElement;
+	}
 
 	public ElementNode getIfaceclRootElement() {
 		return ifaceclRootElement;
@@ -126,6 +136,8 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 		suclRootElement = new ElementNode("CAEXFiles:SysUnitClassLibraries");
 		roleclRootElement = new ElementNode("CAEXFiles:RoleClassLibraries");
 		ifaceclRootElement = new ElementNode("CAEXFiles:InterfaceClassLibraries");
+		//---- CAEX 3.0 REQUIRED ADDITION
+		attributetlRootElement = new ElementNode("CAEXFile:AttributeTypeLibraries");
 		
 		logger.info("clearElementTree() all root Elements cleared!");
 	}
@@ -136,7 +148,9 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 		List<ElementNode> caexSuclchildren = new ArrayList<ElementNode>();
 		List<ElementNode> caexRoleclchildren = new ArrayList<ElementNode>();
 		List<ElementNode> caexIfaceclchildren = new ArrayList<ElementNode>();
-
+		//---- CAEX 3.0 REQUIRED ADDITION
+		List<ElementNode> attributetlchildren = new ArrayList<ElementNode>();
+		
 		CAEXFile caex = (CAEXFile) caexRootObject;
 		String caexfilename = caex.getFileName();
 		//System.out.println("== JaxbContainer:CAEXFile:" + caex.getFileName());
@@ -216,6 +230,13 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 		List<ElementNode> icLibCaexFileElementList = new ArrayList<ElementNode>();
 		icLibCaexFileElementList.add(icLibCaexFileElement);
 		
+		// ---- CAEX 3.0 REQUIRED ADDITION
+		// AttributeTypeLib tree
+		ElementNode atLibCaexFileElement = new ElementNode("CAEXFile_" + fileNr + ":" + caexfilename);
+		atLibCaexFileElement.setNodetype("CAEXFile");
+		atLibCaexFileElement.setJaxbObject(fileJaxbObject);
+		List<ElementNode> atLibCaexFileElementList = new ArrayList<ElementNode>();
+		atLibCaexFileElementList.add(atLibCaexFileElement);
 
 		// CAEXFile's hierarchy lists
 		List<InstanceHierarchy> instHList = caex.getInstanceHierarchy();
@@ -224,7 +245,8 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 		List<InterfaceClassLib> interfaceClassLibList = caex.getInterfaceClassLib();
 		//List<ExternalReference> extRefList = caex.getExternalReference();
 		//List<Revision> revisionList = caex.getRevision();
-
+		// ---- CAEX 3.0 REQUIRED ADDITION
+		List<AttributeTypeLib> attributeTypeLibList = caex.getAttributeTypeLib();
 		
 		/*
 		 * Creating InstanceHierarchy tree into ElementNode tree
@@ -334,6 +356,35 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 			ElementNode.linkChildren(icLibCaexFileElement, caexIfaceclchildren);
 			
 		}
+		// ---- CAEX 3.0 REQUIRED ADDITION
+		/*
+		 * Creating AttributeTypeLib tree into another ElementNode tree
+		 * TODO: testing
+		 */
+
+		if ((attributeTypeLibList != null) && (!attributeTypeLibList.isEmpty())) {
+			System.out.println("== TEST: JaxbContainer:CAEXFile:attributeTypeLibList");
+			logger.info("CAEXFile:attributeTypeLibList");
+			for (AttributeTypeLib attrtlib : attributeTypeLibList) {
+				System.out.println("== TEST: JaxbContainer:AttributeTypeLib name:" + attrtlib.getName());
+				logger.info("CAEXFile:AttributeTypeLib name:" + attrtlib.getName());
+				ElementNode attrtypehierarchy = new ElementNode("AttrTLIB:" + attrtlib.getName());
+				attrtypehierarchy.setJaxbObject(attrtlib);
+				attrtypehierarchy.setNodetype("AttributeTypeLib");
+				attributetlchildren.add(attrtypehierarchy);
+							
+				List attributetypes = attrtlib.getAttributeType();
+				// RECURSIVE CALL:  
+				parseAttributeTypeRecursion(attrtypehierarchy, null, attributetypes, 0);
+
+			}
+						
+			ElementNode.linkChildren(attributetlRootElement, atLibCaexFileElementList);
+			ElementNode.linkChildren(atLibCaexFileElement, attributetlchildren);
+			
+		}
+		
+		
 		return ieRootElement;
 	}
 	
