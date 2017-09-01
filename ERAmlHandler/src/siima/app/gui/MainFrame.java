@@ -919,17 +919,22 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	public JScrollPane getHierarchyTreeScrollPane3() {
 		return hierarchyTreeScrollPane3;
 	}
-
+	//---- CAEX 3.0 REQUIRED ADDITION
 	public JScrollPane getHierarchyTreeScrollPane4() {
 		return hierarchyTreeScrollPane4;
 	}
 
+	
 	/*
 	 * actionPerformed() method for Menu and Button actions
 	 * (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 
+
+	public JScrollPane getHierarchyTreeScrollPane5() {
+		return hierarchyTreeScrollPane5;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -1467,6 +1472,14 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				JTree interfaceCLibTree = appControl.getInterfacecltree();
 				if (interfaceCLibTree != null)
 					this.getHierarchyTreeScrollPane4().setViewportView(interfaceCLibTree);
+				
+				// --- CAEX 3.0 REQUIRED ADDITION
+				// AttributeTypeLib hierarchy
+				JTree attributeTLibTree = appControl.getAttributetltree();
+				if (attributeTLibTree != null)
+					this.getHierarchyTreeScrollPane5().setViewportView(attributeTLibTree);
+				
+				
 				String dir = mainOpenFile.getParent();
 				this.latestOpenedFolder = "dir";
 				// -- Enabling other menuitems

@@ -74,8 +74,8 @@ import siima.app.model.tree.ElementNode;
 
 public class JaxbContainer implements JaxbContainerInterface {
 	private static final Logger logger=Logger.getLogger(JaxbContainer.class.getName());
-	//Modified schema path: configure/schema/caex_2.1.5_modified/CAEX_V2.15_modified.xsd
-	public static String CAEX_SCHEMA ="configure/schema/caex_2.1.5_orig/CAEX_ClassModel_V2.15.xsd";
+	//Modified schema path: configure/schema/caex_2.15_mod/CAEX_V2.15_modified.xsd
+	public static String CAEX_SCHEMA ="configure/schema/caex_2.15_orig/CAEX_ClassModel_V2.15.xsd";
 	private String validationSchemaFile; //can be set by menu/configuration
 
 	public Path mainFilePath; //latest loaded caex file
@@ -149,7 +149,7 @@ public class JaxbContainer implements JaxbContainerInterface {
 
 		/* --------CAEXFile content objects  --------*/
 		/* CAEXFile: AdditionalInformation (xs.anyType) 
-		 * (TOIMII e.g. by loading Lego_example_mod2.aml (and using caex_2.1.5_orig_extended classes)
+		 * (TOIMII e.g. by loading Lego_example_mod2.aml (and using caex_2.15_orig_extended classes)
 		 * CAEXFile is an extension of CAEXBasicObject (containing AdditionalInformation) and
 		 * we need an object of that class with caex object's data content
 		 * in order to recover the xs:anyType content of AdditionalInformation

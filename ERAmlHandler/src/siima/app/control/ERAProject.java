@@ -20,7 +20,7 @@ public class ERAProject {
 	public static String exitbackupfile = "./configure/exitbackup.meta";
 	
 	public String currentProjectHome;
-	public String caexValidationSchema = "configure/schema/caex_2.1.5_orig/CAEX_ClassModel_V2.15.xsd";
+	public String caexValidationSchema = "configure/schema/caex_2.15_orig/CAEX_ClassModel_V2.15.xsd";
 	public String caexSchemaVersion = "2.15"; // 2.15 or 3.0
 	public static List<String> copydirsrcpaths = new ArrayList<String>();
 	public static List<String> copydirtrgpaths = new ArrayList<String>();

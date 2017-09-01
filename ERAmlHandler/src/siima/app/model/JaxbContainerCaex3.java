@@ -45,6 +45,7 @@ import org.apache.log4j.Logger;
 
 import siima.models.jaxb.caex3.AppInfoEXTRAContentType;
 import siima.models.jaxb.caex3.AppInfoEXTRAContentType.WriterHeader;
+import siima.models.jaxb.caex3.AttributeFamilyType;
 import siima.models.jaxb.caex3.AttributeType;
 import siima.models.jaxb.caex3.CAEXBasicObject;
 //import siima.models.jaxb.caex3.AttributeType.AttributeValueInterface;
@@ -81,8 +82,8 @@ import siima.app.model.tree.ElementNode;
 
 public class JaxbContainerCaex3  implements JaxbContainerInterface {
 	private static final Logger logger=Logger.getLogger(JaxbContainer.class.getName());
-	//Modified schema path: configure/schema/caex_2.1.5_modified/CAEX_V2.15_modified.xsd
-	public static String CAEX_SCHEMA ="configure/schema/caex_2.1.5_orig/CAEX_ClassModel_V2.15.xsd";
+	//Modified schema path: configure/schema/caex_2.15_mod/CAEX_V2.15_modified.xsd
+	public static String CAEX_SCHEMA ="configure/schema/caex_2.15_orig/CAEX_ClassModel_V2.15.xsd";
 	private String validationSchemaFile; //can be set by menu/configuration
 
 	public Path mainFilePath; //latest loaded caex file
@@ -158,7 +159,7 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 
 		/* --------CAEXFile content objects  --------*/
 		/* CAEXFile: AdditionalInformation (xs.anyType) 
-		 * (TOIMII e.g. by loading Lego_example_mod2.aml (and using caex_2.1.5_orig_extended classes)
+		 * (TOIMII e.g. by loading Lego_example_mod2.aml (and using caex_2.15_orig_extended classes)
 		 * CAEXFile is an extension of CAEXBasicObject (containing AdditionalInformation) and
 		 * we need an object of that class with caex object's data content
 		 * in order to recover the xs:anyType content of AdditionalInformation
@@ -345,8 +346,9 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 				caexIfaceclchildren.add(ifaceclasshierarchy);
 							
 				List ifaceftypes = ifaceclib.getInterfaceClass();
-				// RECURSIVE CALL:
-				parseCAEXObjectTypesRecursion(ifaceclasshierarchy, null, ifaceftypes, 0);
+				// RECURSIVE CALL: (name was parseCAEXObjectTypesRecursion() in JaxbContainer for 2.15)
+				parseInterfaceFamilyTypeRecursion(ifaceclasshierarchy, null, ifaceftypes, 0);
+				
 
 			}
 			//ElementNode.linkChildren(ifaceclRootElement, caexFileElementList);
@@ -368,14 +370,14 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 			for (AttributeTypeLib attrtlib : attributeTypeLibList) {
 				System.out.println("== TEST: JaxbContainer:AttributeTypeLib name:" + attrtlib.getName());
 				logger.info("CAEXFile:AttributeTypeLib name:" + attrtlib.getName());
-				ElementNode attrtypehierarchy = new ElementNode("AttrTLIB:" + attrtlib.getName());
+				ElementNode attrtypehierarchy = new ElementNode("ATypeLIB:" + attrtlib.getName());
 				attrtypehierarchy.setJaxbObject(attrtlib);
 				attrtypehierarchy.setNodetype("AttributeTypeLib");
 				attributetlchildren.add(attrtypehierarchy);
 							
 				List attributetypes = attrtlib.getAttributeType();
 				// RECURSIVE CALL:  
-				parseAttributeTypeRecursion(attrtypehierarchy, null, attributetypes, 0);
+				parseAttributeFamilyTypeRecursion(attrtypehierarchy, null, attributetypes, 0);
 
 			}
 						
@@ -389,13 +391,74 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 	}
 	
 	/**
-	 * TODO: Recursive search of nested InterfaceFamilyType (Or CAEXObjects in general) and Element tree
+	 * ---- CAEX 3.0 REQUIRED ADDITION
+	 * Recursive search of nested AttributeFAMILYTypes (In AttributeTypeLib) and Element tree
 	 * building
 	 * 
 	 * @return
 	 */
 
-	private boolean parseCAEXObjectTypesRecursion(ElementNode parentNode, CAEXObject jaxbParent,
+	private boolean parseAttributeFamilyTypeRecursion(ElementNode parentNode, AttributeFamilyType jaxbParent,
+			List<AttributeFamilyType> parentsAttributeFamilyTypes, int level) {
+		//AttributeFAMILYTypes In AttributeTypeLib
+		
+		boolean ok = true;
+		int sibling = 0;
+		level += 1;
+		List<ElementNode> children = new ArrayList<ElementNode>();
+
+		if (jaxbParent != null) {
+		/* Element AttributeType (which is of type AttributeFamilyType)
+		 * can contain nested AttributeType elements and Attribute elements.
+		 */
+		// RECURSIVE CALL: CAEX PARENT'S ATTRIBUTE-TYPE CHILDREN (ie. Attribute elements)
+			if(AttributeFamilyType.class.isInstance(jaxbParent)){
+				AttributeFamilyType attrtypeParent = (AttributeFamilyType)jaxbParent;
+				List<AttributeType> attchildrenlist=attrtypeParent.getAttribute();
+				ok = parseAttributeTypeRecursion(parentNode, null, attchildrenlist, level);
+			}
+			
+		}
+		// RECURSIVE CALL: CAEX PARENT'S ATTRIBUTE-FAMILY-TYPE CHILDREN (ie. AttributeType elements)
+		if ((parentsAttributeFamilyTypes != null) && (!parentsAttributeFamilyTypes.isEmpty())) {
+			for (AttributeFamilyType attft : parentsAttributeFamilyTypes) {
+				boolean istype = AttributeFamilyType.class.isInstance(attft);
+				sibling += 1;
+				//System.out.println("(" + level + ":" + sibling
+				//		+ ") parseAttributeFamilyTypeRecursion(): AttributeFamilyType @Name:" + attft.getName()
+				//		+ " is AttributeFamilyType:" + istype);
+
+				ElementNode kid = new ElementNode("ATTFT:" + attft.getName());
+				kid.setJaxbObject(attft);
+				kid.setNodetype("AttributeFamilyType");
+				children.add(kid);
+
+				// Deeper to children of this child element
+				List<AttributeFamilyType> attftchildrenlist = attft.getAttributeType();
+
+				// Recursive call
+				ok = parseAttributeFamilyTypeRecursion(kid, attft, attftchildrenlist, level);
+
+			}
+
+		}
+		ElementNode.linkChildren(parentNode, children);
+		level -= 1;
+		return ok;
+	}
+
+	
+	
+	
+	
+	/**
+	 * TODO: Recursive search of nested InterfaceFamilyType (Or CAEXObjects in general) and Element tree
+	 * building
+	 * (method name was parseCAEXObjectTypesRecursion() in JaxbContainer for 2.15)
+	 * @return
+	 */
+
+	private boolean parseInterfaceFamilyTypeRecursion(ElementNode parentNode, CAEXObject jaxbParent,
 			List<CAEXObject> parentsCaexObjectTypes, int level) {
 		// Used for parsing InterfaceFamilyType hierarchy
 		
@@ -434,7 +497,7 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 				
 				children.add(kid);
 				// Recursive call
-				ok = parseCAEXObjectTypesRecursion(kid, iface, caexoChildrenlist, level);
+				ok = parseInterfaceFamilyTypeRecursion(kid, iface, caexoChildrenlist, level);
 
 			}
 
@@ -1147,6 +1210,21 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 					infobuff.append("\nVERSION: " + version.getValue());
 				
 
+			} else if (AttributeTypeLib.class.isInstance(nodeobject)) {
+				//---- CAEX 3.0 REQUIRED ADDITION
+				AttributeTypeLib element = (AttributeTypeLib) nodeobject;
+				
+				infobuff.append("\nNAME: \t" + element.getName());
+				infobuff.append("\nTYPE: \t" + element.getClass().getSimpleName());
+				infobuff.append("\nGUID: \t" + element.getID());
+				Description description = element.getDescription();
+				if (description != null)
+					infobuff.append("\nDESCRIPTION: \t" + description.getValue());
+				Version version = element.getVersion();
+				if (version != null)
+					infobuff.append("\nVERSION: " + version.getValue());
+				
+
 			} else if (InternalElementType.class.isInstance(nodeobject)) {
 				InternalElementType element = (InternalElementType) nodeobject;
 				
@@ -1228,6 +1306,17 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 				if (description != null)
 					infobuff.append("\nDESCRIPTION: \t" + description.getValue());
 				infobuff.append("\nRefBaseClassPath: " + element.getRefBaseClassPath());
+
+			} else if (AttributeFamilyType.class.isInstance(nodeobject)) {
+				//---- CAEX 3.0 REQUIRED ADDITION
+				AttributeFamilyType element = (AttributeFamilyType) nodeobject;
+				
+				infobuff.append("\nNAME: \t" + element.getName());
+				infobuff.append("\nTYPE: \t" + "AttributeFamilyType");
+				infobuff.append("\nGUID: \t" + element.getID());
+				Description description = element.getDescription();
+				if (description != null)
+					infobuff.append("\nDESCRIPTION: \t" + description.getValue());
 
 			} else if (InterfaceClassType.class.isInstance(nodeobject)) {
 				InterfaceClassType element = (InterfaceClassType) nodeobject;

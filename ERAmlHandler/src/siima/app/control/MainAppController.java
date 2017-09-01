@@ -1,6 +1,7 @@
 /* MainAppController.java
  * 
  * //---- CAEX 3.0 WOULD REQUIRE CHANGES
+ * //---- CAEX 3.0 REQUIRED ADDITION
  * 
  */
 
@@ -46,7 +47,7 @@ import siima.util.FileUtil;
 
 public class MainAppController {
 	private static final Logger logger = Logger.getLogger(MainAppController.class.getName());
-	public static String CAEX_SCHEMA_215 ="configure/schema/caex_2.1.5_orig/CAEX_ClassModel_V2.15.xsd";
+	public static String CAEX_SCHEMA_215 ="configure/schema/caex_2.15_orig/CAEX_ClassModel_V2.15.xsd";
 	public static String CAEX_SCHEMA_300 ="configure/schema/caex_3.0_vpa/CAEX_ClassModel_V3.0_byVPA.xsd";
 	
 	//---- CAEX 3.0 WOULD REQUIRE CHANGES
@@ -507,6 +508,8 @@ public class MainAppController {
 			node = rolecltreemodel.getLastSelectedNode();
 		if (tabnumber == 3)
 			node = interfacecltreemodel.getLastSelectedNode();
+		if (tabnumber == 4)
+			node = attributetltreemodel.getLastSelectedNode();
 		
 		if (node != null) {
 			// System.out.println("= MainAppController:
@@ -556,5 +559,11 @@ public class MainAppController {
 	public ElementTree getInterfacecltree() {
 		return interfacecltree;
 	}
+	//---- CAEX 3.0 REQUIRED ADDITION
+	public ElementTree getAttributetltree() {
+		return attributetltree;
+	}
 
+	
+	
 }
