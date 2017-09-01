@@ -98,13 +98,7 @@ public class MainAppController {
 		 * createNewProject() and openProject()
 		 * REASON: this.graphbuilder is CAEX version dependent
 		 */
-		//TODO: Read from ERAinit file which version to use!!
-		//---- CAEX 3.0 WOULD REQUIRE CHANGES
-		/*this.graphbuilder = new JaxbContainer(); //CEAX V. 2.15
-		this.graphbuilder = new JaxbContainerCaex3(); //CEAX V. 3.0
-		this.graphbuilder.setValidationSchemaFile(this.project.getCaexValidationSchema());
-		this.rdfContainer = new RdfContainer(graphbuilder);	//---- CAEX 3.0 WOULD REQUIRE CHANGES
-		*/
+		
 	}
 
 	public void saveCSMCommandsToJsonFile(String jsonfile){
@@ -116,7 +110,7 @@ public class MainAppController {
 	
 	public StringBuffer getCSMCommandContent(boolean updated){
 		//If updated = true, returns content only if CSMCommands
-		// have been resently updated in json root object.
+		// have been recently updated in json root object.
 		StringBuffer sbuf =null;
 		if(updated){
 			if(spinMng.isCsmcommand_updated()){
@@ -213,7 +207,6 @@ public class MainAppController {
 	}
 	
 	public boolean openCaexFile(String xmlfile, String caexVersion){
-		// TODO: Set version before calling EI TAIDA Onnistua näin
 		boolean ok = true;
 		buildJaxbModel(xmlfile);
 		return ok;
@@ -257,7 +250,6 @@ public class MainAppController {
 		}
 
 		// ---- CAEX 3.0 REQUIRED ADDITION
-
 		// Construct the jtree for AttributeTypeLib hierarchy.
 		ElementNode attributetlRootElement = graphbuilder.getAttributetlRootElement();
 		int attrtccount = attributetlRootElement.getChildCount();
