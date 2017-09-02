@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<!-- vpa: from http://edutechwiki.unige.ch/en/XSLT_to_generate_SVG_tutorial -->
+<?xml-stylesheet href="zero-html5.xsl" type="text/xsl" ?>
+
+<thing>
+  <height>50</height>
+  <width>100</width>
+</thing>
