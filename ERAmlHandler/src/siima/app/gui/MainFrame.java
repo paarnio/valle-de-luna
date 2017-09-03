@@ -15,6 +15,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.text.Document;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.StyleSheet;
 
 import siima.app.control.MainAppController;
 import siima.app.model.tree.ElementModel;
@@ -44,6 +47,7 @@ import javax.swing.JTextField;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 
 public class MainFrame extends JFrame implements ActionListener { // TreeSelectionListener
 																	// {
@@ -521,6 +525,49 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		/* ==== Right top_left_panel ==== */
 		JPanel rightTopLeftPanel = new JPanel();
 		rightTopVerticalSplitPane.setLeftComponent(rightTopLeftPanel);
+		
+		/* 2017-09-03 Render HTML in order to later render svg
+		 * TODO: Testing html rendering in this panel
+		 * See: https://alvinalexander.com/blog/post/jfc-swing/how-create-simple-swing-html-viewer-browser-java
+		 */
+		// create jeditorpane
+        JEditorPane jEditorPane = new JEditorPane();
+        
+        // make it read-only
+        jEditorPane.setEditable(false);
+        
+        // create a scrollpane; modify its attributes as desired
+        JScrollPane scrollPaneForEditorPane = new JScrollPane(jEditorPane);
+        
+        // add an html editor kit
+        HTMLEditorKit kit = new HTMLEditorKit();
+        jEditorPane.setEditorKit(kit);
+        
+        // add some styles to the html
+        StyleSheet styleSheet = kit.getStyleSheet();
+        styleSheet.addRule("body {color:#000; font-family:times; margin: 4px; }");
+        styleSheet.addRule("h1 {color: blue;}");
+        styleSheet.addRule("h2 {color: #ff0000;}");
+        styleSheet.addRule("pre {font : 10px monaco; color : black; background-color : #fafafa; }");
+
+        // create some simple html as a string
+        String htmlString = "<html>\n"
+                          + "<body>\n"
+                          + "<h1>Welcome!</h1>\n"
+                          + "<h2>This is an H2 header</h2>\n"
+                          + "<p>This is some sample text</p>\n"
+                          + "<p><a href=\"http://devdaily.com/blog/\">devdaily blog</a></p>\n"
+                          + "</body>\n";
+        
+        // create a document, set it on the jeditorpane, then add the html
+        Document doc = kit.createDefaultDocument();
+        jEditorPane.setDocument(doc);
+        jEditorPane.setText(htmlString);
+
+        // now add it all to a the panel
+   
+        rightTopLeftPanel.add(scrollPaneForEditorPane,BorderLayout.CENTER);
+		// -2017-09-03 end
 		
 		/* =============================== 
 		 * 		Right top_right_panel 
