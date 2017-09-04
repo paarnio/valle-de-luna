@@ -531,7 +531,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 * TODO: Testing html rendering in this panel
 		 * See: https://alvinalexander.com/blog/post/jfc-swing/how-create-simple-swing-html-viewer-browser-java
 		 * PROBLEM: näyttää muun html:n mutta EI SVG osuutta??
-		
+		 */
 		// create jeditorpane
         JEditorPane jEditorPane = new JEditorPane();
         
@@ -551,7 +551,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         styleSheet.addRule("h1 {color: blue;}");
         styleSheet.addRule("h2 {color: #ff0000;}");
         styleSheet.addRule("pre {font : 10px monaco; color : black; background-color : #fafafa; }");
-
+        
         // create some simple html as a string
         // EI NÄYTÄ SVG osuutta??
         String htmlString = "<html>\n"
@@ -571,7 +571,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         // now add it all to a the panel
    
         rightTopLeftPanel.add(scrollPaneForEditorPane,BorderLayout.CENTER);
-		// -2017-09-03 end  */
+		// -2017-09-03 end 
 		
 		/* 2017-09-04 Show SVG file
 		 * OPTION 2
