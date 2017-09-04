@@ -526,10 +526,12 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		JPanel rightTopLeftPanel = new JPanel();
 		rightTopVerticalSplitPane.setLeftComponent(rightTopLeftPanel);
 		
-		/* 2017-09-03 Render HTML in order to later render svg
+		/* 2017-09-03 Render HTML in order to later render SVG
+		 * OPTION 1
 		 * TODO: Testing html rendering in this panel
 		 * See: https://alvinalexander.com/blog/post/jfc-swing/how-create-simple-swing-html-viewer-browser-java
-		 */
+		 * PROBLEM: näyttää muun html:n mutta EI SVG osuutta??
+		
 		// create jeditorpane
         JEditorPane jEditorPane = new JEditorPane();
         
@@ -551,12 +553,14 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         styleSheet.addRule("pre {font : 10px monaco; color : black; background-color : #fafafa; }");
 
         // create some simple html as a string
+        // EI NÄYTÄ SVG osuutta??
         String htmlString = "<html>\n"
                           + "<body>\n"
                           + "<h1>Welcome!</h1>\n"
                           + "<h2>This is an H2 header</h2>\n"
                           + "<p>This is some sample text</p>\n"
                           + "<p><a href=\"http://devdaily.com/blog/\">devdaily blog</a></p>\n"
+                          + "<svg width='200' height='200' xmlns='http://www.w3.org/2000/svg'><rect x='10' y='10' width='100' height='50' fill='red' stroke='black'/></svg>\n"
                           + "</body>\n";
         
         // create a document, set it on the jeditorpane, then add the html
@@ -567,7 +571,19 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         // now add it all to a the panel
    
         rightTopLeftPanel.add(scrollPaneForEditorPane,BorderLayout.CENTER);
-		// -2017-09-03 end
+		// -2017-09-03 end  */
+		
+		/* 2017-09-04 Show SVG file
+		 * OPTION 2
+		 * TODO: EI Toiminut vaikka kaikki batik jarrit oli libissä
+		 * java.lang.NoClassDefFoundError: org/w3c/dom/svg/SVGDocument 
+		
+		
+		JSVGCanvas svgCanvas = new JSVGCanvas();
+		svgCanvas.setURI("file:/C:/temp/sydney.svg");
+		rightTopLeftPanel.add(svgCanvas,BorderLayout.CENTER);
+		
+		 */
 		
 		/* =============================== 
 		 * 		Right top_right_panel 
