@@ -1,0 +1,110 @@
+ERA_Demo_steps_part1.txt
+------------------------
+(2017-09-08)
+Demonstrating operations:
+A)Transform/Caex to JMonkey
+B)Transform/Caex to ASP Facts...
+C)Rules/ASP Reasoner...
+
+-------------------------
+1. Create a new Project for Caex version 3.0: ERA_caex3_demo
+
+2. Open Caex File: data/common/caex/caex_lego/Lego_example_2017-05-16_ss.aml
+
+3. Open InstanceHierarchy tree in Caex tree view tab: InstanceH
+
+4. Browse tree and open node IE:Square17; Select the first Attribute ATT:Color; click Description button:
+
+5. Description text area should show:
+======= SELECTED ELEMENT ====== (TAB:1)
+NAME: 	Color
+TYPE: 	AttributeType
+GUID: 	null
+DESCRIPTION: 	color
+UNIT: 	null
+DATATYPE: 	xs:string
+VALUE: 	yellow
+VALUE content: yellow
+
+6. From menu Transform select Caex to JMonkey; create a script file \data\generated\Lego_demo_jmonkey.txt and click OK.
+
+7. Save the project: menu/File/Save Project
+
+8. Open the script file with a text editor (Notepad++):
+
+create SquareLego Square17 yellow
+create SquareLego Square16 yellow
+create RectangleLego Rectangle4 green south
+create SquareLego Square15 yellow
+create SquareLego Square14 yellow
+
+9. From menu Transform select Caex to ASP Facts...; create a asp file with extension (.db) \data\generated\Lego_demo_asp.db
+
+10. Open the asp file with a text editor (Notepad++):
+
+% LegoTower ASP facts (.db) generated from CAEX by ERAmlHandler (Caex2AspFacts.xsl v1.0)
+#maxint=64.
+somelego(rectangle4).
+square(square17).
+square(square16).
+rectangle(rectangle4).
+
+11. From menu Rules select ASP Reasoner/ASP Solver Engine; Browse and locate the asp engine in your computer: SpecialPrograms/dlv/dlv.mingw.exe
+
+12. From menu Rules select ASP Reasoner/Load Rules...; 
+From the file open dialog pick first the rule file with extension (.dlv): configure/asp_dlv/legotower/legotower_rules_mod7.dlv and click OK;
+Next select Load Rules again and pick the previously generated asp facts file: \data\generated\Lego_demo_asp.db
+
+13. Now that the ASP rules and facts have been loaded we can run the ASP reasoner;
+From menu Rules select ASP Reasoner/Invoke Reasoner;
+
+14. Now the ASP Solver has run the inferenses and fould the stable models; 
+the stable models are displayed in ASP format in the right bottom window under Result-tab:
+
+MODEL_1 {
+topi(top).
+topi(topA).
+topi(topB).
+topi(topC).
+legocount(31).
+link(rectangle4,bottomC,square4,top).
+link(rectangle4,topA,square13,bottom).
+link(square17,bottom,square16,top).
+link(square16,bottom,square15,top).
+link(square14,top,square15,bottom).
+link(square13,top,square14,bottom).
+ 
+
+15. Now, we can save the result models in a xml file;
+From menu Rules select ASP Reasoner/Save Result Models;
+and create a file in folder \data\generated\Lego_demo_asp_models.dlv 
+
+16. Open this ASP models file with a text editor (Notepad++). Models are saved in XML format (vpa):
+
+<?xml version='1.0' encoding='UTF-8'?>
+<aspmodels>
+<model num='1'>
+<literal predicate='topi' atom='topi(top)' negative='false'>
+	<arg num='0'>top</arg>
+</literal><literal predicate='topi' atom='topi(topA)' negative='false'>
+	<arg num='0'>topA</arg>
+</literal><literal predicate='topi' atom='topi(topB)' negative='false'>
+	<arg num='0'>topB</arg>
+</literal><literal predicate='topi' atom='topi(topC)' negative='false'>
+	<arg num='0'>topC</arg>
+</literal><literal predicate='legocount' atom='legocount(31)' negative='false'>
+	<arg num='0'>31</arg>
+</literal><literal predicate='link' atom='link(rectangle4, bottomC, square4, top)' negative='false'>
+	<arg num='0'>rectangle4</arg>
+	<arg num='1'> bottomC</arg>
+	<arg num='2'> square4</arg>
+	<arg num='3'> top</arg>
+
+	
+17 Save the project: menu/File/Save Project; 
+The copy of the opened caex file should be now accessible under the project home folder in: /data/caex/Lego_example_2017-05-16_ss.aml 
+
+18 Close the tool from Menu/File/Exit, thus saving the last opened project home location into exitbackup.meta file.
+----------------------------
+END OF DEMO STEPS PART A
+-----------------------------
