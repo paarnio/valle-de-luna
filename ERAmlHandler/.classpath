@@ -38,5 +38,9 @@
 	<classpathentry kind="lib" path="lib/jena-3.1.1/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="lib/json/json-simple-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/spin/spin-2.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/svg/batik/batik-all-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/svg/batik/batik-swing-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/svg/apache_xml_graphics/xmlgraphics-commons-1.5.jar"/>
+	<classpathentry kind="lib" path="lib/svg/xml/xml-apis-ext-1.3.04.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
