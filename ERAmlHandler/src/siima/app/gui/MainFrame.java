@@ -48,6 +48,17 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
+//For SVG rendering
+import org.apache.batik.swing.JSVGCanvas;
+import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
+import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
+import org.apache.batik.swing.svg.SVGDocumentLoaderAdapter;
+import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
+import org.apache.batik.swing.svg.GVTTreeBuilderAdapter;
+import org.apache.batik.swing.svg.GVTTreeBuilderEvent;
+
+
+
 
 public class MainFrame extends JFrame implements ActionListener { // TreeSelectionListener
 																	// {
@@ -72,6 +83,8 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JScrollPane consoleScrollPane;
 	private JScrollPane resultScrollPane;
 	private JScrollPane spinCommandFileScrollPane;
+	private JScrollPane svgGraphicsScrollPane1;
+	private JScrollPane svgGraphicsScrollPane2;
 	private JMenuItem mntmGenerateJmonkey;
 	private JTextArea bottomLeftTextArea;
 	private JTextArea txtrConsoleOutput;
@@ -83,6 +96,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JMenuItem mntmCaexToAsp;
 	private JTabbedPane tabbedPane;
 	private JTabbedPane bottomRightTabbedPane;
+	private JTabbedPane svgGraphicsTabbedPane;
 	private JMenuItem mntmConfigureSchema;
 	private JMenuItem mntmExit;
 	private JMenuItem mntmInvokeTransform;
@@ -131,6 +145,10 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JTextField idxsequencetext; 
 	private Map<String,JTextField> dataDisplayMap;
 	//protected JLabel actionLabel;
+	
+	// The SVG canvas.
+    protected JSVGCanvas svgCanvas;
+	
 	
 	/**
 	 * Launch the application.
@@ -419,7 +437,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		JPanel topLeftPanel = new JPanel();
 		LeftVerticalSplitPane.setLeftComponent(topLeftPanel);
 		GridBagLayout gbl_topLeftPanel = new GridBagLayout();
-		gbl_topLeftPanel.columnWidths = new int[] { 400, 0 };
+		gbl_topLeftPanel.columnWidths = new int[] { 450, 0 };
 		gbl_topLeftPanel.rowHeights = new int[] { 10, 300, 0, 0 };//{ 50, 200, 0, 0 };
 		gbl_topLeftPanel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
 		gbl_topLeftPanel.rowWeights = new double[] { 0.5, 1.0, 0.5, Double.MIN_VALUE };//{ 1.0, 1.0, 1.0, Double.MIN_VALUE };
@@ -452,7 +470,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		tabbedPane.insertTab("InterfaceCL", null, hierarchyTreeScrollPane4, "InterfaceClasses", 3);
 		
 		hierarchyTreeScrollPane5 = new JScrollPane();
-		tabbedPane.insertTab("AttrTL", null, hierarchyTreeScrollPane5, "AttributeTypes", 4);
+		tabbedPane.insertTab("AttributeTL", null, hierarchyTreeScrollPane5, "AttributeTypes", 4);
 		
 		// The following line enables to use scrolling tabs.
 		tabbedPane.setTabLayoutPolicy(JTabbedPane.WRAP_TAB_LAYOUT);
@@ -515,32 +533,100 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		rightVerticalSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		m_contentPane.setRightComponent(rightVerticalSplitPane);
 
-		/* ==== Right Top side ==== */
+		/* ===================================== 
+		 * 			Right Top side 
+		 * ===================================== */
 		
 		/*----Right Top Side JSplitPane----*/		
 		JSplitPane rightTopVerticalSplitPane = new JSplitPane();
 		rightTopVerticalSplitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);		
 		rightVerticalSplitPane.setLeftComponent(rightTopVerticalSplitPane);
 		
-		/* ==== Right top_left_panel ==== */
+		/* ==================== 
+		 * Right top_left_panel 
+		 * ==================== */
 		JPanel rightTopLeftPanel = new JPanel();
 		rightTopVerticalSplitPane.setLeftComponent(rightTopLeftPanel);
 		
-		/* 2017-09-03 Render HTML in order to later render SVG
-		 * OPTION 1
-		 * TODO: Testing html rendering in this panel
-		 * See: https://alvinalexander.com/blog/post/jfc-swing/how-create-simple-swing-html-viewer-browser-java
-		 * PROBLEM: näyttää muun html:n mutta EI SVG osuutta??
+		GridBagLayout gbl_rightTopLeftPanel = new GridBagLayout();
+		gbl_rightTopLeftPanel.columnWidths = new int[] { 400, 0 };
+		gbl_rightTopLeftPanel.rowHeights = new int[] { 300, 0 };//{ 50, 200, 0, 0 };
+		gbl_rightTopLeftPanel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_rightTopLeftPanel.rowWeights = new double[] { 1.0, Double.MIN_VALUE };//{ 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		rightTopLeftPanel.setLayout(gbl_rightTopLeftPanel);
+
+		/* -- New JTabbedPane with 2 tabs for SVG graphics and HTML text */
+
+		svgGraphicsTabbedPane = new JTabbedPane();
+		GridBagConstraints gbc_svgGraphicsTabbedPane = new GridBagConstraints();
+		gbc_svgGraphicsTabbedPane.insets = new Insets(0, 0, 5, 0);
+		gbc_svgGraphicsTabbedPane.fill = GridBagConstraints.BOTH;
+		gbc_svgGraphicsTabbedPane.gridx = 0;
+		gbc_svgGraphicsTabbedPane.gridy = 0;
+		
+		//--JScrollPane for SVG
+		// create svgCanvas needed for svg (See below: Rendering SVG)
+		svgCanvas = new JSVGCanvas();
+		svgGraphicsScrollPane1 = new JScrollPane(svgCanvas);
+		svgGraphicsTabbedPane.insertTab("SVG", null, svgGraphicsScrollPane1, "SVG graphics", 0);
+
+		//--JScrollPane for HTML
+		// create jeditorpane needed for html (See below: Rendering HTML)
+        JEditorPane jEditorPane = new JEditorPane();       
+        jEditorPane.setEditable(false);// make it read-only
+		
+		svgGraphicsScrollPane2 = new JScrollPane(jEditorPane); //NOTE
+		svgGraphicsTabbedPane.insertTab("HTML", null, svgGraphicsScrollPane2, "Html text", 1);
+
+		// The following line enables to use scrolling tabs.
+		svgGraphicsTabbedPane.setTabLayoutPolicy(JTabbedPane.WRAP_TAB_LAYOUT);
+		svgGraphicsTabbedPane.setTabPlacement(JTabbedPane.BOTTOM);
+		// Add tabbedpane to panel
+		rightTopLeftPanel.add(svgGraphicsTabbedPane, gbc_svgGraphicsTabbedPane);
+		
+		/* --- Rendering SVG in tab0  
+		 * See:https://xmlgraphics.apache.org/batik/using/swing.html
+		 * Tested in 2017_Neon/SvgBatikExamples project 
 		 */
-		// create jeditorpane
-        JEditorPane jEditorPane = new JEditorPane();
-        
-        // make it read-only
-        jEditorPane.setEditable(false);
-        
-        // create a scrollpane; modify its attributes as desired
-        JScrollPane scrollPaneForEditorPane = new JScrollPane(jEditorPane);
-        
+		
+		// Set the JSVGCanvas listeners.
+        svgCanvas.addSVGDocumentLoaderListener(new SVGDocumentLoaderAdapter() {
+            public void documentLoadingStarted(SVGDocumentLoaderEvent e) {
+                //label.setText("Document Loading...");
+            }
+            public void documentLoadingCompleted(SVGDocumentLoaderEvent e) {
+                //label.setText("Document Loaded.");
+            }
+        });
+
+        svgCanvas.addGVTTreeBuilderListener(new GVTTreeBuilderAdapter() {
+            public void gvtBuildStarted(GVTTreeBuilderEvent e) {
+                //label.setText("Build Started...");
+            }
+            public void gvtBuildCompleted(GVTTreeBuilderEvent e) {
+                //label.setText("Build Done.");
+                //frame.pack(); //?????
+            }
+        });
+
+        svgCanvas.addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
+            public void gvtRenderingPrepare(GVTTreeRendererEvent e) {
+                //label.setText("Rendering Started...");
+            }
+            public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
+                //label.setText("");
+            }
+        });
+        // Loading SVG image
+		svgCanvas.setURI("data/svg/rectangle.svg");
+		//end-svg-tab
+		
+		
+		/* --- Rendering HTML in tab1  
+		 * See: https://alvinalexander.com/blog/post/jfc-swing/how-create-simple-swing-html-viewer-browser-java
+		 * NOTE: does not display SVG embedded in HTML
+		 */
+		        
         // add an html editor kit
         HTMLEditorKit kit = new HTMLEditorKit();
         jEditorPane.setEditorKit(kit);
@@ -552,8 +638,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         styleSheet.addRule("h2 {color: #ff0000;}");
         styleSheet.addRule("pre {font : 10px monaco; color : black; background-color : #fafafa; }");
         
-        // create some simple html as a string
-        // EI NÄYTÄ SVG osuutta??
+        // create some simple html as a string (svg part not displayed in html tab)
         String htmlString = "<html>\n"
                           + "<body>\n"
                           + "<h1>Welcome!</h1>\n"
@@ -567,23 +652,8 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         Document doc = kit.createDefaultDocument();
         jEditorPane.setDocument(doc);
         jEditorPane.setText(htmlString);
-
-        // now add it all to a the panel
-   
-        rightTopLeftPanel.add(scrollPaneForEditorPane,BorderLayout.CENTER);
-		// -2017-09-03 end 
+        //end-html-tab 
 		
-		/* 2017-09-04 Show SVG file
-		 * OPTION 2
-		 * TODO: EI Toiminut vaikka kaikki batik jarrit oli libissä
-		 * java.lang.NoClassDefFoundError: org/w3c/dom/svg/SVGDocument 
-		
-		
-		JSVGCanvas svgCanvas = new JSVGCanvas();
-		svgCanvas.setURI("file:/C:/temp/sydney.svg");
-		rightTopLeftPanel.add(svgCanvas,BorderLayout.CENTER);
-		
-		 */
 		
 		/* =============================== 
 		 * 		Right top_right_panel 
