@@ -115,6 +115,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JMenuItem mntmClearPartials;
 	private JMenuItem mntmClearCombined;
 	private JMenuItem mntmClearMerged;
+	private JMenuItem mntmOpenDiagram;
 	// private JTree tree;
 	private JRadioButtonMenuItem versionMenuItem1;
 	private JRadioButtonMenuItem versionMenuItem2;
@@ -148,6 +149,8 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	
 	// The SVG canvas.
     protected JSVGCanvas svgCanvas;
+    // for html
+    protected JEditorPane jEditorPane;
 	
 	
 	/**
@@ -417,6 +420,19 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mntmSaveSpinCommands = new JMenuItem("Save Spin Commands...");
 		mntmSaveSpinCommands.addActionListener(this);
 		mnSparql.add(mntmSaveSpinCommands);
+		
+		/*
+		 *  DIAGRAM JMenu
+		 */
+		
+		JMenu mnDiagram = new JMenu("Diagram");
+		menuBar.add(mnDiagram);
+
+		mntmOpenDiagram = new JMenuItem("Open Diagram (SVG/HTML)...");
+		mntmOpenDiagram.addActionListener(this);
+		mnDiagram.add(mntmOpenDiagram);
+		
+		
 		/*
 		 * Main Window
 		 * 
@@ -572,7 +588,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 
 		//--JScrollPane for HTML
 		// create jeditorpane needed for html (See below: Rendering HTML)
-        JEditorPane jEditorPane = new JEditorPane();       
+        jEditorPane = new JEditorPane();       
         jEditorPane.setEditable(false);// make it read-only
 		
 		svgGraphicsScrollPane2 = new JScrollPane(jEditorPane); //NOTE
@@ -618,7 +634,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
             }
         });
         // Loading SVG image
-		svgCanvas.setURI("data/svg/rectangle.svg");
+		svgCanvas.setURI("data/common/svg/rectangle.svg");
 		//end-svg-tab
 		
 		
@@ -1083,9 +1099,49 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 * mntmInvokeSpinCommands AND mntmSaveSpinCommands
 		 * mntmClearPartials AND mntmClearCombined AND mntmClearMerged
 		 * versionMenuItem1-2
+		 * mntmOpenDiagram
 		 */
 		
-		if (arg0.getSource() == mntmClearPartials) {
+		if (arg0.getSource() == mntmOpenDiagram) {
+			fileChooser.setDialogTitle("OPEN DIAGRAM FILE FILE (.svg/.html/.htm)");
+			fileChooser.setSelectedFile(new File(""));
+			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data"));
+			int retVal = fileChooser.showOpenDialog(MainFrame.this);
+
+			if (retVal == JFileChooser.APPROVE_OPTION) {
+				System.out.println("GUIFrame: Open OK pressed");
+
+				File diagramFile = fileChooser.getSelectedFile();
+				System.out.println("-- Opened file: " + diagramFile.getPath());
+				
+				String filename = diagramFile.getName();
+				if(filename.endsWith(".svg")){
+					//C:\Users\Pekka Aarnio\git\valle-de-luna\ERAmlHandler\data\svg\tank.svg
+					svgCanvas.setURI(diagramFile.toURI().toString());// "data/svg/rectangle.svg");
+				} else if((filename.endsWith(".html"))||(filename.endsWith(".htm"))){
+					//Document doc = kit.createDefaultDocument();
+			        //jEditorPane.setDocument(doc);
+			        //jEditorPane.setText(htmlString);
+					StringBuffer htmltextbuf = appControl.readTextFileContent(diagramFile.getPath().toString());
+					if((htmltextbuf!=null)&&(htmltextbuf.length()>0)){
+						
+						jEditorPane.setText(htmltextbuf.toString());
+					}
+				}
+				
+				
+				String dir = diagramFile.getParent();
+				this.latestOpenedFolder = "dir";
+				
+				// -- Console Printing ---				
+				txtrConsoleOutput.append(newline + "LOG: DIAGRAM FILE OPENED: " + diagramFile.getName());
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+
+			} else {
+				System.out.println("Frame: No Open File Selected!");
+			}
+
+		} else if (arg0.getSource() == mntmClearPartials) {
 			
 			appControl.clearRDFModels(true,false,false);
 			

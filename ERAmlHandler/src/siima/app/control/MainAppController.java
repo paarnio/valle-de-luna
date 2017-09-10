@@ -482,9 +482,10 @@ public class MainAppController {
 		return treesCleared;
 	}
 
-	public void writeTextArea() {
-
-		// viewFrame.
+	public StringBuffer readTextFileContent(String htmlfile) {
+		StringBuffer htmltextbuf=null;
+		htmltextbuf= FileUtil.readTextFile("\n", htmlfile);
+		return htmltextbuf;
 	}
 
 	public String getSelectedElementInfo(int tabnumber) {
