@@ -315,6 +315,28 @@ public class CommandFileSpinMng {
 		
 	}
 	
+	public void addQueryPrefixesCommand(JSONObject comobj){
+		//2017-09-15
+		logger.log(Level.INFO, "----+ Command: addQueryPrefixesCommand");
+		JSONObject subobj = (JSONObject) comobj.get("prefix");
+		String name = (String) subobj.get("name");
+		String type = (String) subobj.get("type");
+		String newprefixes=(String)subobj.get("prefixlist");
+		logger.log(Level.INFO, "----+----+ name:" + name + "\n----+----+ type:" + type);
+		List<String> newPrefixLines = new ArrayList<String>();
+		String[] lines = newprefixes.split("\\n"); //TODO test		
+		//System.out.println("TEST: addQueryPrefixesCommand() #lines" + lines.length);
+		//System.out.println("TEST 1.LINE:" + lines[0]);
+		for(int i=0;i<lines.length;i++){
+			String line = lines[i];
+			if (!line.endsWith(" ")) line = line + " ";
+			newPrefixLines.add(line);
+		}
+		prefillQueryPrefixList();
+		addToQueryPrefixList(newPrefixLines);
+	}
+	
+	
 	public void sparqlQueryCommand(JSONObject comobj) {
 		//VPA: reasoner option added
 		logger.log(Level.INFO, "----+ Command: sparqlQueryCommand");
@@ -679,6 +701,12 @@ public class CommandFileSpinMng {
 			userPromptCommand(comobj);
 
 		} 
+		break;
+		case "addNsPrefixes": {
+			if (kb_loaded)
+				addQueryPrefixesCommand(comobj);
+
+			} 
 			break;
 		default: {
 			logger.log(Level.INFO, "???????????Command:" + ctype + " Unknown????????");
@@ -719,6 +747,21 @@ public class CommandFileSpinMng {
 		logger.log(Level.INFO, "\n---- --------- ----\n");
 	}
 
+	public void addToQueryPrefixList(List<String> newPrefixLines) {
+	//2017-09-15 For new command type addQueryPrefixesCommand()
+		if (!this.prefixlinesfilled) {
+			this.prefixlines = new ArrayList<String>();
+			this.prefixlinesfilled = true;
+		} 		
+		if((newPrefixLines!=null)&&(!newPrefixLines.isEmpty())){
+			//this.prefixlines.addAll(newPrefixLines);
+			for(String line : newPrefixLines){				
+				this.prefixlines.add(line);
+			}
+			
+		}
+	}
+	
 	public void prefillQueryPrefixList() {
 
 		if (!this.prefixlinesfilled) {
@@ -1173,7 +1216,7 @@ public class CommandFileSpinMng {
 		cmdTypeObjectMap.put("listFunctions", "listing");
 		cmdTypeObjectMap.put("listNsPrefixes", "listing");
 		cmdTypeObjectMap.put("userinput", "userprompt");
-				
+		cmdTypeObjectMap.put("addNsPrefixes", "prefix"); //2017-09-15	
 		
 	}
 	
