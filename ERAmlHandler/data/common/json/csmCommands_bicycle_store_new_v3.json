@@ -16,7 +16,8 @@
         0,
         1,
         2,
-        3
+        3,
+		4
       ]
     }
   },
@@ -58,6 +59,20 @@
     },
 	 {
         "index": 3,
+		"idcode": "R1_T66_QP1_1",
+        "commandtype": "addNsPrefixes",
+        "stepnote": "PREFIX_ADD",
+		"comment": "Adding NS prefix declarations (separated by space or newline) in format: PREFIX owl: <http://www.w3.org/2002/07/owl#> ",
+		"comment": "Note: preprefixes field is currently ignored, i.e. hard coded preprefixes are always loaded also",
+        "prefix": {
+          "name": "NS PREFIX Addition ",
+          "type": "add",
+          "preprefixes": "default",
+          "prefixlist": "PREFIX foo: <http://foo.net/ontology#>  PREFIX bar: <http://bar.net/ontology#> "
+        }
+     },
+	 {
+        "index": 4,
 		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
@@ -76,7 +91,7 @@
         }
       },
       {
-        "index": 4,
+        "index": 5,
 		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "UPDATE",
@@ -92,7 +107,7 @@
         }
       },
       	 {
-        "index": 5,
+        "index": 6,
 		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
@@ -111,7 +126,7 @@
         }
       },
        {
-        "index": 6,
+        "index": 7,
 		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
@@ -129,7 +144,7 @@
         }
       },
            {
-        "index": 7,
+        "index": 8,
 		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "UPDATE",
@@ -149,7 +164,7 @@
         }
       },
        {
-        "index": 8,
+        "index": 9,
 		"idcode": "R1_T",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
@@ -167,7 +182,7 @@
         }
       },
 	    {
-        "index": 9,
+        "index": 10,
 		"idcode": "R1_T",
         "commandtype": "writeModel",
         "stepnote": "WRITE",
@@ -177,6 +192,17 @@
           "type": "console",
           "filePath": "data/generated/owl_models/inferred_bicycle_sat.ttl",
           "modelcat": "main"
+        }
+      },
+      {
+        "index": 11,
+		"idcode": "SR1_T3",
+        "commandtype": "listNsPrefixes",
+        "stepnote": "LIST",
+        "comment": "LIST_PREFIXES_COMMAND",
+        "listing": {
+          "name": "All Query prefixes",
+          "type": "sparqlprefixes"
         }
       }
   ],
@@ -380,6 +406,20 @@
           "type": "update",
           "args": null,
           "queryVars": null
+        }
+      },
+	  {
+        "index": null,
+		"idcode": "R1_T66_QP1_1",
+        "commandtype": "addNsPrefixes",
+        "stepnote": "PREFIX_ADD",
+		"comment": "Adding NS prefix declarations (separated by space or newline) in format: PREFIX owl: <http://www.w3.org/2002/07/owl#> ",
+		"comment": "Note: preprefixes field is currently ignored, i.e. hard coded preprefixes are always loaded also",
+        "prefix": {
+          "name": "NS PREFIX Addition ",
+          "type": "add",
+          "preprefixes": "default",
+          "prefixlist": "PREFIX caex: <http://data.ifs.tuwien.ac.at/aml/ontology#> PREFIX foo: <http://foo.net/ontology#>  PREFIX bar: <http://bar.net/ontology#> "
         }
       },
       {

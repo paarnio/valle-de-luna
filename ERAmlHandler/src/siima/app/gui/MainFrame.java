@@ -37,6 +37,8 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -109,6 +111,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JMenuItem mntmAspSolver;
 	private JMenuItem mntmSaveOntologyModel;
 	private JMenuItem mntmMergeModels;
+	private JMenuItem mntmLoadOntologyModels;
 	private JMenuItem mntmLoadSpinCommands;
 	private JMenuItem mntmInvokeSpinCommands;
 	private JMenuItem mntmSaveSpinCommands;
@@ -408,7 +411,11 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		
 		JMenu mnSparql = new JMenu("Sparql");
 		menuBar.add(mnSparql);
-
+		
+		mntmLoadOntologyModels = new JMenuItem("Select Ontology Files...");
+		mntmLoadOntologyModels.addActionListener(this);
+		mnSparql.add(mntmLoadOntologyModels);
+		
 		mntmLoadSpinCommands = new JMenuItem("Load Spin Commands...");
 		mntmLoadSpinCommands.addActionListener(this);
 		mnSparql.add(mntmLoadSpinCommands);
@@ -1095,7 +1102,8 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		 * mntmSaveProjectAs AND mntmSaveProject AND mntmOpenProject AND
 		 * mntmAspSolver AND mntmSaveOntologyModel
 		 * rbMenuItem1-6 AND
-		 * mntmMergeModels AND mntmLoadSpinCommands
+		 * mntmMergeModels 
+		 * mntmLoadOntologyModels AND mntmLoadSpinCommands
 		 * mntmInvokeSpinCommands AND mntmSaveSpinCommands
 		 * mntmClearPartials AND mntmClearCombined AND mntmClearMerged
 		 * versionMenuItem1-2
@@ -1131,7 +1139,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				
 				
 				String dir = diagramFile.getParent();
-				this.latestOpenedFolder = "dir";
+				this.latestOpenedFolder = dir;
 				
 				// -- Console Printing ---				
 				txtrConsoleOutput.append(newline + "LOG: DIAGRAM FILE OPENED: " + diagramFile.getName());
@@ -1178,7 +1186,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				appControl.saveCSMCommandsToJsonFile(saveFile.getPath());
 				System.out.println("-- Saved file: " + saveFile.getName());
 				String dir = saveFile.getParent();
-				this.latestOpenedFolder = "dir";
+				this.latestOpenedFolder = dir;
 				// -- Console Printing ---				
 				txtrConsoleOutput.append(newline + "LOG: SPIN CSMCOMMANDS SAVED INTO FILE: " + saveFile.getName());
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
@@ -1198,7 +1206,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			txtrResultOutput.setCaretPosition(0); //txtrResultOutput.getText().length());
 			bottomRightTabbedPane.setSelectedIndex(1);
 			
-		} else if (arg0.getSource() == mntmLoadSpinCommands) {
+		} else 	if (arg0.getSource() == mntmLoadSpinCommands) {
 			fileChooser.setDialogTitle("LOAD SPIN COMMAND FILE");
 			fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory).getParentFile());
@@ -1222,6 +1230,39 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				System.out.println("Frame: No SPIN COMMAND File Selected!");
 			}
 			fileChooser.setSelectedFile(new File(""));
+			
+		} else if (arg0.getSource() == mntmLoadOntologyModels) {
+			fileChooser.setDialogTitle("SELECT ONTOLOGY FILES (.ttl)(first the main ontology, next the imported ones)");
+			//fileChooser.setSelectedFile(new File(""));
+			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data"));
+			//fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			fileChooser.setMultiSelectionEnabled(true);
+			int retVal = fileChooser.showOpenDialog(MainFrame.this);
+			if (retVal == JFileChooser.APPROVE_OPTION) {
+				System.out.println("GUIFrame: Open OK pressed");
+
+				File[] ontfiles = fileChooser.getSelectedFiles();
+				System.out.println("-- Ontology files selected: # " + ontfiles.length);
+				//this.appControl.initAspModel(aspfiles);
+				String dir = ontfiles[0].getParent();
+				//this.latestOpenedFolder = dir;
+				//-- Console Printing
+				txtrConsoleOutput.append(newline + "LOG: ONTOLOGY MODEL FILES SELECTED FROM: " + dir);
+				for(int i=0; i<ontfiles.length; i++){
+					File ontfile = ontfiles[i];
+					String pathstr = ontfile.getAbsolutePath(); 
+					//https://stackoverflow.com/questions/34434042/convert-windows-path-to-uri-in-java
+					String uristr = ontfile.toURI().toString();
+					txtrConsoleOutput.append(newline+ "LOG:" + "(" + i + ")" + uristr);
+				}
+				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+			
+			} else {
+				System.out.println("Frame: No Ontology files selected!");
+			}
+			fileChooser.setSelectedFiles(new File[]{new File("")});
+			fileChooser.setSelectedFile(new File(""));
+			fileChooser.setMultiSelectionEnabled(false);
 			
 		} else if (arg0.getSource() == mntmMergeModels) {
 			
@@ -1277,7 +1318,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				appControl.saveCaexOntologyModel(saveFile.getPath());
 				System.out.println("-- Saved file: " + saveFile.getName());
 				String dir = saveFile.getParent();
-				this.latestOpenedFolder = "dir";
+				this.latestOpenedFolder = dir;
 				// -- Console Printing ---				
 				txtrConsoleOutput.append(newline + "LOG: CAEX SOURCE ONTOLOGY MODEL SAVED INTO FILE: " + saveFile.getName());
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
@@ -1495,7 +1536,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				this.appControl.initXslContext(files);
 				String dir = files[0].getParent();
 				System.out.println("-- TRANSFORM CONTEXT parent folder: " + dir);
-				this.latestOpenedFolder = "dir";
+				this.latestOpenedFolder = dir;
 				//-- Console Printing
 				txtrConsoleOutput.append(newline + "LOG: XSL TRANSFORM CONTEXT FILES SELECTED: (DIR: " + dir + ")");
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
@@ -1541,7 +1582,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				appControl.xslTransform("caex2aspfacts", null, mainSaveFile.getPath());
 				System.out.println("-- Asp facts file (.db): " + mainSaveFile.getName());
 				String dir = mainSaveFile.getParent();
-				this.latestOpenedFolder = "dir";
+				this.latestOpenedFolder = dir;
 				//-- Console Printing
 				txtrConsoleOutput.append(newline + "LOG: GENERATED ASP FACTS FROM CAEX SAVED INTO FILE: " + mainSaveFile.getName());
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
@@ -1563,7 +1604,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				appControl.saveAspModel(mainSaveFile.getPath());
 				System.out.println("-- Saved file: " + mainSaveFile.getName());
 				String dir = mainSaveFile.getParent();
-				this.latestOpenedFolder = "dir";
+				this.latestOpenedFolder = dir;
 				//-- Console Printing
 				txtrConsoleOutput.append(newline + "LOG: ASP SOLVER RESULT MODELS SAVED TO FILE:: " +mainSaveFile.getName());
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
@@ -1598,7 +1639,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				System.out.println("-- Asp files selected: # " + aspfiles.length);
 				this.appControl.initAspModel(aspfiles);
 				String dir = aspfiles[0].getParent();
-				this.latestOpenedFolder = "dir";
+				this.latestOpenedFolder = dir;
 				//-- Console Printing
 				txtrConsoleOutput.append(newline + "LOG: ASP RULE AND FACT FILES LOADED: " + dir);
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
@@ -1622,7 +1663,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				appControl.xslTransform("caex2jmonkey", null, mainSaveFile.getPath());
 				System.out.println("-- JMonkey file (.jmc): " + mainSaveFile.getName());
 				String dir = mainSaveFile.getParent();
-				this.latestOpenedFolder = "dir";
+				this.latestOpenedFolder = dir;
 				//-- Console Printing
 				txtrConsoleOutput.append(newline + "LOG: GENERATED JMONKEY SCRIPT SAVED TO FILE: " +  mainSaveFile.getName());
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
@@ -1670,7 +1711,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				
 				
 				String dir = mainOpenFile.getParent();
-				this.latestOpenedFolder = "dir";
+				this.latestOpenedFolder = dir;
 				// -- Enabling other menuitems
 				mntmSave.setEnabled(true);
 				// -- Console Printing ---				
@@ -1694,7 +1735,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 				appControl.saveXMLModel(mainSaveFile.getPath());
 				System.out.println("-- Saved file: " + mainSaveFile.getName());
 				String dir = mainSaveFile.getParent();
-				this.latestOpenedFolder = "dir";
+				this.latestOpenedFolder = dir;
 				//-- Console Printing
 				txtrConsoleOutput.append(newline + "LOG: THE MAIN CAEX FILE MARSHALLED INTO FILE: " +  mainSaveFile.getName());
 				txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());

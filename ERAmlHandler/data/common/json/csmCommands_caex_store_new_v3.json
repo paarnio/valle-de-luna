@@ -69,7 +69,7 @@
         "commandtype": "addNsPrefixes",
         "stepnote": "PREFIX_ADD",
 		"comment": "Adding NS prefix declarations (separated by space or newline) in format: PREFIX owl: <http://www.w3.org/2002/07/owl#> ",
-		"comment": "Note: preprefixes field is currently ignored, i.e. preprefixes are always loaded also",
+		"comment": "Note: preprefixes field is currently ignored, i.e. hard coded preprefixes are always loaded also",
         "prefix": {
           "name": "NS PREFIX Addition ",
           "type": "add",
@@ -217,8 +217,7 @@
 			"?name2"
           ]
         }
-      }
-	  ,
+      },
       {
         "index": 12,
 		"idcode": "SR1_T3",
@@ -433,6 +432,20 @@
           "queryVars": null
         }
       },
+	  {
+        "index": null,
+		"idcode": "R1_T66_QP1_1",
+        "commandtype": "addNsPrefixes",
+        "stepnote": "PREFIX_ADD",
+		"comment": "Adding NS prefix declarations (separated by space or newline) in format: PREFIX owl: <http://www.w3.org/2002/07/owl#> ",
+		"comment": "Note: preprefixes field is currently ignored, i.e. hard coded preprefixes are always loaded also",
+        "prefix": {
+          "name": "NS PREFIX Addition ",
+          "type": "add",
+          "preprefixes": "default",
+          "prefixlist": "PREFIX caex: <http://data.ifs.tuwien.ac.at/aml/ontology#> PREFIX foo: <http://foo.net/ontology#>  PREFIX bar: <http://bar.net/ontology#> "
+        }
+     },
       {
         "index": null,
 		"idcode": "SR1_T",
