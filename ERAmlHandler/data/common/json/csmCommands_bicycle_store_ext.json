@@ -24,7 +24,7 @@
 	  "idcode": "R1_T1_LKB_1",
       "commandType": "loadKnowledgeBase",
       "stepnote": "LOAD_KB",
-      "comment": "REQUIRED: ALLWAYS RUN THIS AS THE FIRST COMMAND! (Types: 'predefined' | 'file&uri')",
+      "comment": "REQUIRED AS THE FIRST COMMAND! (Types: 'predefined' | 'file&uri' | 'preloaded')",
       "knowledgeBase": {
         "name": "bicycle",
         "type": "predefined",

@@ -7,6 +7,7 @@
 package siima.spin;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -21,6 +22,7 @@ import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.velocity.texen.util.FileUtil;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Model;
 
@@ -32,7 +34,6 @@ import org.topbraid.spin.system.SPINLabels;
 
 import siima.app.control.MainAppController;
 import siima.spin.ModelSpinManager;
-//import siima.utils.UIPrompt;
 
 public class CommandFileSpinMng {
 	private static final Logger logger = Logger.getLogger(CommandFileSpinMng.class.getName());
@@ -83,7 +84,7 @@ public class CommandFileSpinMng {
 
 	/* =======================================
 	 * 
-	 * METHODS
+	 * CSM COMMAND METHODS
 	 * 
 	 * =======================================
 	 */
@@ -597,7 +598,7 @@ public class CommandFileSpinMng {
 				
 			}
 			}
-			logger.log(Level.INFO, "\n----------- Knowledge Base Info  ----------\n" + sbuff.toString());
+			logger.log(Level.INFO, "\n-----loadKnowledgeBaseCommand() Knowledge Base Info  ----------\n" + sbuff.toString());
 			/* ----------- Build Models ----------*/
 			OntModel baseont = mng.loadModelWithImports(urls, altlocs);
 			// Set mainOntModel
@@ -606,7 +607,16 @@ public class CommandFileSpinMng {
 			mng.setOntModelWithReasoner(mng.createReasonerModel(mng
 							.getMainOntModel()));
 			 
-			logger.log(Level.INFO, "\n----------- Knowledge Base Ready  ----------");
+			logger.log(Level.INFO, "\n-----loadKnowledgeBaseCommand() Knowledge Base Ready  ----------");
+			
+		} else if("preloaded".equalsIgnoreCase(type)){
+			// Using current preloaded KB
+			OntModel baseont = mng.getMainOntModel();
+			if(baseont!=null){
+				logger.log(Level.INFO, "\n-----loadKnowledgeBaseCommand() Using Preloaded Knowledge Base ----------");
+			} else {
+				logger.log(Level.INFO, "\n?????? loadKnowledgeBaseCommand() Knowledge Base has NOT been Preloaded????");
+			}
 			
 		}
 	}
@@ -714,7 +724,127 @@ public class CommandFileSpinMng {
 		}
 	}
 
+	/* =======================================
+	 * 
+	 * Interface methods for MainAppController
+	 * 2017-09-16
+	 * =======================================
+	 */
 	
+	public void preLoadOntologyModel(File[] ontfiles){
+		/* 2017-09-16
+		 * 1.) Parsing ontology URI from the file (.ttl assumed)
+		 * 2.) Parsing file location URLs
+		 * 3.) Loading Ontology Model
+		 * TEST: Same Ont files as in Command 0 in data/common/json/csmCommands_caex_v3_import_test2.json
+		 * 
+		 * ----bicycle.ttl-------
+		 * # baseURI: http://siima.net/ont/bicycle
+			# imports: http://semwebquality.org/ontologies/dq-constraints#
+			# imports: http://siima.net/ont/accessories
+			# imports: http://spinrdf.org/spl
+		 * ----accessories.ttl---
+		 * # baseURI: http://siima.net/ont/accessories
+		 * --------------
+		 * -----caex_ontology_mod2_importing_owl.ttl-----
+		 * @prefix : <http://data.ifs.tuwien.ac.at/aml/ontology#> .
+		 * @base <http://data.ifs.tuwien.ac.at/aml/ontology> .
+			<http://data.ifs.tuwien.ac.at/aml/ontology>
+  				rdf:type owl:Ontology;
+  				owl:imports <http://siima.net/ontologies/2017/caex/> ;
+  		 * ---cranfield_ont_noimps1.ttl----
+  			@prefix :      <http://siima.net/ontologies/2017/caex/> .
+			@prefix siima: <http://siima.net/ontologies/2017/caex/> .
+  			siima:  a       owl:Ontology .
+  		 * ------------------------
+  		 * -- JSON--
+		"knowledgeBase": {
+          "name": "cranfield",
+          "type": "file&uri",
+          "ontology": {
+            "name": "caex_ontology",
+            "folder": "data/common/ontology",
+            "file": "caex_ontology_mod2_importing_owl.ttl",
+            "uri": "http://data.ifs.tuwien.ac.at/aml/ontology"
+          },
+          "imports": [
+            {
+              "name": "cranfield",
+              "folder": "data/common/ontology",
+              "file": "cranfield_ont_noimps1.ttl",
+              "uri": "http://siima.net/ontologies/2017/caex/"
+            }
+		 */
+		
+		List<String> ontologyUris = new ArrayList<String>();
+		List<String> locationUrls = new ArrayList<String>();
+		
+		/*
+		 * Searching ttl-file lines containing:
+		 * '# baseURI: '
+		 * '@base '
+		 * '@prefix : '
+		 *
+		 * ('# imports: ')
+		 */
+		String[] patterns = {"# baseURI: ", "@base ", "@prefix : "};
+		
+		for(int i=0; i< ontfiles.length; i++){
+			File file = ontfiles[i];
+			//1.) Parsing ontology URI from the file (.ttl assumed)
+			Boolean match = false;
+			for(int pi=0; pi<patterns.length; pi++){
+				if(!match){
+					List<String> matchlines = siima.util.FileUtil.searchLinesTextFile(patterns[pi], file.getAbsolutePath());
+					if(!matchlines.isEmpty()){						
+						match=true;
+						System.out.println("====MATCHLINE:" + matchlines.get(0));
+						String line = matchlines.get(0);
+						String[] lineparts1 = line.split("<");
+						if(lineparts1.length>1){
+							String[] lineparts2 = lineparts1[1].split(">");
+							if(lineparts2.length>1){
+								String uristr = lineparts2[0];
+								ontologyUris.add(uristr);
+								System.out.println("====URI:" + uristr);
+							}
+						}
+					}
+				}
+			}
+		
+			// ---- 2.) Parsing file location URL
+			/*
+			 *  File URIs examples:
+			 *  (0)file:/C:/Users/Pekka%20Aarnio/git/valle-de-luna/ERAmlHandler/data/common/ontology/caex_ontology_mod2_importing_owl.ttl
+			 *  (1)file:/C:/Users/Pekka%20Aarnio/git/valle-de-luna/ERAmlHandler/data/common/ontology/cranfield_ont_noimps1.ttl
+			 */		
+				String pathstr = file.getAbsolutePath(); 
+				//https://stackoverflow.com/questions/34434042/convert-windows-path-to-uri-in-java
+				String locUrl = file.toURI().toString();
+				locationUrls.add(locUrl);
+				System.out.println("====URL:" + locUrl);
+		}
+		
+		/*
+		 * LoadingModels in files to ModelSpinManager
+		 * Testing: URLs and URIs found for all files
+		 */
+		int filecount = ontfiles.length;
+		if((locationUrls.size()==filecount)&&(ontologyUris.size()==filecount)){
+			
+			System.out.println("====URL&&URI OK!");
+			//Load models:
+			OntModel baseont = mng.loadModelWithImports(ontologyUris, locationUrls);
+			// Set mainOntModel
+			mng.setMainOntModel(baseont);
+			// Set ntModelWithReasoner			
+			mng.setOntModelWithReasoner(mng.createReasonerModel(mng.getMainOntModel()));		
+			logger.log(Level.INFO, "\n-------preLoadOntologyModel(): Knowledge Base Ready  -----");
+		}
+		
+		
+	}
 	
 	/*
 	 * =======================================
@@ -806,6 +936,7 @@ public class CommandFileSpinMng {
 		/* --- Main ontology --- */
 		//(2017-07-10) changed
 		String ont_folder = "data/common/owl_models/importing_models"; 
+		//TOIMII MYÖS: String ont_folder = "file:/C:/Users/Pekka%20Aarnio/git/valle-de-luna/ERAmlHandler/data/common/owl_models/importing_models/";
 		
 		String main_ont_file= "bicycle.ttl"; 
 		String main_ont_url="http://siima.net/ont/bicycle"; 
@@ -832,7 +963,7 @@ public class CommandFileSpinMng {
 		mng.setOntModelWithReasoner(mng.createReasonerModel(mng.getMainOntModel()));
 		
 		this.mainModelLocalName="bicycle"; 
-		logger.log(Level.INFO, "\n----------- Knowledge Base Ready  ----------");
+		logger.log(Level.INFO, "\n-------startPredefinedKB_Bicycle(): Knowledge Base Ready  ------");
 		
 	}
 	

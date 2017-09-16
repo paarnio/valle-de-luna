@@ -23,7 +23,7 @@
       "index": 0,
       "commandType": "loadKnowledgeBase",
       "stepnote": "LOAD_KB",
-      "comment": "REQUIRED: ALLWAYS RUN THIS AS THE FIRST COMMAND! (Types: 'predefined' | 'file&uri')",
+      "comment": "REQUIRED AS THE FIRST COMMAND! (Types: 'predefined' | 'file&uri' | 'preloaded')",
       "knowledgeBase": {
         "name": "bicycle",
         "type": "predefined",

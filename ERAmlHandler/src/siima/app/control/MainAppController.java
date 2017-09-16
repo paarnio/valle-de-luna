@@ -92,13 +92,19 @@ public class MainAppController {
 		
 		this.xslt = new XSLTransform();
 		this.aspReasoner = new AspDlvReasoner();
-		
+		//2017-09-16 put here
+		this.spinMng = new CommandFileSpinMng();
 		/* NOTE: this.graphbuilder and this.rdfContainer
 		 * objects are created in methods
 		 * createNewProject() and openProject()
 		 * REASON: this.graphbuilder is CAEX version dependent
 		 */
 		
+	}
+	
+	public void preLoadCSMOntologyModel(File[] ontfiles){
+		
+		spinMng.preLoadOntologyModel(ontfiles);
 	}
 
 	public void saveCSMCommandsToJsonFile(String jsonfile){
@@ -172,7 +178,7 @@ public class MainAppController {
 		logger.info("initCommandFileSpinMng() reading spin command file: " + commandfile);
 		StringBuffer sbuf = FileUtil.readTextFile("\n", commandfile);
 		
-		spinMng = new CommandFileSpinMng();
+		//spinMng = new CommandFileSpinMng(); //Moved to constructor
 		spinMng.mainInitSpinManager(commandfile);
 		spinMng.setWorkflowResults(new StringBuffer());
 		//spinMng.mainInvokeCommandWorkflow();

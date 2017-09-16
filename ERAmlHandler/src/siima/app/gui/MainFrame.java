@@ -412,7 +412,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		JMenu mnSparql = new JMenu("Sparql");
 		menuBar.add(mnSparql);
 		
-		mntmLoadOntologyModels = new JMenuItem("Select Ontology Files...");
+		mntmLoadOntologyModels = new JMenuItem("Load Ontology Files to KB...");
 		mntmLoadOntologyModels.addActionListener(this);
 		mnSparql.add(mntmLoadOntologyModels);
 		
@@ -1243,7 +1243,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 
 				File[] ontfiles = fileChooser.getSelectedFiles();
 				System.out.println("-- Ontology files selected: # " + ontfiles.length);
-				//this.appControl.initAspModel(aspfiles);
+				this.appControl.preLoadCSMOntologyModel(ontfiles);
 				String dir = ontfiles[0].getParent();
 				//this.latestOpenedFolder = dir;
 				//-- Console Printing

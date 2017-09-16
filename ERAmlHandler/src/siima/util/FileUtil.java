@@ -6,9 +6,40 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileUtil {
 
+	public static List<String> searchLinesTextFile(String searchStr, String filepath) {
+		StringBuffer sbuf = new StringBuffer();
+		List<String> matchlines = new ArrayList<String>();
+		String jsonString;
+		try {
+			// Does file exist?
+			File pfile = new File(filepath);
+			if (pfile.exists()) {
+				BufferedReader br = new BufferedReader(new FileReader(filepath));
+				String sCurrentLine;
+				while ((sCurrentLine = br.readLine()) != null) {
+					// System.out.println(sCurrentLine + line_end);
+					//sbuf.append(sCurrentLine + line_end);
+					if(sCurrentLine.contains(searchStr)){
+						matchlines.add(sCurrentLine);
+					}
+				}
+			} else {
+				System.out.println("- FileUtil:searchLinesTextFile() File does not exist: " + filepath);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return matchlines;
+	}
+
+	
 	public static StringBuffer readTextFile(String line_end, String filepath) {
 		StringBuffer sbuf = new StringBuffer();
 		String jsonString;
@@ -55,6 +86,8 @@ public class FileUtil {
 
 	}
 
+	
+	
 	public static void main(String[] args) {
 		
 		FileUtil.writeTextFile("teksti", "./data/generated/asp_models/asp_testresults.txt");
