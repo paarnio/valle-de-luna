@@ -736,35 +736,8 @@ public class CommandFileSpinMng {
 		 * 1.) Parsing ontology URI from the file (.ttl assumed)
 		 * 2.) Parsing file location URLs
 		 * 3.) Loading Ontology Model
-		 * TEST: Same Ont files as in Command 0 in data/common/json/csmCommands_caex_v3_import_test2.json
+		 * TEST: with Ontology files as in Command 0 in data/common/json/csmCommands_caex_v3_import_test2.json
 		 * 
-		 * ----bicycle.ttl-------
-		 * # baseURI: http://siima.net/ont/bicycle
-			# imports: http://semwebquality.org/ontologies/dq-constraints#
-			# imports: http://siima.net/ont/accessories
-			# imports: http://spinrdf.org/spl
-		 * ----accessories.ttl---
-		 * # baseURI: http://siima.net/ont/accessories
-		 * --------------
-		 * -----caex_ontology_mod2_importing_owl.ttl-----
-		 * @prefix : <http://data.ifs.tuwien.ac.at/aml/ontology#> .
-		 * @base <http://data.ifs.tuwien.ac.at/aml/ontology> .
-			<http://data.ifs.tuwien.ac.at/aml/ontology>
-  				rdf:type owl:Ontology;
-  				owl:imports <http://siima.net/ontologies/2017/caex/> ;
-  		 * ---cranfield_ont_noimps1.ttl----
-  			@prefix :      <http://siima.net/ontologies/2017/caex/> .
-			@prefix siima: <http://siima.net/ontologies/2017/caex/> .
-  			siima:  a       owl:Ontology .
-  		 * ------------------------
-  		 * ---in  .owl files ------
-  		 * ---- caex_ontology_mod1_owl.owl -----
-  		 * 
-  		 * <rdf:RDF
-				xmlns="http://data.ifs.tuwien.ac.at/aml/ontology#"
-  		 * <rdf:Description rdf:about="http://data.ifs.tuwien.ac.at/aml/ontology">
-			<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
-  		 * 
   		 * 
   		 * -- CSMCommand JSON--
 		"knowledgeBase": {
@@ -788,43 +761,15 @@ public class CommandFileSpinMng {
 		List<String> ontologyUris = new ArrayList<String>();
 		List<String> locationUrls = new ArrayList<String>();
 		
-		/*
-		 * Searching ttl-file lines containing:
-		 * '# baseURI: '
-		 * '@base '
-		 * '@prefix : '
-		 *
-		 * ('# imports: ')
-		 */
-		String[] patterns = {"# baseURI: ", "@base ", "@prefix : "};
-		
 		for(int i=0; i< ontfiles.length; i++){
+			String uristr =null;
 			File file = ontfiles[i];
-			Boolean ttl = file.getName().endsWith(".ttl");
-			//1.) Parsing ontology URI from the file (.ttl assumed)
-			Boolean match = false;
-			for(int pi=0; pi<patterns.length; pi++){
-				if(!match){
-					List<String> matchlines = siima.util.FileUtil.searchLinesTextFile(patterns[pi], file.getAbsolutePath());
-					if(!matchlines.isEmpty()){						
-						match=true;
-						System.out.println("====MATCHLINE:" + matchlines.get(0));
-						String line = matchlines.get(0);
-						String[] lineparts1 = line.split("<");
-						if(lineparts1.length>1){
-							String[] lineparts2 = lineparts1[1].split(">");
-							if(lineparts2.length>1){
-								String uristr = lineparts2[0];
-								ontologyUris.add(uristr);
-								System.out.println("====URI:" + uristr);
-							}
-						}
-					}
-				}
-			}
-		
-			// ---- 2.) Parsing file location URL
-			/*
+	
+			uristr = parseOntologyUriFromFile(file);
+			if(uristr!=null)  ontologyUris.add(uristr);
+			System.out.println("====URI:" + uristr);
+			
+			/* 2.) Parsing file location URL
 			 *  File URIs examples:
 			 *  (0)file:/C:/Users/Pekka%20Aarnio/git/valle-de-luna/ERAmlHandler/data/common/ontology/caex_ontology_mod2_importing_owl.ttl
 			 *  (1)file:/C:/Users/Pekka%20Aarnio/git/valle-de-luna/ERAmlHandler/data/common/ontology/cranfield_ont_noimps1.ttl
@@ -857,47 +802,118 @@ public class CommandFileSpinMng {
 	}
 	
 	
-	public String parseOntologyUriFromFile(File ontologyFile){
-		//TODO: also .owl file parsing
+	public String parseOntologyUriFromFile(File ontologyFile) {
+
 		/*
-		 * Searching ttl-file lines containing:
-		 * '# baseURI: '
-		 * '@base '
-		 * '@prefix : '
-		 *
+		 * 1.) From .ttl ontology 
+		 * 2.) From .owl ontology 
+		 * -----------------------
+		 * Searching ttl-file lines containing: '# baseURI: ' '@base ' '@prefix: '
 		 * ('# imports: ')
+		 * 
+		 * EXAMPLES:
+		 *  * ----bicycle.ttl-------
+		 * # baseURI: http://siima.net/ont/bicycle
+			# imports: http://semwebquality.org/ontologies/dq-constraints#
+			# imports: http://siima.net/ont/accessories
+			# imports: http://spinrdf.org/spl
+		 * ----accessories.ttl---
+		 * # baseURI: http://siima.net/ont/accessories
+		 * --------------
+		 * -----caex_ontology_mod2_importing_owl.ttl-----
+		 * @prefix : <http://data.ifs.tuwien.ac.at/aml/ontology#> .
+		 * @base <http://data.ifs.tuwien.ac.at/aml/ontology> .
+			<http://data.ifs.tuwien.ac.at/aml/ontology>
+  				rdf:type owl:Ontology;
+  				owl:imports <http://siima.net/ontologies/2017/caex/> ;
+  		 * ---cranfield_ont_noimps1.ttl----
+  			@prefix :      <http://siima.net/ontologies/2017/caex/> .
+			@prefix siima: <http://siima.net/ontologies/2017/caex/> .
+  			siima:  a       owl:Ontology .
+  		 * ------------------------
+  		 * ---in  .owl files ------
+  		 * ---- caex_ontology_mod1_owl.owl -----
+  		 * 
+  		 * <rdf:RDF	xmlns="http://data.ifs.tuwien.ac.at/aml/ontology#"
+  		 * <rdf:Description rdf:about="http://data.ifs.tuwien.ac.at/aml/ontology">
+			<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+  		 * 
 		 */
-		String[] ttl_patterns = {"# baseURI: ", "@base ", "@prefix : "};
-		String uristr=null;
-	
+
 		Boolean ttl = ontologyFile.getName().endsWith(".ttl");
 		Boolean owl = ontologyFile.getName().endsWith(".owl");
-		
-		//1.) Parsing ontology URI from the file (.ttl assumed)
-		Boolean match = false;
-		for(int pi=0; pi<ttl_patterns.length; pi++){
-			if(!match){
-				List<String> matchlines = siima.util.FileUtil.searchLinesTextFile(ttl_patterns[pi], ontologyFile.getAbsolutePath());
-				if(!matchlines.isEmpty()){						
-					match=true;
-					System.out.println("====MATCHLINE:" + matchlines.get(0));
-					String line = matchlines.get(0);
-					String[] lineparts1 = line.split("<");
-					if(lineparts1.length>1){
-						String[] lineparts2 = lineparts1[1].split(">");
-						if(lineparts2.length>1){
-							uristr = lineparts2[0];
-							//ontologyUris.add(uristr);
-							System.out.println("====URI:" + uristr);
+
+		String[] ttl_patterns = { "# baseURI: ", "@base ", "@prefix : " };
+		String uristr = null;
+
+		if (ttl) {
+			// 1.) Parsing ontology URI from the file (.ttl)
+			Boolean match = false;
+			for (int pi = 0; pi < ttl_patterns.length; pi++) {
+				if (!match) {
+					List<String> matchlines = siima.util.FileUtil.searchLinesTextFile(ttl_patterns[pi],
+							ontologyFile.getAbsolutePath());
+					if (!matchlines.isEmpty()) {
+						match = true;
+						System.out.println("====MATCHLINE:" + matchlines.get(0));
+						String line = matchlines.get(0);
+						String[] lineparts1 = line.split("<");
+						if (lineparts1.length > 1) {
+							String[] lineparts2 = lineparts1[1].split(">");
+							if (lineparts2.length > 1) {
+								uristr = lineparts2[0];
+								System.out.println("====URI:" + uristr);
+							}
 						}
 					}
 				}
 			}
+		} else if (owl) {
+			// 2.) Parsing ontology URI from the file (.owl)
+			System.out.println("==== URI FOR .OWL FILE??");
+			/*
+			 * Calling: siima.util.FileUtil.searchLineByTwoPatternsTextFile()
+			 * Returns the last matchlineA that is before the matchlineB.
+			 * Example: Searching the line (1) containing ontology uri using
+			 * patterns: patternA = "rdf:Description rdf:about=" patternB =
+			 * "rdf:type rdf:resource='http://www.w3.org/2002/07/owl#Ontology'"
+			 * Targeted File (.owl) fragment: 1.<rdf:Description
+			 * rdf:about="http://data.ifs.tuwien.ac.at/aml/ontology">
+			 * 2.<rdf:type
+			 * rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+			 * 
+			 */
+			String patternA = "rdf:Description rdf:about=";
+			//String patternB = "rdf:type rdf:resource='http://www.w3.org/2002/07/owl#Ontology'";
+			String patternB = "http://www.w3.org/2002/07/owl#Ontology";
+			
+			String matchlineA = siima.util.FileUtil.searchLineByTwoPatternsTextFile(patternA, patternB,
+					ontologyFile.getAbsolutePath());
+			System.out.println("====MATCHLINE A:" + matchlineA);
+			// Checking if both patterns on this same line
+			if (matchlineA != null) {
+				String[] linepartsAB = matchlineA.split(patternB);
+				//System.out.println("====MATCHLINE A CONTAINS ALSO PATTERN-B if length >1:" + linepartsAB.length);
+				String[] linepartsA = linepartsAB[0].split(patternA);
+				int partc = linepartsA.length;
+				String partwithuri = linepartsA[partc - 1];
+				//System.out.println("====MATCHLINE partwithuri:" + partwithuri);
+				if (partwithuri.length() > 0) {
+					String[] poss = partwithuri.split("\""); // "http://data.ifs.tuwien.ac.at/aml/ontology"...
+					//System.out.println("====MATCHLINE poss[0]:" +  poss[0]);
+					int pp = poss.length;
+					if (pp > 1)
+						uristr = poss[1];
+					System.out.println("====MATCHLINE A URI:" + uristr);
+				}
+
+			}
+
 		}
-		
+
 		return uristr;
 	}
-	
+
 	/*
 	 * =======================================
 	 * 
