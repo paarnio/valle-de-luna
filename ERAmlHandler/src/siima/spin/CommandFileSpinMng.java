@@ -757,7 +757,16 @@ public class CommandFileSpinMng {
 			@prefix siima: <http://siima.net/ontologies/2017/caex/> .
   			siima:  a       owl:Ontology .
   		 * ------------------------
-  		 * -- JSON--
+  		 * ---in  .owl files ------
+  		 * ---- caex_ontology_mod1_owl.owl -----
+  		 * 
+  		 * <rdf:RDF
+				xmlns="http://data.ifs.tuwien.ac.at/aml/ontology#"
+  		 * <rdf:Description rdf:about="http://data.ifs.tuwien.ac.at/aml/ontology">
+			<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+  		 * 
+  		 * 
+  		 * -- CSMCommand JSON--
 		"knowledgeBase": {
           "name": "cranfield",
           "type": "file&uri",
@@ -791,6 +800,7 @@ public class CommandFileSpinMng {
 		
 		for(int i=0; i< ontfiles.length; i++){
 			File file = ontfiles[i];
+			Boolean ttl = file.getName().endsWith(".ttl");
 			//1.) Parsing ontology URI from the file (.ttl assumed)
 			Boolean match = false;
 			for(int pi=0; pi<patterns.length; pi++){
@@ -844,6 +854,48 @@ public class CommandFileSpinMng {
 		}
 		
 		
+	}
+	
+	
+	public String parseOntologyUriFromFile(File ontologyFile){
+		//TODO: also .owl file parsing
+		/*
+		 * Searching ttl-file lines containing:
+		 * '# baseURI: '
+		 * '@base '
+		 * '@prefix : '
+		 *
+		 * ('# imports: ')
+		 */
+		String[] ttl_patterns = {"# baseURI: ", "@base ", "@prefix : "};
+		String uristr=null;
+	
+		Boolean ttl = ontologyFile.getName().endsWith(".ttl");
+		Boolean owl = ontologyFile.getName().endsWith(".owl");
+		
+		//1.) Parsing ontology URI from the file (.ttl assumed)
+		Boolean match = false;
+		for(int pi=0; pi<ttl_patterns.length; pi++){
+			if(!match){
+				List<String> matchlines = siima.util.FileUtil.searchLinesTextFile(ttl_patterns[pi], ontologyFile.getAbsolutePath());
+				if(!matchlines.isEmpty()){						
+					match=true;
+					System.out.println("====MATCHLINE:" + matchlines.get(0));
+					String line = matchlines.get(0);
+					String[] lineparts1 = line.split("<");
+					if(lineparts1.length>1){
+						String[] lineparts2 = lineparts1[1].split(">");
+						if(lineparts2.length>1){
+							uristr = lineparts2[0];
+							//ontologyUris.add(uristr);
+							System.out.println("====URI:" + uristr);
+						}
+					}
+				}
+			}
+		}
+		
+		return uristr;
 	}
 	
 	/*
