@@ -83,7 +83,8 @@ import siima.app.model.tree.ElementNode;
 public class JaxbContainerCaex3  implements JaxbContainerInterface {
 	private static final Logger logger=Logger.getLogger(JaxbContainer.class.getName());
 	//Modified schema path: configure/schema/caex_2.15_mod/CAEX_V2.15_modified.xsd
-	public static String CAEX_SCHEMA ="configure/schema/caex_2.15_orig/CAEX_ClassModel_V2.15.xsd";
+	//public static String CAEX_SCHEMA_215 ="configure/schema/caex_2.15_orig/CAEX_ClassModel_V2.15.xsd";
+	public static String CAEX_SCHEMA_300 ="configure/schema/caex_3.0_vpa/CAEX_ClassModel_V3.0_byVPA.xsd";
 	private String validationSchemaFile; //can be set by menu/configuration
 
 	public Path mainFilePath; //latest loaded caex file
@@ -883,7 +884,7 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 	            	if(validationSchemaFile!=null){ // Configured schema 
 	            		schema = sf.newSchema(new File(validationSchemaFile));
 	            	} else { // Default schema
-	            		schema = sf.newSchema(new File(CAEX_SCHEMA)); //
+	            		schema = sf.newSchema(new File(CAEX_SCHEMA_300)); //
 	            	}
 	                u.setSchema(schema);
 	                u.setEventHandler(

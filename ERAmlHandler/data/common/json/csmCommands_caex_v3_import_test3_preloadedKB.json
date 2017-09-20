@@ -1,15 +1,17 @@
 {
   "CSMHeader": {
-    "filename": "data/common/json/csmCommands_caex_v3_import_test2.json",
+    "filename": "data/common/json/csmCommands_caex_v3_import_test3_preloadedKB.json",
     "created": "2017-07-10",
-	"updated": "2017-00-00",
+	"updated": "2017-09-20",
     "validated": "http://www.jsoneditoronline.org/",
     "application": "ERAamlHandler",
     "history": "new version 3. commandtype (v2. commandType); CSMStore new structure",
+	"comment": "NEW: Testing the new KB loading type: preloaded. (See Command index 0)",
+	"comment": "NEW: Also new commandtype :addNsPrefixes(See Command index 3)",
 	"comment": "CSMStore is a predefined command store with index=null (Copy & paste commands to the command list)",
     "workflow": {
-      "name": "CRANFIELD model workflow",
-      "processlog1": "(start)-->| LOAD_KB(0) |-->| INF_MODEL(1) |-->| INFER(2) |-->| SELECT(3) |-->(end)",
+      "name": "PRELOADED CRANFIELD model workflow",
+      "processlog1": "(start)-->| LOAD_KB(0) |-->| INF_MODEL(1) |-->| INFER(2) |-->| PREFIX_ADD(3) |-->| SELECT(4) |-->(end)",
       "comment": "Workflow commands can be run in 'indexed' mode (type='indexed') or in 'all' mode (type='all').",
       "type": "indexed",
       "indexes": [

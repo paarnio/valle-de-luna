@@ -257,13 +257,14 @@ public class MainAppController {
 
 		// ---- CAEX 3.0 REQUIRED ADDITION
 		// Construct the jtree for AttributeTypeLib hierarchy.
-		ElementNode attributetlRootElement = graphbuilder.getAttributetlRootElement();
-		int attrtccount = attributetlRootElement.getChildCount();
-		if (attrtccount > 0) {
-			this.attributetltreemodel = new ElementModel(graphbuilder.getAttributetlRootElement());
-			this.attributetltree = new ElementTree(this.attributetltreemodel);
+		if (JaxbContainerCaex3.class.isInstance(graphbuilder)) {
+			ElementNode attributetlRootElement = graphbuilder.getAttributetlRootElement();
+			int attrtccount = attributetlRootElement.getChildCount();
+			if (attrtccount > 0) {
+				this.attributetltreemodel = new ElementModel(graphbuilder.getAttributetlRootElement());
+				this.attributetltree = new ElementTree(this.attributetltreemodel);
+			}
 		}
-			
 		return instanceHtree;
 	}
 

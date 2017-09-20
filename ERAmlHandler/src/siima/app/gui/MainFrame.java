@@ -664,12 +664,19 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         // create some simple html as a string (svg part not displayed in html tab)
         String htmlString = "<html>\n"
                           + "<body>\n"
+                          + "<h1>HTML PAGE VIEW</h1>\n"
+                          + "<h2>--------------</h2>\n"
+                          + "<p>--------------</p>\n"
+                          + "</body>\n";
+        					/* "<html>\n"
+                          + "<body>\n"
                           + "<h1>Welcome!</h1>\n"
                           + "<h2>This is an H2 header</h2>\n"
                           + "<p>This is some sample text</p>\n"
                           + "<p><a href=\"http://devdaily.com/blog/\">devdaily blog</a></p>\n"
                           + "<svg width='200' height='200' xmlns='http://www.w3.org/2000/svg'><rect x='10' y='10' width='100' height='50' fill='red' stroke='black'/></svg>\n"
-                          + "</body>\n";
+                          + "</body>\n";			
+        				*/
         
         // create a document, set it on the jeditorpane, then add the html
         Document doc = kit.createDefaultDocument();
