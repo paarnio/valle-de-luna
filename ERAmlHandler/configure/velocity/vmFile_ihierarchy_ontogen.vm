@@ -7,7 +7,7 @@
 	xmlns:siima="http://siima.net/ontologies/2017/caex/"
 	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
 	#* 2017-09-25 vmFile_ihierarchy_ontogen.vm
-	NOTE: 2017-09-25 internalElement property added for InternalElement
+	NOTE: 2017-09-25 internalElement property added for InternalElement and InstanceHierarchy
 	NOTE: 2017-06-28 Ontology definition added (option: imports statement (Protege cannot open))
 	NOTE: VelocityContext is expected to be initiated with  JAXB object CAEXFile caex
 	with key "caexfile" in the constructor of VeloContainer (vcontext.put("caexfile", caex))
@@ -40,6 +40,7 @@
 	#set( $URIhelp = $UriHelper.createInstanceUri("CAEXFile",null,null,"$caexfile.FileName") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}CAEXFile"/>
+		<amlont:fileName rdf:datatype="${xsdns}string">$caexfile.FileName</amlont:fileName>
 	</owl:NamedIndividual>
 
 	#*--------------------
@@ -50,6 +51,13 @@
 	#set( $URIhelp = $UriHelper.createInstanceUri("InstanceHierarchy","$ih.Name",null,"$ih.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}InstanceHierarchy"/>
+		<amlont:name rdf:datatype="${xsdns}string">$ih.Name</amlont:name>
+		## -- internalElement property ---
+		## This is a reference to InternalElement children
+		#foreach ($iechild in $ih.InternalElement)
+		#set( $URIchild = $UriHelper.createInstanceUri("InternalElement","$ih.Name","$iechild.Name", "$iechild.Name") )
+		<amlont:internalElement rdf:resource="${URIchild}"/>
+		#end				
 	</owl:NamedIndividual>		
     #end
 	

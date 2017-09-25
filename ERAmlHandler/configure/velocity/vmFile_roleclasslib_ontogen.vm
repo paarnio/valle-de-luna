@@ -7,6 +7,7 @@
 	xmlns:siima="http://siima.net/ontologies/2017/caex/"
 	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
 	#* 2017-06-26 vmFile_roleclasslib_ontogen.vm
+	 NOTE: 2017-09-25 roleClass property added for RoleClass and RoleClassLib
 	 (BASED ON: 2017-06-12 vmFile_systemunitclasslib_ontogen.vm)
 	 (BASED ON: 2017-06-11 vmFile_ihierarchy_ontogen.vm) 
 	 NOTE: VelocityContext is expected to be initiated with  JAXB object CAEXFile caex
@@ -34,6 +35,7 @@
 	#set( $URIhelp = $UriHelper.createInstanceUri("CAEXFile",null,null,"$caexfile.FileName") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}CAEXFile"/>
+		<amlont:fileName rdf:datatype="${xsdns}string">$caexfile.FileName</amlont:fileName>
 	</owl:NamedIndividual>
 
 	#*--------------------
@@ -45,6 +47,13 @@
 	#set( $URIhelp = $UriHelper.createInstanceUri("RoleClassLib","$roleclib.Name",null,"$roleclib.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}RoleClassLib"/>
+		<amlont:name rdf:datatype="${xsdns}string">$ih.Name</amlont:name>
+		## -- roleClass property ---
+		## This is a reference to roleClass children
+		#foreach ($rcchild in $roleclib.RoleClass)
+		#set( $URIchild = $UriHelper.createInstanceUri("RoleClass","$roleclib.Name","$rcchild.Name", "$rcchild.Name") )
+		<amlont:roleClass rdf:resource="${URIchild}"/>
+		#end				
 	</owl:NamedIndividual>		
 	#end
 	
@@ -83,6 +92,12 @@
 			#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
 			<amlont:attribute rdf:resource="${URIhelp}"/>
 		#end
+		## -- roleClass property ---
+		## This is a reference to roleClass children
+		#foreach ($rcchild in $node.RoleClass)
+		#set( $URIchild = $UriHelper.createInstanceUri("RoleClass","$hierarchy.Name","$rcchild.Name", "$rcchild.Name") )
+		<amlont:roleClass rdf:resource="${URIchild}"/>
+		#end				
 	</owl:NamedIndividual>	
 	#if ($node.RoleClass.size() > 0)
 		#foreach ($child in $node.RoleClass)

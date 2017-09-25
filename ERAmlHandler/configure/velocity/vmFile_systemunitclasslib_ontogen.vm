@@ -6,7 +6,8 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
 	xmlns:siima="http://siima.net/ontologies/2017/caex/"
 	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
-	#* 2017-06-12 vmFile_systemunitclasslib_ontogen.vm
+	#* 2017-09-25 vmFile_systemunitclasslib_ontogen.vm
+	 NOTE: ODO: TEST :2017-09-25 systemUnitClass property added for SystemUnitClass
 	 (BASED ON: 2017-06-11 vmFile_ihierarchy_ontogen.vm) 
 	 NOTE: VelocityContext is expected to be initiated with  JAXB object CAEXFile caex
 	 with key "caexfile" in the constructor of VeloContainer (vcontext.put("caexfile", caex))
@@ -33,6 +34,7 @@
 	#set( $URIhelp = $UriHelper.createInstanceUri("CAEXFile",null,null,"$caexfile.FileName") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}CAEXFile"/>
+		<amlont:fileName rdf:datatype="${xsdns}string">$caexfile.FileName</amlont:fileName>
 	</owl:NamedIndividual>
 
 	#*--------------------
@@ -44,6 +46,13 @@
 	#set( $URIhelp = $UriHelper.createInstanceUri("SystemUnitClassLib","$suclib.Name",null,"$suclib.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}SystemUnitClassLib"/>
+		<amlont:name rdf:datatype="${xsdns}string">$suclib.Name</amlont:name>
+		## -- TODO: TEST :systemUnitClass property ---
+		## This is a reference to SystemUnitClass children
+		#foreach ($succhild in $suclib.SystemUnitClass)
+		#set( $URIchild = $UriHelper.createInstanceUri("SystemUnitClass","$suclib.Name","$succhild.Name", "$succhild.Name") )
+		<amlont:systemUnitClass rdf:resource="${URIchild}"/>
+		#end	
 	</owl:NamedIndividual>		
 	#end
 	
@@ -80,6 +89,19 @@
 			#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
 			<amlont:attribute rdf:resource="${URIhelp}"/>
 		#end
+		## -- internalElement property ---
+		## This is a reference to InternalElement children of this SystemUnitClass
+		## NOTE: Now the URI contains as a substring the name of this SystemUnitClassLib (possible ambiguity problem)
+		#foreach ($iechild in $node.InternalElement)
+		#set( $URIchild = $UriHelper.createInstanceUri("InternalElement","$hierarchy.Name","$iechild.Name", "$iechild.Name") )
+		<amlont:internalElement rdf:resource="${URIchild}"/>
+		#end			
+		## -- TODO: TEST :systemUnitClass property ---
+		## This is a reference to SystemUnitClass children
+		#foreach ($succhild in $node.SystemUnitClass)
+		#set( $URIchild = $UriHelper.createInstanceUri("SystemUnitClass","$hierarchy.Name","$succhild.Name", "$succhild.Name") )
+		<amlont:systemUnitClass rdf:resource="${URIchild}"/>
+		#end	
 	</owl:NamedIndividual>	
 	#if ($node.SystemUnitClass.size() > 0)
 		#foreach ($child in $node.SystemUnitClass)
