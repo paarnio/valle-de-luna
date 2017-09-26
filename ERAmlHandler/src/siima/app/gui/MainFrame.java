@@ -1239,7 +1239,10 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			fileChooser.setSelectedFile(new File(""));
 			
 		} else if (arg0.getSource() == mntmLoadOntologyModels) {
-			fileChooser.setDialogTitle("SELECT ONTOLOGY FILES (.ttl)(first the main ontology, next the imported ones)");
+			fileChooser.setDialogTitle("SELECT ONTOLOGY FILES (.ttl)(the name of the main ontology file (importing others) should contain a substring '_main' OR '_imports' OR be the first in folder file ordering (e.g. alphabetical))");
+			//TODO:PROBLEM: files sorted alphabetically, not in selection order???
+			//https://stackoverflow.com/questions/29284814/jfilechooser-open-multiple-files-in-the-order-they-are-clicked
+			//https://stackoverflow.com/questions/42972059/javafx-filechooser-open-multiple-files-in-order-of-selection
 			//fileChooser.setSelectedFile(new File(""));
 			fileChooser.setCurrentDirectory(new File(this.eraProjectHomeDirectory + "/data"));
 			//fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);

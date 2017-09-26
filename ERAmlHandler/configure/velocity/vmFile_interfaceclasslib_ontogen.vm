@@ -6,7 +6,8 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
 	xmlns:siima="http://siima.net/ontologies/2017/caex/"
 	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
-	#* 2017-06-27 vmFile_interfaceclasslib_ontogen.vm
+	#* 2017-09-25 vmFile_interfaceclasslib_ontogen.vm
+	 NOTE: 2017-09-25 interfaceClass property added for InterfaceClass and InterfaceClassLib
 	 (BASED ON: 2017-06-12 vmFile_systemunitclasslib_ontogen.vm)
 	 (BASED ON: 2017-06-11 vmFile_ihierarchy_ontogen.vm) 
 	 NOTE: VelocityContext is expected to be initiated with  JAXB object CAEXFile caex
@@ -34,6 +35,7 @@
 	#set( $URIhelp = $UriHelper.createInstanceUri("CAEXFile",null,null,"$caexfile.FileName") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}CAEXFile"/>
+		<amlont:fileName rdf:datatype="${xsdns}string">$caexfile.FileName</amlont:fileName>
 	</owl:NamedIndividual>
 
 	#*--------------------
@@ -45,6 +47,12 @@
 	#set( $URIhelp = $UriHelper.createInstanceUri("InterfaceClassLib","$interfaceclib.Name",null,"$interfaceclib.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}InterfaceClassLib"/>
+		## -- interfaceClass property ---
+		## This is a reference to InterfaceClass children
+		#foreach ($ifacechild in $interfaceclib.InterfaceClass)
+		#set( $URIchild = $UriHelper.createInstanceUri("InterfaceClass","$interfaceclib.Name","$ifacechild.Name", "$ifacechild.Name") )
+		<amlont:interfaceClass rdf:resource="${URIchild}"/>
+		#end				
 	</owl:NamedIndividual>		
 	#end
 	
@@ -77,6 +85,12 @@
 			#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
 			<amlont:attribute rdf:resource="${URIhelp}"/>
 		#end
+		## -- interfaceClass property ---
+		## This is a reference to InterfaceClass children
+		#foreach ($ifacechild in $node.InterfaceClass)
+		#set( $URIchild = $UriHelper.createInstanceUri("InterfaceClass","$hierarchy.Name","$ifacechild.Name", "$ifacechild.Name") )
+		<amlont:interfaceClass rdf:resource="${URIchild}"/>
+		#end				
 	</owl:NamedIndividual>	
 	#if ($node.InterfaceClass.size() > 0)
 		#foreach ($child in $node.InterfaceClass)

@@ -732,7 +732,12 @@ public class CommandFileSpinMng {
 	 */
 	
 	public void preLoadOntologyModel(File[] ontfiles){
-		/* 2017-09-16
+		/* 2017-09-26 "SELECT ONTOLOGY FILES (.ttl)(the main ontology file (importing others) name should contain substring 'main')");
+		 * PROBLEM: files sorted alphabetically, not in selection order???
+		 * SOLUTION: (the name of the main ontology file (importing others)  
+		 * should contain substring '_main' OR '_imports' OR be the first in alphabetical order)");
+		 * 
+		 * 2017-09-16
 		 * 1.) Parsing ontology URI from the file (.ttl assumed)
 		 * 2.) Parsing file location URLs
 		 * 3.) Loading Ontology Model
@@ -757,6 +762,20 @@ public class CommandFileSpinMng {
               "uri": "http://siima.net/ontologies/2017/caex/"
             }
 		 */
+		
+		//Finding the main ontology importing the others
+		int mainfileidx = 0;
+		for(int i=0; i< ontfiles.length; i++){
+			File file = ontfiles[i];
+			String name = file.getName();
+			if((name.contains("_main"))||(name.contains("_imports"))) mainfileidx =i;			
+		}
+		if(mainfileidx!=0){
+			File orig_first = ontfiles[0];
+			File new_first = ontfiles[mainfileidx];
+			ontfiles[0] = new_first;
+			ontfiles[mainfileidx] = orig_first;
+		}
 		
 		List<String> ontologyUris = new ArrayList<String>();
 		List<String> locationUrls = new ArrayList<String>();
