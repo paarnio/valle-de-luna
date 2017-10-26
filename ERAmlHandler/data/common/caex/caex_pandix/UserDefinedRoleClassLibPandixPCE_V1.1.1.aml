@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CAEXFile FileName="UserDefinedRoleClassLibPandixPCE.aml" SchemaVersion="2.15" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AdditionalInformation AutomationMLVersion="2.0" />
+	<AdditionalInformation>
+		<WriterHeader>
+			<WriterName>AutomationML e.V.</WriterName>
+			<WriterID>AutomationML e.V.</WriterID>
+			<WriterVendor>AutomationML e.V.</WriterVendor>
+			<WriterVendorURL>www.AutomationML.org</WriterVendorURL>
+			<WriterVersion>1.0</WriterVersion>
+			<WriterRelease>1.0.0</WriterRelease>
+			<LastWritingDateTime>2013-02-08T09:57:10.5827798+01:00</LastWritingDateTime>
+			<WriterProjectTitle>AutomationML UserDefined Libraries</WriterProjectTitle>
+			<WriterProjectID>AutomationML UserDefined Libraries</WriterProjectID>
+		</WriterHeader>
+	</AdditionalInformation>
+	<ExternalReference Path="AutomationMLBaseRoleClassLib.aml" Alias="AutomationMLBaseRoleClassLib" />
+	<ExternalReference Path="UserDefinedInterfaceClassLibPandix.aml" Alias="UserDefinedInterfaceClassLibPandix" />
+	<RoleClassLib Name="UserDefinedRoleClassLibPandixPCE">
+		<Description>AutomationML Process Industry Role Class Library PandIX PCE</Description>
+		<Version>1.1.1</Version>
+		<RoleClass Name="PCERequest" RefBaseClassPath="AutomationMLBaseRoleClassLib@AutomationMLBaseRoleClassLib/AutomationMLBaseRole">
+			<Attribute Name="requestID" AttributeDataType="xs:string" />
+			<Attribute Name="PCECategory" AttributeDataType="xs:string" />
+			<Attribute Name="safetyRelevant" AttributeDataType="xs:boolean">
+				<Description>false or true</Description>
+			</Attribute>
+			<Attribute Name="qualityRelevant" AttributeDataType="xs:boolean">
+				<Description>false or true</Description>
+			</Attribute>
+			<Attribute Name="GMPRelevant" AttributeDataType="xs:boolean">
+				<Description>false or true</Description>
+			</Attribute>
+			<Attribute Name="PUVendor" AttributeDataType="xs:string" />
+			<Attribute Name="deviceInformation" AttributeDataType="xs:string" />
+			<Attribute Name="mediumcode" AttributeDataType="xs:string" />
+			<Attribute Name="pressureRating" AttributeDataType="xs:string" />
+			<Attribute Name="insulationType" AttributeDataType="xs:string" />
+			<Attribute Name="remoteType">
+				<Description>The attribute “remoteType” describes the location of the operator interface.</Description>
+				<DefaultValue>Central</DefaultValue>
+				<Constraint Name="RemoteTypeConstraint">
+					<NominalScaledType>
+						<RequiredValue>Local</RequiredValue>
+						<RequiredValue>Manual</RequiredValue>
+						<RequiredValue>Central</RequiredValue>
+					</NominalScaledType>
+				</Constraint>
+			</Attribute>
+			<Attribute Name="signalCode">
+				<Description>The attribute “signalCode” indicates that the signal is analog or digital.</Description>
+				<Constraint Name="PCESignalCode">
+					<NominalScaledType>
+						<RequiredValue>O</RequiredValue>
+						<RequiredValue>I</RequiredValue>
+					</NominalScaledType>
+				</Constraint>
+			</Attribute>
+			<Attribute Name="Location" AttributeDataType="xs:string">
+				<Constraint Name="ValueRange">
+					<NominalScaledType>
+						<RequiredValue>Local</RequiredValue>
+						<RequiredValue>Local Control Panel</RequiredValue>
+						<RequiredValue>Central Control System</RequiredValue>
+					</NominalScaledType>
+				</Constraint>
+			</Attribute>
+			<Attribute Name="typicalIdentification" AttributeDataType="xs:string" />
+			<Attribute Name="processingFunction" AttributeDataType="xs:string" />
+			<ExternalInterface Name="HHH" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface">
+				<Description>Signal for High Alarm 3</Description>
+			</ExternalInterface>
+			<ExternalInterface Name="HH" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface">
+				<Description>Signal for High Alarm 2</Description>
+			</ExternalInterface>
+			<ExternalInterface Name="H" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface">
+				<Description>Signal for High Alarm 1</Description>
+			</ExternalInterface>
+			<ExternalInterface Name="L" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface">
+				<Description>Signal for Low Alarm 1</Description>
+			</ExternalInterface>
+			<ExternalInterface Name="LL" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface">
+				<Description>Signal for Low Alarm 2</Description>
+			</ExternalInterface>
+			<ExternalInterface Name="LLL" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface">
+				<Description>Signal for Low Alarm 3</Description>
+			</ExternalInterface>
+			<RoleClass Name="Sensor" RefBaseClassPath="UserDefinedRoleClassLibPandixPCE/PCERequest">
+				<Attribute Name="functionCode">
+					<Description>The attribute “functionCode” gives the type of the sensor-function.</Description>
+					<Constraint Name="FunctionCodeConstraintS">
+						<NominalScaledType>
+							<RequiredValue>A</RequiredValue>
+							<RequiredValue>D</RequiredValue>
+							<RequiredValue>F</RequiredValue>
+							<RequiredValue>G</RequiredValue>
+							<RequiredValue>J</RequiredValue>
+							<RequiredValue>L</RequiredValue>
+							<RequiredValue>M</RequiredValue>
+							<RequiredValue>P</RequiredValue>
+							<RequiredValue>Q</RequiredValue>
+							<RequiredValue>R</RequiredValue>
+							<RequiredValue>S</RequiredValue>
+							<RequiredValue>T</RequiredValue>
+							<RequiredValue>W</RequiredValue>
+							<RequiredValue>X</RequiredValue>
+						</NominalScaledType>
+					</Constraint>
+				</Attribute>
+				<Attribute Name="referenceCode">
+					<Description>The attribute “referenceCode” describes an absolute or a differential measurement.</Description>
+					<Constraint Name="ReferenceCodeConstraint">
+						<NominalScaledType>
+							<RequiredValue>A</RequiredValue>
+							<RequiredValue>D</RequiredValue>
+						</NominalScaledType>
+					</Constraint>
+				</Attribute>
+				<ExternalInterface Name="VAL" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface/SignalSource" />
+				<ExternalInterface Name="ProcessInterface" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProcessControlInterface/SensorProcessInterface" />
+			</RoleClass>
+			<RoleClass Name="Actuator" RefBaseClassPath="UserDefinedRoleClassLibPandixPCE/PCERequest">
+				<Attribute Name="functionCode">
+					<Description>The attribute “functionCode” gives the type of the actuator-function.</Description>
+					<Constraint Name="FunctionCodeConstraintA">
+						<NominalScaledType>
+							<RequiredValue>Y</RequiredValue>
+							<RequiredValue>N</RequiredValue>
+							<RequiredValue>E</RequiredValue>
+						</NominalScaledType>
+					</Constraint>
+				</Attribute>
+				<ExternalInterface Name="W" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface/SignalSink" />
+				<ExternalInterface Name="LOCK" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface/SignalSink" />
+				<ExternalInterface Name="NLOCK" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface/SignalSink" />
+				<ExternalInterface Name="ProcessInterface" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProcessControlInterface/ActuatorProcessInterface" />
+			</RoleClass>
+			<RoleClass Name="ControlFunction" RefBaseClassPath="UserDefinedRoleClassLibPandixPCE/PCERequest">
+				<Attribute Name="functionCode">
+					<Description>The attribute “functionCode” gives the type of the control-function.</Description>
+					<Constraint Name="FunctionCodeConstraintC">
+						<NominalScaledType>
+							<RequiredValue>U</RequiredValue>
+						</NominalScaledType>
+					</Constraint>
+				</Attribute>
+				<ExternalInterface Name="W" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface/SignalSink" />
+				<ExternalInterface Name="X" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface/SignalSink" />
+				<ExternalInterface Name="LOCK" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface/SignalSink" />
+				<ExternalInterface Name="NLOCK" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface/SignalSink" />
+				<ExternalInterface Name="Y" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/SignalInterface/SignalSource" />
+			</RoleClass>
+		</RoleClass>
+	</RoleClassLib>
+</CAEXFile>

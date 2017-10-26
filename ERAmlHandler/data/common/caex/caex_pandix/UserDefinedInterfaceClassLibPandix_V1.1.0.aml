@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CAEXFile xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" FileName="UserDefinedInterfaceClassLibPandix.aml" SchemaVersion="2.15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AdditionalInformation AutomationMLVersion="2.0" />
+	<AdditionalInformation>
+		<WriterHeader>
+			<WriterName>AutomationML e.V.</WriterName>
+			<WriterID>AutomationML e.V.</WriterID>
+			<WriterVendor>AutomationML e.V.</WriterVendor>
+			<WriterVendorURL>www.AutomationML.org</WriterVendorURL>
+			<WriterVersion>1.0</WriterVersion>
+			<WriterRelease>1.0.0</WriterRelease>
+			<LastWritingDateTime>2013-02-08T09:57:10.5827798+01:00</LastWritingDateTime>
+			<WriterProjectTitle>AutomationML UserDefined Libraries</WriterProjectTitle>
+			<WriterProjectID>AutomationML UserDefined Libraries</WriterProjectID>
+		</WriterHeader>
+	</AdditionalInformation>
+	<ExternalReference Path="../automationml development/AutomationML Libraries/InterfaceClass Libraries/AutomationMLInterfaceClassLib.aml" Alias="AutomationMLInterfaceClassLib" />
+	<InterfaceClassLib Name="UserDefinedInterfaceClassLibPandIX">
+		<Description>Standard PandIX Interface Class Library</Description>
+		<Version>1.1.0</Version>
+		<InterfaceClass Name="ProcessControlInterface" RefBaseClassPath="AutomationMLInterfaceClassLib@AutomationMLInterfaceClassLib/AutomationMLBaseInterface">
+			<InterfaceClass Name="SensorProcessInterface" RefBaseClassPath="UserDefinedInterfaceClassLibPandIX/ProcessControlInterface" />
+			<InterfaceClass Name="ActuatorProcessInterface" RefBaseClassPath="UserDefinedInterfaceClassLibPandIX/ProcessControlInterface" />
+			<InterfaceClass Name="ActuationInputPoint" RefBaseClassPath="UserDefinedInterfaceClassLibPandIX/ProcessControlInterface" />
+			<InterfaceClass Name="MeasurementPoint" RefBaseClassPath="UserDefinedInterfaceClassLibPandIX/ProcessControlInterface">
+				<Attribute Name="Position" AttributeDataType="xs:string">
+					<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+				</Attribute>
+			</InterfaceClass>
+		</InterfaceClass>
+		<InterfaceClass Name="ProductInterface" RefBaseClassPath="AutomationMLInterfaceClassLib@AutomationMLInterfaceClassLib/AutomationMLBaseInterface">
+			<Attribute Name="Position" AttributeDataType="xs:string">
+				<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+			</Attribute>
+			<Attribute Name="DN" AttributeDataType="xs:float">
+				<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+			</Attribute>
+			<InterfaceClass Name="ProductConnectionPoint" RefBaseClassPath="UserDefinedInterfaceClassLibPandIX/ProductInterface" />
+			<InterfaceClass Name="ProductEnvironmentPoint" RefBaseClassPath="UserDefinedInterfaceClassLibPandIX/ProductInterface" />
+		</InterfaceClass>
+		<InterfaceClass Name="SignalInterface" RefBaseClassPath="AutomationMLInterfaceClassLib@AutomationMLInterfaceClassLib/AutomationMLBaseInterface">
+			<InterfaceClass Name="SignalSource" RefBaseClassPath="UserDefinedInterfaceClassLibPandIX//SignalInterface">
+				<InterfaceClass Name="Switch" RefBaseClassPath="UserDefinedInterfaceClassLibPandIX/SignalInterface/SignalSource">
+					<Attribute Name="LVAL" AttributeDataType="xs:float">
+						<Description>The attribute “LVAL” specifies the limit value, e.g. to operate a switch.</Description>
+					</Attribute>
+					<Attribute Name="HYS" AttributeDataType="xs:float">
+						<Description>The attribute “HYS” specifies the hysteresis of “LVAL”.</Description>
+					</Attribute>
+				</InterfaceClass>
+			</InterfaceClass>
+			<InterfaceClass Name="SignalSink" RefBaseClassPath="UserDefinedInterfaceClassLibPandIX/SignalInterface" />
+			<InterfaceClass Name="AlarmSource" RefBaseClassPath="UserDefinedInterfaceClassLibPandIX/SignalInterface" />
+		</InterfaceClass>
+	</InterfaceClassLib>
+</CAEXFile>

@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CAEXFile FileName="UserDefinedRoleClassLibPandixPPE.aml" SchemaVersion="2.15" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AdditionalInformation AutomationMLVersion="2.0" />
+	<AdditionalInformation>
+		<WriterHeader>
+			<WriterName>AutomationML e.V.</WriterName>
+			<WriterID>AutomationML e.V.</WriterID>
+			<WriterVendor>AutomationML e.V.</WriterVendor>
+			<WriterVendorURL>www.AutomationML.org</WriterVendorURL>
+			<WriterVersion>1.0</WriterVersion>
+			<WriterRelease>1.0.0</WriterRelease>
+			<LastWritingDateTime>2013-02-08T09:57:10.5827798+01:00</LastWritingDateTime>
+			<WriterProjectTitle>AutomationML UserDefined Libraries</WriterProjectTitle>
+			<WriterProjectID>AutomationML UserDefined Libraries</WriterProjectID>
+		</WriterHeader>
+	</AdditionalInformation>
+	<ExternalReference Path="../automationml development/AutomationML Libraries/RoleClass Libraries/AutomationMLBaseRoleClassLib.aml" Alias="AutomationMLBaseRoleClassLib" />
+	<ExternalReference Path="UserDefinedInterfaceClassLibPandix.aml" Alias="UserDefinedInterfaceClassLibPandix" />
+	<RoleClassLib Name="UserDefinedRoleClassLibPandix">
+		<Version>1.0.2</Version>
+		<RoleClass Name="ProductChannel" RefBaseClassPath="AutomationMLBaseRoleClassLib@AutomationMLBaseRoleClassLib/AutomationMLBaseRole">
+			<Attribute Name="PN" AttributeDataType="xs:string">
+				<Description>The attribute “PN” gives the nominal design pressure.</Description>
+			</Attribute>
+			<Attribute Name="totalVolume" AttributeDataType="xs:float">
+				<Description>The attribute “totalVolume” nominates the volume of an element.</Description>
+				<DefaultValue>0</DefaultValue>
+			</Attribute>
+			<Attribute Name="position" AttributeDataType="xs:string">
+				<Description>The attribute “position” specifies the position of the element. The value depends on the used positioning system.</Description>
+			</Attribute>
+			<Attribute Name="form" AttributeDataType="xs:string">
+				<Description>The attribute “form” the form of an element.</Description>
+			</Attribute>
+			<RoleClass Name="PPERequest" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel">
+				<Attribute Name="ISO10628Type">
+					<Description>The attribute “ISO10628Type” characterises the special PPE-Type in accordance with  ISO 10628.</Description>
+				</Attribute>
+				<RoleClass Name="Pipe" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest">
+					<Attribute Name="ISO10628Type">
+						<DefaultValue>X8155</DefaultValue>
+						<Constraint Name="PipeISOType">
+							<NominalScaledType>
+								<RequiredValue>X8155</RequiredValue>
+								<RequiredValue>X8156</RequiredValue>
+								<RequiredValue>X8174</RequiredValue>
+								<RequiredValue>X8157</RequiredValue>
+							</NominalScaledType>
+						</Constraint>
+					</Attribute>
+					<Attribute Name="DN" AttributeDataType="xs:string">
+						<Description>The attribute “DN” specifies the nominal diameter of the element.</Description>
+					</Attribute>
+					<ExternalInterface Name="PIn" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="POut" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+				</RoleClass>
+				<RoleClass Name="PipeDNAdapter" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest">
+					<Attribute Name="ISO10628Type">
+						<DefaultValue>X8155</DefaultValue>
+						<Constraint Name="PipeISOType">
+							<NominalScaledType>
+								<RequiredValue>X8155</RequiredValue>
+								<RequiredValue>X8156</RequiredValue>
+								<RequiredValue>X8174</RequiredValue>
+								<RequiredValue>X8157</RequiredValue>
+							</NominalScaledType>
+						</Constraint>
+					</Attribute>
+					<ExternalInterface Name="PIn" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="POut" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+					</ExternalInterface>
+				</RoleClass>
+				<RoleClass Name="BlankFlange" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest">
+					<Attribute Name="ISO10628Type">
+						<Value>X8153</Value>
+					</Attribute>
+					<ExternalInterface Name="P1" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+				</RoleClass>
+				<RoleClass Name="OpenFlange" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest">
+					<ExternalInterface Name="P1" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="PEn" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductEnvironmentPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+				</RoleClass>
+				<RoleClass Name="PipeJunction" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest">
+					<ExternalInterface Name="P1" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="P2" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="P3" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+				</RoleClass>
+				<RoleClass Name="Vessel" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest">
+					<Attribute Name="ISO10628Type">
+						<DefaultValue>301</DefaultValue>
+						<Constraint Name="VesselISOType">
+							<NominalScaledType>
+								<RequiredValue>301</RequiredValue>
+								<RequiredValue>2061</RequiredValue>
+								<RequiredValue>X2063</RequiredValue>
+								<RequiredValue>X8200</RequiredValue>
+								<RequiredValue>X8201</RequiredValue>
+								<RequiredValue>2063</RequiredValue>
+								<RequiredValue>2064</RequiredValue>
+								<RequiredValue>X2062</RequiredValue>
+								<RequiredValue>X8008</RequiredValue>
+								<RequiredValue>X8009</RequiredValue>
+								<RequiredValue>X8002</RequiredValue>
+								<RequiredValue>X8003</RequiredValue>
+								<RequiredValue>X8004</RequiredValue>
+								<RequiredValue>X8005</RequiredValue>
+								<RequiredValue>X2069</RequiredValue>
+								<RequiredValue>X2070</RequiredValue>
+								<RequiredValue>X8098</RequiredValue>
+								<RequiredValue>X8007</RequiredValue>
+								<RequiredValue>X8010</RequiredValue>
+								<RequiredValue>X8000</RequiredValue>
+								<RequiredValue>X8001</RequiredValue>
+								<RequiredValue>X8006</RequiredValue>
+								<RequiredValue>X8202</RequiredValue>
+							</NominalScaledType>
+						</Constraint>
+					</Attribute>
+					<RoleClass Name="LVessel" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest/Vessel">
+						<Attribute Name="nominalVolume" AttributeDataType="xs:float">
+							<Description>The attribute “nominalVolume” gives the nominal volume of a vessel request.</Description>
+						</Attribute>
+						<Attribute Name="restVolume" AttributeDataType="xs:float">
+							<Description>The attribute “restVolume” gives the volume inside a vessel request, if the zero level is reached.</Description>
+						</Attribute>
+						<Attribute Name="nominalFilllevel" AttributeDataType="xs:float">
+							<Description>The attribute “nominalFilllevel” gives the level inside a vessel request, if the nominal volume is inside.</Description>
+						</Attribute>
+						<Attribute Name="zeroLevel" AttributeDataType="xs:float">
+							<Description>The attribute “zeroLevel” gives the level inside an empty vessel request. Beware of the rest volume.</Description>
+						</Attribute>
+						<RoleClass Name="TemperatedLVessel" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest/Vessel/LVessel">
+							<ExternalInterface Name="PTempIn" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+								<Attribute Name="DN" AttributeDataType="xs:float">
+									<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+								</Attribute>
+								<Attribute Name="Position" AttributeDataType="xs:string">
+									<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+								</Attribute>
+							</ExternalInterface>
+							<ExternalInterface Name="PTempOut" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+								<Attribute Name="DN" AttributeDataType="xs:float">
+									<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+								</Attribute>
+								<Attribute Name="Position" AttributeDataType="xs:string">
+									<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+								</Attribute>
+							</ExternalInterface>
+						</RoleClass>
+					</RoleClass>
+				</RoleClass>
+				<RoleClass Name="HeatExchanger" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest">
+					<Attribute Name="ISO10628Type">
+						<DefaultValue>X2501</DefaultValue>
+						<Constraint Name="HeatExchangerISOType">
+							<NominalScaledType>
+								<RequiredValue>X2501</RequiredValue>
+								<RequiredValue>X8017</RequiredValue>
+								<RequiredValue>2512</RequiredValue>
+								<RequiredValue>2513</RequiredValue>
+								<RequiredValue>2514</RequiredValue>
+								<RequiredValue>2515</RequiredValue>
+								<RequiredValue>2516</RequiredValue>
+								<RequiredValue>X8018</RequiredValue>
+								<RequiredValue>C0005</RequiredValue>
+							</NominalScaledType>
+						</Constraint>
+					</Attribute>
+					<ExternalInterface Name="PIn" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="POut" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="PTempIn" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="PTempOut" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+					</ExternalInterface>
+				</RoleClass>
+				<RoleClass Name="Pump" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest">
+					<Attribute Name="ISO10628Type">
+						<Value>2301</Value>
+					</Attribute>
+					<Attribute Name="maximalFlowrate" />
+					<ExternalInterface Name="PIn" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="POut" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="N" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProcessControlInterface/ActuationInputPoint" />
+					<RoleClass Name="DisplacementPump" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest/Pump">
+						<Attribute Name="ISO10628Type">
+							<DefaultValue>X8135</DefaultValue>
+							<Constraint Name="DPumpISOType">
+								<NominalScaledType>
+									<RequiredValue>X8135</RequiredValue>
+									<RequiredValue>C0054</RequiredValue>
+									<RequiredValue>C0057</RequiredValue>
+									<RequiredValue>C0058</RequiredValue>
+								</NominalScaledType>
+							</Constraint>
+						</Attribute>
+						<Attribute Name="maximalBackpressure" AttributeDataType="xs:float">
+							<Description>The attribute “maximalBackpressure” gives the maximum backpressure of a displacement pump request.</Description>
+						</Attribute>
+					</RoleClass>
+					<RoleClass Name="RotaryPump" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest/Pump">
+						<Attribute Name="ISO10628Type">
+							<DefaultValue>2322</DefaultValue>
+							<Constraint Name="RPumpISOType">
+								<NominalScaledType>
+									<RequiredValue>2322</RequiredValue>
+								</NominalScaledType>
+							</Constraint>
+						</Attribute>
+						<Attribute Name="maximalDeliveryHeight" AttributeDataType="xs:float">
+							<Description>The attribute “maximalDeliveryHeight” gives the maximum delivery height of a rotary pump request.</Description>
+						</Attribute>
+						<Attribute Name="nominalDeliveryHeight" AttributeDataType="xs:float">
+							<Description>The attribute “nominalDeliveryHeight” gives the nominal delivery height of a rotary pump request.</Description>
+						</Attribute>
+						<Attribute Name="nominalFlowrate" AttributeDataType="xs:float">
+							<Description>The attribute “nominalFlowrate” gives the nominal flowrate of a rotary pump request.</Description>
+						</Attribute>
+						<Attribute Name="pumpCharacteristic" AttributeDataType="xs:string">
+							<Description>The attribute “pumpCharacteristic” is a curve showing the relation between delivery height and flowrate.</Description>
+						</Attribute>
+					</RoleClass>
+				</RoleClass>
+				<RoleClass Name="Valve" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest">
+					<Attribute Name="ISO10628Type">
+						<DefaultValue>X2101</DefaultValue>
+						<Constraint Name="ValveISOType">
+							<NominalScaledType>
+								<RequiredValue>X2101</RequiredValue>
+								<RequiredValue>X2102</RequiredValue>
+								<RequiredValue>X8068</RequiredValue>
+								<RequiredValue>X8069</RequiredValue>
+								<RequiredValue>X8071</RequiredValue>
+								<RequiredValue>X8072</RequiredValue>
+								<RequiredValue>X8074</RequiredValue>
+								<RequiredValue>X8075</RequiredValue>
+								<RequiredValue>X8076</RequiredValue>
+								<RequiredValue>C0011</RequiredValue>
+								<RequiredValue>C0086</RequiredValue>
+							</NominalScaledType>
+						</Constraint>
+					</Attribute>
+					<Attribute Name="kvs" AttributeDataType="xs:float">
+						<Description>The attribute “kvs” defines the standard flow rate.</Description>
+					</Attribute>
+					<Attribute Name="safeState">
+						<Description>The attribute “safeState” defines the safe state of the valve.</Description>
+						<DefaultValue>none</DefaultValue>
+						<Constraint Name="SaveStateType">
+							<NominalScaledType>
+								<RequiredValue>none</RequiredValue>
+								<RequiredValue>open</RequiredValue>
+								<RequiredValue>close</RequiredValue>
+								<RequiredValue>lastposition</RequiredValue>
+							</NominalScaledType>
+						</Constraint>
+					</Attribute>
+					<Attribute Name="valveCharacteristic" AttributeDataType="xs:string">
+						<Description>The attribute “valveCharacteristic” is a curve showing the relation between flowrate and valveposition.</Description>
+					</Attribute>
+					<ExternalInterface Name="PIn" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="POut" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="Y" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProcessControlInterface/ActuationInputPoint" />
+				</RoleClass>
+				<RoleClass Name="ThreeWayValve" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest">
+					<Attribute Name="ISO10628Type">
+						<DefaultValue>X2103</DefaultValue>
+						<Constraint Name="ThreeWayValveISOType">
+							<NominalScaledType>
+								<RequiredValue>X2103</RequiredValue>
+								<RequiredValue>X8070</RequiredValue>
+								<RequiredValue>X8073</RequiredValue>
+							</NominalScaledType>
+						</Constraint>
+					</Attribute>
+					<Attribute Name="safeState">
+						<Description>  defining the safe state of the valve.</Description>
+						<DefaultValue>none</DefaultValue>
+						<Constraint Name="SaveStateType">
+							<NominalScaledType>
+								<RequiredValue>none</RequiredValue>
+								<RequiredValue>POut1open</RequiredValue>
+								<RequiredValue>POut2open</RequiredValue>
+								<RequiredValue>lastposition</RequiredValue>
+							</NominalScaledType>
+						</Constraint>
+					</Attribute>
+					<ExternalInterface Name="PIn" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="POut1" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="POut2" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="Y" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProcessControlInterface/ActuationInputPoint" />
+				</RoleClass>
+				<RoleClass Name="CheckValve" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest">
+					<Attribute Name="ISO10628Type">
+						<DefaultValue>X2113</DefaultValue>
+						<Constraint Name="CheckValveISOType">
+							<NominalScaledType>
+								<RequiredValue>X8077</RequiredValue>
+								<RequiredValue>X2113</RequiredValue>
+								<RequiredValue>X8078</RequiredValue>
+							</NominalScaledType>
+						</Constraint>
+					</Attribute>
+					<ExternalInterface Name="PIn" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="POut" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+				</RoleClass>
+				<RoleClass Name="SafetyValve" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest">
+					<Attribute Name="ISO10628Type">
+						<DefaultValue>X2112</DefaultValue>
+						<Constraint Name="SafetyValveISOType">
+							<NominalScaledType>
+								<RequiredValue>X2112</RequiredValue>
+								<RequiredValue>X2124</RequiredValue>
+								<RequiredValue>X8079</RequiredValue>
+								<RequiredValue>X2125</RequiredValue>
+							</NominalScaledType>
+						</Constraint>
+					</Attribute>
+					<Attribute Name="pressureLimit" AttributeDataType="xs:float">
+						<Description>The attribute “pressureLimit” nominates the pressure at which the valve opens.</Description>
+					</Attribute>
+					<ExternalInterface Name="PIn" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="POut" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+				</RoleClass>
+				<RoleClass Name="RuptureDisk" RefBaseClassPath="UserDefinedRoleClassLibPandix/ProductChannel/PPERequest">
+					<Attribute Name="ISO10628Type">
+						<Value>X8080</Value>
+					</Attribute>
+					<Attribute Name="pressureLimit" AttributeDataType="xs:float">
+						<Description>The attribute “pressureLimit” nominates the pressure at which the disk opens. Code X8080, see ISO 10628.</Description>
+					</Attribute>
+					<ExternalInterface Name="PIn" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductConnectionPoint">
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+					</ExternalInterface>
+					<ExternalInterface Name="POut" RefBaseClassPath="UserDefinedInterfaceClassLibPandix@UserDefinedInterfaceClassLibPandIX/ProductInterface/ProductEnvironmentPoint">
+						<Attribute Name="Position" AttributeDataType="xs:string">
+							<Description>The attribute “Position” specifies the position of the interface. The value depends on the used positioning system.</Description>
+						</Attribute>
+						<Attribute Name="DN" AttributeDataType="xs:float">
+							<Description>The attribute “DN” specifies the nominal diameter of the interface.</Description>
+						</Attribute>
+					</ExternalInterface>
+				</RoleClass>
+			</RoleClass>
+		</RoleClass>
+	</RoleClassLib>
+</CAEXFile>
