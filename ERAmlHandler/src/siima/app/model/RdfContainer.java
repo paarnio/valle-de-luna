@@ -1,6 +1,8 @@
 /* RdfContainer.java
  * 
  * initVelocity() //TODO: CAEX 3.0 CHANGES NEEDED HERE!!!
+ * 
+ * 2018-07-01 added for caex 3: attributeTypeLRdfModel
  */
 package siima.app.model;
 
@@ -37,6 +39,8 @@ public class RdfContainer {
 	private Model systemUnitClassLRdfModel = ModelFactory.createDefaultModel();
 	private Model roleClassLRdfModel = ModelFactory.createDefaultModel();
 	private Model interfaceClassLRdfModel = ModelFactory.createDefaultModel();
+	//2018-07-01 added for caex 3: 
+	private Model attributeTypeLRdfModel = ModelFactory.createDefaultModel();
 	private Map rdfModelMap;
 	private Model genRdfModel; //latest genereted model
 	private Model combinedRdfModel;
@@ -52,7 +56,8 @@ public class RdfContainer {
 		rdfModelMap.put("systemunitclasslib", systemUnitClassLRdfModel);
 		rdfModelMap.put("roleclasslib", roleClassLRdfModel);
 		rdfModelMap.put("interfaceclasslib", interfaceClassLRdfModel);
-		
+		//2018-07-01 added for caex 3: 
+		rdfModelMap.put("attributetypelib", attributeTypeLRdfModel);
 		this.mergedRdfModel = ModelFactory.createDefaultModel();
 	}
 	
@@ -123,6 +128,7 @@ public class RdfContainer {
 
 	public void evaluateVelocityEngine(String modelkey, Model rdfmodel) {
 		//Ontology submodel keys: default; instancehierarchy"; systemunitclasslib; roleclasslib
+		//  2018-07-01 added for caex 3: attributetypelib
 		velocity.evaluateEngine(modelkey, rdfmodel);//"instancehierarchy");
 	}
 
@@ -158,6 +164,7 @@ public class RdfContainer {
 			systemUnitClassLRdfModel = ModelFactory.createDefaultModel();
 			roleClassLRdfModel = ModelFactory.createDefaultModel();
 			interfaceClassLRdfModel = ModelFactory.createDefaultModel();
+			attributeTypeLRdfModel = ModelFactory.createDefaultModel();
 		}
 
 		if (combined) {

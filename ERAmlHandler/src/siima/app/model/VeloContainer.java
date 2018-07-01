@@ -37,6 +37,8 @@ public class VeloContainer {
 	public String vm_systemunitclasslib = "./configure/velocity/vmFile_systemunitclasslib_ontogen.vm";
 	public String vm_roleclasslib = "./configure/velocity/vmFile_roleclasslib_ontogen.vm";
 	public String vm_interfaceclasslib = "./configure/velocity/vmFile_interfaceclasslib_ontogen.vm";
+	// 2018-07-01 added for caex 3
+	public String vm_attributetypelib = "./configure/velocity/vmFile_atttypelib_caex3_ontogen.vm";
 	public Map ontoVmFileMap;	
 		
 	public String outputFile= "./configure/velocity/generated_ontology.ttl";
@@ -51,7 +53,8 @@ public class VeloContainer {
 		ontoVmFileMap.put("systemunitclasslib", vm_systemunitclasslib);
 		ontoVmFileMap.put("roleclasslib", vm_roleclasslib);
 		ontoVmFileMap.put("interfaceclasslib", vm_interfaceclasslib);
-		
+		// 2018-07-01 added for caex 3
+		ontoVmFileMap.put("attributetypelib", vm_attributetypelib);
 	}
 
 	public void putVelocityContext(String key, Object value){

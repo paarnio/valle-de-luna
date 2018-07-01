@@ -59,6 +59,14 @@ public class UriHelper {
 		} else 	if("InterfaceClass".equalsIgnoreCase(instanceOwlType)){		
 			uri = siimaontns + instanceOwlType + "-INST_" + "IFACECLIB-" + hierarchy + "_IFACEC-" + instanceName;		
 		} 
+		
+		// 2018-07-01 added for caex 3
+		if("AttributeTypeLib".equalsIgnoreCase(instanceOwlType)){		
+			uri = siimaontns + instanceOwlType + "-INST_" + "ATTTYPELIB-" + instanceName;		
+		} else 	if("AttributeType".equalsIgnoreCase(instanceOwlType)){		
+			uri = siimaontns + instanceOwlType + "-INST_" + "ATTTYPELIB-" + hierarchy + "_ATTTYPE-" + instanceName;		
+		} // NOTE: Attribute URI defined for InstanceHierarchy
+		
 		return uri;
 	}
 

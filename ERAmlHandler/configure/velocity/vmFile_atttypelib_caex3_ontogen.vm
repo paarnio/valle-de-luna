@@ -6,7 +6,16 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
 	xmlns:siima="http://siima.net/ontologies/2017/caex/"
 	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
-	#* 2017-06-26 vmFile_roleclasslib_ontogen.vm
+	#* 2018-06-30 vmFile_atttypelib_caex3_ontogen.vm
+	AttributeTypeLib to OWL
+	TODO: replace getRoleClassLib with getAttributeTypeLib
+	TODO: roleclib with atttlib
+	TODO: RoleClassLib with AttributeTypeLib
+	TODO: RoleClass with AttributeType
+	TODO: $rcchild with $atttchild
+	TODO: amlont:roleClass with amlont:attributeType
+	TODO: $rolec with $attype
+	2017-06-26 based on vmFile_roleclasslib_ontogen.vm
 	 NOTE: 2017-09-25 roleClass property added for RoleClass and RoleClassLib
 	 (BASED ON: 2017-06-12 vmFile_systemunitclasslib_ontogen.vm)
 	 (BASED ON: 2017-06-11 vmFile_ihierarchy_ontogen.vm) 
@@ -39,44 +48,44 @@
 	</owl:NamedIndividual>
 
 	#*--------------------
-		RoleClassLib (Hierarchy)
+		AttributeTypeLib (Hierarchy)
 	----------------------*#
 	
-	## -- SystemUnitClassLib --
-	#foreach ($roleclib in $caexfile.getRoleClassLib())
-	#set( $URIhelp = $UriHelper.createInstanceUri("RoleClassLib","$roleclib.Name",null,"$roleclib.Name") )
+	## -- AttributeTypeLib --
+	#foreach ($atttlib in $caexfile.getAttributeTypeLib())
+	#set( $URIhelp = $UriHelper.createInstanceUri("AttributeTypeLib","$atttlib.Name",null,"$atttlib.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
-		<rdf:type rdf:resource="${amlns}RoleClassLib"/>
-		<amlont:name rdf:datatype="${xsdns}string">$roleclib.Name</amlont:name>
-		## -- roleClass property ---
+		<rdf:type rdf:resource="${amlns}AttributeTypeLib"/>
+		<amlont:name rdf:datatype="${xsdns}string">$atttlib.Name</amlont:name>
+		## -- TODO: ADD TO ONTOLOGY attributeType property ---
 		## This is a reference to roleClass children
-		#foreach ($rcchild in $roleclib.RoleClass)
-		#set( $URIchild = $UriHelper.createInstanceUri("RoleClass","$roleclib.Name","$rcchild.Name", "$rcchild.Name") )
-		<amlont:roleClass rdf:resource="${URIchild}"/>
+		#foreach ($atttchild in $atttlib.AttributeType)
+		#set( $URIchild = $UriHelper.createInstanceUri("AttributeType","$atttlib.Name","$atttchild.Name", "$atttchild.Name") )
+		<amlont:attributeType rdf:resource="${URIchild}"/>
 		#end				
 	</owl:NamedIndividual>		
 	#end
 	
 	#*--------------------
-		RoleClass in RoleClassLib
+		AttributeType in AttributeTypeLib
 	----------------------*#
 	
 	## -- SystemUnitClass --
-	#foreach ($roleclib in $caexfile.getRoleClassLib())
-		#foreach ($rolec in $roleclib.RoleClass)
-	#walkRoleClasses($rolec, $roleclib)
+	#foreach ($atttlib in $caexfile.getAttributeTypeLib())
+		#foreach ($attype in $atttlib.AttributeType)
+	#walkAttributeTypes($attype, $atttlib)
 		#end		
 	#end
 
 	## --Recursive walk through RoleClass (JAXB Type RoleClassType)--
 	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
 	## NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
-	#macro(walkRoleClasses $node $hierarchy)
+	#macro(walkAttributeTypes $node $hierarchy)
 	#set( $rbasecref = $node.RefBaseClassPath )
 	#set( $BASECrep = $StringUtils.replace($rbasecref,"/","_") )
-	#set( $URIhelp = $UriHelper.createInstanceUri("RoleClass","$hierarchy.Name","$node.Name", "$node.Name") )
+	#set( $URIhelp = $UriHelper.createInstanceUri("AttributeType","$hierarchy.Name","$node.Name", "$node.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
-		<rdf:type rdf:resource="${amlns}RoleClass"/>
+		<rdf:type rdf:resource="${amlns}AttributeType"/>
 		<amlont:name rdf:datatype="${xsdns}string">$node.Name</amlont:name>
 		#if($node.ID)
 			<amlont:iD rdf:datatype="${xsdns}string">$node.ID</amlont:iD>
@@ -92,35 +101,33 @@
 			#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
 			<amlont:attribute rdf:resource="${URIhelp}"/>
 		#end
-		## -- roleClass property ---
+		## -- attributeType property ---
 		## This is a reference to roleClass children
-		#foreach ($rcchild in $node.RoleClass)
-		#set( $URIchild = $UriHelper.createInstanceUri("RoleClass","$hierarchy.Name","$rcchild.Name", "$rcchild.Name") )
-		<amlont:roleClass rdf:resource="${URIchild}"/>
+		#foreach ($atttchild in $node.AttributeType)
+		#set( $URIchild = $UriHelper.createInstanceUri("AttributeType","$hierarchy.Name","$atttchild.Name", "$atttchild.Name") )
+		<amlont:attributeType rdf:resource="${URIchild}"/>
 		#end				
 	</owl:NamedIndividual>	
-	#if ($node.RoleClass.size() > 0)
-		#foreach ($child in $node.RoleClass)
-			#walkRoleClasses($child $hierarchy)
+	#if ($node.AttributeType.size() > 0)
+		#foreach ($child in $node.AttributeType)
+			#walkAttributeTypes($child $hierarchy)
 		#end
 	#end
 	#end
 	## -- macro end
 	
+	
 	#*--------------------
-		NO(?) InternalElement in RoleClass in RoleClassLib
-	----------------------*#	
-	#*--------------------
-		  Attribute in in RoleClass in RoleClassLib
+		  Attribute in in attributeType in AttributeTypeLib
 	----------------------*#	
 	## -- Attribute --
-	#foreach ($roleclib in $caexfile.getRoleClassLib())
-		#foreach ($rolec in $roleclib.RoleClass)
-			#walkIElementsForAttributes($rolec $roleclib)
+	#foreach ($atttlib in $caexfile.getAttributeTypeLib())
+		#foreach ($attype in $atttlib.AttributeType)
+			#walkIElementsForAttributes($attype $atttlib)
 		#end		
 	#end
 	
-	## --Recursive attribute creation from all RoleClass--
+	## --Recursive attribute creation from all attributeType--
 	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
 	## NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
 	#macro(walkIElementsForAttributes $node $hierarchy)
@@ -138,53 +145,13 @@
 					<amlont:value rdf:datatype="${xsdns}string">$ATTValue</amlont:value>
 				</owl:NamedIndividual>
 		#end
-	#if ($node.RoleClass.size() > 0)
-		#foreach ($child in $node.RoleClass)
+	#if ($node.AttributeType.size() > 0)
+		#foreach ($child in $node.AttributeType)
 			#walkIElementsForAttributes($child $hierarchy)
 		#end
 	#end	
 	#end
 	## -- macro end
 
-	#*--------------------
-		ExternalInterface in RoleClass
-	----------------------*#
-		
-	## -- ExternalInterface -- (rdfs:subClassOf InterfaceClass)
-	## NOTE: $AnyValueHelper.getAnyTypeContent() is called with JAXB type parameter (NOT OWL)
-	## NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
-	## In JAXB:RoleClassType extends CAEXObject
-	## RoleClassType has a property externalInterface.
-	## In JAXB: ExternalInterface is type InterfaceClassType
-	#foreach ($roleclib in $caexfile.getRoleClassLib())
-		#foreach ($rolec in $roleclib.RoleClass)
-			#walkIEForEInterface($rolec $roleclib)
-		#end		
-	#end
 	
-		
-	## --Recursive ExternalInterface creation of all RoleClasses
-	#macro(walkIEForEInterface $node $hierarchy)
-		#foreach ($extint in $node.getExternalInterface())
-				
-				#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$hierarchy.Name","$node.Name", "$extint.Name") )
-				#set( $RBCPath = $extint.getRefBaseClassPath() )
-				<owl:NamedIndividual rdf:about="${URIhelp}">
-				<rdf:type rdf:resource="${amlns}ExternalInterface"/>
-					<amlont:name rdf:datatype="${xsdns}string">$extint.Name</amlont:name>
-					<amlont:iD rdf:datatype="${xsdns}string">$extint.ID</amlont:iD>
-					<amlont:refBaseClassPath rdf:datatype="${xsdns}string">$RBCPath</amlont:refBaseClassPath>				
-				</owl:NamedIndividual>
-		#end
-	#if ($node.RoleClass.size() > 0)
-		#foreach ($child in $node.RoleClass)
-			#walkIEForEInterface($child $hierarchy)
-		#end
-	#end	
-	#end
-	## -- macro end
-	
-	#*--------------------
-		NO(?) InternalLink in RoleClass 
-	----------------------*#	
 </rdf:RDF>
