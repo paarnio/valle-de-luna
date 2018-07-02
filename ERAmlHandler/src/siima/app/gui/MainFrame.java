@@ -220,7 +220,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		*/
 		
 		//NEW SUBMENU
-		newProjectVersionSubmenu = new JMenu("New Project Version");
+		newProjectVersionSubmenu = new JMenu("New Project...");
 		newProjectVersionSubmenu.setEnabled(true);
 		// Radio buttons: https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/MenuLookDemoProject/src/components/MenuLookDemo.java
 		ButtonGroup caexVersionGroup = new ButtonGroup();
@@ -336,19 +336,19 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
         group.add(rbMenuItem4);
         mnOntSubmenu.add(rbMenuItem4);
         
-		rbMenuItem5 = new JRadioButtonMenuItem("AllModels");
-        rbMenuItem5.setSelected(false);
-        //rbMenuItem1.setMnemonic(KeyEvent.VK_U);
-        rbMenuItem5.addActionListener(this);       
-        group.add(rbMenuItem5);
-        mnOntSubmenu.add(rbMenuItem5);
-        
-        rbMenuItem6 = new JRadioButtonMenuItem("none");
-        rbMenuItem6.setSelected(true);
+        rbMenuItem6 = new JRadioButtonMenuItem("AttributeTypeLib");
+        rbMenuItem6.setSelected(false);
         //rbMenuItem1.setMnemonic(KeyEvent.VK_T);
         rbMenuItem6.addActionListener(this);       
         group.add(rbMenuItem6);
         mnOntSubmenu.add(rbMenuItem6);
+        
+		rbMenuItem5 = new JRadioButtonMenuItem("AllModels");
+        rbMenuItem5.setSelected(true);
+        //rbMenuItem1.setMnemonic(KeyEvent.VK_U);
+        rbMenuItem5.addActionListener(this);       
+        group.add(rbMenuItem5);
+        mnOntSubmenu.add(rbMenuItem5);
         
 		mnOntology.add(mnOntSubmenu);
 		
