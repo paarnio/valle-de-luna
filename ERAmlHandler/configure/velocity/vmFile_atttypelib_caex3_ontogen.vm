@@ -7,9 +7,11 @@
 	xmlns:siima="http://siima.net/ontologies/2017/caex/"
 	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
 	#* 2018-06-30 vmFile_atttypelib_caex3_ontogen.vm
-	AttributeTypeLib to OWL Ontology
-	NOTE: in CAEX 3.0 Value is type String, so $AnyValueHelper not needed 
-	2017-06-26 based on vmFile_roleclasslib_ontogen.vm
+	NOTE: AttributeTypeLib to OWL Ontology
+	NOTE: in CAEX 3.0 Value is type String, so $AnyValueHelper not needed
+	NOTE: New parameter libcategory added to $URIHelper.createInstanceUri()
+	$URIHelper.createInstanceUri(libcategory, instanceOwlType, hierarchy, iElement, instanceName)		
+	(old version Caex 2.51 2017-06-26 based on vmFile_roleclasslib_ontogen.vm)
 	 NOTE: 2017-09-25 roleClass property added for RoleClass and RoleClassLib
 	 NOTE: VelocityContext is expected to be initiated with  JAXB object CAEXFile caex
 	 with key "caexfile" in the constructor of VeloContainer (vcontext.put("caexfile", caex))
@@ -27,13 +29,15 @@
 	
 	#set( $amlns = 'http://data.ifs.tuwien.ac.at/aml/ontology#')
 	#set( $xsdns = 'http://www.w3.org/2001/XMLSchema#')
+	## 2018-07-02 NEW: value for libcategory parameter in $URIHelper.createInstanceUri()
+	#set( $libcategory = 'AttributeTypeLib')
 	
 	#*--------------------
 			CAEXFile
 	----------------------*#
 	
 	## -- CAEXFile --
-	#set( $URIhelp = $UriHelper.createInstanceUri("CAEXFile",null,null,"$caexfile.FileName") )
+	#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"CAEXFile",null,null,"$caexfile.FileName") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}CAEXFile"/>
 		<amlont:fileName rdf:datatype="${xsdns}string">$caexfile.FileName</amlont:fileName>
@@ -45,14 +49,14 @@
 	
 	## -- AttributeTypeLib --
 	#foreach ($atttlib in $caexfile.getAttributeTypeLib())
-	#set( $URIhelp = $UriHelper.createInstanceUri("AttributeTypeLib","$atttlib.Name",null,"$atttlib.Name") )
+	#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"AttributeTypeLib","$atttlib.Name",null,"$atttlib.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}AttributeTypeLib"/>
 		<amlont:name rdf:datatype="${xsdns}string">$atttlib.Name</amlont:name>
 		## -- TODO: ADD TO ONTOLOGY attributeType property ---
 		## This is a reference to roleClass children
 		#foreach ($atttchild in $atttlib.AttributeType)
-		#set( $URIchild = $UriHelper.createInstanceUri("AttributeType","$atttlib.Name","$atttchild.Name", "$atttchild.Name") )
+		#set( $URIchild = $UriHelper.createInstanceUri($libcategory,"AttributeType","$atttlib.Name","$atttchild.Name", "$atttchild.Name") )
 		<amlont:attributeType rdf:resource="${URIchild}"/>
 		#end				
 	</owl:NamedIndividual>		
@@ -74,7 +78,7 @@
 	#macro(walkAttributeTypes $node $hierarchy)
 	#set( $rbasecref = $node.RefBaseClassPath )
 	#set( $BASECrep = $StringUtils.replace($rbasecref,"/","_") )
-	#set( $URIhelp = $UriHelper.createInstanceUri("AttributeType","$hierarchy.Name","$node.Name", "$node.Name") )
+	#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"AttributeType","$hierarchy.Name","$node.Name", "$node.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}AttributeType"/>
 		<amlont:name rdf:datatype="${xsdns}string">$node.Name</amlont:name>
@@ -89,13 +93,13 @@
 		#end		
 		## -- attribute property --
 		#foreach ($att in $node.getAttribute())
-			#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
+			#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
 			<amlont:attribute rdf:resource="${URIhelp}"/>
 		#end
 		## -- attributeType property ---
 		## This is a reference to roleClass children
 		#foreach ($atttchild in $node.AttributeType)
-		#set( $URIchild = $UriHelper.createInstanceUri("AttributeType","$hierarchy.Name","$atttchild.Name", "$atttchild.Name") )
+		#set( $URIchild = $UriHelper.createInstanceUri($libcategory,"AttributeType","$hierarchy.Name","$atttchild.Name", "$atttchild.Name") )
 		<amlont:attributeType rdf:resource="${URIchild}"/>
 		#end				
 	</owl:NamedIndividual>	
@@ -123,7 +127,7 @@
 	## NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
 	#macro(walkIElementsForATTLibAttributes $node $hierarchy)
 		#foreach ($att in $node.getAttribute())
-				#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
+				#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
 				<owl:NamedIndividual rdf:about="${URIhelp}">
 				<rdf:type rdf:resource="${amlns}Attribute"/>
 					<amlont:name rdf:datatype="${xsdns}string">$att.Name</amlont:name>

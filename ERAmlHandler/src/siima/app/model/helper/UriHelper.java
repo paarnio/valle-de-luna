@@ -18,18 +18,20 @@ public class UriHelper {
 		xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
 	 */
 	
-	public String createInstanceUri(String instanceOwlType, String hierarchy, String iElement, String instanceName ){
-		// parameters: instanceOwlType is OWL Class type (NOT JAXB)
-		// These instances belong to siimaontns namespace
-		// (CAEX Class definitions are from caexontns namespace)
+	public String createInstanceUri(String libcategory, String instanceOwlType, String hierarchy, String iElement, String instanceName ){
+		/* 2018-07-02 libcategory = InstanceHierarchy | SystemUnitClassLib | RoleClassLib | InterfaceClassLib | AttributeTypeLib
+		 * EFECTS: Uri of the Attribute element will be set differently depending on library category
+		 * parameters: instanceOwlType is OWL Class type (NOT JAXB)
+		 * These instances belong to siimaontns namespace
+		 * (CAEX Class definitions are from caexontns namespace)
+		 * 
+		 */
 		String uri="";
 		
 		if("CAEXFile".equalsIgnoreCase(instanceOwlType)){		
 			uri = siimaontns + instanceOwlType + "-INST_" + "CF-" + instanceName;		
 		} else if("InstanceHierarchy".equalsIgnoreCase(instanceOwlType)){		
 			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + instanceName;		
-		} else if("Attribute".equalsIgnoreCase(instanceOwlType)){		
-			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy + "_IE-" + iElement + "_ATT-" + instanceName;		
 		} else if("InternalElement".equalsIgnoreCase(instanceOwlType)){		
 			uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy + "_IE-" + instanceName;		
 		} else if("ExternalInterface".equalsIgnoreCase(instanceOwlType)){ // subClass of InterfaceClass		
@@ -66,6 +68,29 @@ public class UriHelper {
 		} else 	if("AttributeType".equalsIgnoreCase(instanceOwlType)){		
 			uri = siimaontns + instanceOwlType + "-INST_" + "ATTTYPELIB-" + hierarchy + "_ATTTYPE-" + instanceName;		
 		} // NOTE: Attribute URI defined for InstanceHierarchy
+		
+		/*
+		 *  Attribute
+		 *  Note: All libraries may contain Attributes;
+		 *  Uri will differ by some interim prefixes
+		 */
+		
+		if("Attribute".equalsIgnoreCase(instanceOwlType)){
+			
+			if("InstanceHierarchy".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy + "_IE-" + iElement + "_ATT-" + instanceName;
+			} else if("AttributeTypeLib".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "ATTTYPELIB-" + hierarchy + "_ATTTYPE-" + iElement + "_ATT-" + instanceName;
+			} else if("SystemUnitClassLib".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "SUCLIB-" + hierarchy + "_SUC-" + iElement + "_ATT-" + instanceName;
+			} else if("RoleClassLib".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "ROLECLIB-" + hierarchy + "_ROLEC-" + iElement + "_ATT-" + instanceName;
+			} else if("InterfaceClassLib".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "IFACECLIB-" + hierarchy + "_IFACEC-" + iElement + "_ATT-" + instanceName;
+			} else {
+				uri = siimaontns + instanceOwlType + "-INST_" + "XXX-" + hierarchy + "_XX-" + iElement + "_ATT-" + instanceName;
+			}
+		}
 		
 		return uri;
 	}

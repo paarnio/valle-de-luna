@@ -7,6 +7,9 @@
 	xmlns:siima="http://siima.net/ontologies/2017/caex/"
 	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
 	#* 2017-06-26 vmFile_roleclasslib_ontogen.vm
+	NOTE: For CAEX 2.51
+	NOTE: 2018-07-02 New parameter libcategory added to $URIHelper.createInstanceUri()
+	$URIHelper.createInstanceUri(libcategory, instanceOwlType, hierarchy, iElement, instanceName)
 	 NOTE: 2017-09-25 roleClass property added for RoleClass and RoleClassLib
 	 (BASED ON: 2017-06-12 vmFile_systemunitclasslib_ontogen.vm)
 	 (BASED ON: 2017-06-11 vmFile_ihierarchy_ontogen.vm) 
@@ -23,6 +26,8 @@
 	 SEE: https://stackoverflow.com/questions/20786403/calling-a-java-method-in-velocity-template
 	 *#
 	
+	## 2018-07-02 NEW: value for libcategory parameter in $URIHelper.createInstanceUri()
+	#set( $libcategory = 'RoleClassLib')
 	
 	#set( $amlns = 'http://data.ifs.tuwien.ac.at/aml/ontology#')
 	#set( $xsdns = 'http://www.w3.org/2001/XMLSchema#')
@@ -32,7 +37,7 @@
 	----------------------*#
 	
 	## -- CAEXFile --
-	#set( $URIhelp = $UriHelper.createInstanceUri("CAEXFile",null,null,"$caexfile.FileName") )
+	#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"CAEXFile",null,null,"$caexfile.FileName") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}CAEXFile"/>
 		<amlont:fileName rdf:datatype="${xsdns}string">$caexfile.FileName</amlont:fileName>
@@ -44,14 +49,14 @@
 	
 	## -- SystemUnitClassLib --
 	#foreach ($roleclib in $caexfile.getRoleClassLib())
-	#set( $URIhelp = $UriHelper.createInstanceUri("RoleClassLib","$roleclib.Name",null,"$roleclib.Name") )
+	#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"RoleClassLib","$roleclib.Name",null,"$roleclib.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}RoleClassLib"/>
 		<amlont:name rdf:datatype="${xsdns}string">$roleclib.Name</amlont:name>
 		## -- roleClass property ---
 		## This is a reference to roleClass children
 		#foreach ($rcchild in $roleclib.RoleClass)
-		#set( $URIchild = $UriHelper.createInstanceUri("RoleClass","$roleclib.Name","$rcchild.Name", "$rcchild.Name") )
+		#set( $URIchild = $UriHelper.createInstanceUri($libcategory,"RoleClass","$roleclib.Name","$rcchild.Name", "$rcchild.Name") )
 		<amlont:roleClass rdf:resource="${URIchild}"/>
 		#end				
 	</owl:NamedIndividual>		
@@ -74,7 +79,7 @@
 	#macro(walkRoleClasses $node $hierarchy)
 	#set( $rbasecref = $node.RefBaseClassPath )
 	#set( $BASECrep = $StringUtils.replace($rbasecref,"/","_") )
-	#set( $URIhelp = $UriHelper.createInstanceUri("RoleClass","$hierarchy.Name","$node.Name", "$node.Name") )
+	#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"RoleClass","$hierarchy.Name","$node.Name", "$node.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}RoleClass"/>
 		<amlont:name rdf:datatype="${xsdns}string">$node.Name</amlont:name>
@@ -89,13 +94,13 @@
 		#end		
 		## -- attribute property --
 		#foreach ($att in $node.getAttribute())
-			#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
+			#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
 			<amlont:attribute rdf:resource="${URIhelp}"/>
 		#end
 		## -- roleClass property ---
 		## This is a reference to roleClass children
 		#foreach ($rcchild in $node.RoleClass)
-		#set( $URIchild = $UriHelper.createInstanceUri("RoleClass","$hierarchy.Name","$rcchild.Name", "$rcchild.Name") )
+		#set( $URIchild = $UriHelper.createInstanceUri($libcategory,"RoleClass","$hierarchy.Name","$rcchild.Name", "$rcchild.Name") )
 		<amlont:roleClass rdf:resource="${URIchild}"/>
 		#end				
 	</owl:NamedIndividual>	
@@ -127,7 +132,7 @@
 		#foreach ($att in $node.getAttribute())
 				#set( $ATTValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "Value") )
 				#set( $ATTDefValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "DefaultValue") )
-				#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
+				#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
 				<owl:NamedIndividual rdf:about="${URIhelp}">
 				<rdf:type rdf:resource="${amlns}Attribute"/>
 					<amlont:name rdf:datatype="${xsdns}string">$att.Name</amlont:name>
@@ -167,7 +172,7 @@
 	#macro(walkIEForEInterface $node $hierarchy)
 		#foreach ($extint in $node.getExternalInterface())
 				
-				#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$hierarchy.Name","$node.Name", "$extint.Name") )
+				#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"ExternalInterface","$hierarchy.Name","$node.Name", "$extint.Name") )
 				#set( $RBCPath = $extint.getRefBaseClassPath() )
 				<owl:NamedIndividual rdf:about="${URIhelp}">
 				<rdf:type rdf:resource="${amlns}ExternalInterface"/>

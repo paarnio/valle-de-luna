@@ -7,6 +7,9 @@
 	xmlns:siima="http://siima.net/ontologies/2017/caex/"
 	xmlns:amlont="http://data.ifs.tuwien.ac.at/aml/ontology#">
 	#* 2017-09-25 vmFile_ihierarchy_ontogen.vm
+	NOTE: For CAEX 2.51
+	NOTE: 2018-07-02 New parameter libcategory added to $URIHelper.createInstanceUri()
+	$URIHelper.createInstanceUri(libcategory, instanceOwlType, hierarchy, iElement, instanceName)
 	NOTE: 2017-09-26 TEST: imports caex-ontology statement added
 	NOTE: 2017-09-25 internalElement property added for InternalElement and InstanceHierarchy
 	NOTE: 2017-06-28 Ontology definition added (option: imports statement (Protege cannot open))
@@ -24,6 +27,10 @@
 	SEE: https://stackoverflow.com/questions/6914312/calling-macro-function-in-velocity-template
 	NOTE:"To get rid of spaces and blank lines use multi-line comments"
 	*#
+	
+	## 2018-07-02 NEW: value for libcategory parameter in $URIHelper.createInstanceUri()
+	#set( $libcategory = 'InstanceHierarchy')
+	
 	#set( $amlns = 'http://data.ifs.tuwien.ac.at/aml/ontology#')
 	#set( $xsdns = 'http://www.w3.org/2001/XMLSchema#')
 	#set( $siimans = 'http://siima.net/ontologies/2017/caex/')
@@ -42,7 +49,7 @@
 		   CAEXFile
 	----------------------*#
 	## -- CAEXFile --
-	#set( $URIhelp = $UriHelper.createInstanceUri("CAEXFile",null,null,"$caexfile.FileName") )
+	#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"CAEXFile",null,null,"$caexfile.FileName") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}CAEXFile"/>
 		<amlont:fileName rdf:datatype="${xsdns}string">$caexfile.FileName</amlont:fileName>
@@ -53,14 +60,14 @@
 	----------------------*#
 	## -- InstanceHierarchy --
 	#foreach ($ih in $caexfile.getInstanceHierarchy())
-	#set( $URIhelp = $UriHelper.createInstanceUri("InstanceHierarchy","$ih.Name",null,"$ih.Name") )
+	#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"InstanceHierarchy","$ih.Name",null,"$ih.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}InstanceHierarchy"/>
 		<amlont:name rdf:datatype="${xsdns}string">$ih.Name</amlont:name>
 		## -- internalElement property ---
 		## This is a reference to InternalElement children
 		#foreach ($iechild in $ih.InternalElement)
-		#set( $URIchild = $UriHelper.createInstanceUri("InternalElement","$ih.Name","$iechild.Name", "$iechild.Name") )
+		#set( $URIchild = $UriHelper.createInstanceUri($libcategory,"InternalElement","$ih.Name","$iechild.Name", "$iechild.Name") )
 		<amlont:internalElement rdf:resource="${URIchild}"/>
 		#end				
 	</owl:NamedIndividual>		
@@ -83,18 +90,18 @@
 	#macro(walkIElements $node $ihierarchy)
 	#set( $sucref = $node.RefBaseSystemUnitPath )
 	#set( $SUCrep = $StringUtils.replace($sucref,"/","_") )
-	#set( $URIhelp = $UriHelper.createInstanceUri("InternalElement","$ihierarchy.Name","$node.Name", "$node.Name") )
+	#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"InternalElement","$ihierarchy.Name","$node.Name", "$node.Name") )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}InternalElement"/>
 		<amlont:name rdf:datatype="${xsdns}string">$node.Name</amlont:name>
 		<amlont:iD rdf:datatype="${xsdns}string">$node.ID</amlont:iD>
 		#if ($SUCrep)
-		#set( $URIhelp = $UriHelper.createInstanceUri("SystemUnitClass","$ihierarchy.Name","$node.Name", "$SUCrep") )
+		#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"SystemUnitClass","$ihierarchy.Name","$node.Name", "$SUCrep") )
 		<amlont:refBaseSystemUnitPath rdf:resource="${URIhelp}"/>
 		#end
 		## -- attribute property --
 		#foreach ($att in $node.getAttribute())
-		#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
+		#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
 		<amlont:attribute rdf:resource="${URIhelp}"/>
 		#end
 		## -- roleRequirements property --
@@ -102,13 +109,13 @@
 		## TODO in future for v3.0 add a foreach loop (Velocity provides a loop counter reference $velocityCount)
 		#set( $rreq = $node.getRoleRequirements())
 		#if ($rreq)
-		#set( $URIhelp = $UriHelper.createInstanceUri("RoleRequirements","$ihierarchy.Name","$node.Name", "RR1") )
+		#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"RoleRequirements","$ihierarchy.Name","$node.Name", "RR1") )
 		<amlont:roleRequirements rdf:resource="${URIhelp}"/>
 		#end
 		## -- internalElement property ---
 		## This is a reference to InternalElement children
 		#foreach ($iechild in $node.InternalElement)
-		#set( $URIchild = $UriHelper.createInstanceUri("InternalElement","$ihierarchy.Name","$iechild.Name", "$iechild.Name") )
+		#set( $URIchild = $UriHelper.createInstanceUri($libcategory,"InternalElement","$ihierarchy.Name","$iechild.Name", "$iechild.Name") )
 		<amlont:internalElement rdf:resource="${URIchild}"/>
 		#end				
 	</owl:NamedIndividual>	
@@ -139,7 +146,7 @@
 		#foreach ($att in $node.getAttribute())
 		#set( $ATTValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "Value") )
 		#set( $ATTDefValue = $AnyValueHelper.getAnyTypeContent("AttributeType", $att, "DefaultValue") )
-		#set( $URIhelp = $UriHelper.createInstanceUri("Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
+		#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"Attribute","$ihierarchy.Name","$node.Name", "$att.Name") )
 		<owl:NamedIndividual rdf:about="${URIhelp}">
 		<rdf:type rdf:resource="${amlns}Attribute"/>
 			<amlont:name rdf:datatype="${xsdns}string">$att.Name</amlont:name>
@@ -179,7 +186,7 @@
 	#set( $nodeName = $node.Name )
 	## - ExternalInterfaces in InternalElement
 	#foreach ($extint in $node.getExternalInterface())
-	#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$ihierarchy.Name","$nodeName", "$extint.Name") )
+	#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"ExternalInterface","$ihierarchy.Name","$nodeName", "$extint.Name") )
 	#set( $RBCPath = $extint.getRefBaseClassPath() )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 	<rdf:type rdf:resource="${amlns}ExternalInterface"/>
@@ -194,7 +201,7 @@
 	#if ($rreq)
 	#set( $RRstr = "-RoleReq1" )	
 	#foreach ($extint in $rreq.getExternalInterface())				
-	#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$ihierarchy.Name","$nodeName$RRstr", "$extint.Name") )
+	#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"ExternalInterface","$ihierarchy.Name","$nodeName$RRstr", "$extint.Name") )
 	#set( $RBCPath = $extint.getRefBaseClassPath() )
 	<owl:NamedIndividual rdf:about="${URIhelp}">
 	<rdf:type rdf:resource="${amlns}ExternalInterface"/>
@@ -229,7 +236,7 @@
 		#foreach ($intlink in $node.getInternalLink())
 	#set( $ILINKName = $intlink.Name )
 	#set( $ILNamerep = $StringUtils.replace($ILINKName," ","_") )
-	#set( $LinkURIhelp = $UriHelper.createInstanceUri("InternalLink","$ihierarchy.Name","$node.Name", "$ILNamerep") )
+	#set( $LinkURIhelp = $UriHelper.createInstanceUri($libcategory,"InternalLink","$ihierarchy.Name","$node.Name", "$ILNamerep") )
 	#set( $RPSideA = $intlink.getRefPartnerSideA() )
 	#set( $RPSideB = $intlink.getRefPartnerSideB() )
 	## NEW TEST: RefPartnerSide is Old version 2.15 reference OR New 3.0 reference
@@ -296,7 +303,7 @@
 	##macroFindExtInt($ihierarchy $IElemID $EIntName $IEFound $IHReturn)
 	#macroFindExtInt($IElemID $IEFound $IHReturn)
 	#if( $IEFound != "" )
-	#set( $ExtIntURIhelp = $UriHelper.createInstanceUri("ExternalInterface","$IHReturn","$IEFound", "$EIntName") )
+	#set( $ExtIntURIhelp = $UriHelper.createInstanceUri($libcategory,"ExternalInterface","$IHReturn","$IEFound", "$EIntName") )
 	#set( $SideURI = $ExtIntURIhelp )
 	#end
 	#if( $SideURI == "" )					
@@ -373,7 +380,7 @@
 	#if($SideURI=="")
 	#foreach ($extint in $node.getExternalInterface())
 	#if($RPSide == $extint.ID)
-	#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$ihierarchy.Name","$node.Name", "$extint.Name") )
+	#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"ExternalInterface","$ihierarchy.Name","$node.Name", "$extint.Name") )
 	#set( $SideURI = $URIhelp )
 	#end
 	#end
@@ -385,7 +392,7 @@
 	#if($RPSide == $extint.ID)
 	#set( $nodeName = $node.Name )
 	#set( $RRstr = "-RoleReq1" )
-	#set( $URIhelp = $UriHelper.createInstanceUri("ExternalInterface","$ihierarchy.Name","$nodeName$RRstr", "$extint.Name") )
+	#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"ExternalInterface","$ihierarchy.Name","$nodeName$RRstr", "$extint.Name") )
 	#set( $RBCPath = $extint.getRefBaseClassPath() )
 	#set( $SideURI = $URIhelp )
 	#end
