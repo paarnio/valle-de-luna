@@ -191,7 +191,8 @@ public class MainAppController {
 	
 	public boolean genereteCaexOntologyModel(String modelkey) {
 		boolean ok = true;
-		this.rdfContainer.genereteCaexOntologyModel(modelkey);
+		String caexVersion= this.project.getCaexSchemaVersion();
+		this.rdfContainer.genereteCaexOntologyModel(caexVersion, modelkey);
 		return ok;
 
 	}

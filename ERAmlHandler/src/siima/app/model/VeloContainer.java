@@ -38,23 +38,44 @@ public class VeloContainer {
 	public String vm_roleclasslib = "./configure/velocity/vmFile_roleclasslib_ontogen.vm";
 	public String vm_interfaceclasslib = "./configure/velocity/vmFile_interfaceclasslib_ontogen.vm";
 	// 2018-07-01 added for caex 3
-	public String vm_attributetypelib = "./configure/velocity/vmFile_atttypelib_caex3_ontogen.vm";
+	public String vm_default_caex3 = "./configure/velocity/vmFile_default_caex3.vm";
+	public String vm_ihierarchy_caex3 = "./configure/velocity/vmFile_ihierarchy_caex3_ontogen.vm";
+	public String vm_systemunitclasslib_caex3 = "./configure/velocity/vmFile_systemunitclasslib_caex3_ontogen.vm";
+	public String vm_roleclasslib_caex3 = "./configure/velocity/vmFile_roleclasslib_caex3_ontogen.vm";
+	public String vm_interfaceclasslib_caex3 = "./configure/velocity/vmFile_interfaceclasslib_caex3_ontogen.vm";
+	public String vm_attributetypelib_caex3 = "./configure/velocity/vmFile_atttypelib_caex3_ontogen.vm";
 	public Map ontoVmFileMap;	
 		
 	public String outputFile= "./configure/velocity/generated_ontology.ttl";
 	//private Model genRdfModel = ModelFactory.createDefaultModel();
 	
-	public VeloContainer(String key, Object value){
-		//resultWriter = new OutputStreamWriter(vmOutputStream);
+	public VeloContainer(String caexVersion, String key, Object value){
+		// caexVersions 2.51 | 3.0
+		//resultWriter = new OutputStreamWriter(vmOutputStream);			
 		vcontext.put(key, value);
 		ontoVmFileMap = new HashMap<String,String>();
-		ontoVmFileMap.put("default", vm_default);
-		ontoVmFileMap.put("instancehierarchy", vm_ihierarchy);
-		ontoVmFileMap.put("systemunitclasslib", vm_systemunitclasslib);
-		ontoVmFileMap.put("roleclasslib", vm_roleclasslib);
-		ontoVmFileMap.put("interfaceclasslib", vm_interfaceclasslib);
-		// 2018-07-01 added for caex 3
-		ontoVmFileMap.put("attributetypelib", vm_attributetypelib);
+		
+		if ("2.15".equals(caexVersion)) {
+			logger.log(Level.INFO, "VeloContainer():Ontology generation for CAEX VERSION:" + caexVersion + " (ALLOWED 2.15/3.0) \n");
+			ontoVmFileMap.put("default", vm_default);
+			ontoVmFileMap.put("instancehierarchy", vm_ihierarchy);
+			ontoVmFileMap.put("systemunitclasslib", vm_systemunitclasslib);
+			ontoVmFileMap.put("roleclasslib", vm_roleclasslib);
+			ontoVmFileMap.put("interfaceclasslib", vm_interfaceclasslib);
+			// 2018-07-01 added for caex 3
+			ontoVmFileMap.put("attributetypelib", vm_attributetypelib_caex3);
+		} else if ("3.0".equals(caexVersion)) {
+			logger.log(Level.INFO, "VeloContainer():Ontology generation for CAEX VERSION:" + caexVersion + " (ALLOWED 2.15/3.0) \n");
+			ontoVmFileMap.put("default", vm_default_caex3);
+			ontoVmFileMap.put("instancehierarchy", vm_ihierarchy_caex3);
+			ontoVmFileMap.put("systemunitclasslib", vm_systemunitclasslib_caex3);
+			ontoVmFileMap.put("roleclasslib", vm_roleclasslib_caex3);
+			ontoVmFileMap.put("interfaceclasslib", vm_interfaceclasslib_caex3);
+			// 2018-07-01 added for caex 3
+			ontoVmFileMap.put("attributetypelib", vm_attributetypelib_caex3);
+		} else {
+			logger.log(Level.INFO, "VeloContainer():UNKNOWN CAEX VERSION:  OUTPUT:\n" + caexVersion + " (ALLOWED 2.15/3.0) \n");
+		}
 	}
 
 	public void putVelocityContext(String key, Object value){

@@ -61,11 +61,11 @@ public class RdfContainer {
 		this.mergedRdfModel = ModelFactory.createDefaultModel();
 	}
 	
-	public void genereteCaexOntologyModel(String modelkey) {
+	public void genereteCaexOntologyModel(String caexVersion, String modelkey) {
 		// String modelkey = "instancehierarchy"; ; default; "combined"
 		modelkey = modelkey.toLowerCase();
 		this.curModelKey = modelkey;
-		initVelocity();
+		initVelocity(caexVersion);
 
 		if ("allmodels".equalsIgnoreCase(modelkey)) { 
 			// combining all model categories
@@ -99,13 +99,13 @@ public class RdfContainer {
 
 	}
 
-	public void initVelocity() {
+	public void initVelocity(String caexVersion) {
 		
 		Object root = this.graphbuilder.getCaexRootObject();
 		//TODO: CAEX 3.0 CHANGES NEEDED HERE!!!
 		//CAEXFile caex = (CAEXFile) root;
 		//velocity = new VeloContainer("caexfile", caex);
-		velocity = new VeloContainer("caexfile", root);
+		velocity = new VeloContainer(caexVersion, "caexfile", root);
 		/*
 		 * FOR STRING FUNCTIONS: TOIMII
 		 * https://stackoverflow.com/questions/6998412/velocity-string-function
