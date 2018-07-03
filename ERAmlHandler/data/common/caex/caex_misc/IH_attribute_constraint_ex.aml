@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CAEXFile FileName="IH_attribute_constraint_ex.aml" SchemaVersion="2.15" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AdditionalInformation>
+		<WriterHeader>
+			<WriterName>AutomationML Editor</WriterName>
+			<WriterID>916578CA-FE0D-474E-A4FC-9E1719892369</WriterID>
+			<WriterVendor>AutomationML e.V.</WriterVendor>
+			<WriterVendorURL>www.AutomationML.org</WriterVendorURL>
+			<WriterVersion>4.7.0.0</WriterVersion>
+			<WriterRelease>4.7.0.0</WriterRelease>
+			<LastWritingDateTime>2018-07-02T16:28:30.9194184+03:00</LastWritingDateTime>
+			<WriterProjectTitle>unspecified</WriterProjectTitle>
+			<WriterProjectID>unspecified</WriterProjectID>
+		</WriterHeader>
+	</AdditionalInformation>
+	<AdditionalInformation AutomationMLVersion="2.0" />
+	<InstanceHierarchy Name="InstanceHierarchy1">
+		<Version>1.0.0</Version>
+		<InternalElement Name="InternalElement1" ID="dbbd22c9-2bb1-434d-a032-79a9f8fb5adc">
+			<Attribute Name="Attribute1" AttributeDataType="xs:string" Unit="kg">
+				<Description>Testi attribuutti 1</Description>
+				<DefaultValue>10</DefaultValue>
+				<Value>20</Value>
+				<Constraint Name="Constraint1">
+					<OrdinalScaledType>
+						<RequiredMaxValue>100</RequiredMaxValue>
+						<RequiredValue>10</RequiredValue>
+						<RequiredMinValue>0</RequiredMinValue>
+					</OrdinalScaledType>
+				</Constraint>
+			</Attribute>
+			<Attribute Name="Attribute2" Unit="m/s2" AttributeDataType="xs:float">
+				<Description>Testi attribuutti 2</Description>
+				<DefaultValue>9.81</DefaultValue>
+				<Value>10</Value>
+				<Constraint Name="Constraint1">
+					<NominalScaledType>
+						<RequiredValue>9.815</RequiredValue>
+					</NominalScaledType>
+				</Constraint>
+			</Attribute>
+		</InternalElement>
+	</InstanceHierarchy>
+</CAEXFile>

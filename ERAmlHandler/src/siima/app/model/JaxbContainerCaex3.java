@@ -47,6 +47,10 @@ import siima.models.jaxb.caex3.AppInfoEXTRAContentType;
 import siima.models.jaxb.caex3.AppInfoEXTRAContentType.WriterHeader;
 import siima.models.jaxb.caex3.AttributeFamilyType;
 import siima.models.jaxb.caex3.AttributeType;
+import siima.models.jaxb.caex3.AttributeValueRequirementType;
+import siima.models.jaxb.caex3.AttributeValueRequirementType.NominalScaledType;
+import siima.models.jaxb.caex3.AttributeValueRequirementType.OrdinalScaledType;
+import siima.models.jaxb.caex3.AttributeValueRequirementType.UnknownType;
 import siima.models.jaxb.caex3.CAEXBasicObject;
 //import siima.models.jaxb.caex3.AttributeType.AttributeValueInterface;
 import siima.models.jaxb.caex3.CAEXBasicObject.Copyright;
@@ -1318,6 +1322,10 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 				Description description = element.getDescription();
 				if (description != null)
 					infobuff.append("\nDESCRIPTION: \t" + description.getValue());
+				
+				// 2018-07-03
+				
+				
 
 			} else if (InterfaceClassType.class.isInstance(nodeobject)) {
 				InterfaceClassType element = (InterfaceClassType) nodeobject;
@@ -1357,19 +1365,23 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 				infobuff.append("\nGUID: \t" + element.getID());
 				Description description = element.getDescription();
 				if (description != null)
-					infobuff.append("\nDESCRIPTION: \t" + description.getValue());
-				infobuff.append("\nUNIT: \t" + element.getUnit());
+					infobuff.append("\nDESCRIPTION:" + description.getValue());
+				
 
 				String attdatatype = element.getAttributeDataType();
 				if (attdatatype != null)
-					infobuff.append("\nDATATYPE: \t" + attdatatype);				
+					infobuff.append("\nDATATYPE: \t" + attdatatype);
+				String unit = element.getUnit();
+				if (unit != null)
+					infobuff.append("\nUNIT: \t" + unit);
+				
 				// IN ORIG CAEX Schema type Object: Object defvalue = element.getDefaultValue();
 				// (VPA: IN modified CAEX schema: type String)
 				Object defvalue = element.getDefaultValue();
 				if (defvalue != null){
 					//**** using anyType parser ******
 					String content = XsAnyTypeSolver.parseAnyTypeContent("AttributeType", nodeobject, "DefaultValue", 1 );					
-					infobuff.append("\nDEFAULT VALUE: \t" + defvalue.toString());
+					infobuff.append("\nDEFAULT VALUE: " + defvalue.toString());
 					infobuff.append("\nDEFAULT VALUE content: " + content);		
 				}			
 				// IN ORIG CAEX Schema type Object: Object value = element.getValue();
@@ -1384,6 +1396,63 @@ public class JaxbContainerCaex3  implements JaxbContainerInterface {
 					infobuff.append("\nVALUE content: " + content);				
 					
 				}
+				
+				/* 
+				 * 2018-07-03 Attribute constraints
+				 * TEST: IH_attribute_constraint_ex.aml
+				 * Code for CAEX 3.0 Schema where 
+				 * NominalScaledType, OrdinalScaledType and UnknownType are xs:string
+				 * (in Caex 2.51 they are xs:anyType)
+				 * NOTE: tree node objects are not created for these constraints. 
+				 */ 
+				
+				List<AttributeValueRequirementType> constraints = element.getConstraint();
+				if(constraints!=null){
+					infobuff.append("\nCONSTRAINTS:");
+					
+					
+					for (AttributeValueRequirementType cnstr : constraints) {
+						String name = cnstr.getName();
+						cnstr.getDescription();
+						infobuff.append("\n--C:NAME: \t" + cnstr.getName());
+						infobuff.append("\n--C:DESCRIPTION: " + cnstr.getDescription());
+						
+						
+						NominalScaledType nomscale = cnstr.getNominalScaledType();
+						OrdinalScaledType ordscale = cnstr.getOrdinalScaledType();
+						UnknownType unknown = cnstr.getUnknownType();
+						
+						if(nomscale!=null){
+							infobuff.append("\n--C:TYPE: \t" + "NominalScaledType");
+							List<String> reqvalues = nomscale.getRequiredValue();
+							if(reqvalues!=null){
+								for (String req : reqvalues){
+									infobuff.append("\n--NC:RequiredValue: " + req);
+								}
+							}
+						}
+						
+						if(ordscale!=null){
+							infobuff.append("\n--C:TYPE: \t" + "OrdinalScaledType");
+							String max = ordscale.getRequiredMaxValue();
+							String val = ordscale.getRequiredValue();
+							String min = ordscale.getRequiredMinValue();
+							infobuff.append("\n--OC:RequiredMaxValue: " + max);
+							infobuff.append("\n--OC:RequiredValue:    " + val);
+							infobuff.append("\n--OC:RequiredMinValue: " + min);
+							
+						}
+						
+						if(unknown!=null){
+							infobuff.append("\n--C:TYPE: \t" + "UnknownType");
+							infobuff.append("\n--UC:Requirements: " + unknown.getRequirements());
+						}
+						
+						
+						
+					}
+				}
+				
 			}
 
 		}

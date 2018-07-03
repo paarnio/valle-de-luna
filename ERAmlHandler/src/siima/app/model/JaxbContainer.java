@@ -1236,6 +1236,14 @@ public class JaxbContainer implements JaxbContainerInterface {
 					infobuff.append("\nVALUE content: " + content);				
 					
 				}
+				
+				/* 
+				 * 2018-07-03 NOTE: Attribute constraints are not displayed in Caex 2 version
+				 * Because in Caex 2.51 they are xs:anyType and tree node objects are not created for constraints.
+				 * ( See corresponding Code for CAEX 3.0 Schema where 
+				 * NominalScaledType, OrdinalScaledType and UnknownType are xs:string)
+				 * 
+				 */ 
 			}
 
 		}
