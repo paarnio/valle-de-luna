@@ -5,6 +5,7 @@
 <!-- See: list of changes made See Table III in Berardinelli et.al. On the evolution of CAEX. ETFA 2016. -->
 <!-- VPA: This VPA3.0 version has been edited from Version 2.15, 16.05.2007 -->
 <!-- VPA modification: See these comments below -->
+<!-- VPA modification 2018: 2018-07-03 xs:anyType to xs:string changes in Attribute Constraints (AttributeValueRequirementType) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:simpleType name="ChangeMode">
 		<xs:restriction base="xs:string">
@@ -411,17 +412,20 @@ Name (required) and ID (optional).</xs:documentation>
 						</xs:annotation>
 						<xs:complexType>
 							<xs:sequence minOccurs="0">
-								<xs:element name="RequiredMaxValue" type="xs:anyType" minOccurs="0">
+								<!-- VPA modification 2018: anyType to string -->
+								<xs:element name="RequiredMaxValue" type="xs:string" minOccurs="0">
 									<xs:annotation>
 										<xs:documentation>Element to define a maximum value of an attribute.</xs:documentation>
 									</xs:annotation>
 								</xs:element>
-								<xs:element name="RequiredValue" type="xs:anyType" minOccurs="0">
+								<!-- VPA modification 2018: anyType to string -->
+								<xs:element name="RequiredValue" type="xs:string" minOccurs="0">
 									<xs:annotation>
 										<xs:documentation>Element to define a required value of an attribute. </xs:documentation>
 									</xs:annotation>
 								</xs:element>
-								<xs:element name="RequiredMinValue" type="xs:anyType" minOccurs="0">
+								<!-- VPA modification 2018: anyType to string -->
+								<xs:element name="RequiredMinValue" type="xs:string" minOccurs="0">
 									<xs:annotation>
 										<xs:documentation>Element to define a minimum value of an attribute.</xs:documentation>
 									</xs:annotation>
@@ -435,7 +439,8 @@ Name (required) and ID (optional).</xs:documentation>
 						</xs:annotation>
 						<xs:complexType>
 							<xs:sequence minOccurs="0">
-								<xs:element name="RequiredValue" type="xs:anyType" minOccurs="0" maxOccurs="unbounded">
+								<!-- VPA modification 2018: anyType to string -->
+								<xs:element name="RequiredValue" type="xs:string" minOccurs="0" maxOccurs="unbounded">
 									<xs:annotation>
 										<xs:documentation>Element to define a required value of an attribute. It may be defined multiple times in order to define a discrete value range of the attribute.</xs:documentation>
 									</xs:annotation>

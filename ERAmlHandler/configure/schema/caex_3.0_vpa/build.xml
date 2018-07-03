@@ -1,8 +1,8 @@
 <?xml version="1.0" standalone="yes"?>
 <!--
   Copyright 2004 Sun Microsystems, Inc. All rights reserved.
-  
-  VPA: MODIFICATIONS for caex 2 java generation
+  VPA: MODIFICATIONS for caex 3.0 java generation
+  2018-07-03 schema: CAEX_ClassModel_V3.0_byVPA.xsd
 -->
 <project basedir="." default="run">
   <description>
@@ -24,8 +24,8 @@
   <target name="compile" description="Compile all Java source files">
     <echo message="Compiling the schema..." />
     <mkdir dir="gen-src" />
-    <xjc schema="CAEX_ClassModel_V3.0_byVPA.xsd" package="siima.models.jaxb.caex" destdir="gen-src">
-      <produces dir="gen-src/siima.models.jaxb.caex" includes="**/*.java" />
+    <xjc schema="CAEX_ClassModel_V3.0_byVPA.xsd" package="siima.models.jaxb.caex3" destdir="gen-src">
+      <produces dir="gen-src/siima.models.jaxb.caex3" includes="**/*.java" />
     </xjc>
     <!--echo message="Compiling the java source files..." />
     <mkdir dir="classes" />
