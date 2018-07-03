@@ -92,6 +92,32 @@ public class UriHelper {
 			}
 		}
 		
+		/*
+		 *  Attribute Constraint
+		 *  Note: All libraries may contain Attributes which may contain Constraints;
+		 *  Uri will differ by some interim prefixes
+		 */
+		
+		
+		if("Constraint".equalsIgnoreCase(instanceOwlType)){
+			
+			if("InstanceHierarchy".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy + "_IE-" + iElement + "_ATTCON-" + instanceName;
+			} else if("AttributeTypeLib".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "ATTTYPELIB-" + hierarchy + "_ATTTYPE-" + iElement + "_ATTCON-" + instanceName;
+			} else if("SystemUnitClassLib".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "SUCLIB-" + hierarchy + "_SUC-" + iElement + "_ATTCON-" + instanceName;
+			} else if("RoleClassLib".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "ROLECLIB-" + hierarchy + "_ROLEC-" + iElement + "_ATTCON-" + instanceName;
+			} else if("InterfaceClassLib".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "IFACECLIB-" + hierarchy + "_IFACEC-" + iElement + "_ATTCON-" + instanceName;
+			} else {
+				uri = siimaontns + instanceOwlType + "-INST_" + "XXX-" + hierarchy + "_XX-" + iElement + "_ATTCON-" + instanceName;
+			}
+		}
+		
+		
+		
 		return uri;
 	}
 
