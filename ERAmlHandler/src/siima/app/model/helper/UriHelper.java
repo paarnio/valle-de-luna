@@ -93,30 +93,45 @@ public class UriHelper {
 		}
 		
 		/*
-		 *  Attribute Constraint
+		 *  Attribute constraint is type AttributeValueRequirement
 		 *  Note: All libraries may contain Attributes which may contain Constraints;
 		 *  Uri will differ by some interim prefixes
 		 */
 		
 		
-		if("Constraint".equalsIgnoreCase(instanceOwlType)){
+		if("AttributeValueRequirement".equalsIgnoreCase(instanceOwlType)){
 			
 			if("InstanceHierarchy".equalsIgnoreCase(libcategory)){
-				uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy + "_IE-" + iElement + "_ATTCON-" + instanceName;
+				uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy + "_IE-" + iElement + "_ATTVREQ-" + instanceName;
 			} else if("AttributeTypeLib".equalsIgnoreCase(libcategory)){
-				uri = siimaontns + instanceOwlType + "-INST_" + "ATTTYPELIB-" + hierarchy + "_ATTTYPE-" + iElement + "_ATTCON-" + instanceName;
+				uri = siimaontns + instanceOwlType + "-INST_" + "ATTTYPELIB-" + hierarchy + "_ATTTYPE-" + iElement + "_ATTVREQ-" + instanceName;
 			} else if("SystemUnitClassLib".equalsIgnoreCase(libcategory)){
-				uri = siimaontns + instanceOwlType + "-INST_" + "SUCLIB-" + hierarchy + "_SUC-" + iElement + "_ATTCON-" + instanceName;
+				uri = siimaontns + instanceOwlType + "-INST_" + "SUCLIB-" + hierarchy + "_SUC-" + iElement + "_ATTVREQ-" + instanceName;
 			} else if("RoleClassLib".equalsIgnoreCase(libcategory)){
-				uri = siimaontns + instanceOwlType + "-INST_" + "ROLECLIB-" + hierarchy + "_ROLEC-" + iElement + "_ATTCON-" + instanceName;
+				uri = siimaontns + instanceOwlType + "-INST_" + "ROLECLIB-" + hierarchy + "_ROLEC-" + iElement + "_ATTVREQ-" + instanceName;
 			} else if("InterfaceClassLib".equalsIgnoreCase(libcategory)){
-				uri = siimaontns + instanceOwlType + "-INST_" + "IFACECLIB-" + hierarchy + "_IFACEC-" + iElement + "_ATTCON-" + instanceName;
+				uri = siimaontns + instanceOwlType + "-INST_" + "IFACECLIB-" + hierarchy + "_IFACEC-" + iElement + "_ATTVREQ-" + instanceName;
 			} else {
-				uri = siimaontns + instanceOwlType + "-INST_" + "XXX-" + hierarchy + "_XX-" + iElement + "_ATTCON-" + instanceName;
+				uri = siimaontns + instanceOwlType + "-INST_" + "XXX-" + hierarchy + "_XX-" + iElement + "_ATTVREQ-" + instanceName;
 			}
 		}
 		
-		
+		if(("OrdinalScaled".equalsIgnoreCase(instanceOwlType))||("NominalScaled".equalsIgnoreCase(instanceOwlType))||("UnknownType".equalsIgnoreCase(instanceOwlType))){
+			
+			if("InstanceHierarchy".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "IH-" + hierarchy + "_IE-" + iElement + "_ATTVREQSCALED-" + instanceName;
+			} else if("AttributeTypeLib".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "ATTTYPELIB-" + hierarchy + "_ATTTYPE-" + iElement + "_ATTVREQSCALED-" + instanceName;
+			} else if("SystemUnitClassLib".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "SUCLIB-" + hierarchy + "_SUC-" + iElement + "_ATTVREQSCALED-" + instanceName;
+			} else if("RoleClassLib".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "ROLECLIB-" + hierarchy + "_ROLEC-" + iElement + "_ATTVREQSCALED-" + instanceName;
+			} else if("InterfaceClassLib".equalsIgnoreCase(libcategory)){
+				uri = siimaontns + instanceOwlType + "-INST_" + "IFACECLIB-" + hierarchy + "_IFACEC-" + iElement + "_ATTVREQSCALED-" + instanceName;
+			} else {
+				uri = siimaontns + instanceOwlType + "-INST_" + "XXX-" + hierarchy + "_XX-" + iElement + "_ATTVREQSCALED-" + instanceName;
+			}
+		}
 		
 		return uri;
 	}

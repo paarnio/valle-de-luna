@@ -10,7 +10,15 @@
 	NOTE: AttributeTypeLib to OWL Ontology
 	NOTE: in CAEX 3.0 Value is type String, so $AnyValueHelper not needed
 	NOTE: New parameter libcategory added to $URIHelper.createInstanceUri()
-	$URIHelper.createInstanceUri(libcategory, instanceOwlType, hierarchy, iElement, instanceName)		
+	$URIHelper.createInstanceUri(libcategory, instanceOwlType, hierarchy, iElement, instanceName)
+	NOTE: 2018-07-04 Attribute Constraints transform
+	NOTE: IMPORTANT: Velocity variables will keep the old value. 
+	"At the end of the loop set the variable to false"
+	Or before you set its value like this:
+		#set( $Scaled = false )
+		#set( $Scaled = $constraint.getOrdinalScaledType() )
+		#if ($Scaled)
+	
 	(old version Caex 2.51 2017-06-26 based on vmFile_roleclasslib_ontogen.vm)
 	 NOTE: 2017-09-25 roleClass property added for RoleClass and RoleClassLib
 	 NOTE: VelocityContext is expected to be initiated with  JAXB object CAEXFile caex
@@ -127,16 +135,47 @@
 	## NOTE: $URIHelper.createInstanceUri() is called with OWL Type parameter (NOT JAXB)
 	#macro(walkIElementsForATTLibAttributes $node $hierarchy)
 		#foreach ($att in $node.getAttribute())
-				#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
-				<owl:NamedIndividual rdf:about="${URIhelp}">
-				<rdf:type rdf:resource="${amlns}Attribute"/>
-					<amlont:name rdf:datatype="${xsdns}string">$att.Name</amlont:name>
-					<amlont:attributeDataType rdf:datatype="${xsdns}string">$att.AttributeDataType</amlont:attributeDataType>
-					#if ($att.getDefaultValue)
-						<amlont:defaultValue rdf:datatype="${xsdns}string">$att.DefaultValue</amlont:defaultValue>
-					#end
-					<amlont:value rdf:datatype="${xsdns}string">$att.Value</amlont:value>
-				</owl:NamedIndividual>
+			#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"Attribute","$hierarchy.Name","$node.Name", "$att.Name") )
+			<owl:NamedIndividual rdf:about="${URIhelp}">
+			<rdf:type rdf:resource="${amlns}Attribute"/>
+			<amlont:name rdf:datatype="${xsdns}string">$att.Name</amlont:name>
+			<amlont:attributeDataType rdf:datatype="${xsdns}string">$att.AttributeDataType</amlont:attributeDataType>
+			#if ($att.getDefaultValue)
+				<amlont:defaultValue rdf:datatype="${xsdns}string">$att.DefaultValue</amlont:defaultValue>
+			#end
+			<amlont:value rdf:datatype="${xsdns}string">$att.Value</amlont:value>
+				
+		#* 2018-07-03 constraint property range is AttributeValueRequirement *#
+			#set( $cnstrs = false )
+			#set( $cnstrs = $att.getConstraint() )
+			#foreach ($con in $cnstrs)
+			#set( $AttName = $att.Name )
+			#set( $ConName = $con.Name )
+			#set( $uscore = "_C_" )
+			#set( $URIhelp2 = $UriHelper.createInstanceUri($libcategory,"AttributeValueRequirement","$hierarchy.Name","$node.Name", "$AttName$uscore$ConName") )
+			<amlont:constraint rdf:resource="${URIhelp2}"/>
+			#end
+			#set( $cnstrs = false )
+			
+			</owl:NamedIndividual>
+		
+		#* 2018-07-03 Constraint instance is type AttributeValueRequirement *#
+			#set( $coons = false )
+			#set( $coons = $att.getConstraint() )
+			#foreach ($coon in $coons)
+			#set( $AttriName = $att.Name )
+			#set( $CoonName = $coon.Name )
+			#set( $uscore = "_C_" )
+			#set( $URIhelp3 = $UriHelper.createInstanceUri($libcategory,"AttributeValueRequirement","$hierarchy.Name","$node.Name", "$AttriName$uscore$CoonName") )
+			<owl:NamedIndividual rdf:about="${URIhelp3}">
+			<rdf:type rdf:resource="${amlns}AttributeValueRequirement"/>
+			## --- Generate Constraint links to scaledTypes
+			#genLinksToScaledTypes($hierarchy.Name $node.Name $AttriName $coon)
+			</owl:NamedIndividual>			
+			## --- Generate individuals of ScaledTypes
+			#generateScaledTypes($hierarchy.Name $node.Name $AttriName $coon)			
+			#end
+			#set( $coons = false )		
 		#end
 	#if ($node.AttributeType.size() > 0)
 		#foreach ($child in $node.AttributeType)
@@ -146,5 +185,124 @@
 	#end
 	## -- macro end
 
+	
+	#* --------------------
+	 Generate Constraint links to scaledTypes sub-macro 
+	-----------------------*#
+	
+	#macro(genLinksToScaledTypes $ihname $nodename $attname $constraint)
+	## NOTE: Constraint can be OrdinalScaledType, NominalScaledType or UnknownType
+	## NOTE: Velocity variables will keep the old value. "At the end of the loop set the variable to false"
+	## NOTE: Or before you set its value
+		#set( $coonname = $constraint.Name )
+		#set( $Scaled = false )
+		#set( $Scaled = $constraint.getOrdinalScaledType() )
+		#if ($Scaled)
+			## OrdinalScaledType
+			#set( $uscore = "_C_" )
+			#set( $ost = "_OST" )
+			#set( $URIhelp4 = $UriHelper.createInstanceUri($libcategory,"OrdinalScaled","$ihname","$nodename", "$attname$uscore$coonname$ost") )	
+			<amlont:ordinalScaledType rdf:resource="${URIhelp4}"/>
+		#end
+		
+		#set( $Scaled = false )
+		#set( $Scaled = $constraint.getNominalScaledType() )
+		#if ($Scaled)
+			## NominalScaledType
+			#set( $uscore = "_C_" )
+			#set( $nst = "_NST" )
+			#set( $URIhelp5 = $UriHelper.createInstanceUri($libcategory,"NominalScaled","$ihname","$nodename", "$attname$uscore$coonname$nst") )	
+			<amlont:nominalScaledType rdf:resource="${URIhelp5}"/>
+		#end
+		
+		#set( $Scaled = false )
+		#set( $Scaled = $constraint.getUnknownType() )
+		#if ($Scaled)
+			## UnknownType
+			#set( $uscore = "_C_" )
+			#set( $unt = "_UNT" )
+			#set( $URIhelp6 = $UriHelper.createInstanceUri($libcategory,"UnknownType","$ihname","$nodename", "$attname$uscore$coonname$unt") )	
+			<amlont:nominalScaledType rdf:resource="${URIhelp6}"/>
+		#end
+		
+		#set( $Scaled = false )
+	#end
+	## -- macro end
+	
+	
+	#* --------------------
+	 Generate individuals of ScaledTypes 
+	-----------------------*#
+	
+	#macro(generateScaledTypes $ihname $nodename $attname $constraint)
+	## NOTE: Constraint can be OrdinalScaledType, NominalScaledType or UnknownType
+	## NOTE: Velocity variables will keep the old value. "At the end of the loop set the variable to false"
+	## NOTE: Or before you set its value
+		#set( $coonname = $constraint.Name )
+		#set( $Scaled = false )
+		#set( $Scaled = $constraint.getOrdinalScaledType() )
+		#if ($Scaled)
+			## OrdinalScaledType
+			#set( $uscore = "_C_" )
+			#set( $ost = "_OST" )
+			#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"OrdinalScaled","$ihname","$nodename", "$attname$uscore$coonname$ost") )			
+			<owl:NamedIndividual rdf:about="${URIhelp}">
+			<rdf:type rdf:resource="${amlns}OrdinalScaled"/>			
+			#set( $reqmaxval = false )
+			#set( $reqmaxval = $Scaled.getRequiredMaxValue() )
+			#if ($reqmaxval)
+			<amlont:requiredMaxValue rdf:datatype="${xsdns}string">$reqmaxval</amlont:requiredMaxValue>
+			#end
+			#set( $reqval = false )
+			#set( $reqval = $Scaled.getRequiredValue() )
+			#if ($reqval)
+			<amlont:requiredValue rdf:datatype="${xsdns}string">$reqval</amlont:requiredValue>
+			#end
+			#set( $reqminval = false )
+			#set( $reqminval = $Scaled.getRequiredMinValue() )
+			#if ($reqminval)
+			<amlont:requiredMinValue rdf:datatype="${xsdns}string">$reqminval</amlont:requiredMinValue>
+			#end
+			</owl:NamedIndividual>
+		#end
+		
+		#set( $Scaled = false )
+		#set( $Scaled = $constraint.getNominalScaledType() )
+		#if ($Scaled)
+			## NominalScaledType
+			#set( $uscore = "_C_" )
+			#set( $nst = "_NST" )
+			#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"NominalScaled","$ihname","$nodename", "$attname$uscore$coonname$nst") )	
+			<owl:NamedIndividual rdf:about="${URIhelp}">
+			<rdf:type rdf:resource="${amlns}NominalScaled"/>	
+			#set( $reqvals = false )
+			#set( $reqvals = $Scaled.getRequiredValue() )
+			#foreach ($reqv in $reqvals)
+			<amlont:requiredValue rdf:datatype="${xsdns}string">$reqv</amlont:requiredValue>
+			#end
+			</owl:NamedIndividual>
+		#end
+		
+		#set( $Scaled = false )
+		#set( $Scaled = $constraint.getUnknownType() )
+		#if ($Scaled)
+			## UnknownType
+			#set( $uscore = "_C_" )
+			#set( $unt = "_UNT" )
+			#set( $URIhelp = $UriHelper.createInstanceUri($libcategory,"UnknownType","$ihname","$nodename", "$attname$uscore$coonname$unt") )	
+			<owl:NamedIndividual rdf:about="${URIhelp}">
+			<rdf:type rdf:resource="${amlns}UnknownType"/>	
+			#set( $reqs = false )
+			#set( $reqs = $Scaled.getRequirements() )			
+			<amlont:requirements rdf:datatype="${xsdns}string">$reqs</amlont:requirements>
+			#set( $reqs = false )
+			</owl:NamedIndividual>
+		#end
+		
+		#set( $Scaled = false )
+	#end
+	## -- macro end
+	
+	
 	
 </rdf:RDF>
