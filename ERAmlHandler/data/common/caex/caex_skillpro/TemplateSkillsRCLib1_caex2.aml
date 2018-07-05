@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CAEXFile FileName="TemplateSkillsRCLib1.aml" SchemaVersion="2.15" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AdditionalInformation>
+		<WriterHeader>
+			<WriterName>AutomationML Editor</WriterName>
+			<WriterID>916578CA-FE0D-474E-A4FC-9E1719892369</WriterID>
+			<WriterVendor>AutomationML e.V.</WriterVendor>
+			<WriterVendorURL>www.AutomationML.org</WriterVendorURL>
+			<WriterVersion>4.7.0.0</WriterVersion>
+			<WriterRelease>4.7.0.0</WriterRelease>
+			<LastWritingDateTime>2018-07-05T14:45:53.0904031+03:00</LastWritingDateTime>
+			<WriterProjectTitle>unspecified</WriterProjectTitle>
+			<WriterProjectID>unspecified</WriterProjectID>
+		</WriterHeader>
+	</AdditionalInformation>
+	<AdditionalInformation AutomationMLVersion="2.0" />
+	<InstanceHierarchy Name="ProductionResourcesIH1">
+		<Version>1.0.0</Version>
+		<InternalElement Name="VibratoryBowlFeeder" ID="1a474b74-d700-4914-8bab-f41ca163169b">
+			<InternalElement Name="VBFBaseUnit" ID="46fb9c75-d4f2-4ae0-aede-7f95c20566cc">
+				<InternalElement Name="Vibrating" ID="7bcc1316-3bbb-4035-ad77-9330cd642da0">
+					<Attribute Name="RefTemplateSkill">
+						<Value>Vibrating</Value>
+					</Attribute>
+					<SupportedRoleClass RefRoleClassPath="TemplateSkillsRCLib1/PartFeeding/Structuring/VibrationalConveying/Vibrating" />
+					<RoleRequirements RefBaseRoleClassPath="SkillProRoleClassLib/ResourceSkill" />
+				</InternalElement>
+			</InternalElement>
+			<InternalElement Name="VBFBowl" ID="ba2e1e71-4d09-45fe-9964-a36531093084">
+				<InternalElement Name="PhysicalOrientation" ID="00d39ea4-6c2f-4906-a8b5-f52971da4846">
+					<Attribute Name="RefTemplateSkill">
+						<Value>PhysicalOrientation</Value>
+					</Attribute>
+					<SupportedRoleClass RefRoleClassPath="TemplateSkillsRCLib1/PartFeeding/Structuring/AlternativeSkillGroup2/PhysicalOrientation" />
+					<RoleRequirements RefBaseRoleClassPath="SkillProRoleClassLib/ResourceSkill" />
+				</InternalElement>
+				<InternalElement Name="PhysicalSingulation" ID="e99c6add-2967-458b-ab89-bb325ec9feba">
+					<Attribute Name="RefTemplateSkill">
+						<Value>PhysicalSingulation</Value>
+					</Attribute>
+					<SupportedRoleClass RefRoleClassPath="TemplateSkillsRCLib1/PartFeeding/Structuring/AlternativeSkillsGroup1/PhysicalSingulation" />
+					<RoleRequirements RefBaseRoleClassPath="SkillProRoleClassLib/ResourceSkill" />
+				</InternalElement>
+				<InternalElement Name="Storaging" ID="a6751f2b-3344-47a2-97e6-80bab6b22745">
+					<Attribute Name="RefTemplateSkill">
+						<Value>Storaging</Value>
+					</Attribute>
+					<SupportedRoleClass RefRoleClassPath="TemplateSkillsRCLib1/PartFeeding/Structuring/Storaging" />
+					<RoleRequirements RefBaseRoleClassPath="SkillProRoleClassLib/ResourceSkill" />
+				</InternalElement>
+				<InternalElement Name="VibrationTransferring" ID="a06452db-c7bf-453e-8faf-70d2d87ce505">
+					<Attribute Name="RefTemplateSkill">
+						<Value>VibrationTransferring</Value>
+					</Attribute>
+					<SupportedRoleClass RefRoleClassPath="TemplateSkillsRCLib1/PartFeeding/Structuring/VibrationalConveying/VibrationTransferring" />
+					<RoleRequirements RefBaseRoleClassPath="SkillProRoleClassLib/ResourceSkill" />
+				</InternalElement>
+			</InternalElement>
+		</InternalElement>
+		<InternalElement Name="FlexibleFeeder" ID="24fcc7f4-54fd-4002-b88c-d2a0b96bc188">
+			<InternalElement Name="FFCamera" ID="b9f149e4-a63d-48be-9b8e-eb088375de15">
+				<InternalElement Name="PositionRecognition" ID="05b60123-0bf8-4d6b-a164-aaa676dc26da">
+					<Attribute Name="RefTemplateSkill">
+						<Value>PositionRecognition</Value>
+					</Attribute>
+					<SupportedRoleClass RefRoleClassPath="TemplateSkillsRCLib1/PartFeeding/Structuring/AlternativeSkillsGroup1/InformationalSingulation/PositionRecognition" />
+					<RoleRequirements RefBaseRoleClassPath="SkillProRoleClassLib/ResourceSkill" />
+				</InternalElement>
+				<InternalElement Name="PartRecognition" ID="a95a41f1-2146-40bd-87a8-518c335ce2e7">
+					<Attribute Name="RefTemplateSkill">
+						<Value>PartRecognition</Value>
+					</Attribute>
+					<SupportedRoleClass RefRoleClassPath="TemplateSkillsRCLib1/PartFeeding/Structuring/AlternativeSkillsGroup1/InformationalSingulation/PartRecognition" />
+					<RoleRequirements RefBaseRoleClassPath="SkillProRoleClassLib/ResourceSkill" />
+				</InternalElement>
+				<InternalElement Name="OrientationRecognition" ID="1c36644a-a8ea-418d-917a-19a9bf87846c">
+					<Attribute Name="RefTemplateSkill">
+						<Value>OrientationRecognition</Value>
+					</Attribute>
+					<SupportedRoleClass RefRoleClassPath="TemplateSkillsRCLib1/PartFeeding/Structuring/AlternativeSkillGroup2/OrientationRecognition" />
+					<RoleRequirements RefBaseRoleClassPath="SkillProRoleClassLib/ResourceSkill" />
+				</InternalElement>
+			</InternalElement>
+			<InternalElement Name="FFPartDispenser" ID="789fe09b-90e0-4727-9d60-af470f2ba491">
+				<InternalElement Name="Storaging" ID="0b6ff404-f676-4113-81eb-62e61c4998c7">
+					<Attribute Name="RefTemplateSkill">
+						<Value>Storaging</Value>
+					</Attribute>
+					<SupportedRoleClass RefRoleClassPath="TemplateSkillsRCLib1/PartFeeding/Structuring/Storaging" />
+					<RoleRequirements RefBaseRoleClassPath="SkillProRoleClassLib/ResourceSkill" />
+				</InternalElement>
+				<InternalElement Name="VibrationTransferring" ID="2b7e3c3d-784c-4f1c-bf70-cb8427e7b294">
+					<Attribute Name="RefTemplateSkill">
+						<Value>VibrationTransferring</Value>
+					</Attribute>
+					<SupportedRoleClass RefRoleClassPath="TemplateSkillsRCLib1/PartFeeding/Structuring/VibrationalConveying/VibrationTransferring" />
+					<RoleRequirements RefBaseRoleClassPath="SkillProRoleClassLib/ResourceSkill" />
+				</InternalElement>
+			</InternalElement>
+			<InternalElement Name="FFBaseUnit" ID="9541dc39-d164-431b-947b-d0747f150792">
+				<InternalElement Name="Vibrating" ID="e648e7a2-767e-4c9c-ac34-6f7e9ccea125">
+					<Attribute Name="RefTemplateSkill">
+						<Value>Vibrating</Value>
+					</Attribute>
+					<SupportedRoleClass RefRoleClassPath="TemplateSkillsRCLib1/PartFeeding/Structuring/VibrationalConveying/Vibrating" />
+					<RoleRequirements RefBaseRoleClassPath="SkillProRoleClassLib/ResourceSkill" />
+				</InternalElement>
+				<InternalElement Name="VibrationTransfering" ID="22543fe3-eb0b-40de-8f8d-66fcfaa3ba3d">
+					<Attribute Name="RefTemplateSkill">
+						<Value>VibrationTransferring</Value>
+					</Attribute>
+					<SupportedRoleClass RefRoleClassPath="TemplateSkillsRCLib1/PartFeeding/Structuring/VibrationalConveying/VibrationTransferring" />
+					<RoleRequirements RefBaseRoleClassPath="SkillProRoleClassLib/ResourceSkill" />
+				</InternalElement>
+			</InternalElement>
+		</InternalElement>
+	</InstanceHierarchy>
+	<RoleClassLib Name="TemplateSkillsRCLib1">
+		<Version>1.0.0</Version>
+		<RoleClass Name="PartFeeding" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process">
+			<RoleClass Name="Structuring" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process">
+				<RoleClass Name="AlternativeSkillsGroup1">
+					<Description>This skill group contains alternative skills as its children</Description>
+					<RoleClass Name="PhysicalSingulation" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process">
+						<Attribute Name="RequiredSkill" AttributeDataType="xs:string">
+							<Description>This skill requires PhysicalOrientation skill to be included into skill configuration</Description>
+							<Value>TemplateSkillsRCLib1/PhysicalOrientation</Value>
+						</Attribute>
+					</RoleClass>
+					<RoleClass Name="InformationalSingulation" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process">
+						<Attribute Name="RequiredSkill">
+							<Description>This skill requires OrientationRecognition skill to be included into skill configuration</Description>
+							<Value>TemplateSkillsRCLib1/OrientationRecognition</Value>
+						</Attribute>
+						<RoleClass Name="PositionRecognition" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process" />
+						<RoleClass Name="PartRecognition" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process" />
+					</RoleClass>
+				</RoleClass>
+				<RoleClass Name="Storaging" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process" />
+				<RoleClass Name="VibrationalConveying" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process">
+					<RoleClass Name="VibrationTransferring" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process" />
+					<RoleClass Name="Vibrating" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process" />
+				</RoleClass>
+				<RoleClass Name="AlternativeSkillGroup2">
+					<Description>This skill group contains alternative skills as its children</Description>
+					<RoleClass Name="OrientationRecognition" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process">
+						<Attribute Name="RequiredSkill">
+							<Description>This skill requires InformationalSingulation skill to be included into skill configuration</Description>
+							<Value>TemplateSkillsRCLib1/InformationalSingulation</Value>
+						</Attribute>
+					</RoleClass>
+					<RoleClass Name="PhysicalOrientation" RefBaseClassPath="AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process">
+						<Attribute Name="Attribute1">
+							<Description>This skill requires PhysicalSingulation skill to be included into skill configuration</Description>
+							<Value>TemplateSkillsRCLib1/PhysicalSingulation</Value>
+						</Attribute>
+					</RoleClass>
+				</RoleClass>
+			</RoleClass>
+		</RoleClass>
+	</RoleClassLib>
+	<RoleClassLib Name="SkillProRoleClassLib">
+		<Version>1.0.0</Version>
+		<RoleClass Name="ResourceSkill" />
+	</RoleClassLib>
+	<RoleClassLib Name="AutomationMLBaseRoleClassLib">
+		<Version>1.0.0</Version>
+		<RoleClass Name="AutomationMLBaseRole">
+			<RoleClass Name="Process" />
+		</RoleClass>
+	</RoleClassLib>
+</CAEXFile>
