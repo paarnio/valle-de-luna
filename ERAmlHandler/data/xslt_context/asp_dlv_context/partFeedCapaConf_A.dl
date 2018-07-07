@@ -1,0 +1,156 @@
+% partFeedCapaConf_A.dl
+% COPY OF: CapabilityHierarchyConfigurator1/partFeedCapaConfigurator2.dl
+% 2018-06-07 A+B Toimii
+% PROJECT: PartFeedingConfigurationAndAllocation
+% PROJECT TARGET: Running Part Feeding capability configuration generation (partFeedCapaConf_A.dl)
+% and machine allocation (partFeedMachines_B.dl) to provide all of the simple capabilities 
+% of this configuration at the same time.
+%
+% Implementing part feeding capability model in fig6 in Hansson 2017
+% Generates possible simple capability configurations (due to constraints and alternatives)
+% Ideas now combined from:
+% partFeedCapaConfigurator1.dl
+% phone_assembly_combcapa_4.dl
+% capability is now a named individual
+% -----------------------------
+
+% ---- Capabilities and Associations See Hansson Fig 6
+% - Level 1
+capability(partFeeding).
+
+association(structuringAssoc).
+%association(presentationAssoc).
+% required associations
+req_assoc(partFeeding,structuringAssoc).
+%req_assoc(partFeeding,presentationAssoc).
+
+% - Level 2
+capability(structuring).
+
+% provides association
+pro_assoc(structuring,structuringAssoc).
+
+association(singulatingAssoc).
+association(storagingAssoc).
+association(conveyingAssoc).
+association(orientingAssoc).
+
+% required associations
+req_assoc(structuring,singulatingAssoc).
+req_assoc(structuring,storagingAssoc).
+req_assoc(structuring,conveyingAssoc).
+req_assoc(structuring,orientingAssoc).
+
+% - Level 3
+capability(physicalSingu).
+capability(informationalSingu).
+capability(storaging).
+capability(vibrationalConvey).
+capability(orientationRecog).
+capability(physicalOrient).
+
+% provides association
+pro_assoc(physicalSingu,singulatingAssoc).
+pro_assoc(informationalSingu,singulatingAssoc).
+pro_assoc(storaging,storagingAssoc).
+pro_assoc(vibrationalConvey,conveyingAssoc).
+pro_assoc(orientationRecog,orientingAssoc).
+pro_assoc(physicalOrient,orientingAssoc).
+
+association(positionRecAssoc).
+association(partRecAssoc).
+association(vibrationTransAssoc).
+association(vibratingAssoc).
+
+% required associations
+req_assoc(informationalSingu,positionRecAssoc).
+req_assoc(informationalSingu,partRecAssoc).
+req_assoc(vibrationalConvey,vibrationTransAssoc).
+req_assoc(vibrationalConvey,vibratingAssoc).
+
+% - Level 4
+capability(positionRec).
+capability(partRec).
+capability(vibrationTrans).
+capability(vibrating).
+
+% provides association
+pro_assoc(positionRec,positionRecAssoc).
+pro_assoc(partRec,partRecAssoc).
+pro_assoc(vibrationTrans,vibrationTransAssoc).
+pro_assoc(vibrating,vibratingAssoc).
+
+% -- Combined and simple capabilities
+ combinedCapa(X1) :- req_assoc(X1,X2),association(X2).
+ simpleCapa(X1) :- capability(X1),not combinedCapa(X1).
+
+
+% ---- Capability Configuration ------
+% ADD in(X1),
+
+% A feature instance is in configuration
+% if it is both actual and possible part of something
+in(X2) :- hasCapaPart(X1,X2,A), pCapaPart(X1,X2,A).
+% Root capability 
+froot(partFeeding).
+% only one root
+in(X1) :- froot(X1).
+:- #count{X1:in(X1),froot(X1)} > 1.
+:- #count{X1:in(X1),froot(X1)} < 1.
+
+% possible capability part via association
+pCapaPart(X1,X2,A) :- capability(X1), capability(X2),association(A), req_assoc(X1,A), pro_assoc(X2,A).
+
+% ---- CONFIGURATION HIERARCHY ----
+% has capability part
+% (MANDATORY) If only one capability is a possible part via some associatien, it must be included
+hasCapaPart(X1,X2,A) :- #count{X:pCapaPart(X1,X,A)}=1, capability(X1),association(A), in(X1), pCapaPart(X1,X2,A).
+
+% (ALTERNATIVES)If there are several possible capability parts via the same association, only one of them can be included
+hasCapaPart(X1,X2,A) | notHasCapaPart(X1,X2,A) :- #count{X:pCapaPart(X1,X,A)}>1, capability(X1), association(A), in(X1), pCapaPart(X1,X2,A).
+
+:- #count{X2 : hasCapaPart(X1,X2,A)} < 1, capability(X1),in(X1), association(A), req_assoc(X1,A).
+:- #count{X2 : hasCapaPart(X1,X2,A)} > 1, capability(X1),in(X1), association(A), req_assoc(X1,A).
+
+
+% ---- CONSTRAINTS ----
+% Without these constraints 4 models possible
+% With these constraints only 2 models possible
+% REQ1: CONSTRAINTs 5&6 informationalSingu <-requires-> orientationRecog
+% REQ2: CONSTRAINTs 7&8 physicalSingu <-requires-> physicalOrient
+
+% CONSTRAINT 5: "OrientationRecog  requires InformationalSingu "
+constr5(X) :- in(informationalSingu),capability(informationalSingu),capability(X), X=orientationRecog.
+cf(5,X) :- capability(X), X=orientationRecog, in(X), not constr5(orientationRecog).
+cff :- cf(5,X), capability(X), X=orientationRecog.
+% FORSE: As a hard constraint
+:- cf(5,X), capability(X), X=orientationRecog.
+
+% CONSTRAINT 6 (inverse of 5): " InformationalSingu  requires  OrientationRecog "
+constr6(X) :- in(orientationRecog),capability(orientationRecog),capability(X), X=informationalSingu.
+cf(6,X) :- capability(X), X=informationalSingu, in(X), not constr6(informationalSingu).
+cff :- cf(6,X), capability(X), X=informationalSingu.
+% FORSE: As a hard constraint
+:- cf(6,X), capability(X), X=informationalSingu.
+
+% CONSTRAINT 7: "PhysicalOrient  requires PhysicalSingu "
+constr7(X) :- in(X0),capability(physicalSingu),capability(X), X=physicalOrient.
+cf(7,X) :- capability(X), X=physicalOrient, in(X), not constr7(physicalOrient).
+cff :- cf(7,X), capability(X), X=physicalOrient.
+% FORSE: As a hard constraint
+:- cf(7,X), capability(X), X=physicalOrient.
+
+% CONSTRAINT 8 (inverse of 7): "PhysicalSingu requires PhysicalOrient  "
+constr8(X) :- in(X0),capability(physicalOrient),capability(X), X=physicalSingu.
+cf(8,X) :- capability(X), X=physicalSingu, in(X), not constr8(physicalSingu).
+cff :- cf(8,X), capability(X), X=physicalSingu.
+% FORSE: As a hard constraint
+:- cf(8,X), capability(X), X=physicalSingu.
+
+
+% ---- CAPABILITY CONFIGURATION
+% contains capabilities in hasCapaPart(froot,Capa,Assoc) tree
+
+reqSimpleCapa(S) :- hasCapaPart(X1,S,A), simpleCapa(S).
+
+
