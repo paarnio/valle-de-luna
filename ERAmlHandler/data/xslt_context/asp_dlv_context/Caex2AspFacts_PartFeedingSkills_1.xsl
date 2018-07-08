@@ -25,12 +25,22 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 	</xsl:variable>	
 	<xsl:value-of select="$HeaderLine"/>
 	<!--xsl:call-template name="specialfacts"/-->
-    <xsl:apply-templates select="/InstanceHierarchy"/>
+    <xsl:apply-templates select="./InstanceHierarchy"/>
 	<!--xsl:apply-templates select="//InternalLink"/-->
 </xsl:template>
 
 <xsl:template match="InstanceHierarchy">
-	<xsl:apply-templates select="/InternalElement"/>
+	<!-- NEW -->
+	<xsl:value-of select="./@Name"/>
+	<xsl:text>&#xA;</xsl:text>
+	<xsl:apply-templates select="./InternalElement"/>
+	<!-- TEST NUMBER FUNC  http://www.java2s.com/Code/XML/XSLT-stylesheet/Createindexnumber.htm  -->
+	<xsl:text>&#xA; TEST NUMBER FUNC &#xA;</xsl:text>
+	<xsl:for-each select="./InternalElement">
+			<xsl:text>&#xA;</xsl:text>
+            <xsl:number format="1. "/>
+            <xsl:value-of select="./@Name"/>
+      </xsl:for-each>
 
 </xsl:template>
 
@@ -54,17 +64,34 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 	</xsl:variable>
 	<xsl:variable name="IEcolor" select="./Attribute[@Name='Color']/Value/text()"/>
 	
+	<!-- NEW -->
+	<xsl:value-of select="$iename"/>
+	<xsl:text>&#xA;</xsl:text>
+	
 	<!-- CREATE rectange(leg). & square(leg2). facts -->
 	<!--(SystemUnitClass:localname InternalElement:name Attribute:color:value 
 	 + for rectange legos: Attribute:orientation:value) -->
 	 
 	 <xsl:choose>
-		<xsl:when test="string($BRClass)='RectangleLego'">
-			<xsl:variable name="IEorientation" select="./Attribute[@Name='Orientation']/Value/text()"/>
-			<!--xsl:variable name="CRERect" select="concat('create ', $SUClass,' ',$IEname,' ',$IEcolor,' ',$IEorientation)"/-->
-			<xsl:variable name="CRERect" select="concat('rectangle(',$iename,').')"/>
+		<xsl:when test="string($BRClass)='CapaEquipment'">
+			<!-- NEW -->
+	
+			<xsl:value-of select="$BRClass"/>
 			<xsl:text>&#xA;</xsl:text>
-			<xsl:value-of select="$CRERect"/>
+		
+			<!--  -->
+			<xsl:variable name="MacNr" select="position()"/>
+			<!-- maybe useful <xsl:variable name="GenID" select="generate-id()"/> -->
+			<xsl:value-of select="$MacNr"/>
+			<!-- -->
+			<xsl:variable name="CRMac" select="concat('machine(',$MacNr,').')"/>
+			
+			<xsl:variable name="CREEqType" select="concat('hasMacType(',$MacNr,',',$iename,').')"/>
+			<xsl:text>&#xA;</xsl:text>
+			<xsl:value-of select="$CRMac"/>
+			<xsl:text>&#xA;</xsl:text>
+			<xsl:value-of select="$CREEqType"/>
+			<xsl:text>&#xA;</xsl:text>
 			<!-- Checking if defined as a baselego i.e. baseblock='true'  -->
 			<xsl:variable name="BaseB" select="./Attribute[@Name='Baseblock']/Value[text()='true']/text()"/>
 			<xsl:if test="$BaseB"><xsl:value-of select="concat('base(',$iename,').')"/></xsl:if>
