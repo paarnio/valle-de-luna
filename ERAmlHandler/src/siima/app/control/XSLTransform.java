@@ -52,8 +52,14 @@ public class XSLTransform {
 				return;
 			}			
 			if(troutfile==null){ //Transform result/out file name based on source name extended with .trout
-			troutfile = sourcefile.replaceAll("\\.xml", "_trout.trout");
-				
+			//Note: source file extension can be .xml OR .aml
+				if(sourcefile.endsWith(".xml")){
+					troutfile = sourcefile.replaceAll("\\.xml", "_trout.trout");
+				} else if(sourcefile.endsWith(".aml"))	{
+					troutfile = sourcefile.replaceAll("\\.aml", "_trout.trout");
+				} else {
+					logger.log(Level.INFO, "doSpecificTransform(): Wrong XML source file extension. It should be EITHER .xml OR .aml");
+				}
 			}
 			
 		} 
