@@ -2,8 +2,11 @@
 <xsl:stylesheet version="1.0"
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
             xmlns:siima="http://siima.net/test/">
-<!-- 2018-07-06 TODO: Caex2AspFacts_PartFeedingSkills_TODO -->
-<!-- BASED ON Caex2AspFacts.xsl version 1-->
+<!-- 2018-07-06 TODO: Caex2AspFacts_PartFeedingSkills_1.xsl -->
+<!-- BASED ON Caex2AspFacts.xsl version 1 -->
+<!-- TODO: Machine number: $MacNr which element/function to use? -->
+<!-- position() perhaps not good if there are other IE elements in the top layer -->
+<!-- TODO: BETTER TO USE number element (see TEST NUMBER ELEMENT  below) -->
 <xsl:output method="text" indent="no"/>
 <xsl:strip-space elements="*"/>
 
@@ -21,27 +24,28 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 
 <xsl:template match="CAEXFile">
 	<xsl:variable name="HeaderLine">
-		<xsl:text>% Resource capability ASP facts (.db) generated from CAEX by ERAmlHandler (Caex2AspFacts.xsl v1.0)&#xA;</xsl:text>
+		<xsl:text>% Resource capability ASP facts (.db) generated from CAEX by ERAmlHandler (Caex2AspFacts_PartFeedingSkills_1.xsl)&#xA;</xsl:text>
 	</xsl:variable>	
 	<xsl:value-of select="$HeaderLine"/>
-	<!--xsl:call-template name="specialfacts"/-->
     <xsl:apply-templates select="./InstanceHierarchy"/>
-	<!--xsl:apply-templates select="//InternalLink"/-->
 </xsl:template>
 
 <xsl:template match="InstanceHierarchy">
-	<!-- NEW -->
+	<!-- ProductionResourcesIH1 -->
+	<xsl:text>&#xA;% InstanceHierarchy: </xsl:text>
 	<xsl:value-of select="./@Name"/>
 	<xsl:text>&#xA;</xsl:text>
 	<xsl:apply-templates select="./InternalElement"/>
 	<!-- TEST NUMBER FUNC  http://www.java2s.com/Code/XML/XSLT-stylesheet/Createindexnumber.htm  -->
-	<xsl:text>&#xA; TEST NUMBER FUNC &#xA;</xsl:text>
+	<xsl:text>&#xA; TEST NUMBER ELEMENT &#xA;</xsl:text>
 	<xsl:for-each select="./InternalElement">
 			<xsl:text>&#xA;</xsl:text>
             <xsl:number format="1. "/>
             <xsl:value-of select="./@Name"/>
       </xsl:for-each>
-
+	<!-- TEST NICE:  <xsl:variable name="GenID" select="generate-id()"/> 
+	<xsl:value-of select="$GenID"/>
+	-->
 </xsl:template>
 
 
@@ -62,65 +66,179 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
                 <xsl:with-param name="search" select="string($find)"/>
          </xsl:call-template>
 	</xsl:variable>
-	<xsl:variable name="IEcolor" select="./Attribute[@Name='Color']/Value/text()"/>
 	
-	<!-- NEW -->
+	<!-- IE may be of BaseRoleClass CapaEquipment (i.e. machine type in dlv program) -->
+	<xsl:text>&#xA;% machine type ?: </xsl:text>
 	<xsl:value-of select="$iename"/>
 	<xsl:text>&#xA;</xsl:text>
 	
-	<!-- CREATE rectange(leg). & square(leg2). facts -->
-	<!--(SystemUnitClass:localname InternalElement:name Attribute:color:value 
-	 + for rectange legos: Attribute:orientation:value) -->
-	 
 	 <xsl:choose>
 		<xsl:when test="string($BRClass)='CapaEquipment'">
-			<!-- NEW -->
-	
+			<!-- This IE truely is CapaEquipment type -->
+			<xsl:variable name="EqType" select="$iename"/>
+			<xsl:text>&#xA;% machine type in dlv (i.e. BaseRoleClass: </xsl:text>
 			<xsl:value-of select="$BRClass"/>
-			<xsl:text>&#xA;</xsl:text>
-		
-			<!--  -->
+			<xsl:text>&#xA;</xsl:text>		
+			<!-- TODO: which function to use position() perhaps not good -->
+			<!-- TODO: BETTER TO USE number element (see test above) -->
 			<xsl:variable name="MacNr" select="position()"/>
-			<!-- maybe useful <xsl:variable name="GenID" select="generate-id()"/> -->
-			<xsl:value-of select="$MacNr"/>
-			<!-- -->
-			<xsl:variable name="CRMac" select="concat('machine(',$MacNr,').')"/>
+			<!-- xsl:value-of select="$MacNr"/ -->
 			
-			<xsl:variable name="CREEqType" select="concat('hasMacType(',$MacNr,',',$iename,').')"/>
+			<!-- Creating machine() and hasMacType() and machineType() predicates -->
+			<xsl:variable name="CRMac" select="concat('machine(',$MacNr,').')"/>
 			<xsl:text>&#xA;</xsl:text>
-			<xsl:value-of select="$CRMac"/>
+			<xsl:value-of select="$CRMac"/>			
+			<xsl:variable name="phasMacType" select="concat('hasMacType(',$MacNr,',',$EqType,').')"/>			
 			<xsl:text>&#xA;</xsl:text>
-			<xsl:value-of select="$CREEqType"/>
+			<xsl:value-of select="$phasMacType"/>
+			<xsl:text>&#xA;</xsl:text>			
+			<xsl:variable name="pmacType" select="concat('machineType(',$EqType,').')"/>
 			<xsl:text>&#xA;</xsl:text>
-			<!-- Checking if defined as a baselego i.e. baseblock='true'  -->
-			<xsl:variable name="BaseB" select="./Attribute[@Name='Baseblock']/Value[text()='true']/text()"/>
-			<xsl:if test="$BaseB"><xsl:value-of select="concat('base(',$iename,').')"/></xsl:if>
+			<xsl:value-of select="$pmacType"/>
+			
+			<xsl:for-each select="./InternalElement">
+				<xsl:call-template name="processMachineChildren">
+                <xsl:with-param name="mactype" select="$EqType"/>
+				<xsl:with-param name="iechild" select="."/>
+				</xsl:call-template>
+			</xsl:for-each>
+			
 		</xsl:when>
-		<xsl:when test="string($BRClass)='SquareLego'">
-			<xsl:variable name="CRESquare" select="concat('square(',$iename,').')"/>
-			<xsl:text>&#xA;</xsl:text>
-			<xsl:value-of select="$CRESquare"/>
-			<!-- Checking if defined as a baselego i.e. baseblock='true'  -->
-			<xsl:variable name="BaseB" select="./Attribute[@Name='Baseblock']/Value[text()='true']/text()"/>
-			<xsl:if test="$BaseB"><xsl:value-of select="concat('base(',$iename,').')"/></xsl:if>
-		</xsl:when>
-		<!--xsl:otherwise>
-             <xsl:value-of select="concat('Unknown type: ',$SUClass)" />
-         </xsl:otherwise-->
+		<xsl:otherwise>
+			<xsl:text>&#xA;%????Unknown BaseRoleClass???</xsl:text>
+			<xsl:value-of select="$BRClass"/>
+		</xsl:otherwise>
 	 </xsl:choose>
 	
-<!--	<xsl:for-each select="./ExternalInterface">
-		<xsl:text>&#xA;</xsl:text>
-			<xsl:variable name="IEinterface" select="./@Name"/>	
-			<xsl:variable name="CREATE" select="concat('create ', $SUClass,' ',$IEname,' ',$IEcolor)"/>
-		<xsl:value-of select="$CREATE"/>
-	</xsl:for-each>
-	<xsl:text>&#xA;</xsl:text>
-	-->
+</xsl:template>
+
+<!-- NEW process capaComponents -->
+<xsl:template name="processMachineChildren">
+	<xsl:param name="mactype"/>
+	<xsl:param name="iechild"/>
+	<xsl:text>&#xA;% processMachineChildren &#xA;</xsl:text>
+	<!-- xsl:value-of select="$mactype"/ -->
+	<!-- xsl:text>&#xA;</xsl:text -->
+	<!-- xsl:value-of select="$iechild/@Name"/ -->
+	
+	<xsl:variable name="IEname" select="$iechild/@Name"/>
+	<xsl:variable name="RBRCPath" select="./RoleRequirements/@RefBaseRoleClassPath"/>
+	<!-- lowercase -->
+	<xsl:variable name="iename" select="concat(translate(substring($IEname,1,1),$uppercase, $smallcase),substring($IEname,2))"/>
+	
+	<!-- Parsing the class local name from the path -->
+	<xsl:variable name="find" select="string('/')"/>
+	<xsl:variable name="BRClass">
+		<xsl:call-template name="lastpart">
+                <xsl:with-param name="string" select="string($RBRCPath)"/>
+                <xsl:with-param name="search" select="string($find)"/>
+         </xsl:call-template>
+	</xsl:variable>	
+	<!-- IE may be of BaseRoleClass CapaComponent (i.e. component type in dlv program) -->
+	<xsl:text>&#xA;% component type ?: </xsl:text>
+	<xsl:value-of select="$iename"/>
+	<!-- xsl:text>&#xA;</xsl:text -->
+	
+	<xsl:choose>
+		<xsl:when test="string($BRClass)='CapaComponent'">
+			<!-- This IE truely is CapaComponent type-->
+			<xsl:variable name="comType" select="$iename"/>	
+			<!-- PREDICATES: compoType(baseunit_ff). hasCompoType(vibraBowlFeeder,bowl_vbf). -->
+			<xsl:variable name="pcompoType" select="concat('compoType(',$comType,').')"/>			
+			<xsl:text>&#xA;</xsl:text>
+			<xsl:value-of select="$pcompoType"/>
+			<xsl:variable name="phasCompoType" select="concat('hasCompoType(',$mactype,',',$comType,').')"/>			
+			<xsl:text>&#xA;</xsl:text>
+			<xsl:value-of select="$phasCompoType"/>
+			
+			<xsl:for-each select="$iechild/InternalElement">
+				<xsl:call-template name="processComponentChildren">
+                <xsl:with-param name="comtype" select="$comType"/>
+				<xsl:with-param name="iechild" select="."/>
+				</xsl:call-template>
+			</xsl:for-each>			
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:text>&#xA;%????Unknown BaseRoleClass???</xsl:text>
+			<xsl:value-of select="$BRClass"/>
+		</xsl:otherwise>
+	</xsl:choose>
+	<xsl:text>&#xA;%  &#xA;</xsl:text>
+	
+</xsl:template>
+
+<!-- NEW process ResourceSkills -->
+<xsl:template name="processComponentChildren">
+	<xsl:param name="comtype"/>
+	<xsl:param name="iechild"/>
+	<xsl:text>&#xA;%     processComponentChildren   &#xA;</xsl:text>
+	<!-- xsl:value-of select="$comtype"/ -->
+	<!-- xsl:text>&#xA;</xsl:text -->
+	<!-- xsl:value-of select="$iechild/@Name"/ -->
+	<!-- xsl:text>&#xA;</xsl:text -->
+	<xsl:variable name="IEname" select="$iechild/@Name"/>
+	<xsl:variable name="RBRCPath" select="./RoleRequirements/@RefBaseRoleClassPath"/>
+	<!-- lowercase -->
+	<xsl:variable name="iename" select="concat(translate(substring($IEname,1,1),$uppercase, $smallcase),substring($IEname,2))"/>
+	
+	<!-- Parsing the class local name from the path -->
+	<xsl:variable name="find" select="string('/')"/>
+	<xsl:variable name="BRClass">
+		<xsl:call-template name="lastpart">
+                <xsl:with-param name="string" select="string($RBRCPath)"/>
+                <xsl:with-param name="search" select="string($find)"/>
+         </xsl:call-template>
+	</xsl:variable>	
+	<xsl:text>&#xA;% capability ?: </xsl:text>
+	<xsl:value-of select="$iename"/>
+	<!-- xsl:text>&#xA;</xsl:text -->	
+	
+		<xsl:choose>
+		<xsl:when test="string($BRClass)='ResourceSkill'">
+			<!-- This IE truely is ResourceSkill type -->
+			<xsl:variable name="reSkill" select="$iename"/>	
+			<!-- PREDICATES: capability(vibrating). hasCapa(bowl_vbf,physicalOrient).-->
+			<xsl:variable name="pcapa" select="concat('capability(',$reSkill,').')"/>			
+			<xsl:text>&#xA;</xsl:text>
+			<xsl:value-of select="$pcapa"/>
+			<xsl:variable name="phasCapa" select="concat('hasCapa(',$comtype,',',$reSkill,').')"/>			
+			<xsl:text>&#xA;</xsl:text>
+			<xsl:value-of select="$phasCapa"/>
+			
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:text>&#xA;%????Unknown BaseRoleClass???</xsl:text>
+			<xsl:value-of select="$BRClass"/>
+		</xsl:otherwise>
+	</xsl:choose>
+
 </xsl:template>
 
 
-<xsl:template match="InternalLink">
+
+<!-- Modified from: http://p2p.wrox.com/xslt/31664-functions-replace-tokenize-not-found.html -->
+
+<xsl:template name="lastpart">
+        <xsl:param name="string"/>
+        <xsl:param name="search"/>
+        <xsl:choose>
+              <xsl:when test="contains( $string, $search)">
+                <xsl:variable name="before" select="substring-before( $string, $search)"/>
+                <xsl:variable name="after" select="substring-after($string,$search)"/>
+                       <xsl:call-template name="lastpart">
+						<xsl:with-param name="string" select="string($after)"/>
+						<xsl:with-param name="search" select="string($search)"/>
+					</xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                     <xsl:value-of select="$string" />
+            </xsl:otherwise>
+        </xsl:choose>
+   </xsl:template>
+
+   <!-- OLD LEGO TEMPLATES -->
+   
+   <xsl:template match="InternalLink">
 <!-- link(leg1,topA,leg2,botA-->
 	<!-- link predicate atoms should start with a lowercase letter  -->
 	<!--xsl:value-of select="translate('ISOJA', $uppercase, $smallcase)"/-->
@@ -144,27 +262,8 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 	<xsl:text>&#xA;</xsl:text>
 	<xsl:value-of select="$LINK"/>
 </xsl:template>
-
-<!-- Modified from: http://p2p.wrox.com/xslt/31664-functions-replace-tokenize-not-found.html -->
-
-<xsl:template name="lastpart">
-        <xsl:param name="string"/>
-        <xsl:param name="search"/>
-        <xsl:choose>
-              <xsl:when test="contains( $string, $search)">
-                <xsl:variable name="before" select="substring-before( $string, $search)"/>
-                <xsl:variable name="after" select="substring-after($string,$search)"/>
-                       <xsl:call-template name="lastpart">
-						<xsl:with-param name="string" select="string($after)"/>
-						<xsl:with-param name="search" select="string($search)"/>
-					</xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-                     <xsl:value-of select="$string" />
-            </xsl:otherwise>
-        </xsl:choose>
-   </xsl:template>
-
+   
+   
   <xsl:template name="specialfacts">
 		<!-- Specifying #maxint value  -->
 		<!-- REQ: #maxint needs to be AT LEAST 2xlegocount+2  -->
