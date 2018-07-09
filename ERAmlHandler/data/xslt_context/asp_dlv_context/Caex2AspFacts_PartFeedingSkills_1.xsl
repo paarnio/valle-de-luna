@@ -3,7 +3,7 @@
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
             xmlns:siima="http://siima.net/test/">
 <!-- 2018-07-06 TODO: Caex2AspFacts_PartFeedingSkills_1.xsl -->
-<!-- BASED ON Caex2AspFacts.xsl version 1 -->
+<!-- (BASED ON Caex2AspFacts.xsl version 1) -->
 <!-- TODO: Machine number: $MacNr which element/function to use? -->
 <!-- position() perhaps not good if there are other IE elements in the top layer -->
 <!-- TODO: BETTER TO USE number element (see TEST NUMBER ELEMENT  below) -->
@@ -24,40 +24,44 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 
 <xsl:template match="CAEXFile">
 	<xsl:variable name="HeaderLine">
-		<xsl:text>% Resource capability ASP facts (.db) generated from CAEX by ERAmlHandler (Caex2AspFacts_PartFeedingSkills_1.xsl)&#xA;</xsl:text>
+		<xsl:text>% Resource capability ASP facts (.db) generated from CAEX file:</xsl:text>
+		<xsl:value-of select="./@FileName"/>
+		<xsl:text>&#xA;% by ERAmlHandler (Caex2AspFacts_PartFeedingSkills_1.xsl)&#xA;</xsl:text>
 	</xsl:variable>	
 	<xsl:value-of select="$HeaderLine"/>
-    <xsl:apply-templates select="./InstanceHierarchy"/>
+	<xsl:apply-templates select="./InstanceHierarchy"/>
+	<xsl:apply-templates select="./RoleClassLib"/>   
 </xsl:template>
 
+
 <xsl:template match="InstanceHierarchy">
-	<!-- ProductionResourcesIH1 -->
-	<xsl:text>&#xA;% InstanceHierarchy: </xsl:text>
-	<xsl:value-of select="./@Name"/>
-	<xsl:text>&#xA;</xsl:text>
-	<xsl:apply-templates select="./InternalElement"/>
 	<!-- TEST NUMBER FUNC  http://www.java2s.com/Code/XML/XSLT-stylesheet/Createindexnumber.htm  -->
-	<xsl:text>&#xA; TEST NUMBER ELEMENT &#xA;</xsl:text>
+	<xsl:text>&#xA;% TEST NUMBER ELEMENT</xsl:text>
 	<xsl:for-each select="./InternalElement">
-			<xsl:text>&#xA;</xsl:text>
+			<xsl:text>&#xA;%</xsl:text>
             <xsl:number format="1. "/>
             <xsl:value-of select="./@Name"/>
       </xsl:for-each>
 	<!-- TEST NICE:  <xsl:variable name="GenID" select="generate-id()"/> 
 	<xsl:value-of select="$GenID"/>
-	-->
+	-->	
+	<!-- ProductionResourcesIH1 -->
+	<xsl:text>&#xA;%</xsl:text>
+	<xsl:text>&#xA;% ********************************** </xsl:text>
+	<xsl:text>&#xA;% InstanceHierarchy: </xsl:text>
+	<xsl:value-of select="./@Name"/>
+	<xsl:text>&#xA;% ********************************** </xsl:text>
+	<xsl:text>&#xA;%</xsl:text>
+	<xsl:apply-templates select="./InternalElement"/>
 </xsl:template>
-
-
 
 
 <xsl:template match="InternalElement">
 	<xsl:variable name="IEguid" select="./@ID"/>
 	<xsl:variable name="IEname" select="./@Name"/>
 	<xsl:variable name="RBRCPath" select="./RoleRequirements/@RefBaseRoleClassPath"/>
-	<!-- lowercase -->
-	<xsl:variable name="iename" select="concat(translate(substring($IEname,1,1),$uppercase, $smallcase),substring($IEname,2))"/>
-	
+	<!-- lowercase first char -->
+	<xsl:variable name="iename" select="concat(translate(substring($IEname,1,1),$uppercase, $smallcase),substring($IEname,2))"/>	
 	<!-- Parsing the class local name from the path -->
 	<xsl:variable name="find" select="string('/')"/>
 	<xsl:variable name="BRClass">
@@ -67,31 +71,31 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
          </xsl:call-template>
 	</xsl:variable>
 	
-	<!-- IE may be of BaseRoleClass CapaEquipment (i.e. machine type in dlv program) -->
-	<xsl:text>&#xA;% machine type ?: </xsl:text>
+	<!-- IE expected tp be of BaseRoleClass CapaEquipment (i.e. machine type in dlv program) -->
+	<xsl:text>&#xA;% ******************</xsl:text>
+	<xsl:text>&#xA;% machine type name: </xsl:text>
 	<xsl:value-of select="$iename"/>
-	<xsl:text>&#xA;</xsl:text>
 	
 	 <xsl:choose>
 		<xsl:when test="string($BRClass)='CapaEquipment'">
 			<!-- This IE truely is CapaEquipment type -->
 			<xsl:variable name="EqType" select="$iename"/>
-			<xsl:text>&#xA;% machine type in dlv (i.e. BaseRoleClass: </xsl:text>
+			<xsl:text>&#xA;% machine type (i.e. in IH: BaseRoleClass: </xsl:text>
 			<xsl:value-of select="$BRClass"/>
-			<xsl:text>&#xA;</xsl:text>		
+			<xsl:text>)</xsl:text>
+			<xsl:text>&#xA;% ******************</xsl:text>			
 			<!-- TODO: which function to use position() perhaps not good -->
-			<!-- TODO: BETTER TO USE number element (see test above) -->
+			<!-- TODO: position() OK if all top level IE are CapaEquipment types -->
+			<!-- TODO: Maybe BETTER TO USE number element (see test above) -->
 			<xsl:variable name="MacNr" select="position()"/>
-			<!-- xsl:value-of select="$MacNr"/ -->
-			
+			<!-- xsl:value-of select="$MacNr"/ -->			
 			<!-- Creating machine() and hasMacType() and machineType() predicates -->
 			<xsl:variable name="CRMac" select="concat('machine(',$MacNr,').')"/>
 			<xsl:text>&#xA;</xsl:text>
 			<xsl:value-of select="$CRMac"/>			
 			<xsl:variable name="phasMacType" select="concat('hasMacType(',$MacNr,',',$EqType,').')"/>			
 			<xsl:text>&#xA;</xsl:text>
-			<xsl:value-of select="$phasMacType"/>
-			<xsl:text>&#xA;</xsl:text>			
+			<xsl:value-of select="$phasMacType"/>		
 			<xsl:variable name="pmacType" select="concat('machineType(',$EqType,').')"/>
 			<xsl:text>&#xA;</xsl:text>
 			<xsl:value-of select="$pmacType"/>
@@ -112,18 +116,17 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 	
 </xsl:template>
 
-<!-- NEW process capaComponents -->
+<!-- process capaComponents children of CapaEquipment -->
 <xsl:template name="processMachineChildren">
 	<xsl:param name="mactype"/>
 	<xsl:param name="iechild"/>
-	<xsl:text>&#xA;% processMachineChildren &#xA;</xsl:text>
 	<!-- xsl:value-of select="$mactype"/ -->
 	<!-- xsl:text>&#xA;</xsl:text -->
 	<!-- xsl:value-of select="$iechild/@Name"/ -->
 	
 	<xsl:variable name="IEname" select="$iechild/@Name"/>
 	<xsl:variable name="RBRCPath" select="./RoleRequirements/@RefBaseRoleClassPath"/>
-	<!-- lowercase -->
+	<!-- lowercase first char -->
 	<xsl:variable name="iename" select="concat(translate(substring($IEname,1,1),$uppercase, $smallcase),substring($IEname,2))"/>
 	
 	<!-- Parsing the class local name from the path -->
@@ -135,8 +138,8 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
          </xsl:call-template>
 	</xsl:variable>	
 	<!-- IE may be of BaseRoleClass CapaComponent (i.e. component type in dlv program) -->
-	<xsl:text>&#xA;% component type ?: </xsl:text>
-	<xsl:value-of select="$iename"/>
+	<!--xsl:text>&#xA;% component type name: </xsl:text>
+	<xsl:value-of select="$iename"/-->
 	<!-- xsl:text>&#xA;</xsl:text -->
 	
 	<xsl:choose>
@@ -163,24 +166,21 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 			<xsl:value-of select="$BRClass"/>
 		</xsl:otherwise>
 	</xsl:choose>
-	<xsl:text>&#xA;%  &#xA;</xsl:text>
 	
 </xsl:template>
 
-<!-- NEW process ResourceSkills -->
+<!-- process ResourceSkills -->
 <xsl:template name="processComponentChildren">
 	<xsl:param name="comtype"/>
 	<xsl:param name="iechild"/>
-	<xsl:text>&#xA;%     processComponentChildren   &#xA;</xsl:text>
 	<!-- xsl:value-of select="$comtype"/ -->
 	<!-- xsl:text>&#xA;</xsl:text -->
 	<!-- xsl:value-of select="$iechild/@Name"/ -->
 	<!-- xsl:text>&#xA;</xsl:text -->
 	<xsl:variable name="IEname" select="$iechild/@Name"/>
 	<xsl:variable name="RBRCPath" select="./RoleRequirements/@RefBaseRoleClassPath"/>
-	<!-- lowercase -->
-	<xsl:variable name="iename" select="concat(translate(substring($IEname,1,1),$uppercase, $smallcase),substring($IEname,2))"/>
-	
+	<!-- lowercase first char -->
+	<xsl:variable name="iename" select="concat(translate(substring($IEname,1,1),$uppercase, $smallcase),substring($IEname,2))"/>	
 	<!-- Parsing the class local name from the path -->
 	<xsl:variable name="find" select="string('/')"/>
 	<xsl:variable name="BRClass">
@@ -189,8 +189,8 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
                 <xsl:with-param name="search" select="string($find)"/>
          </xsl:call-template>
 	</xsl:variable>	
-	<xsl:text>&#xA;% capability ?: </xsl:text>
-	<xsl:value-of select="$iename"/>
+	<!--xsl:text>&#xA;% capability name: </xsl:text>
+	<xsl:value-of select="$iename"/-->
 	<!-- xsl:text>&#xA;</xsl:text -->	
 	
 		<xsl:choose>
@@ -214,9 +214,151 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 
 </xsl:template>
 
+<!--
+ ******************************
+ * RoleClassLib TEMPLATE 
+ * 
+ ****************************** 
+ -->
+
+<xsl:template match="RoleClassLib">	
+	<!-- TemplateSkillsRCLib1 -->
+	<xsl:text>&#xA;%</xsl:text>
+	<xsl:text>&#xA;% ********************************** </xsl:text>
+	<xsl:text>&#xA;% RoleClassLib: </xsl:text>
+	<xsl:value-of select="./@Name"/>
+	<xsl:text>&#xA;% ********************************** </xsl:text>
+	<xsl:text>&#xA;%</xsl:text>
+	<xsl:apply-templates select="./RoleClass[./@RefBaseClassPath='AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process']"/>
+</xsl:template>
 
 
-<!-- Modified from: http://p2p.wrox.com/xslt/31664-functions-replace-tokenize-not-found.html -->
+<xsl:template match="RoleClass[./@RefBaseClassPath='AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process']">
+	<xsl:variable name="RCguid" select="./@ID"/>
+	<xsl:variable name="RCname" select="./@Name"/>
+	<xsl:variable name="RBClassPath" select="./@RefBaseClassPath"/>
+	<!-- lowercase first char -->
+	<xsl:variable name="rcname" select="concat(translate(substring($RCname,1,1),$uppercase, $smallcase),substring($RCname,2))"/>	
+	<!-- Parsing the class local name from the path -->
+	<xsl:variable name="find" select="string('/')"/>
+	<xsl:variable name="RBClass">
+		<xsl:call-template name="lastpart">
+                <xsl:with-param name="string" select="string($RBClassPath)"/>
+                <xsl:with-param name="search" select="string($find)"/>
+         </xsl:call-template>
+	</xsl:variable>
+	
+	<!-- RC expected to be of RefBaseClassPath Process (i.e. machine type in dlv program) -->
+	<xsl:text>&#xA;% ************</xsl:text>
+	<xsl:text>&#xA;% TOP LEVEL Process name: </xsl:text>
+	<xsl:value-of select="$rcname"/>
+	<xsl:text>&#xA;% ************</xsl:text>
+	<xsl:for-each select="./RoleClass">
+		<xsl:call-template name="recursiveCapaAssoc">
+            <xsl:with-param name="capaName" select="$rcname"/>
+			<xsl:with-param name="assocChild" select="."/>
+		</xsl:call-template>
+	</xsl:for-each>
+	
+</xsl:template>
+
+
+<!-- Recursive Capability Child Processing  -->
+<xsl:template name="recursiveCapaAssoc">
+	<xsl:param name="capaName"/>
+	<xsl:param name="assocChild"/>
+	<!--xsl:text>&#xA;</xsl:text>
+	<xsl:value-of select="$capaName"/>
+	<xsl:text>&#xA;</xsl:text>
+	<xsl:value-of select="$assocChild/@Name"/-->
+	
+	<!-- PREDICATES: capability(physicalOrient).-->
+	<xsl:variable name="pcapa" select="concat('capability(',$capaName,').')"/>			
+	<xsl:text>&#xA;</xsl:text>
+	<xsl:value-of select="$pcapa"/>
+	
+	<xsl:variable name="ASname" select="$assocChild/@Name"/>
+	<xsl:variable name="CASPath" select="$assocChild/@RefBaseClassPath"/>
+	<!-- lowercase first char -->
+	<xsl:variable name="asname" select="concat(translate(substring($ASname,1,1),$uppercase, $smallcase),substring($ASname,2))"/>	
+	<!-- Parsing the class local name from the path -->
+	<xsl:variable name="find" select="string('/')"/>
+	<xsl:variable name="RBCPath">
+		<xsl:call-template name="lastpart">
+                <xsl:with-param name="string" select="string($CASPath)"/>
+                <xsl:with-param name="search" select="string($find)"/>
+         </xsl:call-template>
+	</xsl:variable>	
+	<!--xsl:text>&#xA;% capability name: </xsl:text>
+	<xsl:value-of select="$asname"/-->
+	<xsl:choose>
+		<xsl:when test="string($RBCPath)='CapabilityAssociation'">
+			<!-- This IE truely is CapabilityAssociation type -->
+			<xsl:variable name="reS" select="$asname"/>	
+			<!-- PREDICATES: association(orientingAssoc). req_assoc(structuring,singulatingAssoc).-->
+			<xsl:variable name="passoc" select="concat('association(',$asname,').')"/>			
+			<xsl:text>&#xA;</xsl:text>
+			<xsl:value-of select="$passoc"/>
+			<xsl:variable name="preqassoc" select="concat('req_assoc(',$capaName,',',$asname,').')"/>			
+			<xsl:text>&#xA;</xsl:text>
+			<xsl:value-of select="$preqassoc"/>	
+
+			<!-- CapaAssociation children are Capabilities (i.e. Process) -->
+			<xsl:for-each select="$assocChild/RoleClass">				
+				<xsl:variable name="RCguid" select="./@ID"/>
+				<xsl:variable name="RCname" select="./@Name"/>
+				<xsl:variable name="RBClassPath" select="./@RefBaseClassPath"/>
+				<!-- lowercase first char -->
+				<xsl:variable name="rcname" select="concat(translate(substring($RCname,1,1),$uppercase, $smallcase),substring($RCname,2))"/>	
+				<!-- Parsing the class local name from the path -->
+				<xsl:variable name="find" select="string('/')"/>
+				<xsl:variable name="RBClass">
+				<xsl:call-template name="lastpart">
+					<xsl:with-param name="string" select="string($RBClassPath)"/>
+					<xsl:with-param name="search" select="string($find)"/>
+				</xsl:call-template>
+				</xsl:variable>
+				
+				<xsl:choose>
+					<xsl:when test="string($RBClass)='Process'">			
+					<!-- PREDICATES: pro_assoc(physicalSingu,singulatingAssoc).-->
+					<xsl:variable name="pproassoc" select="concat('pro_assoc(',$rcname,',',$asname,').')"/>			
+					<xsl:text>&#xA;</xsl:text>
+					<xsl:value-of select="$pproassoc"/>	
+				
+					<!-- RECURSIVE CALL -->
+						<xsl:call-template name="recursiveCapaAssoc">
+							<xsl:with-param name="capaName" select="$rcname"/>
+							<xsl:with-param name="assocChild" select="./RoleClass"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:text>&#xA;%%  </xsl:text>
+						<xsl:value-of select="$RBClass"/>
+						<xsl:text>&#xA;%%  </xsl:text>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:for-each>
+							
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:text>&#xA;%%  </xsl:text>
+			<xsl:value-of select="$RBCPath"/>
+			<xsl:text>&#xA;%%  </xsl:text>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+
+
+
+
+<!--
+ ******************************
+ * LASTPART TEMPLATE 
+ * Modified from: http://p2p.wrox.com/xslt/31664-functions-replace-tokenize-not-found.html
+ ****************************** 
+ -->
 
 <xsl:template name="lastpart">
         <xsl:param name="string"/>
@@ -234,63 +376,6 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
                      <xsl:value-of select="$string" />
             </xsl:otherwise>
         </xsl:choose>
-   </xsl:template>
-
-   <!-- OLD LEGO TEMPLATES -->
-   
-   <xsl:template match="InternalLink">
-<!-- link(leg1,topA,leg2,botA-->
-	<!-- link predicate atoms should start with a lowercase letter  -->
-	<!--xsl:value-of select="translate('ISOJA', $uppercase, $smallcase)"/-->
-	<!-- Side A  -->
-	<xsl:variable name="Aside" select="./@RefPartnerSideA"/>
-	<xsl:variable name="Aguid" select="substring-before($Aside,':')"/>
-	<xsl:variable name="Ainterface" select="substring-after($Aside,':')"/>
-	<xsl:variable name="ainterface" select="concat(translate(substring($Ainterface,1,1),$uppercase, $smallcase),substring($Ainterface,2))"/>
-	<xsl:variable name="Aname" select="/CAEXFile//InternalElement[@ID=string($Aguid)]/@Name"/>	
-	<xsl:variable name="aname" select="concat(translate(substring($Aname,1,1),$uppercase, $smallcase),substring($Aname,2))"/>
-	<!-- Side B  -->
-	<xsl:variable name="Bside" select="./@RefPartnerSideB"/>
-	<xsl:variable name="Bguid" select="substring-before($Bside,':')"/>
-	<xsl:variable name="Binterface" select="substring-after($Bside,':')"/>
-	<xsl:variable name="binterface" select="concat(translate(substring($Binterface,1,1),$uppercase, $smallcase),substring($Binterface,2))"/>
-	<xsl:variable name="Bname" select="/CAEXFile//InternalElement[@ID=string($Bguid)]/@Name"/>	
-	<xsl:variable name="bname" select="concat(translate(substring($Bname,1,1),$uppercase, $smallcase),substring($Bname,2))"/>
-	<!-- link predicate (atoms should start with a lowercase letter  -->
-	<xsl:variable name="LINK" select="concat('link(',$aname,',',$ainterface ,',',$bname,',',$binterface,').')"/>
-	
-	<xsl:text>&#xA;</xsl:text>
-	<xsl:value-of select="$LINK"/>
-</xsl:template>
-   
-   
-  <xsl:template name="specialfacts">
-		<!-- Specifying #maxint value  -->
-		<!-- REQ: #maxint needs to be AT LEAST 2xlegocount+2  -->
-		<xsl:variable name="RLegos" select="//InternalElement[contains(string(./@RefBaseSystemUnitPath),'RectangleLego')]"/>
-		<xsl:variable name="SLegos" select="//InternalElement[contains(string(./@RefBaseSystemUnitPath),'SquareLego')]"/>
-		<xsl:variable name="RLNames" select="$RLegos/@Name"/>
-		<xsl:variable name="SLNames" select="$SLegos/@Name"/>
-		<xsl:variable name="RCount" select="count($RLegos)"/>
-		<xsl:variable name="SCount" select="count($SLegos)"/>
-		<xsl:variable name="MaxInt" select="2*($RCount + $SCount + 1)"/>
-		<xsl:text>&#xA;</xsl:text>
-		<xsl:value-of select="concat('#maxint=', string($MaxInt),'.')"/>
-		<xsl:text>&#xA;</xsl:text>
-		<!-- Specifying one predicate somelego(legoname).  -->
-		<xsl:choose>
-            <xsl:when test="$RCount">
-				<xsl:value-of select="concat('somelego(',translate(string($RLNames), $uppercase, $smallcase),').')" />
-			</xsl:when>
-			<xsl:when test="$SCount">
-				<xsl:value-of select="concat('somelego(',translate(string($SLNames), $uppercase, $smallcase),').')" />
-			</xsl:when>
-            <xsl:otherwise>
-                 <xsl:text>&#xA;% NO LEGOS FOUND?? (InternalElements of classes RectangleLego or SquareLego)&#xA;</xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
-		<!--xsl:variable name="IEcolor" select="./Attribute[@Name='Color']/Value/text()"/-->
-		
    </xsl:template>
 
 </xsl:stylesheet>
