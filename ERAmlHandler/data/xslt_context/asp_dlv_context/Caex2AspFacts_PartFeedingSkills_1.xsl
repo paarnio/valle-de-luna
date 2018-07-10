@@ -274,14 +274,14 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 	<xsl:text>&#xA;% TARGET Capability: </xsl:text>
 	<xsl:value-of select="$depTarget"/>
 	
-<!--	
-% CONSTRAINT 5: "OrientationRecog  requires InformationalSingu "
-constr5(X) :- in(informationalSingu),capability(informationalSingu),capability(X), X=orientationRecog.
-cf(5,X) :- capability(X), X=orientationRecog, in(X), not constr5(orientationRecog).
-cff :- cf(5,X), capability(X), X=orientationRecog.
-% FORCE: As a hard constraint
-:- cf(5,X), capability(X), X=orientationRecog.
--->
+	<!-- GENERATING CONSTRAINTS i.e. capability dependencies between capabilities 
+		% CONSTRAINT EXAMPLE 5: "OrientationRecog  requires InformationalSingu "
+		constr5(X) :- in(informationalSingu),capability(informationalSingu),capability(X), X=orientationRecog.
+		cf(5,X) :- capability(X), X=orientationRecog, in(X), not constr5(orientationRecog).
+		cff :- cf(5,X), capability(X), X=orientationRecog.
+		% FORCE: As a hard constraint
+		:- cf(5,X), capability(X), X=orientationRecog.
+	-->
 
 	<xsl:variable name="comLine" select="concat('% CONSTRAINT: ',$genId,': ',$source,' requires ',$depTarget)"/>	
 	<xsl:text>&#xA;</xsl:text>
@@ -303,7 +303,7 @@ cff :- cf(5,X), capability(X), X=orientationRecog.
 	<xsl:text>&#xA;</xsl:text>
 	<xsl:value-of select="$comLine2"/>
 	
-	<xsl:variable name="cline4" select="concat('% :- cf(',$genId,',X),capability(X), X=',$source,'.')"/>	
+	<xsl:variable name="cline4" select="concat(' :- cf(',$genId,',X),capability(X), X=',$source,'.')"/>	
 	<xsl:text>&#xA;</xsl:text>
 	<xsl:value-of select="$cline4"/>
 	
@@ -331,6 +331,11 @@ cff :- cf(5,X), capability(X), X=orientationRecog.
 	<xsl:text>&#xA;% TOP LEVEL Process name: </xsl:text>
 	<xsl:value-of select="$rcname"/>
 	<xsl:text>&#xA;% ************</xsl:text>
+	<!-- PREDICATES: capability(physicalOrient).-->
+	<xsl:variable name="pcapa" select="concat('capability(',$rcname,').')"/>			
+	<xsl:text>&#xA;</xsl:text>
+	<xsl:value-of select="$pcapa"/>
+	<!-- LOOP: Capability children are  CapabilityAssociations -->
 	<xsl:for-each select="./RoleClass">
 		<xsl:call-template name="recursiveCapaAssoc">
             <xsl:with-param name="capaName" select="$rcname"/>
@@ -341,7 +346,11 @@ cff :- cf(5,X), capability(X), X=orientationRecog.
 </xsl:template>
 
 
-<!-- Recursive Capability Child Processing  -->
+<!-- ***********************************
+ * 
+ * Recursive CapabilityAssociation Processing  
+ * 
+ * ***************************************-->
 <xsl:template name="recursiveCapaAssoc">
 	<xsl:param name="capaName"/>
 	<xsl:param name="assocChild"/>
@@ -349,11 +358,6 @@ cff :- cf(5,X), capability(X), X=orientationRecog.
 	<xsl:value-of select="$capaName"/>
 	<xsl:text>&#xA;</xsl:text>
 	<xsl:value-of select="$assocChild/@Name"/-->
-	
-	<!-- PREDICATES: capability(physicalOrient).-->
-	<xsl:variable name="pcapa" select="concat('capability(',$capaName,').')"/>			
-	<xsl:text>&#xA;</xsl:text>
-	<xsl:value-of select="$pcapa"/>
 	
 	<xsl:variable name="ASname" select="$assocChild/@Name"/>
 	<xsl:variable name="CASPath" select="$assocChild/@RefBaseClassPath"/>
@@ -381,7 +385,7 @@ cff :- cf(5,X), capability(X), X=orientationRecog.
 			<xsl:text>&#xA;</xsl:text>
 			<xsl:value-of select="$preqassoc"/>	
 
-			<!-- CapaAssociation children are Capabilities (i.e. Process) -->
+			<!-- LOOP: CapaAssociation children are Capabilities (i.e. Process) -->
 			<xsl:for-each select="$assocChild/RoleClass">				
 				<xsl:variable name="RCguid" select="./@ID"/>
 				<xsl:variable name="RCname" select="./@Name"/>
@@ -398,17 +402,25 @@ cff :- cf(5,X), capability(X), X=orientationRecog.
 				</xsl:variable>
 				
 				<xsl:choose>
-					<xsl:when test="string($RBClass)='Process'">			
+					<xsl:when test="string($RBClass)='Process'">
+					<!-- PREDICATES: capability(physicalOrient).-->
+					<xsl:variable name="pcapa" select="concat('capability(',$rcname,').')"/>			
+					<xsl:text>&#xA;</xsl:text>
+					<xsl:value-of select="$pcapa"/>
+					
 					<!-- PREDICATES: pro_assoc(physicalSingu,singulatingAssoc).-->
 					<xsl:variable name="pproassoc" select="concat('pro_assoc(',$rcname,',',$asname,').')"/>			
 					<xsl:text>&#xA;</xsl:text>
 					<xsl:value-of select="$pproassoc"/>	
-				
+					
+					<!-- LOOP: Capability children are  CapabilityAssociations -->
+					<xsl:for-each select="./RoleClass">
 					<!-- RECURSIVE CALL -->
 						<xsl:call-template name="recursiveCapaAssoc">
 							<xsl:with-param name="capaName" select="$rcname"/>
-							<xsl:with-param name="assocChild" select="./RoleClass"/>
+							<xsl:with-param name="assocChild" select="."/>
 						</xsl:call-template>
+					</xsl:for-each>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>&#xA;%%  </xsl:text>
