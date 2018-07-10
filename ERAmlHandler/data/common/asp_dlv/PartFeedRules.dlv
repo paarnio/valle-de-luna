@@ -1,0 +1,64 @@
+% PartFeedRules.dl
+% From PartFeedConfigurationAndAllocation/partFeedCapaConf_A.dl
+% From PartFeedConfigurationAndAllocation/partFeedMachines_B.dl
+% See also project: PartFeedConfigurationAndAllocation
+
+% **********************************
+% From PartFeedConfigurationAndAllocation/partFeedCapaConf_A.dl
+%
+% **********************************
+% ---- Capability Configuration ------
+% ADD in(X1),
+
+% A feature instance is in configuration
+% if it is both actual and possible part of something
+in(X2) :- hasCapaPart(X1,X2,A), pCapaPart(X1,X2,A).
+% Root capability 
+% froot(partFeeding).
+% only one root
+in(X1) :- froot(X1).
+:- #count{X1:in(X1),froot(X1)} > 1.
+:- #count{X1:in(X1),froot(X1)} < 1.
+
+% possible capability part via association
+pCapaPart(X1,X2,A) :- capability(X1), capability(X2),association(A), req_assoc(X1,A), pro_assoc(X2,A).
+
+% ---- CONFIGURATION HIERARCHY ----
+% has capability part
+% (MANDATORY) If only one capability is a possible part via some associatien, it must be included
+hasCapaPart(X1,X2,A) :- #count{X:pCapaPart(X1,X,A)}=1, capability(X1),association(A), in(X1), pCapaPart(X1,X2,A).
+
+% (ALTERNATIVES)If there are several possible capability parts via the same association, only one of them can be included
+hasCapaPart(X1,X2,A) | notHasCapaPart(X1,X2,A) :- #count{X:pCapaPart(X1,X,A)}>1, capability(X1), association(A), in(X1), pCapaPart(X1,X2,A).
+
+:- #count{X2 : hasCapaPart(X1,X2,A)} < 1, capability(X1),in(X1), association(A), req_assoc(X1,A).
+:- #count{X2 : hasCapaPart(X1,X2,A)} > 1, capability(X1),in(X1), association(A), req_assoc(X1,A).
+
+
+% -- Combined and simple capabilities
+ combinedCapa(X1) :- req_assoc(X1,X2),association(X2).
+ simpleCapa(X1) :- capability(X1),not combinedCapa(X1).
+
+
+% ---- CAPABILITY CONFIGURATION
+% contains capabilities in hasCapaPart(froot,Capa,Assoc) tree
+
+reqSimpleCapa(S) :- hasCapaPart(X1,S,A), simpleCapa(S).
+
+
+% **********************************
+% From PartFeedConfigurationAndAllocation/partFeedMachines_B.dl
+%
+% **********************************
+% ---- MACHINE ALLOCATION ----
+% allocate machine(s) (code based on phone_assembly_combcapa_4.dl) 
+hasCapa(Mt,C) :- hasCapa(Ct,C),hasCompoType(Mt,Ct), machineType(Mt), compoType(Ct), capability(C).
+
+alloc(M,C1) | notAlloc(M,C1) :- reqSimpleCapa(C1),hasCapa(Mt,C1),machineType(Mt),machine(M),hasMacType(M,Mt).
+% exactly one machine allocated for one interface-(simple)capability
+:- #count{M:alloc(M,C1)}<1,reqSimpleCapa(C1).
+:- #count{M:alloc(M,C1)}>1,reqSimpleCapa(C1).
+
+% SOFT CONSTRAINT: Cost for using two machines to do the combined assembly task (d3: oli M1<>M2)
+:~ alloc(M1,C1),alloc(M2,C2),machine(M1),machine(M2),capability(C1),capability(C2),M1<M2. [1:1]
+

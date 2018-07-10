@@ -100,14 +100,16 @@ public class XSLTransform {
 				} else if (path.contains(".xsl")) {
 					setXslContextXslFile(path);
 					xslbool = true;
-				} else if (path.contains(".trout")) {
+				} else if ((path.contains("trout"))||(path.contains(".txt"))) {
+					//Note: allows result files e.g:
+					//XSLT_result_trout.db, XSLT_result.txt, XSLT_result.trout  
 					setXslContextTroutFile(path);
 					troutbool = true;
 				}			
 			}
 			
 		}
-		logger.info("setXslContex: loaded (.xml/aml;.xsl;.trout):(" + srcbool + ";" + xslbool + ";" + troutbool + ")");
+		logger.info("setXslContex: loaded XSL(.xsl);XML(.xml | .aml); RESULT(.trout | trout.??? | .txt ):(" + srcbool + ";" + xslbool + ";" + troutbool + ")");
 	}
 	
 	public String getXslContextSrcFile() {

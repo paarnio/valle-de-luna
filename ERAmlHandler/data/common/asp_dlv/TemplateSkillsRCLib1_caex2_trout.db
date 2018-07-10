@@ -1,0 +1,172 @@
+% Resource capability ASP facts (.db) generated from CAEX file:TemplateSkillsRCLib1_2.aml
+% by ERAmlHandler (Caex2AspFacts_PartFeedingSkills_1.xsl)
+
+% TEST NUMBER ELEMENT
+%1. VibratoryBowlFeeder
+%2. FlexibleFeeder
+%
+% ********************************** 
+% InstanceHierarchy: ProductionResourcesIH1
+% ********************************** 
+%
+% ******************
+% machine type name: vibratoryBowlFeeder
+% machine type (i.e. in IH: BaseRoleClass: CapaEquipment)
+% ******************
+machine(1).
+hasMacType(1,vibratoryBowlFeeder).
+machineType(vibratoryBowlFeeder).
+compoType(vBFBaseUnit).
+hasCompoType(vibratoryBowlFeeder,vBFBaseUnit).
+capability(vibrating).
+hasCapa(vBFBaseUnit,vibrating).
+compoType(vBFBowl).
+hasCompoType(vibratoryBowlFeeder,vBFBowl).
+capability(physicalOrientation).
+hasCapa(vBFBowl,physicalOrientation).
+capability(physicalSingulation).
+hasCapa(vBFBowl,physicalSingulation).
+capability(storaging).
+hasCapa(vBFBowl,storaging).
+capability(vibrationTransferring).
+hasCapa(vBFBowl,vibrationTransferring).
+% ******************
+% machine type name: flexibleFeeder
+% machine type (i.e. in IH: BaseRoleClass: CapaEquipment)
+% ******************
+machine(2).
+hasMacType(2,flexibleFeeder).
+machineType(flexibleFeeder).
+compoType(fFCamera).
+hasCompoType(flexibleFeeder,fFCamera).
+capability(positionRecognition).
+hasCapa(fFCamera,positionRecognition).
+capability(partRecognition).
+hasCapa(fFCamera,partRecognition).
+capability(orientationRecognition).
+hasCapa(fFCamera,orientationRecognition).
+compoType(fFPartDispenser).
+hasCompoType(flexibleFeeder,fFPartDispenser).
+capability(storaging).
+hasCapa(fFPartDispenser,storaging).
+capability(vibrationTransferring).
+hasCapa(fFPartDispenser,vibrationTransferring).
+compoType(fFBaseUnit).
+hasCompoType(flexibleFeeder,fFBaseUnit).
+capability(vibrating).
+hasCapa(fFBaseUnit,vibrating).
+capability(vibrationTransfering).
+hasCapa(fFBaseUnit,vibrationTransfering).
+%
+% ********************************** 
+% RoleClassLib: TemplateSkillsRCLib1
+% ********************************** 
+%
+% ************
+% TOP LEVEL Process name: partFeeding
+% ************
+froot(partFeeding).
+capability(partFeeding).
+association(structuringAssoc).
+req_assoc(partFeeding,structuringAssoc).
+capability(structuring).
+pro_assoc(structuring,structuringAssoc).
+association(singulationAssoc).
+req_assoc(structuring,singulationAssoc).
+capability(physicalSingulation).
+pro_assoc(physicalSingulation,singulationAssoc).
+capability(informationalSingulation).
+pro_assoc(informationalSingulation,singulationAssoc).
+association(positionRecognitionAssoc).
+req_assoc(informationalSingulation,positionRecognitionAssoc).
+capability(positionRecognition).
+pro_assoc(positionRecognition,positionRecognitionAssoc).
+association(partRecognitionAssoc).
+req_assoc(informationalSingulation,partRecognitionAssoc).
+capability(partRecognition).
+pro_assoc(partRecognition,partRecognitionAssoc).
+association(storagingAssoc).
+req_assoc(structuring,storagingAssoc).
+capability(storaging).
+pro_assoc(storaging,storagingAssoc).
+association(conveyingAssoc).
+req_assoc(structuring,conveyingAssoc).
+capability(vibrationalConveying).
+pro_assoc(vibrationalConveying,conveyingAssoc).
+association(vibrationTransferringAssoc).
+req_assoc(vibrationalConveying,vibrationTransferringAssoc).
+capability(vibrationTransferring).
+pro_assoc(vibrationTransferring,vibrationTransferringAssoc).
+association(vibratingAssoc).
+req_assoc(vibrationalConveying,vibratingAssoc).
+capability(vibrating).
+pro_assoc(vibrating,vibratingAssoc).
+association(orientingAssoc).
+req_assoc(structuring,orientingAssoc).
+capability(orientationRecognition).
+pro_assoc(orientationRecognition,orientingAssoc).
+capability(physicalOrientation).
+pro_assoc(physicalOrientation,orientingAssoc).
+% ************
+% CONSTRAINT Attribute Value: TemplateSkillsRCLib1/PhysicalOrientation
+% CONSTRAINT ID: n65762
+% SOURCE Capability: physicalSingulation
+% TARGET Capability: physicalOrientation
+% CONSTRAINT: n65762: physicalSingulation requires physicalOrientation
+constrn65762(X) :- in(physicalOrientation),capability(physicalOrientation),capability(X), X=physicalSingulation.
+cf(n65762,X) :- in(X),capability(X), X=physicalSingulation, not constrn65762(physicalSingulation).
+cff :- cf(n65762,X),capability(X), X=physicalSingulation.
+% FORCE: As a hard constraint by uncommenting next line:
+ :- cf(n65762,X),capability(X), X=physicalSingulation.
+% ************
+% ************
+% CONSTRAINT Attribute Value: TemplateSkillsRCLib1/OrientationRecognition
+% CONSTRAINT ID: n65772
+% SOURCE Capability: informationalSingulation
+% TARGET Capability: orientationRecognition
+% CONSTRAINT: n65772: informationalSingulation requires orientationRecognition
+constrn65772(X) :- in(orientationRecognition),capability(orientationRecognition),capability(X), X=informationalSingulation.
+cf(n65772,X) :- in(X),capability(X), X=informationalSingulation, not constrn65772(informationalSingulation).
+cff :- cf(n65772,X),capability(X), X=informationalSingulation.
+% FORCE: As a hard constraint by uncommenting next line:
+ :- cf(n65772,X),capability(X), X=informationalSingulation.
+% ************
+% ************
+% CONSTRAINT Attribute Value: TemplateSkillsRCLib1/InformationalSingulation
+% CONSTRAINT ID: n65822
+% SOURCE Capability: orientationRecognition
+% TARGET Capability: informationalSingulation
+% CONSTRAINT: n65822: orientationRecognition requires informationalSingulation
+constrn65822(X) :- in(informationalSingulation),capability(informationalSingulation),capability(X), X=orientationRecognition.
+cf(n65822,X) :- in(X),capability(X), X=orientationRecognition, not constrn65822(orientationRecognition).
+cff :- cf(n65822,X),capability(X), X=orientationRecognition.
+% FORCE: As a hard constraint by uncommenting next line:
+ :- cf(n65822,X),capability(X), X=orientationRecognition.
+% ************
+% ************
+% CONSTRAINT Attribute Value: TemplateSkillsRCLib1/PhysicalSingulation
+% CONSTRAINT ID: n65831
+% SOURCE Capability: physicalOrientation
+% TARGET Capability: physicalSingulation
+% CONSTRAINT: n65831: physicalOrientation requires physicalSingulation
+constrn65831(X) :- in(physicalSingulation),capability(physicalSingulation),capability(X), X=physicalOrientation.
+cf(n65831,X) :- in(X),capability(X), X=physicalOrientation, not constrn65831(physicalOrientation).
+cff :- cf(n65831,X),capability(X), X=physicalOrientation.
+% FORCE: As a hard constraint by uncommenting next line:
+ :- cf(n65831,X),capability(X), X=physicalOrientation.
+% ************
+%
+% ********************************** 
+% RoleClassLib: SkillProRoleClassLib
+% ********************************** 
+%
+%
+% ********************************** 
+% RoleClassLib: AutomationMLBaseRoleClassLib
+% ********************************** 
+%
+%
+% ********************************** 
+% RoleClassLib: SiimaCapabilityBaseRoleClassLib
+% ********************************** 
+%

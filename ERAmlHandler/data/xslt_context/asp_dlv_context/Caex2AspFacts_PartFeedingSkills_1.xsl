@@ -229,87 +229,17 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 	<xsl:value-of select="./@Name"/>
 	<xsl:text>&#xA;% ********************************** </xsl:text>
 	<xsl:text>&#xA;%</xsl:text>
-	<xsl:apply-templates select="./RoleClass[./@RefBaseClassPath='AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process']"/>
-	
+	<!-- Processing Skill/Capability_CapabilityAssociation hierarchy -->
+	<xsl:apply-templates select="./RoleClass[./@RefBaseClassPath='AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process']"/>	
 	<!-- Processing Skill CONSTRAINTS: Attribute Name="ReqDependenceSkill" -->
 	<xsl:apply-templates select=".//Attribute[./@Name='ReqDependenceSkill']"/>
-	
-	
-	
 </xsl:template>
 
-<!-- Processing Skill CONSTRAINTS: Attribute Name="ReqDependenceSkill" -->
-<xsl:template match="Attribute[./@Name='ReqDependenceSkill']">
-	<xsl:text>&#xA;% ************</xsl:text>
-	<xsl:text>&#xA;% CONSTRAINT Attribute Value: </xsl:text>
-	<xsl:value-of select="./Value/text()"/>
-	
-	
-	<!-- TEST GENERATE-ID() : -->
-	<xsl:variable name="GenConstraintID" select="generate-id()"/> 
-	<!--xsl:value-of select="$GenConstraintID"/-->
-	<!-- lowercase first char -->
-	<xsl:variable name="genId" select="concat(translate(substring($GenConstraintID,1,1),$uppercase, $smallcase),substring($GenConstraintID,2))"/>
-	<xsl:text>&#xA;% CONSTRAINT ID: </xsl:text>
-	<xsl:value-of select="$genId"/>	
-	
-	
-	<xsl:variable name="CapaParent" select="./parent::RoleClass/@Name"/>
-	<!-- lowercase first char -->
-	<xsl:variable name="source" select="concat(translate(substring($CapaParent,1,1),$uppercase, $smallcase),substring($CapaParent,2))"/>
-	<xsl:text>&#xA;% SOURCE Capability: </xsl:text>
-	<xsl:value-of select="$source"/>
-	
-	<xsl:variable name="PathDepTarget" select="./Value/text()"/>
-	<!-- Parsing the target local name from the path -->
-	<xsl:variable name="find" select="string('/')"/>
-	<xsl:variable name="DepTarget">
-		<xsl:call-template name="lastpart">
-                <xsl:with-param name="string" select="string($PathDepTarget)"/>
-                <xsl:with-param name="search" select="string($find)"/>
-         </xsl:call-template>
-	</xsl:variable>
-	<!-- lowercase first char -->
-	<xsl:variable name="depTarget" select="concat(translate(substring($DepTarget,1,1),$uppercase, $smallcase),substring($DepTarget,2))"/>
-	<xsl:text>&#xA;% TARGET Capability: </xsl:text>
-	<xsl:value-of select="$depTarget"/>
-	
-	<!-- GENERATING CONSTRAINTS i.e. capability dependencies between capabilities 
-		% CONSTRAINT EXAMPLE 5: "OrientationRecog  requires InformationalSingu "
-		constr5(X) :- in(informationalSingu),capability(informationalSingu),capability(X), X=orientationRecog.
-		cf(5,X) :- capability(X), X=orientationRecog, in(X), not constr5(orientationRecog).
-		cff :- cf(5,X), capability(X), X=orientationRecog.
-		% FORCE: As a hard constraint
-		:- cf(5,X), capability(X), X=orientationRecog.
-	-->
-
-	<xsl:variable name="comLine" select="concat('% CONSTRAINT: ',$genId,': ',$source,' requires ',$depTarget)"/>	
-	<xsl:text>&#xA;</xsl:text>
-	<xsl:value-of select="$comLine"/>
-	
-	<xsl:variable name="cline1" select="concat('constr',$genId,'(X) :- in(',$depTarget,'),capability(',$depTarget,'),capability(X), X=',$source,'.')"/>	
-	<xsl:text>&#xA;</xsl:text>
-	<xsl:value-of select="$cline1"/>
-	
-	<xsl:variable name="cline2" select="concat('cf(',$genId,',X) :- in(X),capability(X), X=',$source,', not constr',$genId,'(',$source,').')"/>	
-	<xsl:text>&#xA;</xsl:text>
-	<xsl:value-of select="$cline2"/>
-	
-	<xsl:variable name="cline3" select="concat('cff :- cf(',$genId,',X),capability(X), X=',$source,'.')"/>	
-	<xsl:text>&#xA;</xsl:text>
-	<xsl:value-of select="$cline3"/>
-	
-	<xsl:variable name="comLine2" select="concat('% FORCE: As a hard constraint by uncommenting next line:')"/>	
-	<xsl:text>&#xA;</xsl:text>
-	<xsl:value-of select="$comLine2"/>
-	
-	<xsl:variable name="cline4" select="concat(' :- cf(',$genId,',X),capability(X), X=',$source,'.')"/>	
-	<xsl:text>&#xA;</xsl:text>
-	<xsl:value-of select="$cline4"/>
-	
-	<xsl:text>&#xA;% ************</xsl:text>
-	
-</xsl:template>
+<!-- ***********************************
+ * 
+ * Processing Skill/Capability_CapabilityAssociation hierarchy  
+ * Capability @RefBaseClassPath= ..Process
+ * *************************************** -->
 
 <xsl:template match="RoleClass[./@RefBaseClassPath='AutomationMLBaseRoleClassLib/AutomationMLBaseRole/Process']">
 	<xsl:variable name="RCguid" select="./@ID"/>
@@ -331,6 +261,11 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 	<xsl:text>&#xA;% TOP LEVEL Process name: </xsl:text>
 	<xsl:value-of select="$rcname"/>
 	<xsl:text>&#xA;% ************</xsl:text>
+	<!-- PREDICATES: froot(partFeeding). (Only one root allowed in asp)-->
+	<xsl:variable name="pfroot" select="concat('froot(',$rcname,').')"/>			
+	<xsl:text>&#xA;</xsl:text>
+	<xsl:value-of select="$pfroot"/>
+	
 	<!-- PREDICATES: capability(physicalOrient).-->
 	<xsl:variable name="pcapa" select="concat('capability(',$rcname,').')"/>			
 	<xsl:text>&#xA;</xsl:text>
@@ -440,7 +375,83 @@ EXAMPLE: xsl:value-of select="translate(doc, $smallcase, $uppercase)
 </xsl:template>
 
 
+<!--
+ * *****************************
+ * Processing Skill CONSTRAINTS: Attribute Name="ReqDependenceSkill" 
+ * i.e. dependencies between capabilities
+ * ***************************** -->
+ 
+<xsl:template match="Attribute[./@Name='ReqDependenceSkill']">
+	<xsl:text>&#xA;% ************</xsl:text>
+	<xsl:text>&#xA;% CONSTRAINT Attribute Value: </xsl:text>
+	<xsl:value-of select="./Value/text()"/>
+	
+	
+	<!-- TEST GENERATE-ID() : -->
+	<xsl:variable name="GenConstraintID" select="generate-id()"/> 
+	<!--xsl:value-of select="$GenConstraintID"/-->
+	<!-- lowercase first char -->
+	<xsl:variable name="genId" select="concat(translate(substring($GenConstraintID,1,1),$uppercase, $smallcase),substring($GenConstraintID,2))"/>
+	<xsl:text>&#xA;% CONSTRAINT ID: </xsl:text>
+	<xsl:value-of select="$genId"/>	
+	
+	
+	<xsl:variable name="CapaParent" select="./parent::RoleClass/@Name"/>
+	<!-- lowercase first char -->
+	<xsl:variable name="source" select="concat(translate(substring($CapaParent,1,1),$uppercase, $smallcase),substring($CapaParent,2))"/>
+	<xsl:text>&#xA;% SOURCE Capability: </xsl:text>
+	<xsl:value-of select="$source"/>
+	
+	<xsl:variable name="PathDepTarget" select="./Value/text()"/>
+	<!-- Parsing the target local name from the path -->
+	<xsl:variable name="find" select="string('/')"/>
+	<xsl:variable name="DepTarget">
+		<xsl:call-template name="lastpart">
+                <xsl:with-param name="string" select="string($PathDepTarget)"/>
+                <xsl:with-param name="search" select="string($find)"/>
+         </xsl:call-template>
+	</xsl:variable>
+	<!-- lowercase first char -->
+	<xsl:variable name="depTarget" select="concat(translate(substring($DepTarget,1,1),$uppercase, $smallcase),substring($DepTarget,2))"/>
+	<xsl:text>&#xA;% TARGET Capability: </xsl:text>
+	<xsl:value-of select="$depTarget"/>
+	
+	<!-- GENERATING CONSTRAINTS i.e. capability dependencies between capabilities 
+		% CONSTRAINT EXAMPLE 5: "OrientationRecog  requires InformationalSingu "
+		constr5(X) :- in(informationalSingu),capability(informationalSingu),capability(X), X=orientationRecog.
+		cf(5,X) :- capability(X), X=orientationRecog, in(X), not constr5(orientationRecog).
+		cff :- cf(5,X), capability(X), X=orientationRecog.
+		% FORCE: As a hard constraint
+		:- cf(5,X), capability(X), X=orientationRecog.
+	-->
 
+	<xsl:variable name="comLine" select="concat('% CONSTRAINT: ',$genId,': ',$source,' requires ',$depTarget)"/>	
+	<xsl:text>&#xA;</xsl:text>
+	<xsl:value-of select="$comLine"/>
+	
+	<xsl:variable name="cline1" select="concat('constr',$genId,'(X) :- in(',$depTarget,'),capability(',$depTarget,'),capability(X), X=',$source,'.')"/>	
+	<xsl:text>&#xA;</xsl:text>
+	<xsl:value-of select="$cline1"/>
+	
+	<xsl:variable name="cline2" select="concat('cf(',$genId,',X) :- in(X),capability(X), X=',$source,', not constr',$genId,'(',$source,').')"/>	
+	<xsl:text>&#xA;</xsl:text>
+	<xsl:value-of select="$cline2"/>
+	
+	<xsl:variable name="cline3" select="concat('cff :- cf(',$genId,',X),capability(X), X=',$source,'.')"/>	
+	<xsl:text>&#xA;</xsl:text>
+	<xsl:value-of select="$cline3"/>
+	
+	<xsl:variable name="comLine2" select="concat('% FORCE: As a hard constraint by uncommenting next line:')"/>	
+	<xsl:text>&#xA;</xsl:text>
+	<xsl:value-of select="$comLine2"/>
+	
+	<xsl:variable name="cline4" select="concat(' :- cf(',$genId,',X),capability(X), X=',$source,'.')"/>	
+	<xsl:text>&#xA;</xsl:text>
+	<xsl:value-of select="$cline4"/>
+	
+	<xsl:text>&#xA;% ************</xsl:text>
+	
+</xsl:template>
 
 
 <!--
