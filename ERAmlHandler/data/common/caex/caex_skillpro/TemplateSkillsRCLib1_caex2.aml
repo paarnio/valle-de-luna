@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CAEXFile FileName="TemplateSkillsRCLib1_2.aml" SchemaVersion="2.15" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!-- VPA NOTE:  <RoleClass Name="PresentationAssoc" REMOVED -->
 	<AdditionalInformation>
 		<WriterHeader>
 			<WriterName>AutomationML Editor</WriterName>
@@ -180,7 +181,7 @@
 					</RoleClass>
 				</RoleClass>
 			</RoleClass>
-			<RoleClass Name="PresentationAssoc" RefBaseClassPath="SiimaCapabilityBaseRoleClassLib/CapabilityAssociation" />
+			<!-- REMOVED <RoleClass Name="PresentationAssoc" RefBaseClassPath="SiimaCapabilityBaseRoleClassLib/CapabilityAssociation" /> -->
 		</RoleClass>
 	</RoleClassLib>
 	<RoleClassLib Name="SkillProRoleClassLib">
