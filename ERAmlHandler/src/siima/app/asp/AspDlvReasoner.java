@@ -146,8 +146,16 @@ public class AspDlvReasoner {
 		buffer.append("<literal predicate='" + literal.getName() + "' atom='" + literal.getAtom()
 				+ "' negative='" + negativeLit + "'>");
 		if ((argset != null)) {
+			
 			for (int iarg = 0; iarg < argset.length; iarg++) {
-				buffer.append("\n\t<arg num='" + iarg + "'>" + argset[iarg] + "</arg>");
+				//TODO: Testing if arg value strings have an extra space ' ' at the beginning
+				String argvalue =  argset[iarg];
+				if(argvalue.startsWith(" ")){ 
+					argvalue = argvalue.substring(1);
+					//System.out.println("=AspDlvReasoner: XXXXXXX EXTRA SPACE REMOVED from arg value" + argvalue);
+				}
+				
+				buffer.append("\n\t<arg num='" + iarg + "'>" + argvalue + "</arg>");
 			}
 			buffer.append("\n</literal>");
 		}
