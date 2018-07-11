@@ -1474,7 +1474,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			this.bottomLeftTextArea.setText("Selected Element:\n");		
 			System.out.println("-- createNewProject(); Element Tree Cleared! ");
 			
-			fileChooser.setDialogTitle("CREATE A NEW PROJECT HOME (CAEX VERSION " + radiocommand + ")");
+			fileChooser.setDialogTitle("CREATE A NEW PROJECT HOME FOLDER (CAEX VERSION " + radiocommand + ")");
 			fileChooser.setCurrentDirectory((new File(this.eraProjectHomeDirectory)).getParentFile());
 			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			int retVal = fileChooser.showSaveDialog(MainFrame.this);

@@ -1,0 +1,400 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<aspmodels>
+<model num='1'>
+<literal predicate='simpleCapa' atom='simpleCapa(vibrating)' negative='false'>
+	<arg num='0'>vibrating</arg>
+</literal><literal predicate='simpleCapa' atom='simpleCapa(physicalOrientation)' negative='false'>
+	<arg num='0'>physicalOrientation</arg>
+</literal><literal predicate='simpleCapa' atom='simpleCapa(physicalSingulation)' negative='false'>
+	<arg num='0'>physicalSingulation</arg>
+</literal><literal predicate='simpleCapa' atom='simpleCapa(storaging)' negative='false'>
+	<arg num='0'>storaging</arg>
+</literal><literal predicate='simpleCapa' atom='simpleCapa(vibrationTransferring)' negative='false'>
+	<arg num='0'>vibrationTransferring</arg>
+</literal><literal predicate='simpleCapa' atom='simpleCapa(positionRecognition)' negative='false'>
+	<arg num='0'>positionRecognition</arg>
+</literal><literal predicate='simpleCapa' atom='simpleCapa(partRecognition)' negative='false'>
+	<arg num='0'>partRecognition</arg>
+</literal><literal predicate='simpleCapa' atom='simpleCapa(orientationRecognition)' negative='false'>
+	<arg num='0'>orientationRecognition</arg>
+</literal><literal predicate='simpleCapa' atom='simpleCapa(vibrationTransfering)' negative='false'>
+	<arg num='0'>vibrationTransfering</arg>
+</literal><literal predicate='hasMacType' atom='hasMacType(1, vibratoryBowlFeeder)' negative='false'>
+	<arg num='0'>1</arg>
+	<arg num='1'>vibratoryBowlFeeder</arg>
+</literal><literal predicate='hasMacType' atom='hasMacType(2, flexibleFeeder)' negative='false'>
+	<arg num='0'>2</arg>
+	<arg num='1'>flexibleFeeder</arg>
+</literal><literal predicate='combinedCapa' atom='combinedCapa(partFeeding)' negative='false'>
+	<arg num='0'>partFeeding</arg>
+</literal><literal predicate='combinedCapa' atom='combinedCapa(structuring)' negative='false'>
+	<arg num='0'>structuring</arg>
+</literal><literal predicate='combinedCapa' atom='combinedCapa(informationalSingulation)' negative='false'>
+	<arg num='0'>informationalSingulation</arg>
+</literal><literal predicate='combinedCapa' atom='combinedCapa(vibrationalConveying)' negative='false'>
+	<arg num='0'>vibrationalConveying</arg>
+</literal><literal predicate='constrn65822' atom='constrn65822(orientationRecognition)' negative='false'>
+	<arg num='0'>orientationRecognition</arg>
+</literal><literal predicate='in' atom='in(vibrating)' negative='false'>
+	<arg num='0'>vibrating</arg>
+</literal><literal predicate='in' atom='in(storaging)' negative='false'>
+	<arg num='0'>storaging</arg>
+</literal><literal predicate='in' atom='in(vibrationTransferring)' negative='false'>
+	<arg num='0'>vibrationTransferring</arg>
+</literal><literal predicate='in' atom='in(partFeeding)' negative='false'>
+	<arg num='0'>partFeeding</arg>
+</literal><literal predicate='in' atom='in(structuring)' negative='false'>
+	<arg num='0'>structuring</arg>
+</literal><literal predicate='in' atom='in(vibrationalConveying)' negative='false'>
+	<arg num='0'>vibrationalConveying</arg>
+</literal><literal predicate='in' atom='in(orientationRecognition)' negative='false'>
+	<arg num='0'>orientationRecognition</arg>
+</literal><literal predicate='in' atom='in(informationalSingulation)' negative='false'>
+	<arg num='0'>informationalSingulation</arg>
+</literal><literal predicate='in' atom='in(positionRecognition)' negative='false'>
+	<arg num='0'>positionRecognition</arg>
+</literal><literal predicate='in' atom='in(partRecognition)' negative='false'>
+	<arg num='0'>partRecognition</arg>
+</literal><literal predicate='pCapaPart' atom='pCapaPart(partFeeding, structuring, structuringAssoc)' negative='false'>
+	<arg num='0'>partFeeding</arg>
+	<arg num='1'>structuring</arg>
+	<arg num='2'>structuringAssoc</arg>
+</literal><literal predicate='pCapaPart' atom='pCapaPart(structuring, physicalOrientation, orientingAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>physicalOrientation</arg>
+	<arg num='2'>orientingAssoc</arg>
+</literal><literal predicate='pCapaPart' atom='pCapaPart(structuring, physicalSingulation, singulationAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>physicalSingulation</arg>
+	<arg num='2'>singulationAssoc</arg>
+</literal><literal predicate='pCapaPart' atom='pCapaPart(structuring, storaging, storagingAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>storaging</arg>
+	<arg num='2'>storagingAssoc</arg>
+</literal><literal predicate='pCapaPart' atom='pCapaPart(structuring, orientationRecognition, orientingAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>orientationRecognition</arg>
+	<arg num='2'>orientingAssoc</arg>
+</literal><literal predicate='pCapaPart' atom='pCapaPart(structuring, informationalSingulation, singulationAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>informationalSingulation</arg>
+	<arg num='2'>singulationAssoc</arg>
+</literal><literal predicate='pCapaPart' atom='pCapaPart(structuring, vibrationalConveying, conveyingAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>vibrationalConveying</arg>
+	<arg num='2'>conveyingAssoc</arg>
+</literal><literal predicate='pCapaPart' atom='pCapaPart(informationalSingulation, positionRecognition, positionRecognitionAssoc)' negative='false'>
+	<arg num='0'>informationalSingulation</arg>
+	<arg num='1'>positionRecognition</arg>
+	<arg num='2'>positionRecognitionAssoc</arg>
+</literal><literal predicate='pCapaPart' atom='pCapaPart(informationalSingulation, partRecognition, partRecognitionAssoc)' negative='false'>
+	<arg num='0'>informationalSingulation</arg>
+	<arg num='1'>partRecognition</arg>
+	<arg num='2'>partRecognitionAssoc</arg>
+</literal><literal predicate='pCapaPart' atom='pCapaPart(vibrationalConveying, vibrating, vibratingAssoc)' negative='false'>
+	<arg num='0'>vibrationalConveying</arg>
+	<arg num='1'>vibrating</arg>
+	<arg num='2'>vibratingAssoc</arg>
+</literal><literal predicate='pCapaPart' atom='pCapaPart(vibrationalConveying, vibrationTransferring, vibrationTransferringAssoc)' negative='false'>
+	<arg num='0'>vibrationalConveying</arg>
+	<arg num='1'>vibrationTransferring</arg>
+	<arg num='2'>vibrationTransferringAssoc</arg>
+</literal><literal predicate='hasCompoType' atom='hasCompoType(vibratoryBowlFeeder, vBFBaseUnit)' negative='false'>
+	<arg num='0'>vibratoryBowlFeeder</arg>
+	<arg num='1'>vBFBaseUnit</arg>
+</literal><literal predicate='hasCompoType' atom='hasCompoType(vibratoryBowlFeeder, vBFBowl)' negative='false'>
+	<arg num='0'>vibratoryBowlFeeder</arg>
+	<arg num='1'>vBFBowl</arg>
+</literal><literal predicate='hasCompoType' atom='hasCompoType(flexibleFeeder, fFCamera)' negative='false'>
+	<arg num='0'>flexibleFeeder</arg>
+	<arg num='1'>fFCamera</arg>
+</literal><literal predicate='hasCompoType' atom='hasCompoType(flexibleFeeder, fFPartDispenser)' negative='false'>
+	<arg num='0'>flexibleFeeder</arg>
+	<arg num='1'>fFPartDispenser</arg>
+</literal><literal predicate='hasCompoType' atom='hasCompoType(flexibleFeeder, fFBaseUnit)' negative='false'>
+	<arg num='0'>flexibleFeeder</arg>
+	<arg num='1'>fFBaseUnit</arg>
+</literal><literal predicate='reqSimpleCapa' atom='reqSimpleCapa(vibrating)' negative='false'>
+	<arg num='0'>vibrating</arg>
+</literal><literal predicate='reqSimpleCapa' atom='reqSimpleCapa(storaging)' negative='false'>
+	<arg num='0'>storaging</arg>
+</literal><literal predicate='reqSimpleCapa' atom='reqSimpleCapa(vibrationTransferring)' negative='false'>
+	<arg num='0'>vibrationTransferring</arg>
+</literal><literal predicate='reqSimpleCapa' atom='reqSimpleCapa(positionRecognition)' negative='false'>
+	<arg num='0'>positionRecognition</arg>
+</literal><literal predicate='reqSimpleCapa' atom='reqSimpleCapa(partRecognition)' negative='false'>
+	<arg num='0'>partRecognition</arg>
+</literal><literal predicate='reqSimpleCapa' atom='reqSimpleCapa(orientationRecognition)' negative='false'>
+	<arg num='0'>orientationRecognition</arg>
+</literal><literal predicate='association' atom='association(structuringAssoc)' negative='false'>
+	<arg num='0'>structuringAssoc</arg>
+</literal><literal predicate='association' atom='association(singulationAssoc)' negative='false'>
+	<arg num='0'>singulationAssoc</arg>
+</literal><literal predicate='association' atom='association(positionRecognitionAssoc)' negative='false'>
+	<arg num='0'>positionRecognitionAssoc</arg>
+</literal><literal predicate='association' atom='association(partRecognitionAssoc)' negative='false'>
+	<arg num='0'>partRecognitionAssoc</arg>
+</literal><literal predicate='association' atom='association(storagingAssoc)' negative='false'>
+	<arg num='0'>storagingAssoc</arg>
+</literal><literal predicate='association' atom='association(conveyingAssoc)' negative='false'>
+	<arg num='0'>conveyingAssoc</arg>
+</literal><literal predicate='association' atom='association(vibrationTransferringAssoc)' negative='false'>
+	<arg num='0'>vibrationTransferringAssoc</arg>
+</literal><literal predicate='association' atom='association(vibratingAssoc)' negative='false'>
+	<arg num='0'>vibratingAssoc</arg>
+</literal><literal predicate='association' atom='association(orientingAssoc)' negative='false'>
+	<arg num='0'>orientingAssoc</arg>
+</literal><literal predicate='constrn65772' atom='constrn65772(informationalSingulation)' negative='false'>
+	<arg num='0'>informationalSingulation</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(vibratoryBowlFeeder, vibrating)' negative='false'>
+	<arg num='0'>vibratoryBowlFeeder</arg>
+	<arg num='1'>vibrating</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(vibratoryBowlFeeder, physicalOrientation)' negative='false'>
+	<arg num='0'>vibratoryBowlFeeder</arg>
+	<arg num='1'>physicalOrientation</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(vibratoryBowlFeeder, physicalSingulation)' negative='false'>
+	<arg num='0'>vibratoryBowlFeeder</arg>
+	<arg num='1'>physicalSingulation</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(vibratoryBowlFeeder, storaging)' negative='false'>
+	<arg num='0'>vibratoryBowlFeeder</arg>
+	<arg num='1'>storaging</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(vibratoryBowlFeeder, vibrationTransferring)' negative='false'>
+	<arg num='0'>vibratoryBowlFeeder</arg>
+	<arg num='1'>vibrationTransferring</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(vBFBaseUnit, vibrating)' negative='false'>
+	<arg num='0'>vBFBaseUnit</arg>
+	<arg num='1'>vibrating</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(vBFBowl, physicalOrientation)' negative='false'>
+	<arg num='0'>vBFBowl</arg>
+	<arg num='1'>physicalOrientation</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(vBFBowl, physicalSingulation)' negative='false'>
+	<arg num='0'>vBFBowl</arg>
+	<arg num='1'>physicalSingulation</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(vBFBowl, storaging)' negative='false'>
+	<arg num='0'>vBFBowl</arg>
+	<arg num='1'>storaging</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(vBFBowl, vibrationTransferring)' negative='false'>
+	<arg num='0'>vBFBowl</arg>
+	<arg num='1'>vibrationTransferring</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(flexibleFeeder, vibrating)' negative='false'>
+	<arg num='0'>flexibleFeeder</arg>
+	<arg num='1'>vibrating</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(flexibleFeeder, storaging)' negative='false'>
+	<arg num='0'>flexibleFeeder</arg>
+	<arg num='1'>storaging</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(flexibleFeeder, vibrationTransferring)' negative='false'>
+	<arg num='0'>flexibleFeeder</arg>
+	<arg num='1'>vibrationTransferring</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(flexibleFeeder, positionRecognition)' negative='false'>
+	<arg num='0'>flexibleFeeder</arg>
+	<arg num='1'>positionRecognition</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(flexibleFeeder, partRecognition)' negative='false'>
+	<arg num='0'>flexibleFeeder</arg>
+	<arg num='1'>partRecognition</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(flexibleFeeder, orientationRecognition)' negative='false'>
+	<arg num='0'>flexibleFeeder</arg>
+	<arg num='1'>orientationRecognition</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(flexibleFeeder, vibrationTransfering)' negative='false'>
+	<arg num='0'>flexibleFeeder</arg>
+	<arg num='1'>vibrationTransfering</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(fFCamera, positionRecognition)' negative='false'>
+	<arg num='0'>fFCamera</arg>
+	<arg num='1'>positionRecognition</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(fFCamera, partRecognition)' negative='false'>
+	<arg num='0'>fFCamera</arg>
+	<arg num='1'>partRecognition</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(fFCamera, orientationRecognition)' negative='false'>
+	<arg num='0'>fFCamera</arg>
+	<arg num='1'>orientationRecognition</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(fFPartDispenser, storaging)' negative='false'>
+	<arg num='0'>fFPartDispenser</arg>
+	<arg num='1'>storaging</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(fFPartDispenser, vibrationTransferring)' negative='false'>
+	<arg num='0'>fFPartDispenser</arg>
+	<arg num='1'>vibrationTransferring</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(fFBaseUnit, vibrating)' negative='false'>
+	<arg num='0'>fFBaseUnit</arg>
+	<arg num='1'>vibrating</arg>
+</literal><literal predicate='hasCapa' atom='hasCapa(fFBaseUnit, vibrationTransfering)' negative='false'>
+	<arg num='0'>fFBaseUnit</arg>
+	<arg num='1'>vibrationTransfering</arg>
+</literal><literal predicate='req_assoc' atom='req_assoc(partFeeding, structuringAssoc)' negative='false'>
+	<arg num='0'>partFeeding</arg>
+	<arg num='1'>structuringAssoc</arg>
+</literal><literal predicate='req_assoc' atom='req_assoc(structuring, singulationAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>singulationAssoc</arg>
+</literal><literal predicate='req_assoc' atom='req_assoc(structuring, storagingAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>storagingAssoc</arg>
+</literal><literal predicate='req_assoc' atom='req_assoc(structuring, conveyingAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>conveyingAssoc</arg>
+</literal><literal predicate='req_assoc' atom='req_assoc(structuring, orientingAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>orientingAssoc</arg>
+</literal><literal predicate='req_assoc' atom='req_assoc(informationalSingulation, positionRecognitionAssoc)' negative='false'>
+	<arg num='0'>informationalSingulation</arg>
+	<arg num='1'>positionRecognitionAssoc</arg>
+</literal><literal predicate='req_assoc' atom='req_assoc(informationalSingulation, partRecognitionAssoc)' negative='false'>
+	<arg num='0'>informationalSingulation</arg>
+	<arg num='1'>partRecognitionAssoc</arg>
+</literal><literal predicate='req_assoc' atom='req_assoc(vibrationalConveying, vibrationTransferringAssoc)' negative='false'>
+	<arg num='0'>vibrationalConveying</arg>
+	<arg num='1'>vibrationTransferringAssoc</arg>
+</literal><literal predicate='req_assoc' atom='req_assoc(vibrationalConveying, vibratingAssoc)' negative='false'>
+	<arg num='0'>vibrationalConveying</arg>
+	<arg num='1'>vibratingAssoc</arg>
+</literal><literal predicate='notHasCapaPart' atom='notHasCapaPart(structuring, physicalOrientation, orientingAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>physicalOrientation</arg>
+	<arg num='2'>orientingAssoc</arg>
+</literal><literal predicate='notHasCapaPart' atom='notHasCapaPart(structuring, physicalSingulation, singulationAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>physicalSingulation</arg>
+	<arg num='2'>singulationAssoc</arg>
+</literal><literal predicate='notAlloc' atom='notAlloc(1, vibrating)' negative='false'>
+	<arg num='0'>1</arg>
+	<arg num='1'>vibrating</arg>
+</literal><literal predicate='notAlloc' atom='notAlloc(1, vibrationTransferring)' negative='false'>
+	<arg num='0'>1</arg>
+	<arg num='1'>vibrationTransferring</arg>
+</literal><literal predicate='notAlloc' atom='notAlloc(1, storaging)' negative='false'>
+	<arg num='0'>1</arg>
+	<arg num='1'>storaging</arg>
+</literal><literal predicate='pro_assoc' atom='pro_assoc(vibrating, vibratingAssoc)' negative='false'>
+	<arg num='0'>vibrating</arg>
+	<arg num='1'>vibratingAssoc</arg>
+</literal><literal predicate='pro_assoc' atom='pro_assoc(physicalOrientation, orientingAssoc)' negative='false'>
+	<arg num='0'>physicalOrientation</arg>
+	<arg num='1'>orientingAssoc</arg>
+</literal><literal predicate='pro_assoc' atom='pro_assoc(physicalSingulation, singulationAssoc)' negative='false'>
+	<arg num='0'>physicalSingulation</arg>
+	<arg num='1'>singulationAssoc</arg>
+</literal><literal predicate='pro_assoc' atom='pro_assoc(storaging, storagingAssoc)' negative='false'>
+	<arg num='0'>storaging</arg>
+	<arg num='1'>storagingAssoc</arg>
+</literal><literal predicate='pro_assoc' atom='pro_assoc(vibrationTransferring, vibrationTransferringAssoc)' negative='false'>
+	<arg num='0'>vibrationTransferring</arg>
+	<arg num='1'>vibrationTransferringAssoc</arg>
+</literal><literal predicate='pro_assoc' atom='pro_assoc(positionRecognition, positionRecognitionAssoc)' negative='false'>
+	<arg num='0'>positionRecognition</arg>
+	<arg num='1'>positionRecognitionAssoc</arg>
+</literal><literal predicate='pro_assoc' atom='pro_assoc(partRecognition, partRecognitionAssoc)' negative='false'>
+	<arg num='0'>partRecognition</arg>
+	<arg num='1'>partRecognitionAssoc</arg>
+</literal><literal predicate='pro_assoc' atom='pro_assoc(orientationRecognition, orientingAssoc)' negative='false'>
+	<arg num='0'>orientationRecognition</arg>
+	<arg num='1'>orientingAssoc</arg>
+</literal><literal predicate='pro_assoc' atom='pro_assoc(structuring, structuringAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>structuringAssoc</arg>
+</literal><literal predicate='pro_assoc' atom='pro_assoc(informationalSingulation, singulationAssoc)' negative='false'>
+	<arg num='0'>informationalSingulation</arg>
+	<arg num='1'>singulationAssoc</arg>
+</literal><literal predicate='pro_assoc' atom='pro_assoc(vibrationalConveying, conveyingAssoc)' negative='false'>
+	<arg num='0'>vibrationalConveying</arg>
+	<arg num='1'>conveyingAssoc</arg>
+</literal><literal predicate='capability' atom='capability(vibrating)' negative='false'>
+	<arg num='0'>vibrating</arg>
+</literal><literal predicate='capability' atom='capability(physicalOrientation)' negative='false'>
+	<arg num='0'>physicalOrientation</arg>
+</literal><literal predicate='capability' atom='capability(physicalSingulation)' negative='false'>
+	<arg num='0'>physicalSingulation</arg>
+</literal><literal predicate='capability' atom='capability(storaging)' negative='false'>
+	<arg num='0'>storaging</arg>
+</literal><literal predicate='capability' atom='capability(vibrationTransferring)' negative='false'>
+	<arg num='0'>vibrationTransferring</arg>
+</literal><literal predicate='capability' atom='capability(positionRecognition)' negative='false'>
+	<arg num='0'>positionRecognition</arg>
+</literal><literal predicate='capability' atom='capability(partRecognition)' negative='false'>
+	<arg num='0'>partRecognition</arg>
+</literal><literal predicate='capability' atom='capability(orientationRecognition)' negative='false'>
+	<arg num='0'>orientationRecognition</arg>
+</literal><literal predicate='capability' atom='capability(vibrationTransfering)' negative='false'>
+	<arg num='0'>vibrationTransfering</arg>
+</literal><literal predicate='capability' atom='capability(partFeeding)' negative='false'>
+	<arg num='0'>partFeeding</arg>
+</literal><literal predicate='capability' atom='capability(structuring)' negative='false'>
+	<arg num='0'>structuring</arg>
+</literal><literal predicate='capability' atom='capability(informationalSingulation)' negative='false'>
+	<arg num='0'>informationalSingulation</arg>
+</literal><literal predicate='capability' atom='capability(vibrationalConveying)' negative='false'>
+	<arg num='0'>vibrationalConveying</arg>
+</literal><literal predicate='machine' atom='machine(1)' negative='false'>
+	<arg num='0'>1</arg>
+</literal><literal predicate='machine' atom='machine(2)' negative='false'>
+	<arg num='0'>2</arg>
+</literal><literal predicate='compoType' atom='compoType(vBFBaseUnit)' negative='false'>
+	<arg num='0'>vBFBaseUnit</arg>
+</literal><literal predicate='compoType' atom='compoType(vBFBowl)' negative='false'>
+	<arg num='0'>vBFBowl</arg>
+</literal><literal predicate='compoType' atom='compoType(fFCamera)' negative='false'>
+	<arg num='0'>fFCamera</arg>
+</literal><literal predicate='compoType' atom='compoType(fFPartDispenser)' negative='false'>
+	<arg num='0'>fFPartDispenser</arg>
+</literal><literal predicate='compoType' atom='compoType(fFBaseUnit)' negative='false'>
+	<arg num='0'>fFBaseUnit</arg>
+</literal><literal predicate='froot' atom='froot(partFeeding)' negative='false'>
+	<arg num='0'>partFeeding</arg>
+</literal><literal predicate='alloc' atom='alloc(2, storaging)' negative='false'>
+	<arg num='0'>2</arg>
+	<arg num='1'>storaging</arg>
+</literal><literal predicate='alloc' atom='alloc(2, vibrationTransferring)' negative='false'>
+	<arg num='0'>2</arg>
+	<arg num='1'>vibrationTransferring</arg>
+</literal><literal predicate='alloc' atom='alloc(2, positionRecognition)' negative='false'>
+	<arg num='0'>2</arg>
+	<arg num='1'>positionRecognition</arg>
+</literal><literal predicate='alloc' atom='alloc(2, partRecognition)' negative='false'>
+	<arg num='0'>2</arg>
+	<arg num='1'>partRecognition</arg>
+</literal><literal predicate='alloc' atom='alloc(2, orientationRecognition)' negative='false'>
+	<arg num='0'>2</arg>
+	<arg num='1'>orientationRecognition</arg>
+</literal><literal predicate='alloc' atom='alloc(2, vibrating)' negative='false'>
+	<arg num='0'>2</arg>
+	<arg num='1'>vibrating</arg>
+</literal><literal predicate='hasCapaPart' atom='hasCapaPart(partFeeding, structuring, structuringAssoc)' negative='false'>
+	<arg num='0'>partFeeding</arg>
+	<arg num='1'>structuring</arg>
+	<arg num='2'>structuringAssoc</arg>
+</literal><literal predicate='hasCapaPart' atom='hasCapaPart(structuring, storaging, storagingAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>storaging</arg>
+	<arg num='2'>storagingAssoc</arg>
+</literal><literal predicate='hasCapaPart' atom='hasCapaPart(structuring, vibrationalConveying, conveyingAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>vibrationalConveying</arg>
+	<arg num='2'>conveyingAssoc</arg>
+</literal><literal predicate='hasCapaPart' atom='hasCapaPart(vibrationalConveying, vibrating, vibratingAssoc)' negative='false'>
+	<arg num='0'>vibrationalConveying</arg>
+	<arg num='1'>vibrating</arg>
+	<arg num='2'>vibratingAssoc</arg>
+</literal><literal predicate='hasCapaPart' atom='hasCapaPart(vibrationalConveying, vibrationTransferring, vibrationTransferringAssoc)' negative='false'>
+	<arg num='0'>vibrationalConveying</arg>
+	<arg num='1'>vibrationTransferring</arg>
+	<arg num='2'>vibrationTransferringAssoc</arg>
+</literal><literal predicate='hasCapaPart' atom='hasCapaPart(structuring, orientationRecognition, orientingAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>orientationRecognition</arg>
+	<arg num='2'>orientingAssoc</arg>
+</literal><literal predicate='hasCapaPart' atom='hasCapaPart(structuring, informationalSingulation, singulationAssoc)' negative='false'>
+	<arg num='0'>structuring</arg>
+	<arg num='1'>informationalSingulation</arg>
+	<arg num='2'>singulationAssoc</arg>
+</literal><literal predicate='hasCapaPart' atom='hasCapaPart(informationalSingulation, positionRecognition, positionRecognitionAssoc)' negative='false'>
+	<arg num='0'>informationalSingulation</arg>
+	<arg num='1'>positionRecognition</arg>
+	<arg num='2'>positionRecognitionAssoc</arg>
+</literal><literal predicate='hasCapaPart' atom='hasCapaPart(informationalSingulation, partRecognition, partRecognitionAssoc)' negative='false'>
+	<arg num='0'>informationalSingulation</arg>
+	<arg num='1'>partRecognition</arg>
+	<arg num='2'>partRecognitionAssoc</arg>
+</literal><literal predicate='machineType' atom='machineType(vibratoryBowlFeeder)' negative='false'>
+	<arg num='0'>vibratoryBowlFeeder</arg>
+</literal><literal predicate='machineType' atom='machineType(flexibleFeeder)' negative='false'>
+	<arg num='0'>flexibleFeeder</arg>
+</literal>
+</model>
+</aspmodels>

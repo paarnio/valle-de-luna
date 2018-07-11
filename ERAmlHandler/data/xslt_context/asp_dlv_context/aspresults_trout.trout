@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><CAEXFile FileName="RecourseAllocResults.aml" SchemaVersion="2.15" xsi:noNamespaceSchemaLocation="CAEX_ClassModel_V2.15.xsd" xmlns:siima="http://siima.net/test/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<AdditionalInformation>
+<WriterHeader>
+<WriterName>ERAmlHandler</WriterName>
+<LastWritingDateTime>2018-07-11T17:20:17.8668017+03:00</LastWritingDateTime>
+<WriterProjectTitle>unspecified</WriterProjectTitle>
+<WriterProjectID>unspecified</WriterProjectID>
+</WriterHeader>
+</AdditionalInformation>
+<AdditionalInformation AutomationMLVersion="2.0"/>
+<InstanceHierarchy Name="ProductionResourcesIH1">
+<Version>1.0.0</Version>
+<InternalElement Name="storaging2"/>
+<InternalElement Name="vibrationTransferring2"/>
+<InternalElement Name="positionRecognition2"/>
+<InternalElement Name="partRecognition2"/>
+<InternalElement Name="orientationRecognition2"/>
+<InternalElement Name="vibrating2"/>
+</InstanceHierarchy>
+</CAEXFile>
