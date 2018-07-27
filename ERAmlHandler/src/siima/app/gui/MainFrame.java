@@ -111,6 +111,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 	private JMenuItem mntmAspSolver;
 	private JMenuItem mntmSaveOntologyModel;
 	private JMenuItem mntmMergeModels;
+	private JMenuItem mntmMergeAndPreloadQueryKB;
 	private JMenuItem mntmLoadOntologyModels;
 	private JMenuItem mntmLoadSpinCommands;
 	private JMenuItem mntmInvokeSpinCommands;
@@ -355,6 +356,10 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mntmMergeModels = new JMenuItem("Merge Existing Models");
 		mntmMergeModels.addActionListener(this);
 		mnOntology.add(mntmMergeModels);
+		
+		mntmMergeAndPreloadQueryKB = new JMenuItem("Merge Models And Preload KB");
+		mntmMergeAndPreloadQueryKB.addActionListener(this);
+		mnOntology.add(mntmMergeAndPreloadQueryKB);
 		
 		mntmSaveOntologyModel = new JMenuItem("Save Ontology Model...");
 		mntmSaveOntologyModel.addActionListener(this);
@@ -1286,6 +1291,15 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			txtrResultOutput.setText(null); // CLear old text
 			txtrResultOutput.append(serialized + newline);
 			txtrResultOutput.setCaretPosition(txtrResultOutput.getText().length());
+			
+		} else if (arg0.getSource() == mntmMergeAndPreloadQueryKB) {
+			
+			appControl.mergeModelsAndPreloadKB();
+			
+			//-- Console Printing
+			txtrConsoleOutput.append(newline + "LOG: MERGE EXISTING ONTOLOGY MODELS AN PRELOAD QUERY KB");
+			txtrConsoleOutput.setCaretPosition(txtrConsoleOutput.getText().length());
+			//-- Result Printing			
 			
 		} else if ((arg0.getSource() == rbMenuItem1)||(arg0.getSource() == rbMenuItem2)||(arg0.getSource() == rbMenuItem3)||(arg0.getSource() == rbMenuItem4)||(arg0.getSource() == rbMenuItem5)||(arg0.getSource() == rbMenuItem6)) {
 			String radiocommand =arg0.getActionCommand();

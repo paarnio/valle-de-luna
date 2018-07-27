@@ -6,14 +6,18 @@
  */
 package siima.app.model;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.StringWriter;
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.log4j.Level;
@@ -46,6 +50,9 @@ public class RdfContainer {
 	private Model combinedRdfModel;
 	private Model mergedRdfModel;
 	private String curModelKey; //latest model category key
+	//2018-07-27 OntModel for preloading into spin query KB
+	//(TODO: See createOntModelForQueryKB())
+	private OntModel mergedOntModelForKB;
 	
 	public RdfContainer(JaxbContainerInterface graphbuilder){//---- CAEX 3.0 REQUIRED CHANGES (JaxbContainer graphbuilder)
 		
@@ -153,6 +160,63 @@ public class RdfContainer {
 		// Merging also combined model (potential redundancy)
 		if(combinedRdfModel!=null) mergedRdfModel.add(combinedRdfModel);
 		logger.log(Level.INFO, "mergeRDFModels(): Merged model total size# " + mergedRdfModel.size());
+		
+	}
+	
+	/* TODO: 2018-07-27 
+	 * To create Ontology Model for loading into SPIN/SPARQL query KB
+	 * Adding CAEX ontology as a sub model to the ontology 
+	 * 
+	 */
+	
+	public OntModel mergeModelsAsOntModel(){
+		// Merging all previously generated category models
+		// and create an Ontology Model for loading it into SPIN/SPARQL query KB
+		logger.log(Level.INFO, "mergeModelsAsOntModel(): Merging existing generated RDF models Convert merged RDF model as OntModel for Query KB preloading.");
+		mergeRDFModels();
+		//TODO: 2018-07-27 ?????? TODO TESTING:
+		File myFile = new File("configure/ontology/caex_owl/caex_ontology_mod1_owl.ttl");
+		String caexOntFileUrl;
+		try {
+			caexOntFileUrl = myFile.toURI().toURL().toString();
+			this.mergedOntModelForKB = createOntModelForQueryKB(mergedRdfModel, caexOntFileUrl);
+			//  TODO: Load into KB: ModelSpinManager::setMainOntModel(OntModel ontModel)
+			//preLoadKBWithMergedCaexModel
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return this.mergedOntModelForKB;
+	}
+	
+	
+	/* TODO: 2018-07-27 
+	 * To create Ontology Model for loading into SPIN/SPARQL query KB
+	 * Adding CAEX ontology as a sub model to the ontology 
+	 * 
+	 */
+	
+	public OntModel createOntModelForQueryKB(Model targetModel, String caexOntFileUrl){
+		/* TODO: 2018-07-27 TEST CALL FROM: mergeModelsAndPreloadQueryKB()
+		 * To create Ontology Model for loading into SPIN/SPARQL query KB
+		 * Adding CAEX ontology as a sub model to the ontology 
+		 * baseModel: mergedRdfModel
+		 * caexUrl: File url for caex_ontology...ttl in configure/ontology/caex_owl folder
+		 */
+		
+		logger.log(Level.INFO, "TODO: createOntModelForQueryKB(): Convert merged RDF model as OntModel for Query KB preloading.");
+		
+		// EI TOIMI mergedOntModelForKB = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM, baseModel);
+		OntModel targetOntModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM, null);
+		logger.log(Level.INFO, "TODO: createOntModelForQueryKB(): load URL:" + caexOntFileUrl);
+		targetOntModel.read(caexOntFileUrl,"TTL");
+		targetOntModel.add(targetModel);
+		logger.log(Level.INFO, "TODO: createOntModelForQueryKB(): mergedOntModelForKB READY");
+	
+		targetOntModel.write(System.out);
+		
+		return targetOntModel;
+		
 	}
 	
 	public void clearRDFModels(boolean partials, boolean combined, boolean merged){

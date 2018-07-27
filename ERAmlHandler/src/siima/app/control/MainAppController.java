@@ -287,6 +287,13 @@ public class MainAppController {
 		
 	}
 	
+	public void mergeModelsAndPreloadKB(){
+		// TODO: 2018-07-27
+		//rdfContainer.mergeModelsAsOntModel();
+		this.spinMng.preLoadKBWithMergedCaexModel(rdfContainer.mergeModelsAsOntModel());
+	}
+	
+	
 	public void saveCaexOntologyModel(String ontologyfile) {
 		// System.out.println("= MainAppController: saveCaexOntologyModel() SAVING to a
 		// File: " + ontologyfile);

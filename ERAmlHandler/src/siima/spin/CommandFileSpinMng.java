@@ -723,13 +723,21 @@ public class CommandFileSpinMng {
 		}
 		}
 	}
-
+	
+	
 	/* =======================================
 	 * 
 	 * Interface methods for MainAppController
 	 * 2017-09-16
 	 * =======================================
 	 */
+	
+	public void preLoadKBWithMergedCaexModel(OntModel baseont){
+		// TODO TEST 2018-07-27
+		
+		mng.setMainOntModel(baseont);		
+		
+	}
 	
 	public void preLoadOntologyModel(File[] ontfiles){
 		/* 2017-09-26 "SELECT ONTOLOGY FILES (.ttl)(the main ontology file (importing others) name should contain substring 'main')");
