@@ -357,10 +357,6 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mntmMergeModels.addActionListener(this);
 		mnOntology.add(mntmMergeModels);
 		
-		mntmMergeAndPreloadQueryKB = new JMenuItem("Merge Models And Preload KB");
-		mntmMergeAndPreloadQueryKB.addActionListener(this);
-		mnOntology.add(mntmMergeAndPreloadQueryKB);
-		
 		mntmSaveOntologyModel = new JMenuItem("Save Ontology Model...");
 		mntmSaveOntologyModel.addActionListener(this);
 		mnOntology.add(mntmSaveOntologyModel);
@@ -381,6 +377,34 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 		mnClearOntmenu.add(mntmClearMerged);
 
 		mnOntology.add(mnClearOntmenu);
+		
+		/*
+		 *  SPARQL JMenu
+		 */
+		
+		JMenu mnSparql = new JMenu("Sparql");
+		menuBar.add(mnSparql);
+		
+		mntmMergeAndPreloadQueryKB = new JMenuItem("Preload Merged Ontology into KB");
+		mntmMergeAndPreloadQueryKB.addActionListener(this);
+		mnSparql.add(mntmMergeAndPreloadQueryKB);
+		
+		mntmLoadOntologyModels = new JMenuItem("Preload Ontology Files into KB...");
+		mntmLoadOntologyModels.addActionListener(this);
+		mnSparql.add(mntmLoadOntologyModels);
+		
+		mntmLoadSpinCommands = new JMenuItem("Load Spin Commands...");
+		mntmLoadSpinCommands.addActionListener(this);
+		mnSparql.add(mntmLoadSpinCommands);
+		
+		mntmInvokeSpinCommands = new JMenuItem("Invoke Spin Commands");
+		mntmInvokeSpinCommands.addActionListener(this);
+		mnSparql.add(mntmInvokeSpinCommands);
+		
+		mntmSaveSpinCommands = new JMenuItem("Save Spin Commands...");
+		mntmSaveSpinCommands.addActionListener(this);
+		mnSparql.add(mntmSaveSpinCommands);
+	
 
 		/*
 		 * Rules JMenu
@@ -410,29 +434,7 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 
 		mnAsp.add(mnAspSubmenu);
 		
-		/*
-		 *  SPARQL JMenu
-		 */
-		
-		JMenu mnSparql = new JMenu("Sparql");
-		menuBar.add(mnSparql);
-		
-		mntmLoadOntologyModels = new JMenuItem("Load Ontology Files to KB...");
-		mntmLoadOntologyModels.addActionListener(this);
-		mnSparql.add(mntmLoadOntologyModels);
-		
-		mntmLoadSpinCommands = new JMenuItem("Load Spin Commands...");
-		mntmLoadSpinCommands.addActionListener(this);
-		mnSparql.add(mntmLoadSpinCommands);
-		
-		mntmInvokeSpinCommands = new JMenuItem("Invoke Spin Commands");
-		mntmInvokeSpinCommands.addActionListener(this);
-		mnSparql.add(mntmInvokeSpinCommands);
-		
-		mntmSaveSpinCommands = new JMenuItem("Save Spin Commands...");
-		mntmSaveSpinCommands.addActionListener(this);
-		mnSparql.add(mntmSaveSpinCommands);
-		
+			
 		/*
 		 *  DIAGRAM JMenu
 		 */

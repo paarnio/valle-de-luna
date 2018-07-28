@@ -732,11 +732,9 @@ public class CommandFileSpinMng {
 	 * =======================================
 	 */
 	
-	public void preLoadKBWithMergedCaexModel(OntModel baseont){
-		// TODO TEST 2018-07-27
-		
-		mng.setMainOntModel(baseont);		
-		
+	public void preLoadKBWithMergedAmlOntology(OntModel baseont){
+		// 2018-07-27		
+		mng.setMainOntModel(baseont);				
 	}
 	
 	public void preLoadOntologyModel(File[] ontfiles){

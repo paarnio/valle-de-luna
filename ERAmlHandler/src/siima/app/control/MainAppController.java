@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -49,6 +50,8 @@ public class MainAppController {
 	private static final Logger logger = Logger.getLogger(MainAppController.class.getName());
 	public static String CAEX_SCHEMA_215 ="configure/schema/caex_2.15_orig/CAEX_ClassModel_V2.15.xsd";
 	public static String CAEX_SCHEMA_300 ="configure/schema/caex_3.0_vpa/CAEX_ClassModel_V3.0_byVPA.xsd";
+	//2018-07-28
+	public static String CAEX_ONTOLOGY ="configure/ontology/caex_owl/caex_ontology_mod1_owl.ttl";
 	
 	//---- CAEX 3.0 WOULD REQUIRE CHANGES
 	public JaxbContainerInterface graphbuilder;
@@ -288,9 +291,14 @@ public class MainAppController {
 	}
 	
 	public void mergeModelsAndPreloadKB(){
-		// TODO: 2018-07-27
-		//rdfContainer.mergeModelsAsOntModel();
-		this.spinMng.preLoadKBWithMergedCaexModel(rdfContainer.mergeModelsAsOntModel());
+		// 2018-07-27
+		File myFile = new File(CAEX_ONTOLOGY);
+		try {
+			String caexOntFileUrl = myFile.toURI().toURL().toString();
+			this.spinMng.preLoadKBWithMergedAmlOntology(rdfContainer.mergeModelAsOntModel(caexOntFileUrl));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
