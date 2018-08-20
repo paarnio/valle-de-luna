@@ -83,11 +83,12 @@
           "name": "SELECT Query InternalElement instances in siima caex model",
           "type": "select",
           "preprefixes": "yes",
-          "select": "?ielem",
-          "where": "?ielem a <http://data.ifs.tuwien.ac.at/aml/ontology#InternalElement> . ",
+          "select": "?ielem ?name",
+          "where": "?ielem a <http://data.ifs.tuwien.ac.at/aml/ontology#InternalElement> . ?ielem caex:name ?name .",
           "limit": "100",
           "queryVars": [
-            "?ielem"
+            "?ielem",
+			"?name"
           ]
         }
       },
