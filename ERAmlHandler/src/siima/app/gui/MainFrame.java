@@ -269,30 +269,38 @@ public class MainFrame extends JFrame implements ActionListener { // TreeSelecti
 			}
 		});
 		mnFile.add(mntmExit);
+		/*
+		 *  Transform JMenu
+		 */
 
 		JMenu mnTransform = new JMenu("Transform");
 		menuBar.add(mnTransform);
 
-		mntmGenerateJmonkey = new JMenuItem("Caex to JMonkey");
+		//SUBMENU 1
+		JMenu submenu1 = new JMenu("Predefined Transform");
+				
+		mntmGenerateJmonkey = new JMenuItem("Caex Lego to JMonkey");
 		mntmGenerateJmonkey.addActionListener(this);
-		mnTransform.add(mntmGenerateJmonkey);
+		submenu1.add(mntmGenerateJmonkey);
 
-		mntmCaexToAsp = new JMenuItem("Caex to Asp Facts...");
+		mntmCaexToAsp = new JMenuItem("Caex Lego to Asp Facts...");
 		mntmCaexToAsp.addActionListener(this);
-		mnTransform.add(mntmCaexToAsp);
+		submenu1.add(mntmCaexToAsp);
+		
+		mnTransform.add(submenu1);
 		
 		mnTransform.addSeparator();
-		//NEW SUBMENU
-		JMenu submenu = new JMenu("Transform Context");
+		//SUBMENU 2
+		JMenu submenu2 = new JMenu("Transform Context");
 		mntmSetTransformContext = new JMenuItem("Set Context...");
 		mntmSetTransformContext.addActionListener(this);
-		submenu.add(mntmSetTransformContext);
+		submenu2.add(mntmSetTransformContext);
 
 		mntmInvokeTransform = new JMenuItem("Run Transform");
 		mntmInvokeTransform.addActionListener(this);
-		submenu.add(mntmInvokeTransform);
+		submenu2.add(mntmInvokeTransform);
 
-		mnTransform.add(submenu);
+		mnTransform.add(submenu2);
 		/*
 		 *  Ontology JMenu
 		 */
