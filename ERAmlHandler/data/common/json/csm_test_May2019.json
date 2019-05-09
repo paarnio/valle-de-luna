@@ -1,62 +1,49 @@
 {
   "CSMHeader": {
-    "filename": "data/common/json/csmCommands_bicycle_KBfile&uri_may2019.json",
-    "created": "2017-07-09",
-	"updated": "2019-05-08",
+    "filename": "data/common/json/csm_test_May2019.json",
+    "created": "2019-05-08",
+	"updated": "2019-05-09",
     "validated": "http://www.jsoneditoronline.org/",
     "application": "ERAamlHandler",
-    "history": "KB type 'file&uri' Loading bicycle.owl and accessories.owl (not predefined) Modified from csmCommands_bicycle_store_new_v3.json",
-	"comment": "CSMStore is a predefined command store with index=null (You may copy&paste commands to the command list)",
+    "history": "CSM version 3",
+	"comment": "TODO: Testing SPIN inference for partFeeding.ttl (contains attached construct rule. But tool implements only evaluation of attached select rules) created in TBC project CapaModelPartFeeding2019. CSMStore is a predefined command store with index=null (Copy & paste commands to the command list)",
     "workflow": {
-      "name": "Bicycle&Accessories model workflow",
-      "processlog1": "(start)-->| LOAD_KB(0) |-->| INF_MODEL(1) |-->| INFER(2) |-->| PREFIX_ADD(3) |-->| SELECT(4) |-->(end)",
+      "name": "PRELOADED Capability Model partFeeding: workflow",
+      "processlog1": "(start)-->| LOAD_KB(0) |-->| INF_MODEL(1) |-->| INFER(2) |-->| PREFIX_ADD(3) |-->| SELECT(5) |-->(end)",
       "comment": "Workflow commands can be run in 'indexed' mode (type='indexed') or in 'all' mode (type='all').",
       "type": "indexed",
       "indexes": [
         0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-		7,
-		8,
-		9,
-		10,
-		11
+		1,
+		2,
+		3,
+		4,
+		5
       ]
     }
   },
   "CSMCommands": [
     {
       "index": 0,
-	  "idcode": "R1_T",
+	  "idcode": "R1_T1_LKB_1",
       "commandtype": "loadKnowledgeBase",
       "stepnote": "LOAD_KB",
-      "comment": "REQUIRED AS THE FIRST COMMAND! (Types: 'predefined' | 'file&uri' | 'preloaded') NOTE: folder path is relative to eclipse project ERAmlHandler",
+      "comment": "REQUIRED AS THE FIRST COMMAND! (Types: 'predefined' | 'file&uri' | 'preloaded').",
       "knowledgeBase": {
-         "name": "bicycle",
-         "type": "file&uri",
-         "ontology": {
-              "name": "bicycle",
-              "folder": "data/common/owl_models/importing_models",
-              "file": "bicycle.ttl",
-              "uri": "http://siima.net/ont/bicycle"
-            },
-          "imports": [
-			{
-              "name": "accessories",
-              "folder": null,
-              "file": "accessories.ttl",
-              "uri": "http://siima.net/ont/accessories"
-            }
-			]
+          "name": "partfeeding_capability_model",
+          "type": "file&uri",
+          "ontology": {
+            "name": "partfeeding",
+            "folder": "data/common/owl_models/capability_model",
+            "file": "partFeeding.ttl",
+            "uri": "http://siima.net/2018/model/capability/partFeeding"
+          },
+          "imports": null
       }
     },
     {
       "index": 1,
-	  "idcode": "R1_T",
+	  "idcode": "R1_T2_CIM_1",
       "commandtype": "createInferenceModel",
       "stepnote": "INF_MODEL",
       "comment": "NOTE:OFTEN REQUIRED: This command creates the inference model and registers spin.",
@@ -67,7 +54,7 @@
     },
     {
       "index": 2,
-	  "idcode": "R1_T",
+	  "idcode": "R1_T3_RI_1",
       "commandtype": "runInferences",
       "stepnote": "INFER",
       "comment": "NOTE:OFTEN REQUIRED: This command runs all spin inferences: type options: 'singlepass' | 'iterative' (creates the inference model, if not yet created) .",
@@ -76,130 +63,70 @@
         "type": "iterative"
       }
     },
-	 {
+	{
         "index": 3,
 		"idcode": "R1_T66_QP1_1",
         "commandtype": "addNsPrefixes",
         "stepnote": "PREFIX_ADD",
-		"comment": "Adding NS prefix declarations (separated by space or newline) in format: PREFIX owl: <http://www.w3.org/2002/07/owl#> Note: preprefixes field is currently ignored, i.e. hard coded preprefixes are always loaded also",
+		"comment": "Adding NS prefix declarations (separated by space or newline) in format: PREFIX owl: <http://www.w3.org/2002/07/owl#> ",
+		"comment": "Note: preprefixes field is currently ignored, i.e. hard coded preprefixes are always loaded also",
         "prefix": {
           "name": "NS PREFIX Addition ",
           "type": "add",
           "preprefixes": "default",
-          "prefixlist": "PREFIX bicycle: <http://siima.net/ont/bicycle#>  PREFIX access: <http://siima.net/ont/accessories#> "
+          "prefixlist": "PREFIX feed: <http://siima.net/2018/model/capability/partFeeding#> PREFIX bar: <http://bar.net/ontology#> "
         }
      },
-	 {
+	{
         "index": 4,
-		"idcode": "R1_T",
+		"idcode": "R1_T11_SQ1_1",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
         "query": {
-          "name": "SELECT Query Bicycle wheel count",
+         "name": "SELECT Query InternalElement instances in siima caex model",
           "type": "select",
           "preprefixes": "yes",
-          "select": "?bic ?wcount ?name",
-          "where": "?bic a bicycle:Bicycle . ?bic bicycle:wheelcount ?wcount . ?bic bicycle:name ?name .",
+          "select": "?combcapa",
+          "where": "?combcapa a feed:Transporting .",
           "limit": "100",
           "queryVars": [
-            "?bic",
-            "?wcount",
-            "?name"
-          ]
-        }
-      },
-      {
-        "index": 5,
-		"idcode": "R1_T",
-        "commandtype": "sparqlQuery",
-        "stepnote": "UPDATE",
-        "query": {
-          "name": "UPDATE bicycle name (TOIMII!!!)",
-          "type": "update",
-          "preprefixes": "yes",
-          "delete": "?bic bicycle:name ?oldname .",
-          "insert": "?bic bicycle:name 'UUSI_NIMI' .",
-          "where": "?bic rdf:type bicycle:Bicycle . ?bic bicycle:name ?oldname .",
-          "bind": null,
-          "filter": null
-        }
-      },
-      	 {
-        "index": 6,
-		"idcode": "R1_T",
-        "commandtype": "sparqlQuery",
-        "stepnote": "SELECT",
-        "query": {
-          "name": "SELECT Query Bicycle wheel count",
-          "type": "select",
-          "preprefixes": "yes",
-          "select": "?bic ?wcount ?name",
-          "where": "?bic a bicycle:Bicycle . ?bic bicycle:wheelcount ?wcount . ?bic bicycle:name ?name .",
-          "limit": "100",
-          "queryVars": [
-            "?bic",
-            "?wcount",
-            "?name"
-          ]
-        }
-      },
-       {
-        "index": 7,
-		"idcode": "R1_T",
-        "commandtype": "sparqlQuery",
-        "stepnote": "SELECT",
-        "query": {
-          "name": "SELECT Query accessories Bell's",
-          "type": "select",
-          "preprefixes": "yes",
-          "select": "?bell ?label",
-          "where": "?bell a access:Bell . ?bell rdfs:label ?label",
-          "limit": "100",
-          "queryVars": [
-            "?bell",
-            "?label"
-          ]
-        }
-      },
-           {
-        "index": 8,
-		"idcode": "R1_T",
-        "commandtype": "sparqlQuery",
-        "stepnote": "UPDATE",
-        "comment": "NEW Imported sub model can be specified as the target model of a query by 'target_import_uri' (2016-10-03). This is important for UPDATE and DELETE queries, which cannot delete triples, from imported sub models, if the target is the main model (Bug?)",
-        "query": {
-          "name": "UPDATE bell label in IMPORTED model  (TOIMIIko??) Insert toimii mutta delete EI?",
-          "type": "update",
-          "reasoner": false,
-          "target_import_uri": "http://siima.net/ont/accessories",
-          "preprefixes": "yes",
-          "delete": "?bell rdfs:label ?label .",
-          "insert": "?bell rdfs:label 'UUSI LABELLI' .",
-          "where": "?bell a access:Bell . ?bell rdfs:label ?label .",
-          "bind": null,
-          "filter": null
-        }
-      },
-       {
-        "index": 9,
-		"idcode": "R1_T",
-        "commandtype": "sparqlQuery",
-        "stepnote": "SELECT",
-        "query": {
-          "name": "SELECT Query accessories Bell's",
-          "type": "select",
-          "preprefixes": "yes",
-          "select": "?bell ?label",
-          "where": "?bell a access:Bell . ?bell rdfs:label ?label",
-          "limit": "100",
-          "queryVars": [
-            "?bell",
-            "?label"
+            "?combcapa"
           ]
         }
       },
 	  {
-        "index": 10,
+        "index": 5,
+		"idcode": "R1_T11_SQ1_1",
+        "commandtype": "sparqlQuery",
+        "stepnote": "SELECT",
+        "query": {
+         "name": "SELECT Query InternalElement instances in siima caex model",
+          "type": "select",
+          "preprefixes": "yes",
+          "select": "?combcapa ?payload",
+          "where": "?combcapa a feed:Transporting . ?combcapa feed:payload ?payload .",
+          "limit": "100",
+          "queryVars": [
+            "?combcapa",
+			"?payload"
+          ]
+        }
+      },
+	   {
+        "index": 6,
+		"idcode": "SR1_T",
+        "commandtype": "writeModel",
+        "stepnote": "WRITE",
+        "comment": "WRITE_MODEL_COMMANDS Write type can be 'file' or 'console'. Modelcat can be 'merged', 'inferred' or 'main'.",
+        "write": {
+          "name": "Write partFeeding model to File data/generated/partFeedingMain.ttl",
+          "type": "file",
+          "filePath": "data/generated/partFeedingMain.ttl",
+          "modelcat": "main"
+        }
+      },
+	  {
+        "index": 7,
 		"idcode": "R1_T6_",
         "commandtype": "createNewTemplate",
         "stepnote": "CREATE_TEMPLATE",
@@ -222,7 +149,7 @@
         }
       },
 	  {
-        "index": 11,
+        "index": 8,
 		"idcode": "R1_T20_SQET1_1",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_EVAL",
@@ -231,7 +158,7 @@
           "type": "select",
           "preprefixes": "yes",
           "select": "?result",
-          "where": "bicycle:BicycleByNameSWGTemplate spin:body ?body . ?body rdf:type sp:Select . BIND (spin:eval(?body, arg:name, 'UUSI_NIMI') AS ?result)",
+          "where": "bicycle:BicycleByNameSWGTemplate spin:body ?body . ?body rdf:type sp:Select . BIND (spin:eval(?body, arg:name, 'Miran_fillari') AS ?result)",
           "limit": "10",
           "queryVars": [
             "?result"
@@ -239,20 +166,91 @@
         }
       },
 	    {
-        "index": 12,
-		"idcode": "R1_T",
+        "index": 9,
+		"idcode": "R1_T4_CC_1",
+        "commandtype": "checkConstraints",
+        "stepnote": "CONSTRAINTS",
+        "comment": "run 'all' (type 'all') Spin Constraints or only for one 'resource'. If 'addrdf': true, violations are added to the inferred model. ",
+        "constraints": {
+          "name": "Run Spin Constraints",
+          "type": "resource",
+          "uri": "http://siima.net/ont/bicycle#Bicycle_4",
+		  "addrdf": true
+        }
+      },
+	    {
+        "index": 10,
+		"idcode": "R1_T17_1",
         "commandtype": "writeModel",
         "stepnote": "WRITE",
         "comment": "Write type can be 'file' or 'console'. Modelcat can be 'merged', 'inferred' or 'main'.",
         "write": {
-          "name": "Write main Triples to Console",
-          "type": "file",
-          "filePath": "data/generated/owl_models/inferred_bicycle_sat_2019.ttl",
-          "modelcat": "main"
+          "name": "Write Inferred Triples to Console",
+          "type": "console",
+          "filePath": "data/inferences/inferred_bicycle_sat.ttl",
+          "modelcat": "inferred"
+        }
+      },
+	   {
+        "index": 11,
+		"idcode": "R1_T11_1",
+        "commandtype": "sparqlQuery",
+        "stepnote": "SELECT_VIOLATIONS",
+        "query": {
+          "name": "SELECT Query Constraint Violations (Bicycle wheel count)",
+          "type": "select",
+          "preprefixes": "yes",
+          "select": "*",
+          "where": "?violation a <http://spinrdf.org/spin#ConstraintViolation> . ?violation <http://www.w3.org/2000/01/rdf-schema#label> ?label . ?violation <http://spinrdf.org/spin#violationRoot> ?root ",
+          "limit": "100",
+          "queryVars": [
+            "?violation",
+            "?label",
+            "?root"
+          ]
+        }
+      },
+	   {
+        "index": 12,
+		"idcode": "R1_T11_2",
+        "commandtype": "sparqlQuery",
+        "stepnote": "SELECT_SERVICE",
+        "comment": "Federated query to an external SPARQL endpoint SERVICE example: first start d2rq-0.8.1>d2r-server mapping-iswc_uri_pdf.ttl)",
+        "query": {
+          "name": "SERVICE query example",
+          "type": "select",
+          "preprefixes": "yes",
+          "select": "?paper",
+          "where": " SERVICE <http://localhost:2020/sparql> { ?paper rdf:type <http://xmlns.com/foaf/0.1/Document> . }",
+          "limit": "100",
+          "queryVars": [
+            "?paper"
+          ]
+        }
+      },
+	   {
+        "index": 13,
+		"idcode": "R1_T11_3",
+        "commandtype": "sparqlQuery",
+        "stepnote": "SELECT_SERVICE",
+        "comment": "Federated query to an external SPARQL endpoint SERVICE example: first start d2rq-0.8.1>d2r-server mapping-iswc_uri_pdf.ttl)",
+        "query": {
+          "name": "FEDERATED SERVICE query example",
+          "type": "select",
+          "preprefixes": "yes",
+          "select": "*",
+          "where": "?bicycle bicycle:name ?name1 . SERVICE <http://localhost:2020/sparql> { ?person rdf:type <http://xmlns.com/foaf/0.1/Person> .  ?person rdfs:label ?name2 . FILTER (str(?name1)=str(?name2)) . }",
+          "limit": "10",
+          "queryVars": [
+            "?bicycle",
+			"?name1",
+			"?person",
+			"?name2"
+          ]
         }
       },
       {
-        "index": 13,
+        "index": 14,
 		"idcode": "SR1_T3",
         "commandtype": "listNsPrefixes",
         "stepnote": "LIST",

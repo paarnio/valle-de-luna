@@ -1,0 +1,506 @@
+@prefix :      <http://siima.net/ont/bicycle#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix spin:  <http://spinrdf.org/spin#> .
+@prefix arg:   <http://spinrdf.org/arg#> .
+@prefix accessories: <http://siima.net/ont/accessories#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix fn:    <http://www.w3.org/2005/xpath-functions#> .
+@prefix afn:   <http://jena.hpl.hp.com/ARQ/function#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sp:    <http://spinrdf.org/sp#> .
+@prefix spl:   <http://spinrdf.org/spl#> .
+@prefix spif:  <http://spinrdf.org/spif#> .
+
+:Handlebar_2  a     :Handlebar ;
+        rdfs:label  "Handlebar 2" .
+
+arg:wcount  a               rdf:Property ;
+        rdfs:subPropertyOf  sp:arg .
+
+:Bicycle  a               owl:Class ;
+        rdfs:label        "Bicycle" ;
+        rdfs:subClassOf   :Vehicle ;
+        spin:constraint   [ a             sp:Ask ;
+                            rdfs:comment  "Bicycle wheel count is less than two" ;
+                            sp:where      ( [ sp:object     [ sp:varName  "cnt" ] ;
+                                              sp:predicate  :wheelcount ;
+                                              sp:subject    spin:_this
+                                            ]
+                                            [ a              sp:Filter ;
+                                              sp:expression  [ a        sp:le ;
+                                                               sp:arg1  [ sp:varName  "cnt" ] ;
+                                                               sp:arg2  1
+                                                             ]
+                                            ]
+                                          )
+                          ] ;
+        spin:constructor  [ a             sp:Construct ;
+                            sp:templates  ( [ sp:object     "M2015" ;
+                                              sp:predicate  :modelYear ;
+                                              sp:subject    spin:_this
+                                            ]
+                                            [ sp:object     [ sp:varName  "datetime" ] ;
+                                              sp:predicate  :created ;
+                                              sp:subject    spin:_this
+                                            ]
+                                          ) ;
+                            sp:where      ( [ a            sp:Optional ;
+                                              sp:elements  ( [ sp:object     [ sp:varName  "exyear" ] ;
+                                                               sp:predicate  :modelYear ;
+                                                               sp:subject    spin:_this
+                                                             ]
+                                                           )
+                                            ]
+                                            [ a              sp:Filter ;
+                                              sp:expression  [ a        sp:not ;
+                                                               sp:arg1  [ a        sp:bound ;
+                                                                          sp:arg1  [ sp:varName  "exyear" ]
+                                                                        ]
+                                                             ]
+                                            ]
+                                            [ a              sp:Bind ;
+                                              sp:expression  [ a  afn:now ] ;
+                                              sp:variable    [ sp:varName  "datetime" ]
+                                            ]
+                                          )
+                          ] ;
+        spin:query        [ a         sp:Select ;
+                            sp:where  ( [ sp:object     :Bicycle ;
+                                          sp:predicate  rdf:type ;
+                                          sp:subject    [ sp:varName  "bic" ]
+                                        ]
+                                        [ sp:object     [ sp:varName  "name" ] ;
+                                          sp:predicate  :name ;
+                                          sp:subject    [ sp:varName  "bic" ]
+                                        ]
+                                      )
+                          ] ;
+        spin:rule         [ a             sp:Construct ;
+                            sp:templates  ( [ sp:object     [ sp:varName  "cnt" ] ;
+                                              sp:predicate  :wheelcount ;
+                                              sp:subject    [ sp:varName  "bic" ]
+                                            ]
+                                          ) ;
+                            sp:where      ( [ sp:object     :Bicycle ;
+                                              sp:predicate  rdf:type ;
+                                              sp:subject    [ sp:varName  "bic" ]
+                                            ]
+                                            [ a              sp:Bind ;
+                                              sp:expression  [ a        :wheels ;
+                                                               arg:bic  [ sp:varName  "bic" ]
+                                                             ] ;
+                                              sp:variable    [ sp:varName  "cnt" ]
+                                            ]
+                                          )
+                          ] .
+
+:BicycleByNameSWGTemplate
+        a          spin:Template ;
+        spin:body  [ a                   sp:Select ;
+                     sp:resultVariables  ( [ sp:varName  "bic" ]
+                                           [ sp:varName  "name" ]
+                                         ) ;
+                     sp:where            ( [ sp:object     :Bicycle ;
+                                             sp:predicate  rdf:type ;
+                                             sp:subject    [ sp:varName  "bic" ]
+                                           ]
+                                           [ sp:object     [ sp:varName  "name" ] ;
+                                             sp:predicate  :name ;
+                                             sp:subject    [ sp:varName  "bic" ]
+                                           ]
+                                         )
+                   ] .
+
+:Helkama_2  a       :BicycleModel ;
+        rdfs:label  "Helkama 2" .
+
+:Wheel_6  a         :Wheel ;
+        rdfs:label  "Wheel 6" .
+
+:Bicycle_2  a       :Bicycle ;
+        rdfs:label  "Bicycle 2" ;
+        :hasModel   :Tunturi_3 ;
+        :hasWheel   :Wheel_4 , :Wheel_3 ;
+        :name       "UUSI_NIMI" .
+
+:wheelcount  a      owl:DatatypeProperty ;
+        rdfs:label  "wheelcount" ;
+        rdfs:range  xsd:integer .
+
+arg:bic  a                  rdf:Property ;
+        rdfs:subPropertyOf  sp:arg .
+
+accessories:Bell  spin:constructor  [ a             sp:Construct ;
+                                      sp:templates  ( [ sp:object     [ sp:varName  "datetime" ] ;
+                                                        sp:predicate  :created ;
+                                                        sp:subject    spin:_this
+                                                      ]
+                                                    ) ;
+                                      sp:where      ( [ a            sp:Optional ;
+                                                        sp:elements  ( [ sp:object     [ sp:varName  "exdate" ] ;
+                                                                         sp:predicate  :created ;
+                                                                         sp:subject    spin:_this
+                                                                       ]
+                                                                     )
+                                                      ]
+                                                      [ a              sp:Filter ;
+                                                        sp:expression  [ a        sp:not ;
+                                                                         sp:arg1  [ a        sp:bound ;
+                                                                                    sp:arg1  [ sp:varName  "exdate" ]
+                                                                                  ]
+                                                                       ]
+                                                      ]
+                                                      [ a              sp:Bind ;
+                                                        sp:expression  [ a  afn:now ] ;
+                                                        sp:variable    [ sp:varName  "datetime" ]
+                                                      ]
+                                                    )
+                                    ] .
+
+:UpdateBicycleNameTemplate2
+        a                spin:UpdateTemplate ;
+        rdfs:subClassOf  spin:UpdateTemplates ;
+        spin:body        [ a                 sp:Modify ;
+                           sp:deletePattern  ( [ sp:object     [ sp:varName  "oldname" ] ;
+                                                 sp:predicate  :name ;
+                                                 sp:subject    [ sp:varName  "bic" ]
+                                               ]
+                                             ) ;
+                           sp:insertPattern  ( [ sp:object     "VAKIO_BY_UBNT2" ;
+                                                 sp:predicate  :name ;
+                                                 sp:subject    [ sp:varName  "bic" ]
+                                               ]
+                                             ) ;
+                           sp:where          ( [ sp:object     :Bicycle ;
+                                                 sp:predicate  rdf:type ;
+                                                 sp:subject    [ sp:varName  "bic" ]
+                                               ]
+                                               [ sp:object     [ sp:varName  "oldname" ] ;
+                                                 sp:predicate  :name ;
+                                                 sp:subject    [ sp:varName  "bic" ]
+                                               ]
+                                             )
+                         ] .
+
+:Wheel_1  a         :Wheel ;
+        rdfs:label  "Wheel 1" .
+
+:UpdateBicycleName  a    spin:UpdateTemplate ;
+        rdfs:label       "Update bicycle name" ;
+        rdfs:subClassOf  spin:UpdateTemplates ;
+        spin:body        [ a                 sp:Modify ;
+                           sp:deletePattern  ( [ sp:object     [ sp:varName  "oldname" ] ;
+                                                 sp:predicate  :name ;
+                                                 sp:subject    [ sp:varName  "bic" ]
+                                               ]
+                                             ) ;
+                           sp:insertPattern  ( [ sp:object     [ sp:varName  "newname" ] ;
+                                                 sp:predicate  :name ;
+                                                 sp:subject    [ sp:varName  "bic" ]
+                                               ]
+                                             ) ;
+                           sp:where          ( [ sp:object     :Bicycle ;
+                                                 sp:predicate  rdf:type ;
+                                                 sp:subject    [ sp:varName  "bic" ]
+                                               ]
+                                               [ sp:object     [ sp:varName  "model" ] ;
+                                                 sp:predicate  :hasModel ;
+                                                 sp:subject    [ sp:varName  "bic" ]
+                                               ]
+                                               [ sp:object     [ sp:varName  "oldname" ] ;
+                                                 sp:predicate  :name ;
+                                                 sp:subject    [ sp:varName  "bic" ]
+                                               ]
+                                             )
+                         ] ;
+        spin:constraint  [ a              spl:Argument ;
+                           spl:predicate  arg:newname ;
+                           spl:valueType  xsd:string
+                         ] ;
+        spin:constraint  [ a              spl:Argument ;
+                           spl:predicate  arg:model ;
+                           spl:valueType  xsd:string
+                         ] .
+
+:hasModel  a        owl:ObjectProperty ;
+        rdfs:label  "has model" .
+
+:Nishiki_4  a       :BicycleModel ;
+        rdfs:label  "Nishiki 4" .
+
+:modelYear  a       owl:DatatypeProperty ;
+        rdfs:range  xsd:string .
+
+:BicycleNameTemplate2
+        a                spin:Template ;
+        rdfs:label       "Bicycle name template2" ;
+        rdfs:subClassOf  spin:Templates ;
+        spin:body        [ a                   sp:Select ;
+                           sp:resultVariables  ( [ sp:varName  "bic" ]
+                                                 [ sp:varName  "wcount" ]
+                                                 [ sp:varName  "name" ]
+                                               ) ;
+                           sp:where            ( [ sp:object     :Bicycle ;
+                                                   sp:predicate  rdf:type ;
+                                                   sp:subject    [ sp:varName  "bic" ]
+                                                 ]
+                                                 [ sp:object     [ sp:varName  "wcount" ] ;
+                                                   sp:predicate  :wheelcount ;
+                                                   sp:subject    [ sp:varName  "bic" ]
+                                                 ]
+                                                 [ sp:object     [ sp:varName  "name" ] ;
+                                                   sp:predicate  :name ;
+                                                   sp:subject    [ sp:varName  "bic" ]
+                                                 ]
+                                               )
+                         ] ;
+        spin:constraint  [ a              spl:Argument ;
+                           rdfs:comment   "Number of bicycle wheels" ;
+                           spl:predicate  arg:wcount ;
+                           spl:valueType  xsd:integer
+                         ] .
+
+:Wheel_4  a         :Wheel ;
+        rdfs:label  "Wheel 4" .
+
+:Handlebar  a             owl:Class ;
+        rdfs:label        "Handlebar" ;
+        rdfs:subClassOf   :VehiclePart ;
+        spin:constructor  [ a             sp:Construct ;
+                            sp:templates  ( [ sp:object     accessories:Bell ;
+                                              sp:predicate  rdf:type ;
+                                              sp:subject    [ sp:varName  "newbell" ]
+                                            ]
+                                            [ sp:object     [ sp:varName  "newbell" ] ;
+                                              sp:predicate  :hasBell ;
+                                              sp:subject    spin:_this
+                                            ]
+                                          ) ;
+                            sp:where      ( [ a            sp:Optional ;
+                                              sp:elements  ( [ sp:object     [ sp:varName  "exbell" ] ;
+                                                               sp:predicate  :hasBell ;
+                                                               sp:subject    spin:_this
+                                                             ]
+                                                           )
+                                            ]
+                                            [ a              sp:Filter ;
+                                              sp:expression  [ a        sp:not ;
+                                                               sp:arg1  [ a        sp:bound ;
+                                                                          sp:arg1  [ sp:varName  "exbell" ]
+                                                                        ]
+                                                             ]
+                                            ]
+                                            [ a              sp:Bind ;
+                                              sp:expression  [ a  afn:now ] ;
+                                              sp:variable    [ sp:varName  "now" ]
+                                            ]
+                                            [ a              sp:Bind ;
+                                              sp:expression  [ a        sp:iri ;
+                                                               sp:arg1  [ a        fn:concat ;
+                                                                          sp:arg1  "http://siima.net/ont/accessories#Bell_" ;
+                                                                          sp:arg2  [ a        sp:str ;
+                                                                                     sp:arg1  [ sp:varName  "now" ]
+                                                                                   ]
+                                                                        ]
+                                                             ] ;
+                                              sp:variable    [ sp:varName  "newbell" ]
+                                            ]
+                                          )
+                          ] .
+
+accessories:Bell_1  rdfs:label  "UUSI LABELLI" .
+
+<http://siima.net/ont/bicycle>
+        a                owl:Ontology ;
+        owl:imports      <http://spinrdf.org/spl> , <http://siima.net/ont/accessories> , <http://semwebquality.org/ontologies/dq-constraints#> ;
+        owl:versionInfo  "Created with TopBraid Composer" .
+
+:VehiclePart  a          owl:Class ;
+        rdfs:label       "Vehicle part" ;
+        rdfs:subClassOf  owl:Thing .
+
+:Jupiter_1  a       :BicycleModel ;
+        rdfs:label  "Jupiter 1" .
+
+:Bicycle_3  a       :Bicycle ;
+        rdfs:label  "Bicycle 3" ;
+        :hasModel   :Helkama_2 ;
+        :hasWheel   :Wheel_6 , :Wheel_5 ;
+        :name       "UUSI_NIMI" .
+
+:ConstructTemplatesVPA1
+        a                spin:ConstructTemplate ;
+        rdfs:subClassOf  spin:ConstructTemplates ;
+        spin:body        [ a             sp:Construct ;
+                           sp:templates  ( [ sp:object     :Bicycle ;
+                                             sp:predicate  rdf:type ;
+                                             sp:subject    [ sp:varName  "bic" ]
+                                           ]
+                                           [ sp:object     [ sp:varName  "datetime" ] ;
+                                             sp:predicate  :created ;
+                                             sp:subject    [ sp:varName  "bic" ]
+                                           ]
+                                         ) ;
+                           sp:where      ( [ a              sp:Bind ;
+                                             sp:expression  [ a  afn:now ] ;
+                                             sp:variable    [ sp:varName  "datetime" ]
+                                           ]
+                                           [ a              sp:Bind ;
+                                             sp:expression  [ a        sp:iri ;
+                                                              sp:arg1  [ a        fn:concat ;
+                                                                         sp:arg1  "http://siima.net/ont/bicycle#Bicycle_inst_" ;
+                                                                         sp:arg2  [ a        sp:str ;
+                                                                                    sp:arg1  [ sp:varName  "datetime" ]
+                                                                                  ]
+                                                                       ]
+                                                            ] ;
+                                             sp:variable    [ sp:varName  "bic" ]
+                                           ]
+                                         )
+                         ] .
+
+:Wheel_2  a         :Wheel ;
+        rdfs:label  "Wheel 2" .
+
+:Handlebar_1  a     :Handlebar ;
+        rdfs:label  "Handlebar 1" .
+
+:Vehicle  a              owl:Class ;
+        rdfs:label       "Vehicle" ;
+        rdfs:subClassOf  owl:Thing .
+
+arg:model  a                rdf:Property ;
+        rdfs:subPropertyOf  sp:arg .
+
+:wheels  a               spin:Function ;
+        rdfs:subClassOf  spin:Functions ;
+        spin:body        [ a                   sp:Select ;
+                           sp:groupBy          ( [ sp:varName  "bic" ]
+                                               ) ;
+                           sp:resultVariables  ( [ sp:expression  [ a              sp:Count ;
+                                                                    sp:expression  [ sp:varName  "wheel" ]
+                                                                  ] ;
+                                                   sp:varName     "wcount"
+                                                 ]
+                                               ) ;
+                           sp:where            ( [ sp:object     [ sp:varName  "wheel" ] ;
+                                                   sp:predicate  :hasWheel ;
+                                                   sp:subject    [ sp:varName  "bic" ]
+                                                 ]
+                                               )
+                         ] ;
+        spin:constraint  [ a              spl:Argument ;
+                           rdfs:comment   "bicycle instance" ;
+                           spl:predicate  arg:bic ;
+                           spl:valueType  rdfs:Resource
+                         ] .
+
+arg:newname  a              rdf:Property ;
+        rdfs:subPropertyOf  sp:arg .
+
+:BicycleModel  a         owl:Class ;
+        rdfs:label       "Bicycle model" ;
+        rdfs:subClassOf  owl:Thing .
+
+:Wheel_5  a         :Wheel ;
+        rdfs:label  "Wheel 5" .
+
+:hasSteer  a        owl:ObjectProperty ;
+        rdfs:label  "has steer" .
+
+:Bicycle_1  a                     :Bicycle ;
+        rdfs:label                "Bicycle 1" ;
+        accessories:hasAccessory  accessories:CatEye_1 , accessories:Bell_1 ;
+        :hasModel                 :Jupiter_1 ;
+        :hasWheel                 :Wheel_2 , :Wheel_1 ;
+        :name                     "UUSI_NIMI" .
+
+:hasWheel  a         owl:ObjectProperty ;
+        rdfs:domain  :Vehicle ;
+        rdfs:label   "has wheel" ;
+        rdfs:range   :Wheel .
+
+:Tunturi_3  a       :BicycleModel ;
+        rdfs:label  "Tunturi 3" .
+
+:Bell_2  a        accessories:Bell ;
+        :created  "2016-01-01T12:35:54.320+02:00"^^xsd:dateTime .
+
+:DeleteBicycleNameTemplate
+        a                spin:UpdateTemplate ;
+        rdfs:subClassOf  spin:UpdateTemplates ;
+        spin:body        [ a                 sp:Modify ;
+                           sp:deletePattern  ( [ sp:object     [ sp:varName  "oldname" ] ;
+                                                 sp:predicate  :name ;
+                                                 sp:subject    [ sp:varName  "bic" ]
+                                               ]
+                                             ) ;
+                           sp:insertPattern  ( [ sp:object     [ sp:varName  "newname" ] ;
+                                                 sp:predicate  :name ;
+                                                 sp:subject    [ sp:varName  "bic" ]
+                                               ]
+                                             ) ;
+                           sp:where          ( [ sp:object     :Bicycle ;
+                                                 sp:predicate  rdf:type ;
+                                                 sp:subject    [ sp:varName  "bic" ]
+                                               ]
+                                               [ sp:object     [ sp:varName  "oldname" ] ;
+                                                 sp:predicate  :name ;
+                                                 sp:subject    [ sp:varName  "bic" ]
+                                               ]
+                                             )
+                         ] ;
+        spin:constraint  [ a              spl:Argument ;
+                           spl:predicate  arg:newname ;
+                           spl:valueType  xsd:string
+                         ] .
+
+:Bicycle_4  a       :Bicycle ;
+        rdfs:label  "Yolanda Gil" ;
+        :name       "UUSI_NIMI" .
+
+:Wheel  a                owl:Class ;
+        rdfs:label       "Wheel" ;
+        rdfs:subClassOf  :VehiclePart .
+
+:created  a         owl:DatatypeProperty ;
+        rdfs:range  xsd:dateTime .
+
+:name   a           owl:DatatypeProperty ;
+        rdfs:label  "name" ;
+        rdfs:range  xsd:string .
+
+:hasBell  a     owl:ObjectProperty .
+
+:BicycleNameTemplate1
+        a                spin:SelectTemplate ;
+        rdfs:label       "Bicycle name template1" ;
+        rdfs:subClassOf  spin:SelectTemplates ;
+        spin:body        [ a                   sp:Select ;
+                           sp:resultVariables  ( [ sp:varName  "bic" ]
+                                                 [ sp:varName  "wcount" ]
+                                                 [ sp:varName  "name" ]
+                                               ) ;
+                           sp:where            ( [ sp:object     :Bicycle ;
+                                                   sp:predicate  rdf:type ;
+                                                   sp:subject    [ sp:varName  "bic" ]
+                                                 ]
+                                                 [ sp:object     [ sp:varName  "wcount" ] ;
+                                                   sp:predicate  :wheelcount ;
+                                                   sp:subject    [ sp:varName  "bic" ]
+                                                 ]
+                                                 [ sp:object     [ sp:varName  "name" ] ;
+                                                   sp:predicate  :name ;
+                                                   sp:subject    [ sp:varName  "bic" ]
+                                                 ]
+                                               )
+                         ] ;
+        spin:constraint  [ a              spl:Argument ;
+                           rdfs:comment   "Number of bicycle wheels" ;
+                           spl:predicate  arg:wcount ;
+                           spl:valueType  xsd:integer
+                         ] .
+
+:Wheel_3  a         :Wheel ;
+        rdfs:label  "Wheel 3" .
