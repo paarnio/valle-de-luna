@@ -33,7 +33,7 @@
           "ontology": {
             "name": "caex_ontology",
             "folder": "data/common/ontology",
-            "file": "caex_ontology_mod2_importing_owl.ttl",
+            "file": "caex_ontology_mod2_main_imports_siima.ttl",
             "uri": "http://data.ifs.tuwien.ac.at/aml/ontology"
           },
           "imports": [
