@@ -97,6 +97,7 @@
         "query": {
           "name": "SELECT Query Bicycle wheel count",
           "type": "select",
+		  "reasoner": true,
           "preprefixes": "yes",
           "select": "?bic ?wcount ?name",
           "where": "?bic a bicycle:Bicycle . ?bic bicycle:wheelcount ?wcount . ?bic bicycle:name ?name .",
@@ -116,6 +117,7 @@
         "query": {
           "name": "UPDATE bicycle name (TOIMII!!!)",
           "type": "update",
+		  "reasoner": true,
           "preprefixes": "yes",
           "delete": "?bic bicycle:name ?oldname .",
           "insert": "?bic bicycle:name 'UUSI_NIMI' .",
@@ -132,6 +134,7 @@
         "query": {
           "name": "SELECT Query Bicycle wheel count",
           "type": "select",
+		  "reasoner": true,
           "preprefixes": "yes",
           "select": "?bic ?wcount ?name",
           "where": "?bic a bicycle:Bicycle . ?bic bicycle:wheelcount ?wcount . ?bic bicycle:name ?name .",
@@ -188,6 +191,7 @@
         "query": {
           "name": "SELECT Query accessories Bell's",
           "type": "select",
+		  "reasoner": true,
           "preprefixes": "yes",
           "select": "?bell ?label",
           "where": "?bell a access:Bell . ?bell rdfs:label ?label",
