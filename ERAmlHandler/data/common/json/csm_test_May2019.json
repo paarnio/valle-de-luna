@@ -85,9 +85,10 @@
         "query": {
          "name": "SELECT Query InternalElement instances in siima caex model",
           "type": "select",
+		  "reasoner": true,
           "preprefixes": "yes",
           "select": "?combcapa",
-          "where": "?combcapa a feed:Transporting .",
+          "where": "?combcapa a feed:CombinedCapability .",
           "limit": "100",
           "queryVars": [
             "?combcapa"
