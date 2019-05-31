@@ -97,8 +97,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 public class ModelSpinManager {
-	private static final Logger logger=Logger.getLogger(org.apache.log4j.Logger.class.getName()); // also "myApp.user"); 
-	
+	//private static final Logger logger=Logger.getLogger(org.apache.log4j.Logger.class.getName()); // also "myApp.user"); 
+	private static final Logger logger = Logger.getLogger(ModelSpinManager.class.getName());
 	public OntModel mainOntModel;
 	public Model inferredTriples;
 	public boolean readyToRun = false;
@@ -891,6 +891,7 @@ public class ModelSpinManager {
 		//Resolves prefixes used in the attached query
 		//See also: SPINParsingExample.java
 		//Example in class: "http://siima.net/ont/bicycle#Bicycle"
+		logger.log(Level.INFO, "----+ Command: execAttachedQuery");
 		StringBuffer qstrbuff= new StringBuffer();
 		
 		Map<String,String> prefixMap= model.getNsPrefixMap();
@@ -902,6 +903,7 @@ public class ModelSpinManager {
 			//System.out.println("=====PREFIXES: PREFIX:" + key + " NS:" + prefixMap.get(key));
 		}
 		
+		System.out.println("\n=====CLASS with attached query:" + cls.getLocalName() + "\n");
 		// Pick the attached spin:query from the class
 		Property spinqueryprop=model.getProperty("http://spinrdf.org/spin#query");
 		if(cls.hasProperty(spinqueryprop)){
@@ -913,11 +915,11 @@ public class ModelSpinManager {
 				Resource res=stmts.next().getResource();
 				org.topbraid.spin.model.Query spinQuery= SPINFactory.asQuery(res);
 				//Select spinQuery = (Select) res;
-				System.out.println("----SPIN QUERY:\n" + spinQuery.toString());
+				//System.out.println("----SPIN QUERY:\n" + spinQuery.toString());
 				this.workflowResults.append("\nWFR:\n" + "----SPIN QUERY:\n" + spinQuery.toString());
 				
 				qstrbuff.append(spinQuery.toString());
-				System.out.println("===== ATTACHED QUERY ======\n" + qstrbuff.toString());
+				//System.out.println("===== ATTACHED QUERY ======\n" + qstrbuff.toString());
 				this.workflowResults.append("\nWFR:\n" + "===== ATTACHED QUERY ======\n" + qstrbuff.toString());
 				
 				sparqlSelectQuery(model, qstrbuff, queryVars);

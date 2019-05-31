@@ -307,6 +307,29 @@ feed:RobotArm_1
 .
 feed:SimpleCapability
   rdf:type owl:Class ;
+  spin:query [
+      rdf:type sp:Select ;
+      sp:resultVariables (
+          [
+            sp:expression [
+                rdf:type sp:Count ;
+                sp:expression [
+                    sp:varName "simple"^^xsd:string ;
+                  ] ;
+              ] ;
+            sp:varName "simcnt"^^xsd:string ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object feed:SimpleCapability ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "simple"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+    ] ;
   rdfs:label "Simple capability"^^xsd:string ;
   rdfs:subClassOf feed:Capability ;
 .

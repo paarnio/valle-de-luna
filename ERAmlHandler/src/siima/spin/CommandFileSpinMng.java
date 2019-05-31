@@ -303,16 +303,27 @@ public class CommandFileSpinMng {
 		logger.log(Level.INFO, "----+----+ class:" + clsuri + "\n----+----+ reasoner:" + reasoner);
 		
 		if("select".equalsIgnoreCase(type)){
-		OntModel querymodel;
-		if((reasoner!=null)&&(reasoner)) querymodel = mng.getOntModelWithReasoner();
-		else querymodel = mng.getMainOntModel();
+			OntModel querymodel;
+			if((reasoner!=null)&&(reasoner)) querymodel = mng.getOntModelWithReasoner();
+			else querymodel = mng.getMainOntModel();
 		
-		JSONArray jsonqueryvars = (JSONArray) subobj.get("queryVars");
-		List queryVars = (List)jsonqueryvars;			
-		Resource cls = querymodel.getResource(clsuri); //mng.getMainOntModel()
+			JSONArray jsonqueryvars = (JSONArray) subobj.get("queryVars");
+			List queryVars = (List)jsonqueryvars;			
+			Resource cls = querymodel.getResource(clsuri); //mng.getMainOntModel()
 				
-		mng.execAttachedQuery(cls, querymodel, queryVars); //mng.getMainOntModel()
+			mng.execAttachedQuery(cls, querymodel, queryVars); //mng.getMainOntModel()
+		} else if("construct".equalsIgnoreCase(type)){
+			OntModel querymodel;
+			if((reasoner!=null)&&(reasoner)) querymodel = mng.getOntModelWithReasoner();
+			else querymodel = mng.getMainOntModel();
+						
+			Resource cls = querymodel.getResource(clsuri); 
+			//TODO: executes only attached select queries		
+			//mng.execAttachedQuery(cls, querymodel, null); 
+			
+			
 		} else logger.log(Level.INFO, "????? Only SELECT type Attached query implemented. Type was: " + name ); 
+		
 		
 	}
 	
