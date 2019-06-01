@@ -885,8 +885,8 @@ public class ModelSpinManager {
 	 * 
 	 */
 
-	public void execAttachedQuery(Resource cls, OntModel model, List<String> queryVars){
-		//TODO: Only Select query exec implemented
+	public void execAttachedQuery(Resource cls, OntModel model, String queryType, List<String> queryVars, Model targetModel){
+		//Attached Select & Construct query exec implemented
 		//Run a query attached to a class (by TBC)
 		//Resolves prefixes used in the attached query
 		//See also: SPINParsingExample.java
@@ -914,15 +914,16 @@ public class ModelSpinManager {
 			if(stmts.hasNext()){ // Find only one attached query 
 				Resource res=stmts.next().getResource();
 				org.topbraid.spin.model.Query spinQuery= SPINFactory.asQuery(res);
-				//Select spinQuery = (Select) res;
-				//System.out.println("----SPIN QUERY:\n" + spinQuery.toString());
-				this.workflowResults.append("\nWFR:\n" + "----SPIN QUERY:\n" + spinQuery.toString());
-				
+				//this.workflowResults.append("\nWFR:\n" + "----SPIN QUERY:\n" + spinQuery.toString());		
 				qstrbuff.append(spinQuery.toString());
-				//System.out.println("===== ATTACHED QUERY ======\n" + qstrbuff.toString());
 				this.workflowResults.append("\nWFR:\n" + "===== ATTACHED QUERY ======\n" + qstrbuff.toString());
 				
-				sparqlSelectQuery(model, qstrbuff, queryVars);
+				if("select".equalsIgnoreCase(queryType)){
+					sparqlSelectQuery(model, qstrbuff, queryVars);
+				} else if("construct".equalsIgnoreCase(queryType)){
+					//System.out.println("Attached query type: CONSTRUCT \n");
+					sparqlConstructQuery(model, targetModel, qstrbuff);
+				}
 			} else { 
 				System.out.println("----???? Resource: " + cls.getLocalName() + " DOES NOT have any attached queries (spin:query property)");
 				this.workflowResults.append("\nWFR:\n" + "----???? Resource: " + cls.getLocalName() + " DOES NOT have any attached queries (spin:query property)");

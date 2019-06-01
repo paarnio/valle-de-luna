@@ -284,6 +284,40 @@ feed:Releasing_1
 .
 feed:Resource
   rdf:type owl:Class ;
+  spin:query [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "mass"^^xsd:string ;
+              ] ;
+            sp:predicate feed:msg ;
+            sp:subject [
+                sp:varName "resource"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object [
+                sp:varName "info"^^xsd:string ;
+              ] ;
+            sp:predicate feed:hasBasicResourceInformation ;
+            sp:subject [
+                sp:varName "resource"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "mass"^^xsd:string ;
+              ] ;
+            sp:predicate feed:mass ;
+            sp:subject [
+                sp:varName "info"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+    ] ;
   rdfs:label "Resource"^^xsd:string ;
   rdfs:subClassOf owl:Thing ;
 .
@@ -662,6 +696,9 @@ feed:mass
   rdf:type owl:DatatypeProperty ;
   rdfs:label "mass"^^xsd:string ;
   rdfs:range xsd:float ;
+.
+feed:msg
+  rdf:type owl:DatatypeProperty ;
 .
 feed:payload
   rdf:type owl:DatatypeProperty ;

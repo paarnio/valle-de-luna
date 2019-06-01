@@ -128,7 +128,7 @@
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
         "query": {
-         "name": "SELECT Query InternalElement instances in siima caex model",
+         "name": "SELECT Query payload",
           "type": "select",
 		  "reasoner": true,
           "preprefixes": "yes",
@@ -141,8 +141,20 @@
           ]
         }
       },
-	   {
+	 {
         "index": 8,
+		"idcode": "R1_T11_AQ1_1",
+        "commandtype": "execAttachedQuery",
+        "stepnote": "ATTACHED_CONSTR_QUERY",
+        "query": {
+        "name": "ATTACHED CONSTRUCT Query in feed:Resource ",
+        "type": "construct",
+		"classuri": "http://siima.net/2018/model/capability/partFeeding#Resource",
+		"reasoner": true
+        }
+      },
+	   {
+        "index": 9,
 		"idcode": "SR1_T",
         "commandtype": "writeModel",
         "stepnote": "WRITE",
@@ -155,7 +167,7 @@
         }
       },
 	  {
-        "index": 9,
+        "index": 21,
 		"idcode": "R1_T6_",
         "commandtype": "createNewTemplate",
         "stepnote": "CREATE_TEMPLATE",
@@ -178,7 +190,7 @@
         }
       },
 	  {
-        "index": 10,
+        "index": 22,
 		"idcode": "R1_T20_SQET1_1",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_EVAL",
@@ -195,7 +207,7 @@
         }
       },
 	    {
-        "index": 11,
+        "index": 23,
 		"idcode": "R1_T4_CC_1",
         "commandtype": "checkConstraints",
         "stepnote": "CONSTRAINTS",
@@ -208,7 +220,7 @@
         }
       },
 	    {
-        "index": 12,
+        "index": 24,
 		"idcode": "R1_T17_1",
         "commandtype": "writeModel",
         "stepnote": "WRITE",
@@ -221,7 +233,7 @@
         }
       },
 	   {
-        "index": 13,
+        "index": 25,
 		"idcode": "R1_T11_1",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_VIOLATIONS",
@@ -240,7 +252,7 @@
         }
       },
 	   {
-        "index": 14,
+        "index": 26,
 		"idcode": "R1_T11_2",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_SERVICE",
@@ -258,7 +270,7 @@
         }
       },
 	   {
-        "index": 15,
+        "index": 27,
 		"idcode": "R1_T11_3",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_SERVICE",
@@ -279,7 +291,7 @@
         }
       },
       {
-        "index": 16,
+        "index": 28,
 		"idcode": "SR1_T3",
         "commandtype": "listNsPrefixes",
         "stepnote": "LIST",

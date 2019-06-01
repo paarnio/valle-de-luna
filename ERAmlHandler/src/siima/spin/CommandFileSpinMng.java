@@ -291,8 +291,9 @@ public class CommandFileSpinMng {
 	}
 
 	public void execAttachedQueryCommand(JSONObject comobj) {
-		//TODO: Only attached Select query exec implemented.
-		//Example in class: "http://siima.net/ont/bicycle#Bicycle"
+		//Attached Select & Construct query exec implemented
+		//Select query Example in bicycle.ttl: classuri: "http://siima.net/ont/bicycle#Bicycle"
+		//Construct query Example in partFeeding.ttl: classuri": "http://siima.net/2018/model/capability/partFeeding#Resource"
 		logger.log(Level.INFO, "----+ Command: execAttachedQueryCommand");
 		JSONObject subobj = (JSONObject) comobj.get("query");
 		String name = (String) subobj.get("name");
@@ -310,17 +311,16 @@ public class CommandFileSpinMng {
 			JSONArray jsonqueryvars = (JSONArray) subobj.get("queryVars");
 			List queryVars = (List)jsonqueryvars;			
 			Resource cls = querymodel.getResource(clsuri); //mng.getMainOntModel()
-				
-			mng.execAttachedQuery(cls, querymodel, queryVars); //mng.getMainOntModel()
+			//executing attached select query		
+			mng.execAttachedQuery(cls, querymodel, type, queryVars, null); //mng.getMainOntModel()
 		} else if("construct".equalsIgnoreCase(type)){
 			OntModel querymodel;
 			if((reasoner!=null)&&(reasoner)) querymodel = mng.getOntModelWithReasoner();
 			else querymodel = mng.getMainOntModel();
-						
+			Model targetModel= mng.getInferredTriples();
 			Resource cls = querymodel.getResource(clsuri); 
-			//TODO: executes only attached select queries		
-			//mng.execAttachedQuery(cls, querymodel, null); 
-			
+			//executing attached construct query		
+			mng.execAttachedQuery(cls, querymodel, type, null, targetModel); 			
 			
 		} else logger.log(Level.INFO, "????? Only SELECT type Attached query implemented. Type was: " + name ); 
 		
