@@ -904,31 +904,44 @@ public class ModelSpinManager {
 		}
 		
 		System.out.println("\n=====CLASS with attached query:" + cls.getLocalName() + "\n");
-		// Pick the attached spin:query from the class
+		// Pick the attached spin:query from the class and execute all with correct queryType
 		Property spinqueryprop=model.getProperty("http://spinrdf.org/spin#query");
 		if(cls.hasProperty(spinqueryprop)){
 			System.out.println("---- Resource: " + cls.getLocalName() + "has spin:query property");
 			this.workflowResults.append("\nWFR:\n" + "---- Resource: " + cls.getLocalName() + "has spin:query property");
 			
 			StmtIterator stmts=cls.listProperties(spinqueryprop);
-			if(stmts.hasNext()){ // Find only one attached query 
+			int cnt=0;
+			//if(stmts.hasNext()){ // Find only one attached query
+			while(stmts.hasNext()){ // loop all
 				Resource res=stmts.next().getResource();
 				org.topbraid.spin.model.Query spinQuery= SPINFactory.asQuery(res);
-				//this.workflowResults.append("\nWFR:\n" + "----SPIN QUERY:\n" + spinQuery.toString());		
-				qstrbuff.append(spinQuery.toString());
+				String spinQstring = spinQuery.toString();
+				qstrbuff.append(spinQstring);
 				this.workflowResults.append("\nWFR:\n" + "===== ATTACHED QUERY ======\n" + qstrbuff.toString());
-				
-				if("select".equalsIgnoreCase(queryType)){
+	
+				if(("select".equalsIgnoreCase(queryType))&&(spinQstring.startsWith("SELECT"))){
 					sparqlSelectQuery(model, qstrbuff, queryVars);
-				} else if("construct".equalsIgnoreCase(queryType)){
-					//System.out.println("Attached query type: CONSTRUCT \n");
+					++cnt;
+				} else if(("construct".equalsIgnoreCase(queryType))&&(spinQstring.startsWith("CONSTRUCT"))){
 					sparqlConstructQuery(model, targetModel, qstrbuff);
+					++cnt;
+				} else if(("describe".equalsIgnoreCase(queryType))&&(spinQstring.startsWith("DESCRIBE"))){
+					//TODO: TESTING
+					sparqlDescribeQuery(model, targetModel, qstrbuff);
+					++cnt;
+				} else if(("update".equalsIgnoreCase(queryType))&&(spinQstring.startsWith("UPDATE"))){
+					//TODO: TESTING
+					sparqlUpdateQuery(model, qstrbuff);
+					++cnt;
 				}
-			} else { 
+			} 
+			
+			if(cnt==0) { 
 				System.out.println("----???? Resource: " + cls.getLocalName() + " DOES NOT have any attached queries (spin:query property)");
 				this.workflowResults.append("\nWFR:\n" + "----???? Resource: " + cls.getLocalName() + " DOES NOT have any attached queries (spin:query property)");
 			}	
-			System.out.println("------------------------------");
+			System.out.println("--------- #" + cnt + " attached queries executed--------\n");
 		}
 		
 	}
@@ -983,8 +996,7 @@ public class ModelSpinManager {
 		System.out.println("---sparqlQuery()");
 		Query query = QueryFactory.create(queryStr.toString());
 		QueryExecution qexec = QueryExecutionFactory.create(query, ontModel);
-		System.out
-		.println("============ Sparql SELECT Query Results ==============");
+		System.out.println("============ Sparql SELECT Query Results ==============");
 		this.workflowResults.append("\nWFR:\n" + "============ Sparql SELECT Query Results ==============");
 		int cnt = 0;
 		try {

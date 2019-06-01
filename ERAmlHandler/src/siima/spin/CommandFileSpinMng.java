@@ -291,7 +291,7 @@ public class CommandFileSpinMng {
 	}
 
 	public void execAttachedQueryCommand(JSONObject comobj) {
-		//Attached Select & Construct query exec implemented
+		//Attached Select & Construct query execution implemented and tested (update and describe not tested)
 		//Select query Example in bicycle.ttl: classuri: "http://siima.net/ont/bicycle#Bicycle"
 		//Construct query Example in partFeeding.ttl: classuri": "http://siima.net/2018/model/capability/partFeeding#Resource"
 		logger.log(Level.INFO, "----+ Command: execAttachedQueryCommand");
@@ -303,26 +303,39 @@ public class CommandFileSpinMng {
 		logger.log(Level.INFO, "----+----+ name:" + name + "\n----+----+ type:" + type);
 		logger.log(Level.INFO, "----+----+ class:" + clsuri + "\n----+----+ reasoner:" + reasoner);
 		
-		if("select".equalsIgnoreCase(type)){
-			OntModel querymodel;
-			if((reasoner!=null)&&(reasoner)) querymodel = mng.getOntModelWithReasoner();
-			else querymodel = mng.getMainOntModel();
+		OntModel querymodel;
+		if((reasoner!=null)&&(reasoner)) querymodel = mng.getOntModelWithReasoner();
+		else querymodel = mng.getMainOntModel();
 		
+		if("select".equalsIgnoreCase(type)){
+					
 			JSONArray jsonqueryvars = (JSONArray) subobj.get("queryVars");
 			List queryVars = (List)jsonqueryvars;			
 			Resource cls = querymodel.getResource(clsuri); //mng.getMainOntModel()
 			//executing attached select query		
 			mng.execAttachedQuery(cls, querymodel, type, queryVars, null); //mng.getMainOntModel()
 		} else if("construct".equalsIgnoreCase(type)){
-			OntModel querymodel;
-			if((reasoner!=null)&&(reasoner)) querymodel = mng.getOntModelWithReasoner();
-			else querymodel = mng.getMainOntModel();
+			
 			Model targetModel= mng.getInferredTriples();
 			Resource cls = querymodel.getResource(clsuri); 
 			//executing attached construct query		
 			mng.execAttachedQuery(cls, querymodel, type, null, targetModel); 			
 			
-		} else logger.log(Level.INFO, "????? Only SELECT type Attached query implemented. Type was: " + name ); 
+		} else if("describe".equalsIgnoreCase(type)){
+			
+			Model targetModel= mng.getInferredTriples();
+			Resource cls = querymodel.getResource(clsuri); 
+			//executing attached construct query		
+			mng.execAttachedQuery(cls, querymodel, type, null, targetModel); 			
+			
+		} else if("update".equalsIgnoreCase(type)){
+			
+			Model targetModel= mng.getInferredTriples();
+			Resource cls = querymodel.getResource(clsuri); 
+			//executing attached construct query		
+			mng.execAttachedQuery(cls, querymodel, type, null, null); 			
+			
+		} else logger.log(Level.INFO, "????? Only Attached query type unknown. Type was: " + type ); 
 		
 		
 	}
