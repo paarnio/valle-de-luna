@@ -318,6 +318,56 @@ feed:Resource
           ]
         ) ;
     ] ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "mass"^^xsd:string ;
+              ] ;
+            sp:predicate feed:msg ;
+            sp:subject [
+                sp:varName "graspingDevice"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object feed:FingerGrasping ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "fingerGrasping"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "fingerGrasping"^^xsd:string ;
+              ] ;
+            sp:predicate feed:hasCapability ;
+            sp:subject [
+                sp:varName "graspingDevice"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "info"^^xsd:string ;
+              ] ;
+            sp:predicate feed:hasBasicResourceInformation ;
+            sp:subject [
+                sp:varName "graspingDevice"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "mass"^^xsd:string ;
+              ] ;
+            sp:predicate feed:mass ;
+            sp:subject [
+                sp:varName "info"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+    ] ;
   rdfs:label "Resource"^^xsd:string ;
   rdfs:subClassOf owl:Thing ;
 .
