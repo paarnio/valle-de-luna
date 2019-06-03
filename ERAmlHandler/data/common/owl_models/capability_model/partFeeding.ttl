@@ -464,6 +464,35 @@ feed:StructuringAssociation
 .
 feed:Transporting
   rdf:type owl:Class ;
+  spin:query [
+      rdf:type sp:Select ;
+      sp:resultVariables (
+          [
+            sp:varName "capa"^^xsd:string ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object feed:Transporting ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "trans"^^xsd:string ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Bind ;
+            sp:expression [
+                rdf:type feed:getPartCapability1 ;
+                arg:transcapa [
+                    sp:varName "trans"^^xsd:string ;
+                  ] ;
+              ] ;
+            sp:variable [
+                sp:varName "capa"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+    ] ;
   spin:rule [
       rdf:type sp:Construct ;
       sp:templates (
@@ -689,6 +718,59 @@ feed:enablesProcess
   rdfs:label "enables process"^^xsd:string ;
   rdfs:range feed:Process ;
 .
+feed:getPartCapability1
+  rdf:type spin:Function ;
+  spin:body [
+      rdf:type sp:Select ;
+      sp:resultVariables (
+          [
+            sp:varName "capability"^^xsd:string ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object [
+                sp:varName "transcapa"^^xsd:string ;
+              ] ;
+            sp:predicate feed:hasCapability ;
+            sp:subject [
+                sp:varName "combRecourse"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "device1"^^xsd:string ;
+              ] ;
+            sp:predicate feed:hasComponent ;
+            sp:subject [
+                sp:varName "combRecourse"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "capability"^^xsd:string ;
+              ] ;
+            sp:predicate feed:hasCapability ;
+            sp:subject [
+                sp:varName "device1"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object feed:FingerGrasping ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "capability"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+  spin:constraint [
+      rdf:type spl:Argument ;
+      spl:predicate arg:transcapa ;
+      rdfs:comment "instance of feed:Transporting capability"^^xsd:string ;
+    ] ;
+  rdfs:subClassOf spin:Functions ;
+.
 feed:getPartCapability2
   rdf:type spin:Function ;
   spin:body [
@@ -789,6 +871,10 @@ feed:requiresCapabilityAssociation
   rdfs:range feed:CapabilityAssociation ;
 .
 arg:huu
+  rdf:type rdf:Property ;
+  rdfs:subPropertyOf sp:arg ;
+.
+arg:transcapa
   rdf:type rdf:Property ;
   rdfs:subPropertyOf sp:arg ;
 .

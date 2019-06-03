@@ -98,15 +98,15 @@
         "index": 5,
 		"idcode": "R1_T",
         "commandtype": "execAttachedQuery",
-        "stepnote": "ATTACH_SELECT",
+        "stepnote": "ATTACH_SELECT_with_Func1",
         "query": {
-          "name": "ATTACHED SELECT Query function call in feed:Resource",
+          "name": "ATTACHED SELECT Query function call one argument in feed:Transporting",
           "type": "select",
 		  "reasoner": true,
-		  "classuri": "http://siima.net/2018/model/capability/partFeeding#Resource",
+		  "classuri": "http://siima.net/2018/model/capability/partFeeding#Transporting",
 		  "reasoner": true,
           "queryVars": [
-            "?grasping"
+            "?capa"
           ]
         }
       },
