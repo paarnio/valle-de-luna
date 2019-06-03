@@ -918,21 +918,25 @@ public class ModelSpinManager {
 				org.topbraid.spin.model.Query spinQuery= SPINFactory.asQuery(res);
 				String spinQstring = spinQuery.toString();
 				qstrbuff.append(spinQstring);
-				this.workflowResults.append("\nWFR:\n" + "===== ATTACHED QUERY ======\n" + qstrbuff.toString());
+				this.workflowResults.append("\nWFR:\n (Class:" + cls.getLocalName() + ")--- ATTACHED QUERY ---\n" + qstrbuff.toString());
 	
 				if(("select".equalsIgnoreCase(queryType))&&(spinQstring.startsWith("SELECT"))){
-					sparqlSelectQuery(model, qstrbuff, queryVars);
+					this.workflowResults.append("\nWFR:\n" + "--- SELECT execution ---\n");
+					sparqlSelectQuery(model, qstrbuff, queryVars);	
 					++cnt;
 				} else if(("construct".equalsIgnoreCase(queryType))&&(spinQstring.startsWith("CONSTRUCT"))){
-					sparqlConstructQuery(model, targetModel, qstrbuff);
+					this.workflowResults.append("\nWFR:\n" + "--- CONSTRUCT execution ---\n");
+					sparqlConstructQuery(model, targetModel, qstrbuff);					
 					++cnt;
 				} else if(("describe".equalsIgnoreCase(queryType))&&(spinQstring.startsWith("DESCRIBE"))){
 					//TODO: TESTING
-					sparqlDescribeQuery(model, targetModel, qstrbuff);
+					this.workflowResults.append("\nWFR:\n" + "--- DESCRIBE execution ---\n");
+					sparqlDescribeQuery(model, targetModel, qstrbuff);					
 					++cnt;
 				} else if(("update".equalsIgnoreCase(queryType))&&(spinQstring.startsWith("UPDATE"))){
 					//TODO: TESTING
-					sparqlUpdateQuery(model, qstrbuff);
+					this.workflowResults.append("\nWFR:\n" + "--- UPDATE execution ---\n");
+					sparqlUpdateQuery(model, qstrbuff);					
 					++cnt;
 				}
 			} 
@@ -991,9 +995,9 @@ public class ModelSpinManager {
 	
 	public void sparqlSelectQuery(OntModel ontModel, StringBuffer queryStr,
 			List<String> queryVars) { //String queryVar) {
-		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: sparqlQuery()");
-		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: sparqlQuery()");
-		System.out.println("---sparqlQuery()");
+		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: sparqlSelectQuery()");
+		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: sparqlSelectQuery()");
+		System.out.println("---sparqlSelectQuery()");
 		Query query = QueryFactory.create(queryStr.toString());
 		QueryExecution qexec = QueryExecutionFactory.create(query, ontModel);
 		System.out.println("============ Sparql SELECT Query Results ==============");
@@ -1003,11 +1007,20 @@ public class ModelSpinManager {
 			ResultSet response = qexec.execSelect();
 			while (response.hasNext()) {
 				cnt++;
+				//System.out.println("TEST--->HAAAAAAAAAAAAAAAAA size:" + queryVars.size() + " name:" + queryVars.get(0));
 				QuerySolution solution = response.nextSolution();
+				/* TEMP TEST:
+				System.out.println("TEST--->TÄH?:" + solution.toString());				
+				Iterator<String> vars = solution.varNames();				
+				while(vars.hasNext()){
+					System.out.println("TEST--->variable name: " + vars.next());
+				} */
 				
 				for(String qvar: queryVars){
+					//System.out.println("TEST--->AHAA qvar:" + qvar);
 					//if(qvar.startsWith("?")) qvar=qvar.substring(1); // Do we need this??			
 					RDFNode varunif = solution.get(qvar); // "?acc");
+					
 					if (varunif != null){
 						System.out.println("(" + cnt + ") Select Query result: " + qvar + " = "	+ varunif);
 						this.workflowResults.append("\nWFR:\n" + "(" + cnt + ") Select Query result: " + qvar + " = " + varunif);

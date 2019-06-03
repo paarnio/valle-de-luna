@@ -100,12 +100,13 @@
         "commandtype": "execAttachedQuery",
         "stepnote": "ATTACH_SELECT",
         "query": {
-          "name": "ATTACHED SELECT Query Count SimpleCapability",
+          "name": "ATTACHED SELECT Query function call in feed:Resource",
           "type": "select",
-		  "classuri": "http://siima.net/2018/model/capability/partFeeding#SimpleCapability",
+		  "reasoner": true,
+		  "classuri": "http://siima.net/2018/model/capability/partFeeding#Resource",
 		  "reasoner": true,
           "queryVars": [
-            "?simcnt"
+            "?grasping"
           ]
         }
       },
@@ -134,16 +135,15 @@
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
         "query": {
-         "name": "SELECT Query payload II",
+         "name": "SELECT Query Function",
           "type": "select",
 		  "reasoner": true,
           "preprefixes": "yes",
-          "select": "?combcapa ?payload",
-          "where": "?combcapa a feed:Transporting . ?combcapa feed:payload ?payload .",
+          "select": "?grasping",
+          "where": "BIND (feed:getPartCapability2( feed:Transporting_1, feed:FingerGrasping ) AS ?grasping) .",
           "limit": "100",
           "queryVars": [
-            "?combcapa",
-			"?payload"
+            "?grasping"
           ]
         }
       },
@@ -170,6 +170,17 @@
           "type": "file",
           "filePath": "data/generated/partFeeding_Inferred.ttl",
           "modelcat": "inferred"
+        }
+      },
+	   {
+        "index": 10,
+		"idcode": "SR1_T",
+        "commandtype": "listFunctions",
+        "stepnote": "LIST",
+        "comment": "LIST_FUNCTION_COMMANDS Lists all SPIN Functions",
+        "listing": {
+          "name": "All SPIN Functions",
+          "type": "all"
         }
       },
 	  {
@@ -306,7 +317,7 @@
           "name": "All Query prefixes",
           "type": "sparqlprefixes"
         }
-      }
+      }	    
   ],
   "CSMStore": [
       {
