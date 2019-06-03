@@ -97,7 +97,6 @@
         "query": {
           "name": "SELECT Query Bicycle wheel count",
           "type": "select",
-		  "reasoner": true,
           "preprefixes": "yes",
           "select": "?bic ?wcount ?name",
           "where": "?bic a bicycle:Bicycle . ?bic bicycle:wheelcount ?wcount . ?bic bicycle:name ?name .",
@@ -117,7 +116,6 @@
         "query": {
           "name": "UPDATE bicycle name (TOIMII!!!)",
           "type": "update",
-		  "reasoner": true,
           "preprefixes": "yes",
           "delete": "?bic bicycle:name ?oldname .",
           "insert": "?bic bicycle:name 'UUSI_NIMI' .",
@@ -134,7 +132,6 @@
         "query": {
           "name": "SELECT Query Bicycle wheel count",
           "type": "select",
-		  "reasoner": true,
           "preprefixes": "yes",
           "select": "?bic ?wcount ?name",
           "where": "?bic a bicycle:Bicycle . ?bic bicycle:wheelcount ?wcount . ?bic bicycle:name ?name .",
@@ -191,7 +188,6 @@
         "query": {
           "name": "SELECT Query accessories Bell's",
           "type": "select",
-		  "reasoner": true,
           "preprefixes": "yes",
           "select": "?bell ?label",
           "where": "?bell a access:Bell . ?bell rdfs:label ?label",
@@ -249,10 +245,10 @@
         "stepnote": "WRITE",
         "comment": "Write type can be 'file' or 'console'. Modelcat can be 'merged', 'inferred' or 'main'.",
         "write": {
-          "name": "Write main Triples to Console",
-          "type": "file",
-          "filePath": "data/generated/owl_models/inferred_bicycle_sat_2019.ttl",
-          "modelcat": "main"
+          "name": "Write inferred Triples to Console",
+          "type": "console",
+          "filePath": "data/generated/inferred_bicycle_sat_2019.ttl",
+          "modelcat": "inferred"
         }
       },
       {

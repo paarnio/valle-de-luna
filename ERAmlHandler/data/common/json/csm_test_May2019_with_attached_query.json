@@ -41,8 +41,21 @@
           "imports": null
       }
     },
+	{
+        "index": 1,
+		"idcode": "R1_T66_QP1_1",
+        "commandtype": "addNsPrefixes",
+        "stepnote": "PREFIX_ADD",
+		"comment": "Adding NS prefix declarations (separated by space or newline) in format: PREFIX owl: <http://www.w3.org/2002/07/owl#> Note: preprefixes field is currently ignored, i.e. hard coded preprefixes are always loaded also",
+        "prefix": {
+          "name": "NS PREFIX Addition ",
+          "type": "add",
+          "preprefixes": "default",
+          "prefixlist": "PREFIX feed: <http://siima.net/2018/model/capability/partFeeding#> PREFIX bar: <http://bar.net/ontology#> "
+        }
+     },
     {
-      "index": 1,
+      "index": 2,
 	  "idcode": "R1_T2_CIM_1",
       "commandtype": "createInferenceModel",
       "stepnote": "INF_MODEL",
@@ -53,7 +66,7 @@
       }
     },
     {
-      "index": 2,
+      "index": 3,
 	  "idcode": "R1_T3_RI_1",
       "commandtype": "runInferences",
       "stepnote": "INFER",
@@ -63,20 +76,6 @@
         "type": "iterative"
       }
     },
-	{
-        "index": 3,
-		"idcode": "R1_T66_QP1_1",
-        "commandtype": "addNsPrefixes",
-        "stepnote": "PREFIX_ADD",
-		"comment": "Adding NS prefix declarations (separated by space or newline) in format: PREFIX owl: <http://www.w3.org/2002/07/owl#> ",
-		"comment": "Note: preprefixes field is currently ignored, i.e. hard coded preprefixes are always loaded also",
-        "prefix": {
-          "name": "NS PREFIX Addition ",
-          "type": "add",
-          "preprefixes": "default",
-          "prefixlist": "PREFIX feed: <http://siima.net/2018/model/capability/partFeeding#> PREFIX bar: <http://bar.net/ontology#> "
-        }
-     },
 	{
         "index": 4,
 		"idcode": "R1_T11_SQ1_1",
@@ -110,16 +109,23 @@
           ]
         }
       },
-	  {
+	 {
         "index": 6,
-		"idcode": "R1_T11_AQ1_1",
-        "commandtype": "execAttachedQuery",
-        "stepnote": "ATTACHED_QUERY",
+		"idcode": "R1_T11_SQ1_1",
+        "commandtype": "sparqlQuery",
+        "stepnote": "SELECT",
         "query": {
-        "name": "ATTACHED CONSTRUCT Query in feed:Transporting ",
-        "type": "construct",
-		"classuri": "http://siima.net/2018/model/capability/partFeeding#Transporting",
-		"reasoner": true
+         "name": "SELECT Query payload",
+          "type": "select",
+		  "reasoner": true,
+          "preprefixes": "yes",
+          "select": "?combcapa ?payload I",
+          "where": "?combcapa feed:payload ?payload .",
+          "limit": "100",
+          "queryVars": [
+            "?combcapa",
+			"?payload"
+          ]
         }
       },
 	  {
@@ -128,7 +134,7 @@
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
         "query": {
-         "name": "SELECT Query payload",
+         "name": "SELECT Query payload II",
           "type": "select",
 		  "reasoner": true,
           "preprefixes": "yes",
@@ -162,8 +168,8 @@
         "write": {
           "name": "Write partFeeding model to File data/generated/partFeedingMain.ttl",
           "type": "file",
-          "filePath": "data/generated/partFeedingMain.ttl",
-          "modelcat": "main"
+          "filePath": "data/generated/partFeeding_Inferred.ttl",
+          "modelcat": "inferred"
         }
       },
 	  {

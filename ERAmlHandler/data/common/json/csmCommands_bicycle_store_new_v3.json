@@ -153,7 +153,7 @@
         "query": {
           "name": "UPDATE bell label in IMPORTED model  (TOIMIIko??) Insert toimii mutta delete EI?",
           "type": "update",
-          "reasoner": false,
+          "reasoner": true,
           "target_import_uri": "http://siima.net/ont/accessories",
           "preprefixes": "yes",
           "delete": "?bell rdfs:label ?label .",
@@ -181,8 +181,24 @@
           ]
         }
       },
-	    {
+	   {
         "index": 10,
+		"idcode": "R1_T",
+        "commandtype": "execAttachedQuery",
+        "stepnote": "SELECT",
+        "query": {
+          "name": "ATTACHED SELECT Query accessories Bell's",
+          "type": "select",
+		  "classuri": "http://siima.net/ont/bicycle#Bicycle",
+		  "reasoner": true,
+          "queryVars": [
+            "?bic",
+            "?name"
+          ]
+        }
+      },
+	    {
+        "index": 11,
 		"idcode": "R1_T",
         "commandtype": "writeModel",
         "stepnote": "WRITE",
@@ -195,7 +211,7 @@
         }
       },
       {
-        "index": 11,
+        "index": 12,
 		"idcode": "SR1_T3",
         "commandtype": "listNsPrefixes",
         "stepnote": "LIST",
@@ -488,7 +504,6 @@
         "query": {
           "name": "SELECT Query Bell label",
           "type": "select",
-		  "reasoner": true,
           "preprefixes": "yes",
           "select": "?bell ?label",
           "where": "?bell a access:Bell .  ?bell rdfs:label ?label .",
@@ -508,7 +523,6 @@
         "query": {
           "name": "SELECT Query Bicycle wheel count",
           "type": "select",
-		  "reasoner": true,
           "preprefixes": "yes",
           "select": "?bic ?wcount ?name",
           "where": "?bic a bicycle:Bicycle . ?bic bicycle:wheelcount ?wcount . ?bic bicycle:name ?name .",
@@ -529,7 +543,6 @@
         "query": {
           "name": "SELECT Query Bicycle name",
           "type": "select",
-		  "reasoner": true,
           "preprefixes": "yes",
           "select": "?bic ?name",
           "where": "?bic a bicycle:Bicycle . ?bic bicycle:name ?name .",
@@ -548,7 +561,6 @@
         "query": {
           "name": "DESCRIBE Bicycles(TOIMII)",
           "type": "describe",
-		  "reasoner": true,
           "preprefixes": "yes",
           "describe": " ?bic ",
           "where": "?bic a bicycle:Bicycle . FILTER EXISTS { ?bic bicycle:hasModel ?model .} ",
@@ -564,7 +576,6 @@
         "query": {
           "name": "Update WorkOrder_666 ID",
           "type": "update",
-		  "reasoner": true,
           "preprefixes": "yes",
           "delete": "workcoreplus:WorkOrder_666 workcoreplus:work_order_id 666 .",
           "insert": "?wouri workcoreplus:work_order_id 777 .",
@@ -582,7 +593,6 @@
         "query": {
           "name": "UPDATE bicycle name (TOIMII!!!)",
           "type": "update",
-		  "reasoner": true,
           "preprefixes": "yes",
           "delete": "?bic bicycle:name ?oldname .",
           "insert": "?bic bicycle:name 'UUSI_NIMI' .",
@@ -600,7 +610,6 @@
         "query": {
           "name": "UPDATE Bell rdfs:label (TOIMIIKO?)",
           "type": "update",
-		  "reasoner": true,
           "preprefixes": "yes",
           "delete": " ?bell rdfs:label ?oldlabel .",
           "insert": "?bell rdfs:label 'MODIFIED_BELL_label' .",
