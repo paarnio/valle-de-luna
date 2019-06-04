@@ -82,7 +82,7 @@
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
         "query": {
-         "name": "SELECT Query InternalElement instances in siima caex model",
+         "name": "SELECT Query feed:CombinedCapability instances",
           "type": "select",
 		  "reasoner": true,
           "preprefixes": "yes",
@@ -174,8 +174,20 @@
 		"reasoner": true
         }
       },
-	   {
+	  {
         "index": 10,
+		"idcode": "R1_T11_AQ1_1",
+        "commandtype": "execAttachedQuery",
+        "stepnote": "ATTACHED_CONSTR_QUERY",
+        "query": {
+        "name": "ATTACHED CONSTRUCT Query  using double arg func in feed:Transporting ",
+        "type": "construct",
+		"classuri": "http://siima.net/2018/model/capability/partFeeding#Transporting",
+		"reasoner": true
+        }
+      },
+	   {
+        "index": 11,
 		"idcode": "SR1_T",
         "commandtype": "writeModel",
         "stepnote": "WRITE",

@@ -465,6 +465,157 @@ feed:StructuringAssociation
 feed:Transporting
   rdf:type owl:Class ;
   spin:query [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "payload"^^xsd:string ;
+              ] ;
+            sp:predicate feed:payload ;
+            sp:subject [
+                sp:varName "transport"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object feed:Transporting ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "transport"^^xsd:string ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Bind ;
+            sp:expression [
+                rdf:type feed:getPartCapability2 ;
+                arg:argum1 [
+                    sp:varName "transport"^^xsd:string ;
+                  ] ;
+                arg:argum2 feed:FingerGrasping ;
+              ] ;
+            sp:variable [
+                sp:varName "fingerGrasping"^^xsd:string ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:bound ;
+                sp:arg1 [
+                    sp:varName "fingerGrasping"^^xsd:string ;
+                  ] ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Bind ;
+            sp:expression [
+                rdf:type feed:getPartCapability2 ;
+                arg:argum1 [
+                    sp:varName "transport"^^xsd:string ;
+                  ] ;
+                arg:argum2 feed:Moving ;
+              ] ;
+            sp:variable [
+                sp:varName "moving"^^xsd:string ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:bound ;
+                sp:arg1 [
+                    sp:varName "moving"^^xsd:string ;
+                  ] ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "fingerGrasping"^^xsd:string ;
+              ] ;
+            sp:predicate feed:hasCapability ;
+            sp:subject [
+                sp:varName "graspingDevice"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "info"^^xsd:string ;
+              ] ;
+            sp:predicate feed:hasBasicResourceInformation ;
+            sp:subject [
+                sp:varName "graspingDevice"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "mass"^^xsd:string ;
+              ] ;
+            sp:predicate feed:mass ;
+            sp:subject [
+                sp:varName "info"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "gripperPayload"^^xsd:string ;
+              ] ;
+            sp:predicate feed:payload ;
+            sp:subject [
+                sp:varName "fingerGrasping"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "movingPayload"^^xsd:string ;
+              ] ;
+            sp:predicate feed:payload ;
+            sp:subject [
+                sp:varName "moving"^^xsd:string ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Bind ;
+            sp:expression [
+                rdf:type sp:sub ;
+                sp:arg1 [
+                    sp:varName "movingPayload"^^xsd:string ;
+                  ] ;
+                sp:arg2 [
+                    sp:varName "mass"^^xsd:string ;
+                  ] ;
+              ] ;
+            sp:variable [
+                sp:varName "alternative"^^xsd:string ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Bind ;
+            sp:expression [
+                rdf:type sp:if ;
+                sp:arg1 [
+                    rdf:type sp:gt ;
+                    sp:arg1 [
+                        sp:varName "alternative"^^xsd:string ;
+                      ] ;
+                    sp:arg2 [
+                        sp:varName "gripperPayload"^^xsd:string ;
+                      ] ;
+                  ] ;
+                sp:arg2 [
+                    sp:varName "gripperPayload"^^xsd:string ;
+                  ] ;
+                sp:arg3 [
+                    sp:varName "alternative"^^xsd:string ;
+                  ] ;
+              ] ;
+            sp:variable [
+                sp:varName "payload"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+  spin:query [
       rdf:type sp:Select ;
       sp:resultVariables (
           [
@@ -823,12 +974,13 @@ feed:getPartCapability2
       rdf:type spl:Argument ;
       spl:predicate arg:argum1 ;
       spl:valueType rdfs:Resource ;
+      rdfs:comment "argum1: instance of a CombinedCapability"^^xsd:string ;
     ] ;
   spin:constraint [
       rdf:type spl:Argument ;
       spl:predicate arg:argum2 ;
       spl:valueType rdfs:Resource ;
-      rdfs:comment "Child Capability Class the instance of which is returned"^^xsd:string ;
+      rdfs:comment "argum2: the child capability Class, the instance of which will be returned"^^xsd:string ;
     ] ;
   rdfs:label "get part capability2"^^xsd:string ;
   rdfs:subClassOf spin:Functions ;

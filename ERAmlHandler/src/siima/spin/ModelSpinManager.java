@@ -19,10 +19,13 @@ package siima.spin;
 //import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -892,15 +895,14 @@ public class ModelSpinManager {
 		//See also: SPINParsingExample.java
 		//Example in class: "http://siima.net/ont/bicycle#Bicycle"
 		logger.log(Level.INFO, "----+ Command: execAttachedQuery");
-		StringBuffer qstrbuff= new StringBuffer();
+		StringBuffer prefixbuff= new StringBuffer();
 		
 		Map<String,String> prefixMap= model.getNsPrefixMap();
 		Set keys=prefixMap.keySet();
 		Iterator keyiter = keys.iterator();
 		while(keyiter.hasNext()) {
 			String key=(String)keyiter.next();
-			qstrbuff.append("PREFIX " + key +": <" + prefixMap.get(key) + "> "); 
-			//System.out.println("=====PREFIXES: PREFIX:" + key + " NS:" + prefixMap.get(key));
+			prefixbuff.append("PREFIX " + key +": <" + prefixMap.get(key) + "> "); 
 		}
 		
 		System.out.println("\n=====CLASS with attached query:" + cls.getLocalName() + "\n");
@@ -919,7 +921,11 @@ public class ModelSpinManager {
 				Resource res=stmts.next().getResource();
 				org.topbraid.spin.model.Query spinQuery= SPINFactory.asQuery(res);
 				String spinQstring = spinQuery.toString();
+				
+				StringBuffer qstrbuff= new StringBuffer();
+				qstrbuff.append(prefixbuff);
 				qstrbuff.append(spinQstring);
+				
 				this.workflowResults.append("\nWFR:\n ---- Listing:---- ATTACHED QUERY ---(" + attach_cnt + ". in Class:" + cls.getLocalName() + "):\n" + qstrbuff.toString());
 	
 				if(("select".equalsIgnoreCase(queryType))&&(spinQstring.startsWith("SELECT"))){
@@ -980,10 +986,19 @@ public class ModelSpinManager {
 		if(targetModel!=null) targetModel.add(results);
 		System.out.println("---CONSTRUCT QUERY:\n " + queryStr.toString());
 		this.workflowResults.append("\nWFR:\n" + "---CONSTRUCT QUERY:\n " + queryStr.toString());
-		results.write(System.out, "TURTLE");
-		StringWriter outstring = new StringWriter();
-		results.write(outstring, "TURTLE");
-		this.workflowResults.append("\nWFR:\n" + outstring.toString());
+		
+		results.write(System.out, "TURTLE");//TOIMIIKO?
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			results.write(baos, "TURTLE");//TOIMIIKO??
+			this.workflowResults.append("\nWFR:\n" + baos.toString());		
+			baos.close();
+			results.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	public void sparqlUpdateQuery(OntModel ontModel, StringBuffer updateQueryStr) {
