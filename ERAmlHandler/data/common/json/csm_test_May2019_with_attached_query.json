@@ -116,11 +116,11 @@
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
         "query": {
-         "name": "SELECT Query payload",
+         "name": "SELECT Query payload I",
           "type": "select",
 		  "reasoner": true,
           "preprefixes": "yes",
-          "select": "?combcapa ?payload I",
+          "select": "?combcapa ?payload",
           "where": "?combcapa feed:payload ?payload .",
           "limit": "100",
           "queryVars": [
@@ -135,7 +135,7 @@
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
         "query": {
-         "name": "SELECT Query Function",
+         "name": "SELECT Query Function 2 args call",
           "type": "select",
 		  "reasoner": true,
           "preprefixes": "yes",
@@ -151,6 +151,21 @@
         "index": 8,
 		"idcode": "R1_T11_AQ1_1",
         "commandtype": "execAttachedQuery",
+        "stepnote": "ATTACHED_SELECT_QUERY",
+        "query": {
+        "name": "ATTACHED SELECT Query calling two args function in feed:Resource ",
+        "type": "select",
+		"classuri": "http://siima.net/2018/model/capability/partFeeding#Resource",
+		"reasoner": true,
+		"queryVars": [
+            "?grasping"
+          ]
+        }
+      },
+	  {
+        "index": 9,
+		"idcode": "R1_T11_AQ1_1",
+        "commandtype": "execAttachedQuery",
         "stepnote": "ATTACHED_CONSTR_QUERY",
         "query": {
         "name": "ATTACHED CONSTRUCT Query in feed:Resource ",
@@ -160,7 +175,7 @@
         }
       },
 	   {
-        "index": 9,
+        "index": 10,
 		"idcode": "SR1_T",
         "commandtype": "writeModel",
         "stepnote": "WRITE",
@@ -173,7 +188,7 @@
         }
       },
 	   {
-        "index": 10,
+        "index": 20,
 		"idcode": "SR1_T",
         "commandtype": "listFunctions",
         "stepnote": "LIST",

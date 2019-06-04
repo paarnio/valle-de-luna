@@ -907,45 +907,47 @@ public class ModelSpinManager {
 		// Pick the attached spin:query from the class and execute all with correct queryType
 		Property spinqueryprop=model.getProperty("http://spinrdf.org/spin#query");
 		if(cls.hasProperty(spinqueryprop)){
-			System.out.println("---- Resource: " + cls.getLocalName() + "has spin:query property");
+			System.out.println("---- Resource: " + cls.getLocalName() + " has spin:query property");
 			this.workflowResults.append("\nWFR:\n" + "---- Resource: " + cls.getLocalName() + "has spin:query property");
 			
 			StmtIterator stmts=cls.listProperties(spinqueryprop);
-			int cnt=0;
-			//if(stmts.hasNext()){ // Find only one attached query
+			int attach_cnt=0;
+			int execnt=0;
+			
 			while(stmts.hasNext()){ // loop all
+				++attach_cnt;
 				Resource res=stmts.next().getResource();
 				org.topbraid.spin.model.Query spinQuery= SPINFactory.asQuery(res);
 				String spinQstring = spinQuery.toString();
 				qstrbuff.append(spinQstring);
-				this.workflowResults.append("\nWFR:\n (Class:" + cls.getLocalName() + ")--- ATTACHED QUERY ---\n" + qstrbuff.toString());
+				this.workflowResults.append("\nWFR:\n ---- Listing:---- ATTACHED QUERY ---(" + attach_cnt + ". in Class:" + cls.getLocalName() + "):\n" + qstrbuff.toString());
 	
 				if(("select".equalsIgnoreCase(queryType))&&(spinQstring.startsWith("SELECT"))){
-					this.workflowResults.append("\nWFR:\n" + "--- SELECT execution ---\n");
+					this.workflowResults.append("\nWFR:\n" + "---- ATTACHED(" + attach_cnt + ") SELECT execution ---\n");
 					sparqlSelectQuery(model, qstrbuff, queryVars);	
-					++cnt;
+					++execnt;
 				} else if(("construct".equalsIgnoreCase(queryType))&&(spinQstring.startsWith("CONSTRUCT"))){
-					this.workflowResults.append("\nWFR:\n" + "--- CONSTRUCT execution ---\n");
+					this.workflowResults.append("\nWFR:\n" + "---- ATTACHED(" + attach_cnt + ") CONSTRUCT execution ---\n");
 					sparqlConstructQuery(model, targetModel, qstrbuff);					
-					++cnt;
+					++execnt;
 				} else if(("describe".equalsIgnoreCase(queryType))&&(spinQstring.startsWith("DESCRIBE"))){
 					//TODO: TESTING
-					this.workflowResults.append("\nWFR:\n" + "--- DESCRIBE execution ---\n");
+					this.workflowResults.append("\nWFR:\n" + "---- ATTACHED(" + attach_cnt + ") DESCRIBE execution ---\n");
 					sparqlDescribeQuery(model, targetModel, qstrbuff);					
-					++cnt;
+					++execnt;
 				} else if(("update".equalsIgnoreCase(queryType))&&(spinQstring.startsWith("UPDATE"))){
 					//TODO: TESTING
-					this.workflowResults.append("\nWFR:\n" + "--- UPDATE execution ---\n");
+					this.workflowResults.append("\nWFR:\n" + "---- ATTACHED(" + attach_cnt + ") UPDATE execution ---\n");
 					sparqlUpdateQuery(model, qstrbuff);					
-					++cnt;
+					++execnt;
 				}
 			} 
 			
-			if(cnt==0) { 
+			if(execnt==0) { 
 				System.out.println("----???? Resource: " + cls.getLocalName() + " DOES NOT have any attached queries (spin:query property)");
 				this.workflowResults.append("\nWFR:\n" + "----???? Resource: " + cls.getLocalName() + " DOES NOT have any attached queries (spin:query property)");
 			}	
-			System.out.println("--------- #" + cnt + " attached queries executed--------\n");
+			System.out.println("--------- #" + execnt + " attached queries executed--------\n");
 		}
 		
 	}
@@ -994,10 +996,10 @@ public class ModelSpinManager {
 	}
 	
 	public void sparqlSelectQuery(OntModel ontModel, StringBuffer queryStr,
-			List<String> queryVars) { //String queryVar) {
+			List<String> queryVars) {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: sparqlSelectQuery()");
 		this.workflowResults.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: sparqlSelectQuery()");
-		System.out.println("---sparqlSelectQuery()");
+		System.out.println("----sparqlSelectQuery()");
 		Query query = QueryFactory.create(queryStr.toString());
 		QueryExecution qexec = QueryExecutionFactory.create(query, ontModel);
 		System.out.println("============ Sparql SELECT Query Results ==============");
@@ -1007,19 +1009,27 @@ public class ModelSpinManager {
 			ResultSet response = qexec.execSelect();
 			while (response.hasNext()) {
 				cnt++;
-				//System.out.println("TEST--->HAAAAAAAAAAAAAAAAA size:" + queryVars.size() + " name:" + queryVars.get(0));
-				QuerySolution solution = response.nextSolution();
-				/* TEMP TEST:
-				System.out.println("TEST--->TÄH?:" + solution.toString());				
-				Iterator<String> vars = solution.varNames();				
-				while(vars.hasNext()){
-					System.out.println("TEST--->variable name: " + vars.next());
-				} */
+				QuerySolution solution = response.nextSolution();				
+				Iterator<String> solvars = solution.varNames();
+				/* TEMP TEST: 
+				while(solvars.hasNext()){
+					System.out.println("TEST--->variable name: " + solvars.next());
+				} 
+				*/
+				
+				if (queryVars == null){
+					System.out.println("Note (attached query): Query variable names not defined --> using variable names from the solution");
+					queryVars = new ArrayList<String>();
+					solvars = solution.varNames();				
+					while(solvars.hasNext()){
+						queryVars.add(solvars.next());
+					}
+					
+				}
 				
 				for(String qvar: queryVars){
-					//System.out.println("TEST--->AHAA qvar:" + qvar);
-					//if(qvar.startsWith("?")) qvar=qvar.substring(1); // Do we need this??			
-					RDFNode varunif = solution.get(qvar); // "?acc");
+					//Question mark '?' in qvar not required?			
+					RDFNode varunif = solution.get(qvar); 
 					
 					if (varunif != null){
 						System.out.println("(" + cnt + ") Select Query result: " + qvar + " = "	+ varunif);
@@ -1035,8 +1045,8 @@ public class ModelSpinManager {
 		} finally {
 			qexec.close();
 		}
-		System.out.println("sparqlQuery: result rows #" + cnt);
-		this.workflowResults.append("\nWFR:\n" + "sparqlQuery: result rows #" + cnt);
+		System.out.println("---- sparqlQuery: result rows #" + cnt);
+		this.workflowResults.append("\nWFR:\n" + "---- sparqlQuery: result rows #" + cnt);
 
 	}
 

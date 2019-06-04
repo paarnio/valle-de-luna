@@ -782,7 +782,9 @@ feed:getPartCapability2
         ) ;
       sp:where (
           [
-            sp:object spin:_arg1 ;
+            sp:object [
+                sp:varName "argum1"^^xsd:string ;
+              ] ;
             sp:predicate feed:hasCapability ;
             sp:subject [
                 sp:varName "combRecourse"^^xsd:string ;
@@ -807,7 +809,9 @@ feed:getPartCapability2
               ] ;
           ]
           [
-            sp:object spin:_arg2 ;
+            sp:object [
+                sp:varName "argum2"^^xsd:string ;
+              ] ;
             sp:predicate rdf:type ;
             sp:subject [
                 sp:varName "capability"^^xsd:string ;
@@ -817,13 +821,14 @@ feed:getPartCapability2
     ] ;
   spin:constraint [
       rdf:type spl:Argument ;
-      spl:predicate sp:arg1 ;
+      spl:predicate arg:argum1 ;
       spl:valueType rdfs:Resource ;
     ] ;
   spin:constraint [
       rdf:type spl:Argument ;
-      spl:predicate sp:arg2 ;
+      spl:predicate arg:argum2 ;
       spl:valueType rdfs:Resource ;
+      rdfs:comment "Child Capability Class the instance of which is returned"^^xsd:string ;
     ] ;
   rdfs:label "get part capability2"^^xsd:string ;
   rdfs:subClassOf spin:Functions ;
@@ -869,6 +874,22 @@ feed:requiresCapabilityAssociation
   rdfs:domain feed:Capability ;
   rdfs:label "provides capability association"^^xsd:string ;
   rdfs:range feed:CapabilityAssociation ;
+.
+arg:argu1
+  rdf:type rdf:Property ;
+  rdfs:subPropertyOf sp:arg ;
+.
+arg:argu2
+  rdf:type rdf:Property ;
+  rdfs:subPropertyOf sp:arg ;
+.
+arg:argum1
+  rdf:type rdf:Property ;
+  rdfs:subPropertyOf sp:arg ;
+.
+arg:argum2
+  rdf:type rdf:Property ;
+  rdfs:subPropertyOf sp:arg ;
 .
 arg:huu
   rdf:type rdf:Property ;
