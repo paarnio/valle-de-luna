@@ -1027,10 +1027,12 @@ public class ModelSpinManager {
 				QuerySolution solution = response.nextSolution();				
 				Iterator<String> solvars = solution.varNames();
 				/* TEMP TEST: 
+				System.out.println("TEST--->SOLUTION String: " + solution.toString());
 				while(solvars.hasNext()){
 					System.out.println("TEST--->variable name: " + solvars.next());
 				} 
 				*/
+				
 				
 				if (queryVars == null){
 					System.out.println("Note (attached query): Query variable names not defined --> using variable names from the solution");

@@ -1,14 +1,14 @@
 {
   "CSMHeader": {
-    "filename": "data/common/json/csm_test_May2019.json",
+    "filename": "data/common/json/csmComm_partFeeding_example_2019.json",
     "created": "2019-05-08",
-	"updated": "2019-05-09",
+	"updated": "2019-06-05",
     "validated": "http://www.jsoneditoronline.org/",
     "application": "ERAamlHandler",
     "history": "CSM version 3",
-	"comment": "TODO: Testing SPIN inference for partFeeding.ttl (contains attached construct rule. But tool implements only evaluation of attached select rules) created in TBC project CapaModelPartFeeding2019. CSMStore is a predefined command store with index=null (Copy & paste commands to the command list)",
+	"comment": "Testing SPIN inference for partFeeding.ttl (contains attached construct queries and rule; problem: construct query with a function call) created in TBC project CapaModelPartFeeding2019. CSMStore is a predefined command store with index=null (Copy & paste commands to the command list)",
     "workflow": {
-      "name": "PRELOADED Capability Model partFeeding: workflow",
+      "name": "File&Uri loaded Capability Model partFeeding: workflow",
       "processlog1": "(start)-->| LOAD_KB(0) |-->| INF_MODEL(1) |-->| INFER(2) |-->| PREFIX_ADD(3) |-->| SELECT(5) |-->(end)",
       "comment": "Workflow commands can be run in 'indexed' mode (type='indexed') or in 'all' mode (type='all').",
       "type": "indexed",
@@ -41,8 +41,21 @@
           "imports": null
       }
     },
+	{
+        "index": 1,
+		"idcode": "R1_T66_QP1_1",
+        "commandtype": "addNsPrefixes",
+        "stepnote": "PREFIX_ADD",
+		"comment": "Adding NS prefix declarations (separated by space or newline) in format: PREFIX owl: <http://www.w3.org/2002/07/owl#> Note: preprefixes field is currently ignored, i.e. hard coded preprefixes are always loaded also",
+        "prefix": {
+          "name": "NS PREFIX Addition ",
+          "type": "add",
+          "preprefixes": "default",
+          "prefixlist": "PREFIX feed: <http://siima.net/2018/model/capability/partFeeding#> PREFIX bar: <http://bar.net/ontology#> "
+        }
+     },
     {
-      "index": 1,
+      "index": 2,
 	  "idcode": "R1_T2_CIM_1",
       "commandtype": "createInferenceModel",
       "stepnote": "INF_MODEL",
@@ -53,7 +66,7 @@
       }
     },
     {
-      "index": 2,
+      "index": 3,
 	  "idcode": "R1_T3_RI_1",
       "commandtype": "runInferences",
       "stepnote": "INFER",
@@ -64,26 +77,12 @@
       }
     },
 	{
-        "index": 3,
-		"idcode": "R1_T66_QP1_1",
-        "commandtype": "addNsPrefixes",
-        "stepnote": "PREFIX_ADD",
-		"comment": "Adding NS prefix declarations (separated by space or newline) in format: PREFIX owl: <http://www.w3.org/2002/07/owl#> ",
-		"comment": "Note: preprefixes field is currently ignored, i.e. hard coded preprefixes are always loaded also",
-        "prefix": {
-          "name": "NS PREFIX Addition ",
-          "type": "add",
-          "preprefixes": "default",
-          "prefixlist": "PREFIX feed: <http://siima.net/2018/model/capability/partFeeding#> PREFIX bar: <http://bar.net/ontology#> "
-        }
-     },
-	{
         "index": 4,
 		"idcode": "R1_T11_SQ1_1",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
         "query": {
-         "name": "SELECT Query InternalElement instances in siima caex model",
+         "name": "SELECT Query feed:CombinedCapability instances",
           "type": "select",
 		  "reasoner": true,
           "preprefixes": "yes",
@@ -97,16 +96,32 @@
       },
 	  {
         "index": 5,
+		"idcode": "R1_T",
+        "commandtype": "execAttachedQuery",
+        "stepnote": "ATTACH_SELECT_with_Func1",
+        "query": {
+          "name": "ATTACHED SELECT Query function call one argument in feed:Transporting",
+          "type": "select",
+		  "reasoner": true,
+		  "classuri": "http://siima.net/2018/model/capability/partFeeding#Transporting",
+		  "reasoner": true,
+          "queryVars": [
+            "?capa"
+          ]
+        }
+      },
+	 {
+        "index": 6,
 		"idcode": "R1_T11_SQ1_1",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT",
         "query": {
-         "name": "SELECT Query InternalElement instances in siima caex model",
+         "name": "SELECT Query payload I",
           "type": "select",
 		  "reasoner": true,
           "preprefixes": "yes",
           "select": "?combcapa ?payload",
-          "where": "?combcapa a feed:Transporting . ?combcapa feed:payload ?payload .",
+          "where": "?combcapa feed:payload ?payload .",
           "limit": "100",
           "queryVars": [
             "?combcapa",
@@ -114,8 +129,65 @@
           ]
         }
       },
+	  {
+        "index": 7,
+		"idcode": "R1_T11_SQ1_1",
+        "commandtype": "sparqlQuery",
+        "stepnote": "SELECT",
+        "query": {
+         "name": "SELECT Query Function 2 args call",
+          "type": "select",
+		  "reasoner": true,
+          "preprefixes": "yes",
+          "select": "?grasping",
+          "where": "BIND (feed:getPartCapability2( feed:Transporting_1, feed:FingerGrasping ) AS ?grasping) .",
+          "limit": "100",
+          "queryVars": [
+            "?grasping"
+          ]
+        }
+      },
+	 {
+        "index": 8,
+		"idcode": "R1_T11_AQ1_1",
+        "commandtype": "execAttachedQuery",
+        "stepnote": "ATTACHED_SELECT_QUERY",
+        "query": {
+        "name": "ATTACHED SELECT Query calling two args function in feed:Resource ",
+        "type": "select",
+		"classuri": "http://siima.net/2018/model/capability/partFeeding#Resource",
+		"reasoner": true,
+		"queryVars": [
+            "?grasping"
+          ]
+        }
+      },
+	  {
+        "index": 9,
+		"idcode": "R1_T11_AQ1_1",
+        "commandtype": "execAttachedQuery",
+        "stepnote": "ATTACHED_CONSTR_QUERY",
+        "query": {
+        "name": "ATTACHED CONSTRUCT Query in feed:Resource ",
+        "type": "construct",
+		"classuri": "http://siima.net/2018/model/capability/partFeeding#Resource",
+		"reasoner": true
+        }
+      },
+	  {
+        "index": 10,
+		"idcode": "R1_T11_AQ1_1",
+        "commandtype": "execAttachedQuery",
+        "stepnote": "ATTACHED_CONSTR_QUERY",
+        "query": {
+        "name": "ATTACHED CONSTRUCT Two Queries using one and two arg funcs in feed:Transporting ",
+        "type": "construct",
+		"classuri": "http://siima.net/2018/model/capability/partFeeding#Transporting",
+		"reasoner": true
+        }
+      },
 	   {
-        "index": 6,
+        "index": 11,
 		"idcode": "SR1_T",
         "commandtype": "writeModel",
         "stepnote": "WRITE",
@@ -123,12 +195,23 @@
         "write": {
           "name": "Write partFeeding model to File data/generated/partFeedingMain.ttl",
           "type": "file",
-          "filePath": "data/generated/partFeedingMain.ttl",
-          "modelcat": "main"
+          "filePath": "data/generated/partFeeding_Inferred.ttl",
+          "modelcat": "inferred"
+        }
+      },
+	   {
+        "index": 20,
+		"idcode": "SR1_T",
+        "commandtype": "listFunctions",
+        "stepnote": "LIST",
+        "comment": "LIST_FUNCTION_COMMANDS Lists all SPIN Functions",
+        "listing": {
+          "name": "All SPIN Functions",
+          "type": "all"
         }
       },
 	  {
-        "index": 7,
+        "index": 21,
 		"idcode": "R1_T6_",
         "commandtype": "createNewTemplate",
         "stepnote": "CREATE_TEMPLATE",
@@ -151,7 +234,7 @@
         }
       },
 	  {
-        "index": 8,
+        "index": 22,
 		"idcode": "R1_T20_SQET1_1",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_EVAL",
@@ -168,7 +251,7 @@
         }
       },
 	    {
-        "index": 9,
+        "index": 23,
 		"idcode": "R1_T4_CC_1",
         "commandtype": "checkConstraints",
         "stepnote": "CONSTRAINTS",
@@ -181,7 +264,7 @@
         }
       },
 	    {
-        "index": 10,
+        "index": 24,
 		"idcode": "R1_T17_1",
         "commandtype": "writeModel",
         "stepnote": "WRITE",
@@ -194,7 +277,7 @@
         }
       },
 	   {
-        "index": 11,
+        "index": 25,
 		"idcode": "R1_T11_1",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_VIOLATIONS",
@@ -213,7 +296,7 @@
         }
       },
 	   {
-        "index": 12,
+        "index": 26,
 		"idcode": "R1_T11_2",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_SERVICE",
@@ -231,7 +314,7 @@
         }
       },
 	   {
-        "index": 13,
+        "index": 27,
 		"idcode": "R1_T11_3",
         "commandtype": "sparqlQuery",
         "stepnote": "SELECT_SERVICE",
@@ -252,7 +335,7 @@
         }
       },
       {
-        "index": 14,
+        "index": 28,
 		"idcode": "SR1_T3",
         "commandtype": "listNsPrefixes",
         "stepnote": "LIST",
@@ -261,7 +344,7 @@
           "name": "All Query prefixes",
           "type": "sparqlprefixes"
         }
-      }
+      }	    
   ],
   "CSMStore": [
       {

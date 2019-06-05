@@ -341,6 +341,36 @@ feed:Resource
           ]
         ) ;
     ] ;
+  spin:query [
+      rdf:type sp:Select ;
+      sp:resultVariables (
+          [
+            sp:varName "grasping"^^xsd:string ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object feed:Transporting ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "trans"^^xsd:string ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Bind ;
+            sp:expression [
+                rdf:type feed:getPartCapability2 ;
+                arg:argum1 [
+                    sp:varName "trans"^^xsd:string ;
+                  ] ;
+                arg:argum2 feed:FingerGrasping ;
+              ] ;
+            sp:variable [
+                sp:varName "grasping"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+    ] ;
   spin:rule [
       rdf:type sp:Construct ;
       sp:templates (
@@ -464,6 +494,97 @@ feed:StructuringAssociation
 .
 feed:Transporting
   rdf:type owl:Class ;
+  spin:query [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "msg"^^xsd:string ;
+              ] ;
+            sp:predicate feed:msg ;
+            sp:subject [
+                sp:varName "capa"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+      sp:where (
+          [
+            rdf:type sp:Bind ;
+            sp:expression [
+                rdf:type feed:getPartCapability2 ;
+                arg:argum1 feed:Transporting_1 ;
+                arg:argum2 feed:FingerGrasping ;
+              ] ;
+            sp:variable [
+                sp:varName "capa"^^xsd:string ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:bound ;
+                sp:arg1 [
+                    sp:varName "capa"^^xsd:string ;
+                  ] ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Bind ;
+            sp:expression [
+                rdf:type sp:str ;
+                sp:arg1 "MSG: getPartCapability2 function call with fixed arg values" ;
+              ] ;
+            sp:variable [
+                sp:varName "msg"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+  spin:query [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "msg"^^xsd:string ;
+              ] ;
+            sp:predicate feed:msg ;
+            sp:subject [
+                sp:varName "capa"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object feed:Transporting ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "trans"^^xsd:string ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Bind ;
+            sp:expression [
+                rdf:type feed:getPartCapability1 ;
+                arg:transcapa [
+                    sp:varName "trans"^^xsd:string ;
+                  ] ;
+              ] ;
+            sp:variable [
+                sp:varName "capa"^^xsd:string ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Bind ;
+            sp:expression [
+                rdf:type sp:str ;
+                sp:arg1 "MSG: getPartCapability1 function call" ;
+              ] ;
+            sp:variable [
+                sp:varName "msg"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+    ] ;
   spin:query [
       rdf:type sp:Construct ;
       sp:templates (
@@ -943,6 +1064,15 @@ feed:getPartCapability2
           ]
           [
             sp:object [
+                sp:varName "argum2"^^xsd:string ;
+              ] ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "capability"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
                 sp:varName "device1"^^xsd:string ;
               ] ;
             sp:predicate feed:hasComponent ;
@@ -957,15 +1087,6 @@ feed:getPartCapability2
             sp:predicate feed:hasCapability ;
             sp:subject [
                 sp:varName "device1"^^xsd:string ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "argum2"^^xsd:string ;
-              ] ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "capability"^^xsd:string ;
               ] ;
           ]
         ) ;
