@@ -188,13 +188,40 @@
       },
 	   {
         "index": 11,
+		"idcode": "R1_T11_AQ1_1",
+        "commandtype": "execAttachedQuery",
+        "stepnote": "ATTACHED_SELECT_QUERY",
+        "query": {
+        "name": "ATTACHED SELECT Query calling two different one arg funcs in feed:Capability",
+        "type": "select",
+		"classuri": "http://siima.net/2018/model/capability/partFeeding#Capability",
+		"reasoner": true,
+		"queryVars": [
+            "?payload"
+          ]
+        }
+      },
+	    {
+        "index": 12,
+		"idcode": "R1_T11_AQ1_1",
+        "commandtype": "execAttachedQuery",
+        "stepnote": "ATTACHED_CONSTR_QUERY",
+        "query": {
+        "name": "ATTACHED CONSTRUCT Two Queries calling two different one arg funcs in feed:Capability ",
+        "type": "construct",
+		"classuri": "http://siima.net/2018/model/capability/partFeeding#Capability",
+		"reasoner": true
+        }
+      },
+	   {
+        "index": 13,
 		"idcode": "SR1_T",
         "commandtype": "writeModel",
         "stepnote": "WRITE",
         "comment": "WRITE_MODEL_COMMANDS Write type can be 'file' or 'console'. Modelcat can be 'merged', 'inferred' or 'main'.",
         "write": {
           "name": "Write partFeeding model to File data/generated/partFeedingMain.ttl",
-          "type": "file",
+          "type": "console",
           "filePath": "data/generated/partFeeding_Inferred.ttl",
           "modelcat": "inferred"
         }
