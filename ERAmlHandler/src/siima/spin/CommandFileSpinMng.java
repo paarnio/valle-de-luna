@@ -268,14 +268,16 @@ public class CommandFileSpinMng {
 		JSONObject subobj = (JSONObject) comobj.get("inference");
 		String name = (String) subobj.get("name");
 		String type = (String) subobj.get("type");
-		logger.log(Level.INFO, "----+----+ name:" + name);
+		Boolean reasoner = (Boolean) subobj.get("reasoner");
+		logger.log(Level.INFO, "----+----+ name:" + name + " type:" + type + " reasoner:" + reasoner);		
+		if (reasoner==null) reasoner = true;
+		
 		switch (name) {
 		case "pre_inference": {
-
 			if ("iterative".equalsIgnoreCase(type))
-				runInferences(false);
+				runInferences(false, reasoner);
 			else if ("singlepass".equalsIgnoreCase(type))
-				runInferences(true);
+				runInferences(true, reasoner);
 			else
 				logger.log(Level.INFO, "----+????+ type:" + type + " Unknown????");
 
@@ -285,6 +287,12 @@ public class CommandFileSpinMng {
 			break;
 		default: {
 			logger.log(Level.INFO, "----+????+ name:" + name + " Unknown?????");
+			if ("iterative".equalsIgnoreCase(type))
+				runInferences(false, reasoner);
+			else if ("singlepass".equalsIgnoreCase(type))
+				runInferences(true, reasoner);
+			else
+				logger.log(Level.INFO, "----+????+ type:" + type + " Unknown????");
 		}
 		}
 
@@ -985,10 +993,10 @@ public class CommandFileSpinMng {
 	
 	
 	
-	public void runInferences(boolean singlePass) {
+	public void runInferences(boolean singlePass, boolean reasoner) {
 		logger.log(Level.INFO, "\n---- OPERATION: Run Inferences ----\n");
 		mng.createInferredModelAndRegister();
-		mng.runAllSpinInferences(singlePass);// singlePass=false: run
+		mng.runAllSpinInferences(singlePass, reasoner);// singlePass=false: run
 												// iteratively
 		this.spinRegistryUpdated = true;
 		logger.log(Level.INFO, "\n---- --------- ----\n");

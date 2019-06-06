@@ -705,13 +705,18 @@ public class ModelSpinManager {
 		return cvs;
 	}
 
-	public void runAllSpinInferences(boolean singlePass) {
+	public void runAllSpinInferences(boolean singlePass, boolean reasonerModel) {
 		logger.log(Level.INFO, "Entering: " + getClass().getName() + " method: runAllSpinInferences()");
 		this.workflowResults
 				.append("\nWFR:\n" + "Entering: " + getClass().getName() + " method: runAllSpinInferences()");
-		// Run all inferences (SPIN rules)
-		if (readyToRun) {
-			SPINInferences.run(this.mainOntModel, this.inferredTriples, null, null, singlePass, null);
+		/* Run all spin inferences (SPIN rules) */
+	
+		Model queryModel = null;
+		if(reasonerModel) queryModel = getOntModelWithReasoner();
+		else queryModel = getMainOntModel();
+		
+		if (readyToRun) { // oli this.mainOntModel
+			SPINInferences.run(queryModel, this.inferredTriples, null, null, singlePass, null);
 			System.out.println("---Inferred triples: " + this.inferredTriples.size());
 			this.workflowResults.append("\nWFR:\n" + "---Inferred triples: " + this.inferredTriples.size());
 		} else {
@@ -1110,7 +1115,7 @@ public class ModelSpinManager {
 
 		mng.createInferredModelAndRegister();
 
-		mng.runAllSpinInferences(false); //singlePass=false: run iteratively
+		mng.runAllSpinInferences(false,true); //singlePass=false: run iteratively
 
 		// Running the same query again after spin inferencing.
 		queryVars = new ArrayList<String>();

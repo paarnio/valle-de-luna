@@ -2,7 +2,7 @@
   "CSMHeader": {
     "filename": "data/common/json/csmComm_partFeeding_example_2019.json",
     "created": "2019-05-08",
-	"updated": "2019-06-05",
+	"updated": "2019-06-06",
     "validated": "http://www.jsoneditoronline.org/",
     "application": "ERAamlHandler",
     "history": "CSM version 3",
@@ -70,10 +70,11 @@
 	  "idcode": "R1_T3_RI_1",
       "commandtype": "runInferences",
       "stepnote": "INFER",
-      "comment": "NOTE:OFTEN REQUIRED: This command runs all spin inferences: type options: 'singlepass' | 'iterative' (creates the inference model, if not yet created) .",
+      "comment": "NOTE:OFTEN REQUIRED: This command runs all spin inferences: (type options: 'singlepass' | 'iterative')(a owl reasoner  model is used if reasoner is set as true. options: true | false)(Note: currently name must be 'pre_inference') (creates the inference model, if not yet created) .",
       "inference": {
         "name": "pre_inference",
-        "type": "iterative"
+        "type": "iterative",
+		"reasoner": true
       }
     },
 	{

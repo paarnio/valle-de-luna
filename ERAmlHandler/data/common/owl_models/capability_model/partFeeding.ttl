@@ -344,7 +344,7 @@ feed:FingerGrasping
   rdfs:comment "See Figures 4 in Hansson, Järvenpää. 2017. Modeling Capabilities for Functional Configuration of Part Feeding Equipment."^^xsd:string ;
   rdfs:label "Finger grasping"^^xsd:string ;
   rdfs:subClassOf feed:SimpleCapability ;
-  owl:equivalentClass [
+  rdfs:subClassOf [
       rdf:type owl:Restriction ;
       owl:hasValue feed:GraspingAssociation ;
       owl:onProperty feed:providesCapabilityAssociation ;
@@ -382,7 +382,7 @@ feed:Moving
   rdfs:comment "See Figures 4 in Hansson, Järvenpää. 2017. Modeling Capabilities for Functional Configuration of Part Feeding Equipment."^^xsd:string ;
   rdfs:label "Moving"^^xsd:string ;
   rdfs:subClassOf feed:SimpleCapability ;
-  owl:equivalentClass [
+  rdfs:subClassOf [
       rdf:type owl:Restriction ;
       owl:hasValue feed:MovingAssociation ;
       owl:onProperty feed:providesCapabilityAssociation ;
@@ -670,7 +670,7 @@ feed:Releasing
   rdfs:comment "See Figures 4 in Hansson, Järvenpää. 2017. Modeling Capabilities for Functional Configuration of Part Feeding Equipment."^^xsd:string ;
   rdfs:label "Releasing"^^xsd:string ;
   rdfs:subClassOf feed:SimpleCapability ;
-  owl:equivalentClass [
+  rdfs:subClassOf [
       rdf:type owl:Restriction ;
       owl:hasValue feed:ReleasingAssociation ;
       owl:onProperty feed:providesCapabilityAssociation ;
@@ -1337,7 +1337,7 @@ feed:VacuumGrasping
   rdfs:comment "See Figures 4 in Hansson, Järvenpää. 2017. Modeling Capabilities for Functional Configuration of Part Feeding Equipment."^^xsd:string ;
   rdfs:label "Vacuum grasping"^^xsd:string ;
   rdfs:subClassOf feed:SimpleCapability ;
-  owl:equivalentClass [
+  rdfs:subClassOf [
       rdf:type owl:Restriction ;
       owl:hasValue feed:GraspingAssociation ;
       owl:onProperty feed:providesCapabilityAssociation ;
